@@ -1,0 +1,11 @@
+# maven project
+
+target/
+mvnw*
+.mvn/
+
+# eclipse ignore
+
+.settings/
+.classpath
+.project
