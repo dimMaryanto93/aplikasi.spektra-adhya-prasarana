@@ -11,3 +11,9 @@
 * __Muhamad Hanif Muhsin__ (Junior Programmer)
 * __Dimas Maryanto__ (Senior Programmer)
 * __Elka Hanna Setia__ (System Analyst)
+
+## Sistem Properties
+
+* Schema database : spektra_adhya_prasaran
+* password database : admin
+* jdbc url : jdbc:postgresql://localhost:5432/spektra_adhya_prasaran_db
