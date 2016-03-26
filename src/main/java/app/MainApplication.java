@@ -1,15 +1,20 @@
 package app;
 
+import java.io.IOException;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 
+import app.controller.HomeController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 @SpringBootApplication
 public class MainApplication extends Application {
@@ -17,6 +22,13 @@ public class MainApplication extends Application {
 	private ConfigurableApplicationContext springContext;
 
 	private static String[] args;
+
+	@Bean()
+	public Stage getStage() {
+		Stage newStage = new Stage(StageStyle.DECORATED);
+		newStage.setTitle("PT. Spektra Adhya Prasarana");
+		return newStage;
+	}
 
 	@Override
 	public void stop() throws Exception {
@@ -46,8 +58,15 @@ public class MainApplication extends Application {
 
 			@Override
 			public void handle(WorkerStateEvent event) {
-				// TODO javafx runner
-				primaryStage.show();
+				try {
+					HomeController scene = springContext.getBean(HomeController.class);
+					Stage stage = springContext.getBean(Stage.class);
+					stage.setScene(scene.initView());
+					stage.show();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		worker.run();
