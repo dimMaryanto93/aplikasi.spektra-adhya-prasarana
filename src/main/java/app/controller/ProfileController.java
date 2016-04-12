@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 @Component
 public class ProfileController implements BootInitializable {
-	
+
 	@FXML
 	private TextField nama;
 
@@ -35,7 +35,7 @@ public class ProfileController implements BootInitializable {
 
 	@Override
 	public void setStage(Stage stage) {
-		this.primaryStage =stage;
+		this.primaryStage = stage;
 		// TODO Auto-generated method stub
 
 	}
@@ -51,11 +51,10 @@ public class ProfileController implements BootInitializable {
 		// TODO Auto-generated method stub
 		this.springContext = arg0;
 	}
-	
+
 	@FXML
-	public void clearButton(){
+	public void clearButton() {
 		nama.clear();
 	}
-
 
 }

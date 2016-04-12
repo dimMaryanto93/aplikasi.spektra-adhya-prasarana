@@ -1,7 +1,5 @@
 package app.services;
 
-import java.util.Iterator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,18 +18,46 @@ public class EmployeeService {
 
 	private EmployeeRepository repo;
 
+	/**
+	 * method untuk menyimpan data employee
+	 * 
+	 * @param anEmployee
+	 * @throws Exception
+	 */
 	public void save(Employee anEmployee) throws Exception {
 		repo.save(anEmployee);
-
 	}
 
+	/**
+	 * method untuk mangambil semua data employee dari table employee
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public ObservableList<Employee> getAll() throws Exception {
-		ObservableList<Employee> employess = FXCollections.observableArrayList();
-		Iterator<Employee> employeeList = repo.findAll().iterator();
-		while (employeeList.hasNext()) {
-			employess.add(employeeList.next());
-		}
-		return employess;
+		return FXCollections.observableArrayList(repo.findAll());
+	}
+
+	/**
+	 * untuk mengupdate data employee
+	 * 
+	 * @param id
+	 *            primary key dari employee
+	 * @param anEmployee
+	 * @throws Exception
+	 */
+	public void update(String id, Employee anEmployee) throws Exception {
+		repo.save(anEmployee);
+	}
+
+	/**
+	 * untuk menghapus data employee
+	 * 
+	 * @param anEmployee
+	 * @throws Exception
+	 */
+	public void delete(Employee anEmployee) throws Exception {
+		repo.delete(anEmployee);
 	}
 
 }
