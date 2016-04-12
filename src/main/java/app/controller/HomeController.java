@@ -10,16 +10,29 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 @Component
 public class HomeController implements BootInitializable {
 
+	@FXML
+	private BorderPane mainLayout;
+
 	private ApplicationContext springContext;
 	private Stage primaryStage;
+
+	private void setLayout(Node anNode) {
+		
+		mainLayout.setCenter(anNode);
+		mainLayout.getCenter().autosize();
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -46,6 +59,30 @@ public class HomeController implements BootInitializable {
 	public void setStage(Stage stage) {
 		this.primaryStage = stage;
 
+	}
+
+	@FXML
+	public void closed() {
+		Platform.exit();
+	}
+
+	public void showEmployee() {
+		try {
+			EmployeeController employ = springContext.getBean(EmployeeController.class);
+			setLayout(employ.initNode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showProfile(){
+		try {
+			ProfileController profil = springContext.getBean(ProfileController.class);
+			setLayout(profil.initNode());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
