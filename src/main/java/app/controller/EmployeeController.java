@@ -8,22 +8,23 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import app.configs.BootInnerInitializable;
+import app.configs.BootInitializable;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 @Component
-public class EmployeeController implements BootInnerInitializable {
+public class EmployeeController implements BootInitializable {
 
 	private Stage primaryStage;
 	private ApplicationContext springContext;
 
 	@Override
-	public Scene initView() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+	public Node initView() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/scenes/inner/karyawan.fxml"));
+		loader.setController(springContext.getBean(this.getClass()));
+		return loader.load();
 	}
 
 	@Override
@@ -43,12 +44,6 @@ public class EmployeeController implements BootInnerInitializable {
 		this.springContext = arg0;
 	}
 
-	@Override
-	public Node initNode() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/karyawan.fxml"));
-		loader.setController(springContext.getBean(this.getClass()));
-		return loader.load();
-	}
+	
 
 }

@@ -29,7 +29,7 @@ public class HomeController implements BootInitializable {
 	private Stage primaryStage;
 
 	private void setLayout(Node anNode) {
-		
+
 		mainLayout.setCenter(anNode);
 		mainLayout.getCenter().autosize();
 	}
@@ -47,11 +47,10 @@ public class HomeController implements BootInitializable {
 	}
 
 	@Override
-	public Scene initView() throws IOException {
+	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/Home.fxml"));
 		loader.setController(springContext.getBean(this.getClass()));
-		Parent parent = loader.load();
-		return new Scene(parent);
+		return loader.load();
 	}
 
 	@Autowired
@@ -69,18 +68,17 @@ public class HomeController implements BootInitializable {
 	public void showEmployee() {
 		try {
 			EmployeeController employ = springContext.getBean(EmployeeController.class);
-			setLayout(employ.initNode());
+			setLayout(employ.initView());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void showProfile(){
+
+	public void showProfile() {
 		try {
 			ProfileController profil = springContext.getBean(ProfileController.class);
-			setLayout(profil.initNode());
+			setLayout(profil.initView());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

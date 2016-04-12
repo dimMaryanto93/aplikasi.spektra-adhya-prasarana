@@ -13,6 +13,8 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -61,7 +63,8 @@ public class MainApplication extends Application {
 				try {
 					HomeController scene = springContext.getBean(HomeController.class);
 					Stage stage = springContext.getBean(Stage.class);
-					stage.setScene(scene.initView());
+					Parent parent = (Parent) scene.initView();
+					stage.setScene(new Scene(parent));
 					stage.show();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
