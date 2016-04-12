@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,7 +17,10 @@
 		<AnchorPane prefHeight="200.0" prefWidth="200.0"
 			BorderPane.alignment="CENTER">
 			<children>
-				<TextField layoutX="74.0" layoutY="97.0" />
+				<TextField fx:id="nama" layoutX="74.0" layoutY="97.0"
+					promptText="Tulis pesan" />
+				<Button layoutX="258.0" layoutY="97.0" mnemonicParsing="false"
+					onAction="#clearButton" text="Button" />
 			</children>
 		</AnchorPane>
 	</center>

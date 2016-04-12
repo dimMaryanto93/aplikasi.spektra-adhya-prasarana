@@ -35,7 +35,6 @@ public class EmployeeController implements BootInitializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -43,7 +42,5 @@ public class EmployeeController implements BootInitializable {
 	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
 		this.springContext = arg0;
 	}
-
-	
 
 }

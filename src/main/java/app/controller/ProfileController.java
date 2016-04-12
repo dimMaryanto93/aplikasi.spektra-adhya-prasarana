@@ -9,12 +9,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 @Component
 public class ProfileController implements BootInitializable {
+	
+	@FXML
+	private TextField nama;
 
 	private Stage primaryStage;
 	private ApplicationContext springContext;
@@ -45,6 +50,11 @@ public class ProfileController implements BootInitializable {
 	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
 		// TODO Auto-generated method stub
 		this.springContext = arg0;
+	}
+	
+	@FXML
+	public void clearButton(){
+		nama.clear();
 	}
 
 
