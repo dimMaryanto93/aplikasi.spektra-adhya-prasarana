@@ -59,5 +59,10 @@ public class EmployeeService {
 	public void delete(Employee anEmployee) throws Exception {
 		repo.delete(anEmployee);
 	}
+	
+	public Employee findByID(String name) throws Exception{
+		return repo.findByName(name);
+		
+	}
 
 }
