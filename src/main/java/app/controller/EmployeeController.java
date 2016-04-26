@@ -20,10 +20,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -37,8 +39,6 @@ public class EmployeeController implements BootInitializable {
 	@FXML
 	private TextField txtAgama;
 	@FXML
-	private TextField txtGaji;
-	@FXML
 	private TextField txtJabatan;
 	@FXML
 	private DatePicker datePickerLahir;
@@ -49,7 +49,9 @@ public class EmployeeController implements BootInitializable {
 	@FXML
 	private TextArea txaAlamat;
 	@FXML
-	private TextField txtTemmpatLahir;
+	private TextField txtTempatLahir;
+	@FXML
+	private Spinner<Employee> spinnerGaji;
 	
 	@FXML
 	private TableView<Employee> tableEmployee;
@@ -94,6 +96,9 @@ public class EmployeeController implements BootInitializable {
 		this.columnNIK.setCellValueFactory(new PropertyValueFactory<>("nik"));
 		this.columnNama.setCellValueFactory(new PropertyValueFactory<>("name"));
 		this.columnAgama.setCellValueFactory(new PropertyValueFactory<>("agama"));
+		this.columnAlamat.setCellValueFactory(new PropertyValueFactory<>("alamat"));
+		this.columnTanggalLahir.setCellValueFactory(new PropertyValueFactory<>("tLahir"));
+		this.columnTempatLahir.setCellValueFactory(new PropertyValueFactory<>("tmLahir"));
 		try {
 			loadData();
 		} catch (Exception e) {
@@ -115,6 +120,10 @@ public class EmployeeController implements BootInitializable {
 			anEmployee.setNik(Integer.parseInt(txtNIK.getText()));
 			anEmployee.setName(txtNama.getText());
 			anEmployee.setAgama(txtAgama.getText());
+			anEmployee.setTmLahir(txtTempatLahir.getText());
+			anEmployee.settLahir((Date.valueOf(datePickerLahir.getValue())));
+			anEmployee.setAlamat(txaAlamat.getText());
+			anEmployee.setJabatan(txtJabatan.getText());
 			service.save(anEmployee);
 			loadData();
 		} catch (Exception e) {
@@ -136,4 +145,7 @@ public class EmployeeController implements BootInitializable {
 		}
 	}
 
+	ToggleGroup gender = new ToggleGroup();
+	
+	
 }

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -112,11 +113,6 @@
                   <Insets right="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="txtGaji" promptText="Besar Gaji Pokok" GridPane.columnIndex="4" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets right="50.0" />
-               </GridPane.margin>
-            </TextField>
             <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="9">
                <children>
                   <Button alignment="TOP_CENTER" mnemonicParsing="false" text="Tambah">
@@ -154,6 +150,7 @@
                   <Insets right="50.0" />
                </GridPane.margin>
             </TextField>
+            <Spinner fx:id="spinnerGaji" GridPane.columnIndex="4" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </center>
