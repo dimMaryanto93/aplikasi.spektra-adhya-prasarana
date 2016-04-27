@@ -15,17 +15,19 @@ import org.springframework.stereotype.Component;
 import app.configs.BootInitializable;
 import app.entities.Employee;
 import app.services.EmployeeService;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -51,8 +53,7 @@ public class EmployeeController implements BootInitializable {
 	@FXML
 	private TextField txtTempatLahir;
 	@FXML
-	private Spinner<Employee> spinnerGaji;
-	
+	private Spinner<Double> spinnerGaji;
 	@FXML
 	private TableView<Employee> tableEmployee;
 	@FXML
@@ -66,16 +67,17 @@ public class EmployeeController implements BootInitializable {
 	@FXML
 	private TableColumn<Employee, String> columnTempatLahir;
 	@FXML
-	private TableColumn<Employee, Date> columnTanggalLahir;
+	private TableColumn<Employee, String> columnTanggalLahir;
 	@FXML
 	private TableColumn<Employee, String> columnAlamat;
-	
-	
-	
+
 	private Stage primaryStage;
 	private ApplicationContext springContext;
+
 	@Autowired
 	private EmployeeService service;
+
+	private SpinnerValueFactory<Double> gajiValueFactory;
 
 	@Override
 	public Node initView() throws IOException {
@@ -88,24 +90,26 @@ public class EmployeeController implements BootInitializable {
 	@Override
 	public void setStage(Stage stage) {
 		this.primaryStage = stage;
-
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		this.gajiValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.valueOf(0), Double.MAX_VALUE,
+				Double.valueOf(0), Double.valueOf(0));
+		this.spinnerGaji.setValueFactory(gajiValueFactory);
 		this.columnNIK.setCellValueFactory(new PropertyValueFactory<>("nik"));
 		this.columnNama.setCellValueFactory(new PropertyValueFactory<>("name"));
 		this.columnAgama.setCellValueFactory(new PropertyValueFactory<>("agama"));
 		this.columnAlamat.setCellValueFactory(new PropertyValueFactory<>("alamat"));
-		this.columnTanggalLahir.setCellValueFactory(new PropertyValueFactory<>("tLahir"));
+		this.columnTanggalLahir.setCellValueFactory(param -> {
+			if (param != null)
+				return new SimpleObjectProperty<>(param.getValue().gettLahir().toString());
+			else {
+				return null;
+			}
+		});
 		this.columnTempatLahir.setCellValueFactory(new PropertyValueFactory<>("tmLahir"));
-		try {
-			loadData();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		loadData();
 	}
 
 	@Override
@@ -121,18 +125,17 @@ public class EmployeeController implements BootInitializable {
 			anEmployee.setName(txtNama.getText());
 			anEmployee.setAgama(txtAgama.getText());
 			anEmployee.setTmLahir(txtTempatLahir.getText());
-			anEmployee.settLahir((Date.valueOf(datePickerLahir.getValue())));
+			anEmployee.settLahir(Date.valueOf(datePickerLahir.getValue()));
 			anEmployee.setAlamat(txaAlamat.getText());
 			anEmployee.setJabatan(txtJabatan.getText());
 			service.save(anEmployee);
 			loadData();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public void loadData() throws Exception {
+
+	public void loadData() {
 		try {
 			tableEmployee.getItems().clear();
 			List<Employee> employee = service.getAll();
@@ -142,10 +145,10 @@ public class EmployeeController implements BootInitializable {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
-	ToggleGroup gender = new ToggleGroup();
-	
-	
 }
