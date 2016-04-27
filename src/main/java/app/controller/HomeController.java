@@ -29,7 +29,7 @@ public class HomeController implements BootInitializable {
 	private ApplicationContext springContext;
 	private Stage primaryStage;
 
-	private void setLayout(Node anNode) {
+	public void setLayout(Node anNode) {
 		mainLayout.setCenter(anNode);
 		mainLayout.getCenter().autosize();
 	}
@@ -88,8 +88,6 @@ public class HomeController implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

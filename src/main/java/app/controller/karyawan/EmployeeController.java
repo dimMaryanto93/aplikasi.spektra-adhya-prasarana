@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -20,7 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -40,7 +37,9 @@ public class EmployeeController implements BootInitializable {
 	@Autowired
 	private HomeController homeController;
 
-	private SpinnerValueFactory<Double> gajiValueFactory;
+	@Autowired
+	private EmployeeFormController formController;
+
 	@FXML
 	TextField txtNama;
 	@FXML
@@ -122,6 +121,7 @@ public class EmployeeController implements BootInitializable {
 		columnNik.setCellValueFactory(new PropertyValueFactory<Employee, String>("nik"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
 		columnJabatan.setCellValueFactory(new PropertyValueFactory<Employee, String>("jabatan"));
+		columnAksi.setCellValueFactory(new PropertyValueFactory<Employee, String>("nik"));
 	}
 
 	@Override
@@ -135,13 +135,14 @@ public class EmployeeController implements BootInitializable {
 			tableView.getItems().clear();
 			tableView.getItems().addAll(service.getAll());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@FXML
-	public void doAddEmployee(ActionEvent event) {
+	public void doAddEmployee(ActionEvent event) throws IOException {
+		homeController.setLayout(formController.initView());
+		formController.addNewEmployee();
 	}
 
 	@FXML
