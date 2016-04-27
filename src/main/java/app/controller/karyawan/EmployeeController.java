@@ -15,9 +15,11 @@ import app.entities.Employee;
 import app.services.EmployeeService;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -70,6 +72,10 @@ public class EmployeeController implements BootInitializable {
 	TableColumn<Employee, String> columnJabatan;
 	@FXML
 	TableColumn<Employee, String> columnAksi;
+	@FXML
+	private Button btnRemoveEmployee;
+	@FXML
+	private Button btnUpdateEmployee;
 
 	private void setFields(Employee anEmployee) {
 		if (anEmployee != null) {
@@ -103,6 +109,7 @@ public class EmployeeController implements BootInitializable {
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/scenes/inner/karyawan/list.fxml"));
+
 		loader.setController(springContext.getBean(this.getClass()));
 		return loader.load();
 	}
@@ -117,16 +124,40 @@ public class EmployeeController implements BootInitializable {
 		tableView.getSelectionModel().selectedItemProperty()
 				.addListener((ObservableValue<? extends Employee> ob, Employee e, Employee newValue) -> {
 					setFields(newValue);
+					btnRemoveEmployee.setDisable(newValue == null);
+					btnRemoveEmployee.setOnAction(new EventHandler<ActionEvent>() {
+
+						@Override
+						public void handle(ActionEvent event) {
+							try {
+								doDelete(newValue);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					});
+					btnUpdateEmployee.setDisable(newValue == null);
+					btnUpdateEmployee.setOnAction(new EventHandler<ActionEvent>() {
+
+						@Override
+						public void handle(ActionEvent event) {
+							try {
+								doUpdate(newValue);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					});
+
 				});
 		columnNik.setCellValueFactory(new PropertyValueFactory<Employee, String>("nik"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
 		columnJabatan.setCellValueFactory(new PropertyValueFactory<Employee, String>("jabatan"));
-		columnAksi.setCellValueFactory(new PropertyValueFactory<Employee, String>("nik"));
 	}
 
 	@Override
-	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
-		this.springContext = arg0;
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.springContext = applicationContext;
 	}
 
 	@Override
@@ -142,7 +173,7 @@ public class EmployeeController implements BootInitializable {
 	@FXML
 	public void doAddEmployee(ActionEvent event) throws IOException {
 		homeController.setLayout(formController.initView());
-		formController.addNewEmployee();
+		formController.initConstuct();
 	}
 
 	@FXML
@@ -152,6 +183,16 @@ public class EmployeeController implements BootInitializable {
 
 	@FXML
 	public void doRefreshData(ActionEvent e) {
+		initConstuct();
+	}
+
+	public void doUpdate(Employee employee) throws IOException {
+		homeController.setLayout(formController.initView());
+		formController.initConstuct(employee);
+	}
+
+	public void doDelete(Employee employee) throws Exception {
+		service.delete(employee);
 		initConstuct();
 	}
 

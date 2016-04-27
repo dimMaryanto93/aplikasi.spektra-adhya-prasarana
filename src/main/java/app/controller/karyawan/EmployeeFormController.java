@@ -26,16 +26,6 @@ public class EmployeeFormController implements BootInitializable {
 	private Boolean update;
 	private Employee anEmployee;
 
-	public void addNewEmployee() {
-		this.setUpdate(false);
-		this.anEmployee = new Employee();
-	}
-
-	public void updateAnEmployee(Employee anEmployee) {
-		this.setUpdate(true);
-		this.anEmployee = anEmployee;
-	}
-
 	public Boolean isUpdate() {
 		return update;
 	}
@@ -75,7 +65,13 @@ public class EmployeeFormController implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
+		this.setUpdate(false);
+		this.anEmployee = new Employee();
+	}
 
+	public void initConstuct(Employee anEmployee) {
+		this.setUpdate(true);
+		this.anEmployee = anEmployee;
 	}
 
 	@FXML
