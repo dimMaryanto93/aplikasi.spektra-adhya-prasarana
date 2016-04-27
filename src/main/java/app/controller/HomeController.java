@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import app.controller.karyawan.EmployeeController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +30,6 @@ public class HomeController implements BootInitializable {
 	private Stage primaryStage;
 
 	private void setLayout(Node anNode) {
-
 		mainLayout.setCenter(anNode);
 		mainLayout.getCenter().autosize();
 	}
@@ -65,15 +65,18 @@ public class HomeController implements BootInitializable {
 		Platform.exit();
 	}
 
+	@FXML
 	public void showEmployee() {
 		try {
-			EmployeeController employ = springContext.getBean(EmployeeController.class);
-			setLayout(employ.initView());
+			EmployeeController employee = springContext.getBean(EmployeeController.class);
+			setLayout(employee.initView());
+			employee.initConstuct();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	@FXML
 	public void showProfile() {
 		try {
 			ProfileController profil = springContext.getBean(ProfileController.class);
@@ -81,6 +84,12 @@ public class HomeController implements BootInitializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void initConstuct() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

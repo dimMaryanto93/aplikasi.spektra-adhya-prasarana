@@ -22,7 +22,7 @@ public class Employee {
 	private Date tLahir;
 	private String tmLahir;
 	private String alamat;
-	private BigDecimal gaji;
+	private Double gaji;
 	private String jabatan;
 
 	public Long getId() {
@@ -89,11 +89,11 @@ public class Employee {
 		this.alamat = alamat;
 	}
 
-	public BigDecimal getGaji() {
+	public Double getGaji() {
 		return gaji;
 	}
 
-	public void setGaji(BigDecimal gaji) {
+	public void setGaji(Double gaji) {
 		this.gaji = gaji;
 	}
 

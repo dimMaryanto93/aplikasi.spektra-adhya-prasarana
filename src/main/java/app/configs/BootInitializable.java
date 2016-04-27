@@ -13,5 +13,7 @@ public interface BootInitializable extends Initializable, ApplicationContextAwar
 	public Node initView() throws IOException;
 
 	public void setStage(Stage stage);
+	
+	public void initConstuct();
 
 }

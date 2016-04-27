@@ -57,4 +57,10 @@ public class ProfileController implements BootInitializable {
 		nama.clear();
 	}
 
+	@Override
+	public void initConstuct() {
+		// TODO Auto-generated method stub
+
+	}
+
 }
