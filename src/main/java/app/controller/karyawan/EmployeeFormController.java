@@ -2,6 +2,8 @@ package app.controller.karyawan;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.BeansException;
@@ -12,14 +14,22 @@ import org.springframework.stereotype.Component;
 import app.configs.BootInitializable;
 import app.controller.HomeController;
 import app.entities.Employee;
+import app.services.EmployeeService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sun.print.resources.serviceui;
 
 @Component
 public class EmployeeFormController implements BootInitializable {
+
+	@FXML
+	private TextField txtNik;
+	@FXML
+	private TextField txtNama;
 
 	private ApplicationContext springContext;
 	private Stage stage;
@@ -33,6 +43,9 @@ public class EmployeeFormController implements BootInitializable {
 	public void setUpdate(Boolean update) {
 		this.update = update;
 	}
+
+	@Autowired
+	private EmployeeService service;
 
 	@Autowired
 	private HomeController homeController;
@@ -72,6 +85,8 @@ public class EmployeeFormController implements BootInitializable {
 	public void initConstuct(Employee anEmployee) {
 		this.setUpdate(true);
 		this.anEmployee = anEmployee;
+		this.txtNik.setText(String.valueOf(anEmployee.getNik()));
+		this.txtNama.setText(anEmployee.getName());
 	}
 
 	@FXML
@@ -82,9 +97,28 @@ public class EmployeeFormController implements BootInitializable {
 	@FXML
 	public void doSave(ActionEvent e) {
 		if (isUpdate()) {
-			// do thing new employee
-		} else {
 			// do thing update employee
+			try {
+				anEmployee.setName(txtNama.getText());
+				service.save(anEmployee);
+				homeController.showEmployee();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} else {
+			// do thing new employee
+			try {
+				anEmployee.setNik(Integer.valueOf(txtNik.getText()));
+				anEmployee.setName(txtNama.getText());
+				anEmployee.setGaji(0.0);
+				anEmployee.settLahir(Date.valueOf(LocalDate.now()));
+				service.save(anEmployee);
+				homeController.showEmployee();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+
 		}
 	}
 

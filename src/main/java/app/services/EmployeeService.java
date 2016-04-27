@@ -39,18 +39,6 @@ public class EmployeeService {
 	}
 
 	/**
-	 * untuk mengupdate data employee
-	 * 
-	 * @param id
-	 *            primary key dari employee
-	 * @param anEmployee
-	 * @throws Exception
-	 */
-	public void update(String id, Employee anEmployee) throws Exception {
-		repo.save(anEmployee);
-	}
-
-	/**
 	 * untuk menghapus data employee
 	 * 
 	 * @param anEmployee
@@ -59,10 +47,10 @@ public class EmployeeService {
 	public void delete(Employee anEmployee) throws Exception {
 		repo.delete(anEmployee);
 	}
-	
-	public Employee findByID(String name) throws Exception{
+
+	public Employee findByID(String name) throws Exception {
 		return repo.findByName(name);
-		
+
 	}
 
 }
