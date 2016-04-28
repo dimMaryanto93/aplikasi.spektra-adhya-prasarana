@@ -122,7 +122,7 @@ public class EmployeeController implements BootInitializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/*tableView.getSelectionModel().selectedItemProperty()
+		tableView.getSelectionModel().selectedItemProperty()
 				.addListener((ObservableValue<? extends Employee> ob, Employee e, Employee newValue) -> {
 					setFields(newValue);
 					btnRemoveEmployee.setDisable(newValue == null);
@@ -150,39 +150,7 @@ public class EmployeeController implements BootInitializable {
 						}
 					});
 
-				});*/
-		tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Employee>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Employee> observable, Employee oldValue, Employee newValue) {
-				// TODO Auto-generated method stub
-				setFields(newValue);
-				btnRemoveEmployee.setDisable(newValue == null);
-				btnRemoveEmployee.setOnAction(new EventHandler<ActionEvent>() {
-
-					@Override
-					public void handle(ActionEvent event) {
-						try {
-							doDelete(newValue);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
 				});
-				btnUpdateEmployee.setDisable(newValue == null);
-				btnUpdateEmployee.setOnAction(new EventHandler<ActionEvent>() {
-
-					@Override
-					public void handle(ActionEvent event) {
-						try {
-							doUpdate(newValue);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-				});
-			}
-		});
 		columnNik.setCellValueFactory(new PropertyValueFactory<Employee, String>("nik"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
 		columnJabatan.setCellValueFactory(new PropertyValueFactory<Employee, String>("jabatan"));
