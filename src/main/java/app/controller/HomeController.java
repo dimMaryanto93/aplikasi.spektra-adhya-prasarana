@@ -10,13 +10,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.EmployeeController;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -83,6 +83,18 @@ public class HomeController implements BootInitializable {
 			setLayout(profil.initView());
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void showDepartment(ActionEvent e){
+		try {
+			JabatanListController jab = springContext.getBean(JabatanListController.class);
+			setLayout(jab.initView());
+			jab.initConstuct();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 
