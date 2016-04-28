@@ -1,22 +1,5 @@
 # PT Spektra Adhya Prasaran
 
-## Perancangan Sementara
-
-* Data karyawan
-* Data Kehadiran karyawan
-  - Mengerjakan tugas apa?
-  - Mulai jam berapa?
-  - Selesai jam berapa?
-* Penggajian
-  - Gaji pokok
-  - Tunjangan
-    - Makan
-    - Lembur
-    - Transport
-  - Kenaikan Gaji
-    - Lembur
-    - Kehadiran (tepat waktu, gak pernal sakit, alpha dan lain-lain)
-
 ## Jadwal Penting (perkiraan)
 
 | Tanggal (Perkiraan) | Keterangan      |
