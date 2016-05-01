@@ -1,11 +1,15 @@
 package app.entities;
 
-import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +19,7 @@ public class Employee {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private int nik;
+	private Integer nik;
 	private String name;
 	private String agama;
 	private String jenisKelamin;
@@ -24,6 +28,16 @@ public class Employee {
 	private String alamat;
 	private Double gaji;
 	private String jabatan;
+	private Date tanggalMulaiKerja;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "karyawan", orphanRemoval = true)
+	private List<Penggajian> daftarTerimaGaji = new ArrayList<Penggajian>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "karyawan", orphanRemoval = true)
+	private List<Peminjaman> daftarPinjamDana = new ArrayList<Peminjaman>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "karyawan", orphanRemoval = true)
+	private List<AbsensiKaryawan> daftarAbsenKaryawan = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -33,11 +47,11 @@ public class Employee {
 		this.id = id;
 	}
 
-	public int getNik() {
+	public Integer getNik() {
 		return nik;
 	}
 
-	public void setNik(int nik) {
+	public void setNik(Integer nik) {
 		this.nik = nik;
 	}
 
@@ -103,6 +117,38 @@ public class Employee {
 
 	public void setJabatan(String jabatan) {
 		this.jabatan = jabatan;
+	}
+
+	public Date getTanggalMulaiKerja() {
+		return tanggalMulaiKerja;
+	}
+
+	public void setTanggalMulaiKerja(Date tanggalMulaiKerja) {
+		this.tanggalMulaiKerja = tanggalMulaiKerja;
+	}
+
+	public List<Penggajian> getDaftarTerimaGaji() {
+		return daftarTerimaGaji;
+	}
+
+	public void setDaftarTerimaGaji(List<Penggajian> daftarTerimaGaji) {
+		this.daftarTerimaGaji = daftarTerimaGaji;
+	}
+
+	public List<Peminjaman> getDaftarPinjamDana() {
+		return daftarPinjamDana;
+	}
+
+	public void setDaftarPinjamDana(List<Peminjaman> daftarPinjamDana) {
+		this.daftarPinjamDana = daftarPinjamDana;
+	}
+
+	public List<AbsensiKaryawan> getDaftarAbsenKaryawan() {
+		return daftarAbsenKaryawan;
+	}
+
+	public void setDaftarAbsenKaryawan(List<AbsensiKaryawan> daftarAbsenKaryawan) {
+		this.daftarAbsenKaryawan = daftarAbsenKaryawan;
 	}
 
 }
