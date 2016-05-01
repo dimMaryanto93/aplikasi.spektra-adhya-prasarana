@@ -9,3 +9,6 @@ mvnw*
 .settings/
 .classpath
 .project
+
+# visual diagram
+*.vpp~*

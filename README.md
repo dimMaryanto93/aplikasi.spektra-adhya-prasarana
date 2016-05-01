@@ -1,5 +1,7 @@
 # PT Spektra Adhya Prasaran
 
+![Gambar class diagram](/exports/Class Diagram1.png)
+
 ## Jadwal Penting (perkiraan)
 
 | Tanggal (Perkiraan) | Keterangan      |
