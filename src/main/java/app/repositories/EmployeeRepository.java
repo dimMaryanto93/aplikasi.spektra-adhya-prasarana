@@ -9,8 +9,7 @@ import app.entities.Employee;
 public interface EmployeeRepository extends PagingAndSortingRepository<app.entities.Employee, Long> {
 
 	public List<Employee> findAll();
-	
-	public Employee findByName(String name);
-	
-}
 
+	public Employee findByNama(String name);
+
+}

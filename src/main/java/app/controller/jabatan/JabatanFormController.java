@@ -13,15 +13,14 @@ import app.configs.BootInitializable;
 import app.controller.HomeController;
 import app.entities.Jabatan;
 import app.repositories.JabatanRepository;
-import app.services.JabatanService;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.stage.Stage;
-import javafx.fxml.FXML;
-import javafx.event.ActionEvent;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 @Component
 public class JabatanFormController implements BootInitializable {

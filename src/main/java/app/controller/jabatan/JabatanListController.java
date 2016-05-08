@@ -12,19 +12,19 @@ import org.springframework.stereotype.Component;
 import app.configs.BootInitializable;
 import app.controller.HomeController;
 import app.entities.Jabatan;
-import app.services.JabatanService;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.stage.Stage;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TableColumn;
+import app.repositories.JabatanRepository;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 @Component
 public class JabatanListController implements BootInitializable {
@@ -32,7 +32,7 @@ public class JabatanListController implements BootInitializable {
 	private ApplicationContext springContext;
 	private Stage primaryStage;
 	@Autowired
-	private JabatanService service;
+	private JabatanRepository service;
 
 	@Autowired
 	private HomeController homeController;
@@ -137,7 +137,7 @@ public class JabatanListController implements BootInitializable {
 	public void initConstuct() {
 		try {
 			tableView.getItems().clear();
-			tableView.getItems().addAll(service.getAll());
+			tableView.getItems().addAll(service.findAll());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

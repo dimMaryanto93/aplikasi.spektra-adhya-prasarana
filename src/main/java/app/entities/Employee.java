@@ -20,7 +20,7 @@ public class Employee {
 	@GeneratedValue
 	private Long id;
 	private Integer nik;
-	private String name;
+	private String nama;
 	private String agama;
 	private String jenisKelamin;
 	private Date tLahir;
@@ -55,12 +55,12 @@ public class Employee {
 		this.nik = nik;
 	}
 
-	public String getName() {
-		return name;
+	public String getNama() {
+		return nama;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNama(String nama) {
+		this.nama = nama;
 	}
 
 	public String getAgama() {

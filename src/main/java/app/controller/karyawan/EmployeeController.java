@@ -12,8 +12,7 @@ import org.springframework.stereotype.Component;
 import app.configs.BootInitializable;
 import app.controller.HomeController;
 import app.entities.Employee;
-import app.services.EmployeeService;
-import javafx.beans.value.ChangeListener;
+import app.repositories.EmployeeRepository;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -35,7 +34,7 @@ public class EmployeeController implements BootInitializable {
 	private ApplicationContext springContext;
 
 	@Autowired
-	private EmployeeService service;
+	private EmployeeRepository service;
 
 	@Autowired
 	private HomeController homeController;
@@ -80,7 +79,7 @@ public class EmployeeController implements BootInitializable {
 
 	private void setFields(Employee anEmployee) {
 		if (anEmployee != null) {
-			txtNama.setText(anEmployee.getName());
+			txtNama.setText(anEmployee.getNama());
 			txtAgama.setText(anEmployee.getAgama());
 			txtTempatLahir.setText(anEmployee.getTmLahir());
 			txtTanggalLahir.setText(anEmployee.gettLahir().toString());
@@ -152,7 +151,7 @@ public class EmployeeController implements BootInitializable {
 
 				});
 		columnNik.setCellValueFactory(new PropertyValueFactory<Employee, String>("nik"));
-		columnNama.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
+		columnNama.setCellValueFactory(new PropertyValueFactory<Employee, String>("nama"));
 		columnJabatan.setCellValueFactory(new PropertyValueFactory<Employee, String>("jabatan"));
 	}
 
@@ -165,7 +164,7 @@ public class EmployeeController implements BootInitializable {
 	public void initConstuct() {
 		try {
 			tableView.getItems().clear();
-			tableView.getItems().addAll(service.getAll());
+			tableView.getItems().addAll(service.findAll());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

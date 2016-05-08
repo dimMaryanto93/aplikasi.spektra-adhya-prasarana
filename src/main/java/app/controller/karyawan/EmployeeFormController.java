@@ -14,14 +14,13 @@ import org.springframework.stereotype.Component;
 import app.configs.BootInitializable;
 import app.controller.HomeController;
 import app.entities.Employee;
-import app.services.EmployeeService;
+import app.repositories.EmployeeRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sun.print.resources.serviceui;
 
 @Component
 public class EmployeeFormController implements BootInitializable {
@@ -45,7 +44,7 @@ public class EmployeeFormController implements BootInitializable {
 	}
 
 	@Autowired
-	private EmployeeService service;
+	private EmployeeRepository service;
 
 	@Autowired
 	private HomeController homeController;
@@ -86,7 +85,7 @@ public class EmployeeFormController implements BootInitializable {
 		this.setUpdate(true);
 		this.anEmployee = anEmployee;
 		this.txtNik.setText(String.valueOf(anEmployee.getNik()));
-		this.txtNama.setText(anEmployee.getName());
+		this.txtNama.setText(anEmployee.getNama());
 	}
 
 	@FXML
@@ -99,7 +98,7 @@ public class EmployeeFormController implements BootInitializable {
 		if (isUpdate()) {
 			// do thing update employee
 			try {
-				anEmployee.setName(txtNama.getText());
+				anEmployee.setNama(txtNama.getText());
 				service.save(anEmployee);
 				homeController.showEmployee();
 			} catch (Exception e1) {
@@ -110,7 +109,7 @@ public class EmployeeFormController implements BootInitializable {
 			// do thing new employee
 			try {
 				anEmployee.setNik(Integer.valueOf(txtNik.getText()));
-				anEmployee.setName(txtNama.getText());
+				anEmployee.setNama(txtNama.getText());
 				anEmployee.setGaji(0.0);
 				anEmployee.settLahir(Date.valueOf(LocalDate.now()));
 				service.save(anEmployee);

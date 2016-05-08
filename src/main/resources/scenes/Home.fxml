@@ -32,9 +32,10 @@
 							text="Profile" />
 					</items>
 				</Menu>
-				<Menu mnemonicParsing="false" text="Help">
+				<Menu mnemonicParsing="false" text="Kepegawaian">
 					<items>
-						<MenuItem mnemonicParsing="false" text="About" />
+						<MenuItem mnemonicParsing="false" onAction="#showAttendance"
+							text="Absensi" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Unspecified Menu">

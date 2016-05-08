@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import app.controller.absensi.ListAbsensiController;
 import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.EmployeeController;
 import javafx.application.Platform;
@@ -92,6 +93,18 @@ public class HomeController implements BootInitializable {
 			JabatanListController jab = springContext.getBean(JabatanListController.class);
 			setLayout(jab.initView());
 			jab.initConstuct();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void showAttendance(ActionEvent e){
+		try {
+			ListAbsensiController list = springContext.getBean(ListAbsensiController.class);
+			setLayout(list.initView());
+			list.initConstuct();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
