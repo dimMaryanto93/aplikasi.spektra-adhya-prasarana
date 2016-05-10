@@ -3,7 +3,6 @@ package app.controller.karyawan;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.BeansException;
@@ -13,7 +12,9 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.controller.HomeController;
+import app.entities.Agama;
 import app.entities.Employee;
+import app.entities.JenisKelamin;
 import app.repositories.EmployeeRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,13 +41,11 @@ public class EmployeeFormController implements BootInitializable {
 	@FXML
 	private DatePicker datePicker;
 	@FXML
-	private ComboBox<String> cbkAgama;
+	private ComboBox<Agama> cbkAgama;
 	@FXML
 	private RadioButton male;
 	@FXML
 	private RadioButton female;
-
-	private String radioButtonGender;
 
 	private ApplicationContext springContext;
 	private Stage stage;
@@ -69,21 +68,7 @@ public class EmployeeFormController implements BootInitializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		initComboAgama();
-		this.male = new RadioButton();
-		this.female = new RadioButton();
-		Gender();
-
-	}
-
-	public void Gender() {
-		male.setOnAction(e -> {
-			radioButtonGender = male.getText();
-		});
-		female.setOnAction(e -> {
-			radioButtonGender = female.getText();
-		});
+		cbkAgama.getItems().addAll(Agama.values());
 	}
 
 	@Override
@@ -119,49 +104,63 @@ public class EmployeeFormController implements BootInitializable {
 		this.txtNama.setText(anEmployee.getNama());
 	}
 
-	public void initComboAgama() {
-		cbkAgama.getItems().add("Islam");
-		cbkAgama.getItems().add("Kristen");
-		cbkAgama.getItems().add("Protestan");
-		cbkAgama.getItems().add("Hindu");
-		cbkAgama.getItems().add("Budha");
-
-	}
-
 	@FXML
 	public void doCancel(ActionEvent e) {
 		homeController.showEmployee();
 	}
 
+	public JenisKelamin getJenisKelamin() {
+		JenisKelamin value = null;
+		if (male.isSelected()) {
+			value = JenisKelamin.Laki_Laki;
+		} else if (female.isSelected()) {
+			value = JenisKelamin.Perempuan;
+		}
+		return value;
+	}
+
+	private void newDataEmployee() {
+		// do thing update employee
+		try {
+			anEmployee.setNik(Integer.valueOf(txtNik.getText()));
+			anEmployee.setNama(txtNama.getText());
+			anEmployee.setAgama(cbkAgama.getValue());
+			anEmployee.setJenisKelamin(getJenisKelamin());
+			anEmployee.setGaji(0.0);
+			anEmployee.settLahir(Date.valueOf(datePicker.getValue()));
+			anEmployee.setTmLahir(txtTempatLahir.getText());
+			anEmployee.setAlamat(txaAlamat.getText());
+			service.save(anEmployee);
+			homeController.showEmployee();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	private void existDateEmployess() {
+		// do thing update employee
+		try {
+			anEmployee.setNama(txtNama.getText());
+			anEmployee.setAgama(cbkAgama.getValue());
+			anEmployee.setJenisKelamin(getJenisKelamin());
+			anEmployee.setGaji(0.0);
+			anEmployee.settLahir(Date.valueOf(datePicker.getValue()));
+			anEmployee.setTmLahir(txtTempatLahir.getText());
+			anEmployee.setAlamat(txaAlamat.getText());
+			service.save(anEmployee);
+			homeController.showEmployee();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
 	@FXML
 	public void doSave(ActionEvent e) {
 		if (isUpdate()) {
-			// do thing update employee
-			try {
-				anEmployee.setNama(txtNama.getText());
-				service.save(anEmployee);
-				homeController.showEmployee();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			existDateEmployess();
 		} else {
-			// do thing new employee
-			try {
-				anEmployee.setNik(Integer.valueOf(txtNik.getText()));
-				anEmployee.setNama(txtNama.getText());
-				anEmployee.setAgama(cbkAgama.getValue());
-				anEmployee.setJenisKelamin(radioButtonGender);
-				anEmployee.setGaji(0.0);
-				anEmployee.settLahir(Date.valueOf(datePicker.getValue()));
-				anEmployee.setTmLahir(txtTempatLahir.getText());
-				anEmployee.setAlamat(txaAlamat.getText());
-				service.save(anEmployee);
-				homeController.showEmployee();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-
+			newDataEmployee();
 		}
 	}
 

@@ -79,12 +79,7 @@ public class HomeController implements BootInitializable {
 
 	@FXML
 	public void showProfile() {
-		try {
-			ProfileController profil = springContext.getBean(ProfileController.class);
-			setLayout(profil.initView());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 	}
 	
 	@FXML

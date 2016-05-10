@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,16 +16,26 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "employees")
+@Table(name = "karyawan")
 public class Employee {
 
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Column(nullable = false)
 	private Integer nik;
+
+	@Column(nullable = false)
 	private String nama;
-	private String agama;
-	private String jenisKelamin;
+
+	@Enumerated(EnumType.ORDINAL)
+	@Column(nullable = false)
+	private Agama agama;
+
+	@Enumerated(EnumType.ORDINAL)
+	@Column(nullable = false)
+	private JenisKelamin jenisKelamin;
+
 	private Date tLahir;
 	private String tmLahir;
 	private String alamat;
@@ -63,19 +76,19 @@ public class Employee {
 		this.nama = nama;
 	}
 
-	public String getAgama() {
+	public Agama getAgama() {
 		return agama;
 	}
 
-	public void setAgama(String agama) {
+	public void setAgama(Agama agama) {
 		this.agama = agama;
 	}
 
-	public String getJenisKelamin() {
+	public JenisKelamin getJenisKelamin() {
 		return jenisKelamin;
 	}
 
-	public void setJenisKelamin(String jenisKelamin) {
+	public void setJenisKelamin(JenisKelamin jenisKelamin) {
 		this.jenisKelamin = jenisKelamin;
 	}
 

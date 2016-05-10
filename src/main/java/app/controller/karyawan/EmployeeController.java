@@ -80,14 +80,14 @@ public class EmployeeController implements BootInitializable {
 	private void setFields(Employee anEmployee) {
 		if (anEmployee != null) {
 			txtNama.setText(anEmployee.getNama());
-			txtAgama.setText(anEmployee.getAgama());
+			txtAgama.setText(anEmployee.getAgama().toString());
 			txtTempatLahir.setText(anEmployee.getTmLahir());
 			txtTanggalLahir.setText(anEmployee.gettLahir().toString());
 			txaAlamat.setText(anEmployee.getAlamat());
 			txtNik.setText(String.valueOf(anEmployee.getNik()));
 			txtJabatan.setText(anEmployee.getJabatan());
 			txtGapok.setText(anEmployee.getGaji().toString());
-			txtJk.setText(anEmployee.getJenisKelamin());
+			txtJk.setText(anEmployee.getJenisKelamin().toString());
 		} else {
 			clearFields();
 		}
