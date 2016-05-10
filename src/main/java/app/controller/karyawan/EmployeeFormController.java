@@ -19,6 +19,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -29,6 +33,20 @@ public class EmployeeFormController implements BootInitializable {
 	private TextField txtNik;
 	@FXML
 	private TextField txtNama;
+	@FXML
+	private TextField txtTempatLahir;
+	@FXML
+	private TextArea txaAlamat;
+	@FXML
+	private DatePicker datePicker;
+	@FXML
+	private ComboBox<String> cbkAgama;
+	@FXML
+	private RadioButton male;
+	@FXML
+	private RadioButton female;
+
+	private String radioButtonGender;
 
 	private ApplicationContext springContext;
 	private Stage stage;
@@ -52,7 +70,20 @@ public class EmployeeFormController implements BootInitializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		initComboAgama();
+		this.male = new RadioButton();
+		this.female = new RadioButton();
+		Gender();
 
+	}
+
+	public void Gender() {
+		male.setOnAction(e -> {
+			radioButtonGender = male.getText();
+		});
+		female.setOnAction(e -> {
+			radioButtonGender = female.getText();
+		});
 	}
 
 	@Override
@@ -88,6 +119,15 @@ public class EmployeeFormController implements BootInitializable {
 		this.txtNama.setText(anEmployee.getNama());
 	}
 
+	public void initComboAgama() {
+		cbkAgama.getItems().add("Islam");
+		cbkAgama.getItems().add("Kristen");
+		cbkAgama.getItems().add("Protestan");
+		cbkAgama.getItems().add("Hindu");
+		cbkAgama.getItems().add("Budha");
+
+	}
+
 	@FXML
 	public void doCancel(ActionEvent e) {
 		homeController.showEmployee();
@@ -110,8 +150,12 @@ public class EmployeeFormController implements BootInitializable {
 			try {
 				anEmployee.setNik(Integer.valueOf(txtNik.getText()));
 				anEmployee.setNama(txtNama.getText());
+				anEmployee.setAgama(cbkAgama.getValue());
+				anEmployee.setJenisKelamin(radioButtonGender);
 				anEmployee.setGaji(0.0);
-				anEmployee.settLahir(Date.valueOf(LocalDate.now()));
+				anEmployee.settLahir(Date.valueOf(datePicker.getValue()));
+				anEmployee.setTmLahir(txtTempatLahir.getText());
+				anEmployee.setAlamat(txaAlamat.getText());
 				service.save(anEmployee);
 				homeController.showEmployee();
 			} catch (Exception e1) {

@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -31,7 +32,9 @@ public class JabatanFormController implements BootInitializable {
 	@FXML
 	private TextArea txtKeterangan;
 	@FXML
-	private Label txtKode;
+	private TextField txtKode;
+	@FXML
+	private Spinner<Double> spinGapok;
 
 	private Jabatan jabatan;
 
@@ -86,7 +89,7 @@ public class JabatanFormController implements BootInitializable {
 	public void initConstuct(Jabatan j) {
 		setUpdate(true);
 		this.jabatan = j;
-		txtKode.setText(j.getId());
+		txtKode.setText(j.getKodeJabatan());
 		txtNama.setText(j.getNama());
 		txtKeterangan.setText(j.getKeterangan());
 	}
@@ -95,12 +98,14 @@ public class JabatanFormController implements BootInitializable {
 	public void doSave(ActionEvent event) {
 		if (isUpdate()) {
 			// lakukan fungsi update
+			jabatan.setKodeJabatan(txtKode.getText());
 			jabatan.setNama(txtNama.getText());
 			jabatan.setKeterangan(txtKeterangan.getText());
 			repo.save(jabatan);
 			homeController.showDepartment(event);
 		} else {
 			// lakukan fungsi simpan
+			jabatan.setKodeJabatan(txtKode.getText());
 			jabatan.setNama(txtNama.getText());
 			jabatan.setKeterangan(txtKeterangan.getText());
 			repo.save(jabatan);

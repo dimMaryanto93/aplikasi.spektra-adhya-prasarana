@@ -14,11 +14,20 @@ public class Jabatan {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")
 	private String id;
+	private String kodeJabatan;
 
 	@Column(name = "name", nullable = false, unique = true)
 	private String nama;
-	
+
 	private String keterangan;
+
+	public String getKodeJabatan() {
+		return kodeJabatan;
+	}
+
+	public void setKodeJabatan(String kodeJabatan) {
+		this.kodeJabatan = kodeJabatan;
+	}
 
 	public String getId() {
 		return id;

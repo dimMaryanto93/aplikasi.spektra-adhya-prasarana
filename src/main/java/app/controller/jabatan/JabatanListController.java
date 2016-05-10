@@ -59,7 +59,7 @@ public class JabatanListController implements BootInitializable {
 	
 	public void setFields(Jabatan j){
 		if(j != null){		
-			txtKode.setText(j.getId());
+			txtKode.setText(j.getKodeJabatan());
 			txtNama.setText(j.getNama());
 			txtKeterangan.setText(j.getKeterangan());
 		}else {
@@ -89,7 +89,7 @@ public class JabatanListController implements BootInitializable {
 			});
 			
 		});
-		columnId.setCellValueFactory(new PropertyValueFactory<Jabatan, String>("id"));
+		columnId.setCellValueFactory(new PropertyValueFactory<Jabatan, String>("kodeJabatan"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<Jabatan, String>("nama"));
 	}
 
