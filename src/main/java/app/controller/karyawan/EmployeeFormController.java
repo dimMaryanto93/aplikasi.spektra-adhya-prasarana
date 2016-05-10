@@ -112,9 +112,9 @@ public class EmployeeFormController implements BootInitializable {
 	public JenisKelamin getJenisKelamin() {
 		JenisKelamin value = null;
 		if (male.isSelected()) {
-			value = JenisKelamin.Laki_Laki;
+			value = JenisKelamin.Pria;
 		} else if (female.isSelected()) {
-			value = JenisKelamin.Perempuan;
+			value = JenisKelamin.Wanita;
 		}
 		return value;
 	}
