@@ -83,7 +83,7 @@ public class HomeController implements BootInitializable {
 	}
 	
 	@FXML
-	public void showDepartment(ActionEvent e){
+	public void showDepartment(){
 		try {
 			JabatanListController jab = springContext.getBean(JabatanListController.class);
 			setLayout(jab.initView());

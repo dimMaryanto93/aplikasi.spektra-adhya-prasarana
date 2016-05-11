@@ -95,31 +95,48 @@ public class JabatanFormController implements BootInitializable {
 		txtGapok.setText(j.getGapok().toString());
 	}
 
+	private void newDataJabatan() {
+		try {
+			jabatan.setKodeJabatan(txtKode.getText());
+			jabatan.setNama(txtNama.getText());
+			jabatan.setKeterangan(txtKeterangan.getText());
+			jabatan.setGapok(Double.valueOf(txtGapok.getText()));
+			repo.save(jabatan);
+			homeController.showDepartment();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+	}
+
+	private void existJabatan() {
+		try {
+			jabatan.setKodeJabatan(txtKode.getText());
+			jabatan.setNama(txtNama.getText());
+			jabatan.setKeterangan(txtKeterangan.getText());
+			jabatan.setGapok(Double.valueOf(txtGapok.getText()));
+			repo.save(jabatan);
+			homeController.showDepartment();
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
 	@FXML
 	public void doSave(ActionEvent event) {
 		if (isUpdate()) {
 			// lakukan fungsi update
-			jabatan.setKodeJabatan(txtKode.getText());
-			jabatan.setNama(txtNama.getText());
-			jabatan.setKeterangan(txtKeterangan.getText());
-			jabatan.setGapok(Double.valueOf(txtGapok.getText()));
-		
-			repo.save(jabatan);
-			homeController.showDepartment(event);
+			existJabatan();
 		} else {
 			// lakukan fungsi simpan
-			jabatan.setKodeJabatan(txtKode.getText());
-			jabatan.setNama(txtNama.getText());
-			jabatan.setKeterangan(txtKeterangan.getText());
-			jabatan.setGapok(Double.valueOf(txtGapok.getText()));
-			repo.save(jabatan);
-			homeController.showDepartment(event);
+			newDataJabatan();
 		}
 	}
 
 	@FXML
 	public void doCancel(ActionEvent event) {
-		homeController.showDepartment(event);
+		homeController.showDepartment();
 	}
 
 }
