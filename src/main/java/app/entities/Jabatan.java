@@ -20,6 +20,15 @@ public class Jabatan {
 	private String nama;
 
 	private String keterangan;
+	private Double gapok;
+
+	public Double getGapok() {
+		return gapok;
+	}
+
+	public void setGapok(Double gapok) {
+		this.gapok = gapok;
+	}
 
 	public String getKodeJabatan() {
 		return kodeJabatan;

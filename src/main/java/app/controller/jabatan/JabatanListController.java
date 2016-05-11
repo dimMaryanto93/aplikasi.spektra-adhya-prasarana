@@ -56,12 +56,15 @@ public class JabatanListController implements BootInitializable {
 	private TextField txtNama;
 	@FXML
 	private TextArea txtKeterangan;
+	@FXML
+	private TextField txtGapok;
 	
 	public void setFields(Jabatan j){
 		if(j != null){		
 			txtKode.setText(j.getKodeJabatan());
 			txtNama.setText(j.getNama());
 			txtKeterangan.setText(j.getKeterangan());
+			txtGapok.setText(j.getGapok().toString());
 		}else {
 			clearFields();
 		}
@@ -71,6 +74,7 @@ public class JabatanListController implements BootInitializable {
 		txtKode.clear();
 		txtNama.clear();
 		txtKeterangan.clear();
+		txtGapok.clear();
 	}
 
 	@Override

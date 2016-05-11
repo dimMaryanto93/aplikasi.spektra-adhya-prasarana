@@ -34,7 +34,7 @@ public class JabatanFormController implements BootInitializable {
 	@FXML
 	private TextField txtKode;
 	@FXML
-	private Spinner<Double> spinGapok;
+	private TextField txtGapok;
 
 	private Jabatan jabatan;
 
@@ -92,6 +92,7 @@ public class JabatanFormController implements BootInitializable {
 		txtKode.setText(j.getKodeJabatan());
 		txtNama.setText(j.getNama());
 		txtKeterangan.setText(j.getKeterangan());
+		txtGapok.setText(j.getGapok().toString());
 	}
 
 	@FXML
@@ -101,6 +102,8 @@ public class JabatanFormController implements BootInitializable {
 			jabatan.setKodeJabatan(txtKode.getText());
 			jabatan.setNama(txtNama.getText());
 			jabatan.setKeterangan(txtKeterangan.getText());
+			jabatan.setGapok(Double.valueOf(txtGapok.getText()));
+		
 			repo.save(jabatan);
 			homeController.showDepartment(event);
 		} else {
@@ -108,6 +111,7 @@ public class JabatanFormController implements BootInitializable {
 			jabatan.setKodeJabatan(txtKode.getText());
 			jabatan.setNama(txtNama.getText());
 			jabatan.setKeterangan(txtKeterangan.getText());
+			jabatan.setGapok(Double.valueOf(txtGapok.getText()));
 			repo.save(jabatan);
 			homeController.showDepartment(event);
 		}
