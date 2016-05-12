@@ -1,9 +1,15 @@
 package app.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,6 +27,17 @@ public class Jabatan {
 
 	private String keterangan;
 	private Double gapok;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "jabatan", orphanRemoval = true)
+	private List<Employee> daftarKaryawan = new ArrayList<>();
+	
+
+	public List<Employee> getDaftarKaryawan() {
+		return daftarKaryawan;
+	}
+
+	public void setDaftarKaryawan(List<Employee> daftarKaryawan) {
+		this.daftarKaryawan = daftarKaryawan;
+	}
 
 	public Double getGapok() {
 		return gapok;

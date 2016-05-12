@@ -12,6 +12,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -40,7 +42,7 @@ public class Employee {
 	private String tmLahir;
 	private String alamat;
 	private Double gaji;
-	private String jabatan;
+
 	private Date tanggalMulaiKerja;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "karyawan", orphanRemoval = true)
@@ -51,6 +53,32 @@ public class Employee {
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "karyawan", orphanRemoval = true)
 	private List<AbsensiKaryawan> daftarAbsenKaryawan = new ArrayList<>();
+
+	@ManyToOne
+	@JoinColumn(name = "kode_jabatan", nullable = false)
+	private Jabatan jabatan;
+	
+	@Column(nullable=false)
+	@Enumerated(EnumType.ORDINAL)
+	private Pendidikan pendidikan;
+	
+	
+
+	public Pendidikan getPendidikan() {
+		return pendidikan;
+	}
+
+	public void setPendidikan(Pendidikan pendidikan) {
+		this.pendidikan = pendidikan;
+	}
+
+	public Jabatan getJabatan() {
+		return jabatan;
+	}
+
+	public void setJabatan(Jabatan jabatan) {
+		this.jabatan = jabatan;
+	}
 
 	public Long getId() {
 		return id;
@@ -122,14 +150,6 @@ public class Employee {
 
 	public void setGaji(Double gaji) {
 		this.gaji = gaji;
-	}
-
-	public String getJabatan() {
-		return jabatan;
-	}
-
-	public void setJabatan(String jabatan) {
-		this.jabatan = jabatan;
 	}
 
 	public Date getTanggalMulaiKerja() {

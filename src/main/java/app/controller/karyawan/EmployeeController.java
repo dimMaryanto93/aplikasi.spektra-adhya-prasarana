@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 import app.configs.BootInitializable;
 import app.controller.HomeController;
 import app.entities.Employee;
+import app.entities.Jabatan;
 import app.repositories.EmployeeRepository;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,6 +28,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import scala.annotation.meta.param;
 
 @Component
 public class EmployeeController implements BootInitializable {
@@ -85,7 +88,7 @@ public class EmployeeController implements BootInitializable {
 			txtTanggalLahir.setText(anEmployee.gettLahir().toString());
 			txaAlamat.setText(anEmployee.getAlamat());
 			txtNik.setText(String.valueOf(anEmployee.getNik()));
-			txtJabatan.setText(anEmployee.getJabatan());
+			txtJabatan.setText(anEmployee.getJabatan().getNama());
 			txtGapok.setText(anEmployee.getGaji().toString());
 			txtJk.setText(anEmployee.getJenisKelamin().toString());
 		} else {
@@ -152,7 +155,14 @@ public class EmployeeController implements BootInitializable {
 				});
 		columnNik.setCellValueFactory(new PropertyValueFactory<Employee, String>("nik"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<Employee, String>("nama"));
-		columnJabatan.setCellValueFactory(new PropertyValueFactory<Employee, String>("jabatan"));
+		columnJabatan.setCellValueFactory(params -> {
+			Jabatan j = params.getValue().getJabatan();
+			if (j != null) {
+				return new SimpleStringProperty(j.getNama());
+			} else {
+				return new SimpleStringProperty();
+			}
+		});
 	}
 
 	@Override

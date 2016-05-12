@@ -2,6 +2,6 @@ package app.entities;
 
 public enum JenisKelamin {
 	
-	Pria, Wanita
+	Laki_Laki, Perempuan
 
 }

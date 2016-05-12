@@ -16,9 +16,10 @@ import app.repositories.JabatanRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -34,7 +35,7 @@ public class JabatanFormController implements BootInitializable {
 	@FXML
 	private TextField txtKode;
 	@FXML
-	private TextField txtGapok;
+	private Spinner<Double> spinGapok;
 
 	private Jabatan jabatan;
 
@@ -56,6 +57,12 @@ public class JabatanFormController implements BootInitializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		this.spinGapok.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.valueOf(0),
+				Double.MAX_VALUE, Double.valueOf(0), 500000));
+		this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
+		this.spinGapok.setEditable(true);
+		
+		
 		// TODO Auto-generated method stub
 
 	}
@@ -92,7 +99,8 @@ public class JabatanFormController implements BootInitializable {
 		txtKode.setText(j.getKodeJabatan());
 		txtNama.setText(j.getNama());
 		txtKeterangan.setText(j.getKeterangan());
-		txtGapok.setText(j.getGapok().toString());
+		spinGapok.getValueFactory().setValue(j.getGapok());
+
 	}
 
 	private void newDataJabatan() {
@@ -100,7 +108,7 @@ public class JabatanFormController implements BootInitializable {
 			jabatan.setKodeJabatan(txtKode.getText());
 			jabatan.setNama(txtNama.getText());
 			jabatan.setKeterangan(txtKeterangan.getText());
-			jabatan.setGapok(Double.valueOf(txtGapok.getText()));
+			jabatan.setGapok(spinGapok.getValueFactory().getValue());
 			repo.save(jabatan);
 			homeController.showDepartment();
 		} catch (Exception e1) {
@@ -114,10 +122,9 @@ public class JabatanFormController implements BootInitializable {
 			jabatan.setKodeJabatan(txtKode.getText());
 			jabatan.setNama(txtNama.getText());
 			jabatan.setKeterangan(txtKeterangan.getText());
-			jabatan.setGapok(Double.valueOf(txtGapok.getText()));
+			jabatan.setGapok(spinGapok.getValueFactory().getValue());
 			repo.save(jabatan);
 			homeController.showDepartment();
-
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
