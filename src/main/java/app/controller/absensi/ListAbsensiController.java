@@ -62,7 +62,7 @@ public class ListAbsensiController implements BootInitializable {
 				.addListener((ObservableValue<? extends Employee> values, Employee oldValue, Employee newValue) -> {
 					listView.getItems().clear();
 					if (newValue != null) {
-						listView.getItems().addAll(absen.findByKaryawan(newValue));
+						listView.getItems().addAll(newValue.getDaftarAbsenKaryawan());
 					}
 				});
 		listView.setCellFactory(new Callback<ListView<AbsensiKaryawan>, ListCell<AbsensiKaryawan>>() {
@@ -84,7 +84,6 @@ public class ListAbsensiController implements BootInitializable {
 							box = new HBox();
 							box.setSpacing(10);
 
-							
 							box.getChildren().add(new Label(DateTimeFormatter.ofPattern("dd MMM yyyy")
 									.format(item.getTanggalHadir().toLocalDate())));
 
