@@ -1,6 +1,14 @@
 # PT Spektra Adhya Prasaran
 
-![Gambar class diagram](/exports/Class Diagram1.png)
+## Perancangan Data
+![Gambar class diagram](/exports/class-diagram.png)
+
+## Perancangan UI
+
+* Absen Karyawan
+
+![Form Absen karyawan](/exports/absensi.png)
+
 
 ## Jadwal Penting (perkiraan)
 
