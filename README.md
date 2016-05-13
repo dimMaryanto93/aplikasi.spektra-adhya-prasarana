@@ -1,7 +1,7 @@
 # PT Spektra Adhya Prasaran
 
 ## Perancangan Data
-![Gambar class diagram](/exports/class-diagram.png)
+![Gambar class diagram](/exports/ClassDiagram.jpg)
 
 ## Perancangan UI
 

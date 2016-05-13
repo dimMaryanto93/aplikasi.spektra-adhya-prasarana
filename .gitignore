@@ -12,3 +12,5 @@ mvnw*
 
 # visual diagram
 *.vpp~*
+*.vpp.*
+*.vu*
