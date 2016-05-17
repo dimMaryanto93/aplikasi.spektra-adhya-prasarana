@@ -14,19 +14,24 @@ import app.configs.CurrencyNumberFormatter;
 import app.entities.KasbonKaryawan;
 import app.entities.master.DataKaryawan;
 import app.repositories.KaryawanService;
+import app.repositories.KasbonService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -35,6 +40,9 @@ public class KasbonListController implements BootInitializable {
 
 	@Autowired
 	private KaryawanService karyawanService;
+
+	@Autowired
+	private KasbonService kasbonService;
 
 	@Autowired
 	private CurrencyNumberFormatter formatUang;
@@ -47,11 +55,11 @@ public class KasbonListController implements BootInitializable {
 	@FXML
 	private TableColumn<KasbonKaryawan, String> columnTanggal;
 	@FXML
-	private TableColumn<KasbonKaryawan, String> columnPeminjaman;
+	private TableColumn<KasbonKaryawan, Double> columnPeminjaman;
 	@FXML
-	private TableColumn<KasbonKaryawan, String> columnPembayaran;
+	private TableColumn<KasbonKaryawan, Double> columnPembayaran;
 	@FXML
-	private TableColumn<KasbonKaryawan, String> columnSaldo;
+	private TableColumn<KasbonKaryawan, Double> columnSaldo;
 	@FXML
 	private Button btnCetak;
 
@@ -70,44 +78,74 @@ public class KasbonListController implements BootInitializable {
 						}
 					}
 				});
-		columnPembayaran.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<KasbonKaryawan, String>, ObservableValue<String>>() {
+		columnPembayaran.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("pinjaman"));
+		columnPembayaran
+				.setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
 
 					@Override
-					public ObservableValue<String> call(CellDataFeatures<KasbonKaryawan, String> param) {
-						KasbonKaryawan kasbon = param.getValue();
-						if (kasbon != null) {
-							return new SimpleStringProperty(formatUang.getCurrencyFormate(kasbon.getPembayaran()));
-						} else {
-							return null;
-						}
+					public TableCell<KasbonKaryawan, Double> call(TableColumn<KasbonKaryawan, Double> param) {
+						return new TableCell<KasbonKaryawan, Double>() {
+							@Override
+							protected void updateItem(Double item, boolean empty) {
+								// TODO Auto-generated method stub
+								super.updateItem(item, empty);
+								setAlignment(Pos.CENTER_RIGHT);
+								if (empty) {
+									setText(null);
+								} else {
+									setText(formatUang.getCurrencyFormate(item));
+								}
+							}
+						};
 					}
 				});
 
-		columnPeminjaman.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<KasbonKaryawan, String>, ObservableValue<String>>() {
+		columnPeminjaman.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("pembayaran"));
+		columnPeminjaman
+				.setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
 
 					@Override
-					public ObservableValue<String> call(CellDataFeatures<KasbonKaryawan, String> param) {
-						KasbonKaryawan kasbon = param.getValue();
-						if (kasbon != null) {
-							return new SimpleStringProperty(formatUang.getCurrencyFormate(kasbon.getPinjaman()));
-						} else {
-							return null;
-						}
+					public TableCell<KasbonKaryawan, Double> call(TableColumn<KasbonKaryawan, Double> param) {
+						return new TableCell<KasbonKaryawan, Double>() {
+							@Override
+							protected void updateItem(Double item, boolean empty) {
+								// TODO Auto-generated method stub
+								super.updateItem(item, empty);
+								setAlignment(Pos.CENTER_RIGHT);
+								if (empty) {
+									setText(null);
+								} else {
+									setText(formatUang.getCurrencyFormate(item));
+								}
+							}
+						};
 					}
 				});
-		columnSaldo.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<KasbonKaryawan, String>, ObservableValue<String>>() {
+
+		columnSaldo.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("saldoTerakhir"));
+		columnSaldo
+				.setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
 
 					@Override
-					public ObservableValue<String> call(CellDataFeatures<KasbonKaryawan, String> param) {
-						KasbonKaryawan kasbon = param.getValue();
-						if (kasbon != null) {
-							return new SimpleStringProperty(formatUang.getCurrencyFormate(kasbon.getSaldoTerakhir()));
-						} else {
-							return null;
-						}
+					public TableCell<KasbonKaryawan, Double> call(TableColumn<KasbonKaryawan, Double> param) {
+						return new TableCell<KasbonKaryawan, Double>() {
+							@Override
+							protected void updateItem(Double item, boolean empty) {
+								// TODO Auto-generated method stub
+								super.updateItem(item, empty);
+								setAlignment(Pos.CENTER_RIGHT);
+								if (empty) {
+									setText(null);
+								} else {
+									if (item == 0D) {
+										setTextFill(Color.GREEN);
+									} else {
+										setTextFill(Color.RED);
+									}
+									setText(formatUang.getCurrencyFormate(item));
+								}
+							}
+						};
 					}
 				});
 
@@ -141,7 +179,7 @@ public class KasbonListController implements BootInitializable {
 				(ObservableValue<? extends DataKaryawan> observable, DataKaryawan oldValue, DataKaryawan newValue) -> {
 					tableView.getItems().clear();
 					if (newValue != null) {
-						tableView.getItems().addAll(newValue.getDaftarKasbon());
+						tableView.getItems().addAll(kasbonService.findByKaryawanOrderByWaktuAsc(newValue));
 					}
 				});
 

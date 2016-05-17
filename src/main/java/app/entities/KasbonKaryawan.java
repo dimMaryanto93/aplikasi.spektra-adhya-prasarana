@@ -1,6 +1,9 @@
 package app.entities;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +21,13 @@ import app.entities.master.DataKaryawan;
 @Entity
 @Table(name = "kasbon_karyawan")
 public class KasbonKaryawan {
+
+	public KasbonKaryawan() {
+		setWaktu(Timestamp.valueOf(LocalDateTime.now()));
+		setTanggalPinjam(Date.valueOf(LocalDate.now()));
+		setPrinted(false);
+	}
+
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")
@@ -38,6 +48,12 @@ public class KasbonKaryawan {
 
 	@Column(nullable = false)
 	private Double saldoTerakhir;
+
+	@Column(nullable = false)
+	private Timestamp waktu;
+
+	@Column(name = "dicetak", nullable = false)
+	private Boolean printed;
 
 	public String getId() {
 		return id;
@@ -85,6 +101,22 @@ public class KasbonKaryawan {
 
 	public void setSaldoTerakhir(Double saldoTerakhir) {
 		this.saldoTerakhir = saldoTerakhir;
+	}
+
+	public Timestamp getWaktu() {
+		return waktu;
+	}
+
+	public void setWaktu(Timestamp waktu) {
+		this.waktu = waktu;
+	}
+
+	public Boolean getPrinted() {
+		return printed;
+	}
+
+	public void setPrinted(Boolean printed) {
+		this.printed = printed;
 	}
 
 }

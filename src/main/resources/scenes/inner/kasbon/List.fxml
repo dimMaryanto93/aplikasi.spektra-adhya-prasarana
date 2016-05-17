@@ -65,14 +65,17 @@
 					AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
 					AnchorPane.topAnchor="0.0">
 					<columns>
-						<TableColumn fx:id="columnTanggal" maxWidth="120.0"
-							minWidth="120.0" prefWidth="120.0" text="Tanggal" />
-						<TableColumn fx:id="columnPeminjaman" maxWidth="150.0"
-							minWidth="150.0" prefWidth="150.0" text="Peminjaman" />
-						<TableColumn fx:id="columnPembayaran" maxWidth="150.0"
-							minWidth="150.0" prefWidth="150.0" text="Pembayaran" />
-						<TableColumn fx:id="columnSaldo" maxWidth="150.0"
-							minWidth="150.0" prefWidth="150.0" text="Saldo" />
+						<TableColumn fx:id="columnTanggal" editable="false"
+							maxWidth="120.0" minWidth="120.0" prefWidth="120.0" text="Tanggal" />
+						<TableColumn fx:id="columnPeminjaman" editable="false"
+							maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
+							text="Peminjaman" />
+						<TableColumn fx:id="columnPembayaran" editable="false"
+							maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
+							text="Pembayaran" />
+						<TableColumn fx:id="columnSaldo" editable="false"
+							maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
+							text="Saldo" />
 					</columns>
 					<columnResizePolicy>
 						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

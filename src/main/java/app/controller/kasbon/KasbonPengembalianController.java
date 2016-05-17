@@ -17,22 +17,31 @@ import app.entities.KasbonKaryawan;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
 import app.repositories.KaryawanService;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.stage.Stage;
-import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.Button;
+import app.repositories.KasbonService;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 
 @Component
 public class KasbonPengembalianController implements BootInitializable {
@@ -40,6 +49,8 @@ public class KasbonPengembalianController implements BootInitializable {
 	private ApplicationContext springContext;
 	@Autowired
 	private KaryawanService karyawanService;
+	@Autowired
+	private KasbonService kasbonService;
 	@Autowired
 	private CurrencyNumberFormatter formatUang;
 
@@ -54,6 +65,8 @@ public class KasbonPengembalianController implements BootInitializable {
 	@FXML
 	private TableColumn<DataKaryawan, String> columnJabatan;
 	@FXML
+	private TableColumn<DataKaryawan, Double> columnStatus;
+	@FXML
 	Spinner<Double> txtBayar;
 	@FXML
 	private TextField txtHutang;
@@ -66,6 +79,7 @@ public class KasbonPengembalianController implements BootInitializable {
 
 	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerValueFactor = new SpinnerValueFactory.DoubleSpinnerValueFactory(
 			Double.valueOf(0), Double.valueOf(0), Double.valueOf(0), Double.valueOf(0));
+	private KasbonKaryawan kasbon;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -89,11 +103,71 @@ public class KasbonPengembalianController implements BootInitializable {
 				return new SimpleStringProperty();
 			}
 		});
+		columnStatus.setCellValueFactory(params -> {
+			DataKaryawan value = params.getValue();
+			if (value != null) {
+				return new SimpleObjectProperty<>(value.getTotalSaldoTerakhir());
+			} else {
+				return new SimpleObjectProperty<Double>(-1D);
+			}
+		});
+		columnStatus.setCellFactory(new Callback<TableColumn<DataKaryawan, Double>, TableCell<DataKaryawan, Double>>() {
+
+			@Override
+			public TableCell<DataKaryawan, Double> call(TableColumn<DataKaryawan, Double> param) {
+				// TODO Auto-generated method stub
+				return new TableCell<DataKaryawan, Double>() {
+					private Label labelStatus;
+					private Button buttonStatus;
+
+					@Override
+					protected void updateItem(Double item, boolean empty) {
+						// TODO Auto-generated method stub
+						super.updateItem(item, empty);
+						setAlignment(Pos.CENTER);
+						if (empty) {
+							setText(null);
+						} else {
+							DataKaryawan karyawan = tableView.getItems().get(getIndex());
+							if (item == 0D) {
+								labelStatus = new Label("LUNAS");
+								labelStatus.setTextFill(Color.GREEN);
+								setGraphic(labelStatus);
+							} else {
+								StringBuilder sb = new StringBuilder(
+										"Lihat seluruh transaksi yang dilakukan oleh karyawan dengan nama ")
+												.append(karyawan.getNama()).append(" dan dengan NIK ")
+												.append(karyawan.getNik());
+								buttonStatus = new Button("BELUM LUNAS");
+								buttonStatus.setTextFill(Color.RED);
+								buttonStatus.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.WARNING));
+								buttonStatus.setTooltip(new Tooltip(sb.toString()));
+								buttonStatus.setOnAction(e -> {
+									// TODO show dialog
+									doShowDialog(e, karyawan);
+								});
+								setGraphic(buttonStatus);
+
+							}
+						}
+					}
+
+					private void doShowDialog(ActionEvent e, DataKaryawan karyawan) {
+						for (KasbonKaryawan bon : kasbonService.findByKaryawanOrderByWaktuAsc(karyawan)) {
+							StringBuilder sb = new StringBuilder("|").append(bon.getTanggalPinjam()).append("|")
+									.append(formatUang.getCurrencyFormate(bon.getPembayaran())).append("|")
+									.append(formatUang.getCurrencyFormate(bon.getPinjaman())).append("|")
+									.append(formatUang.getCurrencyFormate(bon.getSaldoTerakhir())).append("|");
+							System.out.println(sb.toString());
+						}
+					}
+				};
+			}
+		});
 
 		tableView.getSelectionModel().selectedItemProperty().addListener(
 				(ObservableValue<? extends DataKaryawan> values, DataKaryawan oldValue, DataKaryawan newValue) -> {
 					txtBayar.setDisable(newValue == null);
-					btnSimpan.setDisable(newValue == null);
 					if (newValue != null) {
 						spinnerValueFactor.setAmountToStepBy(50000D);
 						spinnerValueFactor.setMax(newValue.getSaldoTerakhir());
@@ -108,6 +182,10 @@ public class KasbonPengembalianController implements BootInitializable {
 						txtHutang.clear();
 					}
 				});
+		txtBayar.getValueFactory().valueProperty()
+				.addListener((ObservableValue<? extends Double> values, Double oldValue, Double newValue) -> {
+					btnSimpan.setDisable(newValue <= 0D);
+				});
 		btnSimpan.setOnAction(e -> {
 			doSave(e);
 		});
@@ -116,28 +194,26 @@ public class KasbonPengembalianController implements BootInitializable {
 	private void doSave(ActionEvent e) {
 		DataKaryawan dataKaryawan = tableView.getSelectionModel().getSelectedItem();
 		if (dataKaryawan != null) {
-			KasbonKaryawan kasbon = new KasbonKaryawan();
-			
-			Double totalPinjam = 0D;
-			Double totalBayar = 0D;
+			try {
+				this.kasbon = new KasbonKaryawan();
 
-			for (KasbonKaryawan bon : dataKaryawan.getDaftarKasbon()) {
-				totalBayar += bon.getPembayaran();
-				totalPinjam += bon.getPinjaman();
+				kasbon.setKaryawan(dataKaryawan);
+				kasbon.setTanggalPinjam(Date.valueOf(txtTanggalTransaksi.getValue()));
+				kasbon.setPembayaran(txtBayar.getValueFactory().getValue());
+				kasbon.setPinjaman(0D);
+
+				kasbon.setSaldoTerakhir(dataKaryawan.getTotalSaldoTerakhir() - kasbon.getPembayaran());
+
+				dataKaryawan.setSaldoTerakhir(kasbon.getSaldoTerakhir());
+
+				dataKaryawan.getDaftarKasbon().add(kasbon);
+
+				karyawanService.save(dataKaryawan);
+				initConstuct();
+			} catch (Exception ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
 			}
-			
-			kasbon.setKaryawan(dataKaryawan);
-			kasbon.setTanggalPinjam(Date.valueOf(txtTanggalTransaksi.getValue()));
-			kasbon.setPembayaran(txtBayar.getValueFactory().getValue());
-			kasbon.setPinjaman(0D);
-			
-			kasbon.setSaldoTerakhir((totalPinjam - totalBayar) - kasbon.getPembayaran());
-
-			dataKaryawan.setSaldoTerakhir(kasbon.getSaldoTerakhir());
-
-			dataKaryawan.getDaftarKasbon().add(kasbon);
-
-			karyawanService.save(dataKaryawan);
 		} else {
 			// TODO tampilkan dialop peringatan karyawan belum pilih
 			System.out.println("Karyawan belum dipilih");
@@ -166,8 +242,11 @@ public class KasbonPengembalianController implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
+		txtTanggalTransaksi.setValue(LocalDate.now());
 		tableView.getItems().clear();
 		tableView.getItems().addAll(karyawanService.findAll());
+		txtBayar.getValueFactory().setValue(0D);
+		this.kasbon = new KasbonKaryawan();
 	}
 
 	@FXML

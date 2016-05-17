@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import app.entities.KehadiranKaryawan;
 import app.entities.KasbonKaryawan;
+import app.entities.KehadiranKaryawan;
 import app.entities.Penggajian;
 
 @Entity
@@ -195,6 +195,26 @@ public class DataKaryawan {
 
 	public void setSaldoTerakhir(Double saldoTerakhir) {
 		this.saldoTerakhir = saldoTerakhir;
+	}
+
+	public Double getTotalPeminjaman() {
+		Double value = 0D;
+		for (KasbonKaryawan kasbon : this.daftarKasbon) {
+			value += kasbon.getPinjaman();
+		}
+		return value;
+	}
+
+	public Double getTotalPembayaran() {
+		Double value = 0D;
+		for (KasbonKaryawan kasbon : this.daftarKasbon) {
+			value += kasbon.getPembayaran();
+		}
+		return value;
+	}
+
+	public Double getTotalSaldoTerakhir() {
+		return getTotalPeminjaman() - getTotalPembayaran();
 	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import app.configs.CurrencyNumberFormatter;
 import app.entities.KasbonKaryawan;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
@@ -39,6 +40,9 @@ public class KasbonPeminjamanController implements BootInitializable {
 	@Autowired
 	private KaryawanService karyawanService;
 
+	@Autowired
+	private CurrencyNumberFormatter formatUang;
+
 	private ApplicationContext springContext;
 	@FXML
 	private DatePicker txtTanggalTransaksi;
@@ -58,11 +62,17 @@ public class KasbonPeminjamanController implements BootInitializable {
 	private Spinner<Double> txtPinjam;
 	@FXML
 	private Button btnSimpan;
+	@FXML
+	private TextField txtNominal;
+
+	private KasbonKaryawan kasbon;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		txtTanggalTransaksi.getEditor().setAlignment(Pos.CENTER_RIGHT);
 		txtTanggalTransaksi.setValue(LocalDate.now());
+
+		txtPinjam.getEditor().setAlignment(Pos.CENTER_RIGHT);
 
 		txtPinjam.setValueFactory(
 				new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.valueOf(0), Double.MAX_VALUE, 0, 50000));
@@ -81,7 +91,12 @@ public class KasbonPeminjamanController implements BootInitializable {
 		tableView.getSelectionModel().selectedItemProperty().addListener(
 				(ObservableValue<? extends DataKaryawan> values, DataKaryawan oldValue, DataKaryawan newValue) -> {
 					txtPinjam.setDisable(newValue == null);
-					btnSimpan.setDisable(newValue == null);
+				});
+
+		txtPinjam.getValueFactory().valueProperty()
+				.addListener((ObservableValue<? extends Double> values, Double oldValue, Double newValue) -> {
+					btnSimpan.setDisable(newValue <= 0D);
+					txtNominal.setText(formatUang.getCurrencyFormate(newValue));
 				});
 		btnSimpan.setOnAction(e -> {
 			doSave(e);
@@ -92,29 +107,22 @@ public class KasbonPeminjamanController implements BootInitializable {
 	private void doSave(ActionEvent e) {
 		DataKaryawan dataKaryawan = tableView.getSelectionModel().getSelectedItem();
 		if (dataKaryawan != null) {
-			KasbonKaryawan kasbon = new KasbonKaryawan();
-
-			Double totalPinjam = 0D;
-			Double totalBayar = 0D;
-
-			for (KasbonKaryawan bon : dataKaryawan.getDaftarKasbon()) {
-				totalBayar += bon.getPembayaran();
-				totalPinjam += bon.getPinjaman();
-			}
-			System.out.println("Total Debit: " + totalBayar + ", Total pinjam : " + totalPinjam);
+			this.kasbon = new KasbonKaryawan();
 
 			kasbon.setKaryawan(dataKaryawan);
 			kasbon.setTanggalPinjam(Date.valueOf(txtTanggalTransaksi.getValue()));
 			kasbon.setPinjaman(txtPinjam.getValueFactory().getValue());
 			kasbon.setPembayaran(0D);
-			
-			kasbon.setSaldoTerakhir((totalPinjam - totalBayar) + kasbon.getPinjaman());
+
+			kasbon.setSaldoTerakhir(dataKaryawan.getTotalSaldoTerakhir() + kasbon.getPinjaman());
 
 			dataKaryawan.getDaftarKasbon().add(kasbon);
 
 			dataKaryawan.setSaldoTerakhir(kasbon.getSaldoTerakhir());
 
 			karyawanService.save(dataKaryawan);
+
+			initConstuct();
 		} else {
 			System.out.println("Table View belum dipilih");
 		}
@@ -140,8 +148,11 @@ public class KasbonPeminjamanController implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
+		this.kasbon = new KasbonKaryawan();
+		txtTanggalTransaksi.setValue(LocalDate.now());
 		tableView.getItems().clear();
 		tableView.getItems().addAll(karyawanService.findAll());
+		txtPinjam.getValueFactory().setValue(0D);
 	}
 
 	@FXML
