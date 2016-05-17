@@ -14,6 +14,7 @@ import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.KaryawanListController;
 import app.controller.kasbon.KasbonListController;
+import app.controller.kasbon.KasbonPeminjamanController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,16 +30,19 @@ public class HomeController implements BootInitializable {
 	private BorderPane mainLayout;
 
 	@Autowired
-	KaryawanListController listKaryawan;
+	private KaryawanListController listKaryawan;
 
 	@Autowired
-	JabatanListController listJabatan;
+	private JabatanListController listJabatan;
 
 	@Autowired
-	AbsensiListController listAbsen;
+	private AbsensiListController listAbsen;
 
 	@Autowired
-	KasbonListController listKasbon;
+	private KasbonListController listKasbon;
+	
+	@Autowired
+	private KasbonPeminjamanController formPeminjaman;
 
 	private ApplicationContext springContext;
 	private Stage primaryStage;
@@ -85,6 +89,7 @@ public class HomeController implements BootInitializable {
 			setLayout(listKaryawan.initView());
 			listKaryawan.initConstuct();
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -133,6 +138,13 @@ public class HomeController implements BootInitializable {
 
 	@FXML
 	public void showPeminjaman(ActionEvent event) {
+		try {
+			setLayout(formPeminjaman.initView());
+			formPeminjaman.initConstuct();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
