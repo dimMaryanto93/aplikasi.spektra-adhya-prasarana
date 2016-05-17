@@ -1,4 +1,4 @@
-package app.entities;
+package app.entities.master;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -17,9 +17,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import app.entities.KehadiranKaryawan;
+import app.entities.KasbonKaryawan;
+import app.entities.Penggajian;
+
 @Entity
-@Table(name = "karyawan")
-public class Employee {
+@Table(name = "data_karyawan")
+public class DataKaryawan {
 
 	@Id
 	@GeneratedValue
@@ -32,11 +36,11 @@ public class Employee {
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(nullable = false)
-	private Agama agama;
+	private DataAgama agama;
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(nullable = false)
-	private JenisKelamin jenisKelamin;
+	private DataJenisKelamin jenisKelamin;
 
 	private Date tLahir;
 	private String tmLahir;
@@ -49,34 +53,32 @@ public class Employee {
 	private List<Penggajian> daftarTerimaGaji = new ArrayList<Penggajian>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "karyawan", orphanRemoval = true)
-	private List<Peminjaman> daftarPinjamDana = new ArrayList<Peminjaman>();
+	private List<KasbonKaryawan> daftarKasbon = new ArrayList<KasbonKaryawan>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "karyawan", orphanRemoval = true)
-	private List<AbsensiKaryawan> daftarAbsenKaryawan = new ArrayList<>();
+	private List<KehadiranKaryawan> daftarAbsenKaryawan = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "kode_jabatan", nullable = false)
-	private Jabatan jabatan;
-	
-	@Column(nullable=false)
-	@Enumerated(EnumType.ORDINAL)
-	private Pendidikan pendidikan;
-	
-	
+	private DataJabatan jabatan;
 
-	public Pendidikan getPendidikan() {
+	@Column(nullable = false)
+	@Enumerated(EnumType.ORDINAL)
+	private DataPendidikan pendidikan;
+
+	public DataPendidikan getPendidikan() {
 		return pendidikan;
 	}
 
-	public void setPendidikan(Pendidikan pendidikan) {
+	public void setPendidikan(DataPendidikan pendidikan) {
 		this.pendidikan = pendidikan;
 	}
 
-	public Jabatan getJabatan() {
+	public DataJabatan getJabatan() {
 		return jabatan;
 	}
 
-	public void setJabatan(Jabatan jabatan) {
+	public void setJabatan(DataJabatan jabatan) {
 		this.jabatan = jabatan;
 	}
 
@@ -104,19 +106,19 @@ public class Employee {
 		this.nama = nama;
 	}
 
-	public Agama getAgama() {
+	public DataAgama getAgama() {
 		return agama;
 	}
 
-	public void setAgama(Agama agama) {
+	public void setAgama(DataAgama agama) {
 		this.agama = agama;
 	}
 
-	public JenisKelamin getJenisKelamin() {
+	public DataJenisKelamin getJenisKelamin() {
 		return jenisKelamin;
 	}
 
-	public void setJenisKelamin(JenisKelamin jenisKelamin) {
+	public void setJenisKelamin(DataJenisKelamin jenisKelamin) {
 		this.jenisKelamin = jenisKelamin;
 	}
 
@@ -168,19 +170,19 @@ public class Employee {
 		this.daftarTerimaGaji = daftarTerimaGaji;
 	}
 
-	public List<Peminjaman> getDaftarPinjamDana() {
-		return daftarPinjamDana;
+	public List<KasbonKaryawan> getDaftarKasbon() {
+		return daftarKasbon;
 	}
 
-	public void setDaftarPinjamDana(List<Peminjaman> daftarPinjamDana) {
-		this.daftarPinjamDana = daftarPinjamDana;
+	public void setDaftarKasbon(List<KasbonKaryawan> daftarKasbon) {
+		this.daftarKasbon = daftarKasbon;
 	}
 
-	public List<AbsensiKaryawan> getDaftarAbsenKaryawan() {
+	public List<KehadiranKaryawan> getDaftarAbsenKaryawan() {
 		return daftarAbsenKaryawan;
 	}
 
-	public void setDaftarAbsenKaryawan(List<AbsensiKaryawan> daftarAbsenKaryawan) {
+	public void setDaftarAbsenKaryawan(List<KehadiranKaryawan> daftarAbsenKaryawan) {
 		this.daftarAbsenKaryawan = daftarAbsenKaryawan;
 	}
 

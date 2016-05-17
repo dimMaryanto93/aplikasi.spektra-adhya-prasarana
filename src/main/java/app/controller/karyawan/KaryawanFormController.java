@@ -14,14 +14,13 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.controller.HomeController;
-import app.entities.Agama;
-import app.entities.Employee;
-import app.entities.Jabatan;
-import app.entities.JenisKelamin;
-import app.entities.Pendidikan;
-import app.repositories.EmployeeRepository;
-import app.repositories.JabatanRepository;
-import javafx.beans.value.ChangeListener;
+import app.entities.master.DataAgama;
+import app.entities.master.DataJabatan;
+import app.entities.master.DataJenisKelamin;
+import app.entities.master.DataKaryawan;
+import app.entities.master.DataPendidikan;
+import app.repositories.JabatanService;
+import app.repositories.KaryawanService;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,8 +29,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -39,11 +36,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import scala.annotation.meta.setter;
 
 @Component
-public class EmployeeFormController implements BootInitializable {
+public class KaryawanFormController implements BootInitializable {
 
 	@FXML
 	private TextField txtNik;
@@ -56,9 +51,9 @@ public class EmployeeFormController implements BootInitializable {
 	@FXML
 	private DatePicker datePicker;
 	@FXML
-	private ComboBox<Agama> cbkAgama;
+	private ComboBox<DataAgama> cbkAgama;
 	@FXML
-	private ComboBox<Pendidikan> cbkPendidikan;
+	private ComboBox<DataPendidikan> cbkPendidikan;
 	@FXML
 	private ComboBox<String> cbkJabatan;
 	@FXML
@@ -73,9 +68,9 @@ public class EmployeeFormController implements BootInitializable {
 	private ApplicationContext springContext;
 	private Stage stage;
 	private Boolean update;
-	private Employee anEmployee;
+	private DataKaryawan anEmployee;
 
-	private HashMap<String, Jabatan> mapJabatan = new HashMap<>();
+	private HashMap<String, DataJabatan> mapJabatan = new HashMap<>();
 
 	public Boolean isUpdate() {
 		return update;
@@ -86,10 +81,10 @@ public class EmployeeFormController implements BootInitializable {
 	}
 
 	@Autowired
-	private EmployeeRepository service;
+	private KaryawanService service;
 
 	@Autowired
-	private JabatanRepository jabatanService;
+	private JabatanService jabatanService;
 
 	@Autowired
 	private HomeController homeController;
@@ -138,37 +133,37 @@ public class EmployeeFormController implements BootInitializable {
 	@Override
 	public void initConstuct() {
 		this.setUpdate(false);
-		this.anEmployee = new Employee();
+		this.anEmployee = new DataKaryawan();
 		this.cbkJabatan.getItems().clear();
-		for (Jabatan j : jabatanService.findAll()) {
+		for (DataJabatan j : jabatanService.findAll()) {
 			String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
 			mapJabatan.put(key, j);
 			this.cbkJabatan.getItems().add(key);			
 		}
-		cbkAgama.getItems().addAll(Agama.values());
-		cbkPendidikan.getItems().addAll(Pendidikan.values());
+		cbkAgama.getItems().addAll(DataAgama.values());
+		cbkPendidikan.getItems().addAll(DataPendidikan.values());
 		this.datePicker.setValue(LocalDate.now());
 
 	}
 
-	public void initConstuct(Employee anEmployee) {
+	public void initConstuct(DataKaryawan anEmployee) {
 		this.setUpdate(true);
 		this.anEmployee = anEmployee;
-		cbkAgama.getItems().addAll(Agama.values());
-		cbkPendidikan.getItems().addAll(Pendidikan.values());
+		cbkAgama.getItems().addAll(DataAgama.values());
+		cbkPendidikan.getItems().addAll(DataPendidikan.values());
 		this.txtNik.setText(String.valueOf(anEmployee.getNik()));
 		this.txtNama.setText(anEmployee.getNama());
 		
 		// add item to combobox jabatan
 		this.cbkJabatan.getItems().clear();
-		for (Jabatan j : jabatanService.findAll()) {
+		for (DataJabatan j : jabatanService.findAll()) {
 			String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
 			mapJabatan.put(key, j);
 			this.cbkJabatan.getItems().add(key);			
 		}
 		
 		// set value
-		Jabatan j = anEmployee.getJabatan();
+		DataJabatan j = anEmployee.getJabatan();
 		String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
 		
 		// select value to combobox
@@ -180,8 +175,8 @@ public class EmployeeFormController implements BootInitializable {
 		this.datePicker.setValue(anEmployee.gettLahir().toLocalDate());
 		this.spinGapok.getValueFactory().setValue(anEmployee.getGaji());
 
-		this.male.setSelected(anEmployee.getJenisKelamin() == JenisKelamin.Laki_Laki);
-		this.female.setSelected(anEmployee.getJenisKelamin() == JenisKelamin.Perempuan);
+		this.male.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Laki_Laki);
+		this.female.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Perempuan);
 	}
 
 	@FXML
@@ -189,12 +184,12 @@ public class EmployeeFormController implements BootInitializable {
 		homeController.showEmployee();
 	}
 
-	public JenisKelamin getJenisKelamin() {
-		JenisKelamin value = null;
+	public DataJenisKelamin getJenisKelamin() {
+		DataJenisKelamin value = null;
 		if (male.isSelected()) {
-			value = JenisKelamin.Laki_Laki;
+			value = DataJenisKelamin.Laki_Laki;
 		} else if (female.isSelected()) {
-			value = JenisKelamin.Perempuan;
+			value = DataJenisKelamin.Perempuan;
 		}
 		return value;
 	}

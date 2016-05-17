@@ -10,9 +10,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
-import app.controller.absensi.ListAbsensiController;
+import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
-import app.controller.karyawan.EmployeeController;
+import app.controller.karyawan.KaryawanListController;
+import app.controller.kasbon.KasbonListController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +27,18 @@ public class HomeController implements BootInitializable {
 
 	@FXML
 	private BorderPane mainLayout;
+
+	@Autowired
+	KaryawanListController listKaryawan;
+
+	@Autowired
+	JabatanListController listJabatan;
+
+	@Autowired
+	AbsensiListController listAbsen;
+
+	@Autowired
+	KasbonListController listKasbon;
 
 	private ApplicationContext springContext;
 	private Stage primaryStage;
@@ -69,9 +82,8 @@ public class HomeController implements BootInitializable {
 	@FXML
 	public void showEmployee() {
 		try {
-			EmployeeController employee = springContext.getBean(EmployeeController.class);
-			setLayout(employee.initView());
-			employee.initConstuct();
+			setLayout(listKaryawan.initView());
+			listKaryawan.initConstuct();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,27 +91,25 @@ public class HomeController implements BootInitializable {
 
 	@FXML
 	public void showProfile() {
-		
+
 	}
-	
+
 	@FXML
-	public void showDepartment(){
+	public void showDepartment() {
 		try {
-			JabatanListController jab = springContext.getBean(JabatanListController.class);
-			setLayout(jab.initView());
-			jab.initConstuct();
+			setLayout(listJabatan.initView());
+			listJabatan.initConstuct();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
-	
+
 	@FXML
-	public void showAttendance(ActionEvent e){
+	public void showAttendance(ActionEvent e) {
 		try {
-			ListAbsensiController list = springContext.getBean(ListAbsensiController.class);
-			setLayout(list.initView());
-			list.initConstuct();
+			setLayout(listAbsen.initView());
+			listAbsen.initConstuct();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -108,6 +118,25 @@ public class HomeController implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
+	}
+
+	@FXML
+	public void showKasbon(ActionEvent event) {
+		try {
+			setLayout(listKasbon.initView());
+			listKasbon.initConstuct();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void showPeminjaman(ActionEvent event) {
+	}
+
+	@FXML
+	public void showPengembalian(ActionEvent event) {
 	}
 
 }

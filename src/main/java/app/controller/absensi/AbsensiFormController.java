@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.controller.HomeController;
-import app.entities.AbsensiKaryawan;
-import app.entities.Employee;
-import app.repositories.AbsensiRepository;
-import app.repositories.EmployeeRepository;
+import app.entities.KehadiranKaryawan;
+import app.entities.master.DataKaryawan;
+import app.repositories.AbsensiService;
+import app.repositories.KaryawanService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -33,29 +33,29 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 @Component
-public class FormAbsensiController implements BootInitializable {
+public class AbsensiFormController implements BootInitializable {
 
 	@Autowired
 	private HomeController homeController;
 	@Autowired
-	private EmployeeRepository karyawanRepository;
+	private KaryawanService karyawanRepository;
 	@Autowired
-	private AbsensiRepository absensiRepository;
+	private AbsensiService absensiRepository;
 
 	private ApplicationContext springContext;
 	@FXML
-	private TableView<AbsensiKaryawan> tableView;
+	private TableView<KehadiranKaryawan> tableView;
 	@FXML
-	private TableColumn<AbsensiKaryawan, Integer> columnNik;
+	private TableColumn<KehadiranKaryawan, Integer> columnNik;
 	@FXML
-	private TableColumn<AbsensiKaryawan, String> columnNama;
+	private TableColumn<KehadiranKaryawan, String> columnNama;
 	@FXML
-	private TableColumn<AbsensiKaryawan, Boolean> columnAbsen;
+	private TableColumn<KehadiranKaryawan, Boolean> columnAbsen;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		columnNik.setCellValueFactory(v -> {
-			Employee e = v.getValue().getKaryawan();
+			DataKaryawan e = v.getValue().getKaryawan();
 
 			if (e != null) {
 				return new SimpleObjectProperty<Integer>(e.getNik());
@@ -65,7 +65,7 @@ public class FormAbsensiController implements BootInitializable {
 		});
 
 		columnNama.setCellValueFactory(v -> {
-			Employee e = v.getValue().getKaryawan();
+			DataKaryawan e = v.getValue().getKaryawan();
 			if (e != null) {
 				return new SimpleStringProperty(e.getNama());
 			} else {
@@ -98,8 +98,8 @@ public class FormAbsensiController implements BootInitializable {
 	@Override
 	public void initConstuct() {
 		tableView.getItems().clear();
-		for (Employee karyawan : karyawanRepository.findAll()) {
-			AbsensiKaryawan absen = new AbsensiKaryawan();
+		for (DataKaryawan karyawan : karyawanRepository.findAll()) {
+			KehadiranKaryawan absen = new KehadiranKaryawan();
 			absen.setKaryawan(karyawan);
 			absen.setTanggalHadir(Date.valueOf(LocalDate.now()));
 			absen.setHadir(false);
@@ -111,7 +111,7 @@ public class FormAbsensiController implements BootInitializable {
 	@FXML
 	public void doSave(ActionEvent event) {
 		try {
-			for (AbsensiKaryawan absen : tableView.getItems()) {
+			for (KehadiranKaryawan absen : tableView.getItems()) {
 				if (absen.getHadir()) {				
 					absensiRepository.save(absen);
 				}
@@ -128,13 +128,13 @@ public class FormAbsensiController implements BootInitializable {
 		homeController.showAttendance(event);
 	}
 
-	public class CheckboxInTableView extends TableCell<AbsensiKaryawan, Boolean> {
+	public class CheckboxInTableView extends TableCell<KehadiranKaryawan, Boolean> {
 
 		private CheckBox hadir;
 		private CheckBox lembur;
-		private ObservableList<AbsensiKaryawan> daftarAbsen;
+		private ObservableList<KehadiranKaryawan> daftarAbsen;
 
-		public CheckboxInTableView(ObservableList<AbsensiKaryawan> items) {
+		public CheckboxInTableView(ObservableList<KehadiranKaryawan> items) {
 			this.daftarAbsen = items;
 		}
 
@@ -143,7 +143,7 @@ public class FormAbsensiController implements BootInitializable {
 			// TODO Auto-generated method stub
 			super.updateItem(item, empty);
 			if (!empty) {
-				AbsensiKaryawan absen = daftarAbsen.get(getIndex());
+				KehadiranKaryawan absen = daftarAbsen.get(getIndex());
 
 				this.hadir = new CheckBox("Kehadiran");
 				this.lembur = new CheckBox("Lembur");

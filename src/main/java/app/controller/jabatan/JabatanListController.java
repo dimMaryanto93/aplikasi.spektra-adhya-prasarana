@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.controller.HomeController;
-import app.entities.Jabatan;
-import app.repositories.JabatanRepository;
+import app.entities.master.DataJabatan;
+import app.repositories.JabatanService;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,7 +32,7 @@ public class JabatanListController implements BootInitializable {
 	private ApplicationContext springContext;
 	private Stage primaryStage;
 	@Autowired
-	private JabatanRepository service;
+	private JabatanService service;
 
 	@Autowired
 	private HomeController homeController;
@@ -41,11 +41,11 @@ public class JabatanListController implements BootInitializable {
 	private JabatanFormController formController;
 
 	@FXML
-	private TableView<Jabatan> tableView;
+	private TableView<DataJabatan> tableView;
 	@FXML
-	private TableColumn<Jabatan, String> columnId;
+	private TableColumn<DataJabatan, String> columnId;
 	@FXML
-	private TableColumn<Jabatan, String> columnNama;
+	private TableColumn<DataJabatan, String> columnNama;
 	@FXML
 	private Button btnUpdate;
 	@FXML
@@ -59,7 +59,7 @@ public class JabatanListController implements BootInitializable {
 	@FXML
 	private TextField txtGapok;
 	
-	public void setFields(Jabatan j){
+	public void setFields(DataJabatan j){
 		if(j != null){		
 			txtKode.setText(j.getKodeJabatan());
 			txtNama.setText(j.getNama());
@@ -81,7 +81,7 @@ public class JabatanListController implements BootInitializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		tableView.getSelectionModel().selectedItemProperty().addListener(
-				(ObservableValue<? extends Jabatan> value, Jabatan oldValue, Jabatan newValue) ->{
+				(ObservableValue<? extends DataJabatan> value, DataJabatan oldValue, DataJabatan newValue) ->{
 			setFields(newValue);
 			btnUpdate.setDisable(newValue == null);
 			btnUpdate.setOnAction(e -> {
@@ -93,11 +93,11 @@ public class JabatanListController implements BootInitializable {
 			});
 			
 		});
-		columnId.setCellValueFactory(new PropertyValueFactory<Jabatan, String>("kodeJabatan"));
-		columnNama.setCellValueFactory(new PropertyValueFactory<Jabatan, String>("nama"));
+		columnId.setCellValueFactory(new PropertyValueFactory<DataJabatan, String>("kodeJabatan"));
+		columnNama.setCellValueFactory(new PropertyValueFactory<DataJabatan, String>("nama"));
 	}
 
-	private void doDelete(Jabatan newValue) {
+	private void doDelete(DataJabatan newValue) {
 		try {
 			service.delete(newValue);
 			initConstuct();
@@ -108,7 +108,7 @@ public class JabatanListController implements BootInitializable {
 		
 	}
 
-	private void doUpdate(Jabatan jabatan) {
+	private void doUpdate(DataJabatan jabatan) {
 		try {
 			homeController.setLayout(formController.initView());
 			formController.initConstuct(jabatan);

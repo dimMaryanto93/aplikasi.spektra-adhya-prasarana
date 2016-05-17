@@ -13,11 +13,13 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import app.entities.master.DataKaryawan;
+
 @Entity
 @Table(name = "absensi_karyawan", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "tanggal_hadir", "id_karyawan" }, name = "uq_hadir_karyawan") })
 
-public class AbsensiKaryawan {
+public class KehadiranKaryawan {
 
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -26,7 +28,7 @@ public class AbsensiKaryawan {
 
 	@JoinColumn(name = "id_karyawan")
 	@OneToOne
-	private Employee karyawan;
+	private DataKaryawan karyawan;
 
 	@Column(name = "tanggal_hadir", nullable = false)
 	private Date tanggalHadir;
@@ -48,11 +50,11 @@ public class AbsensiKaryawan {
 		this.id = id;
 	}
 
-	public Employee getKaryawan() {
+	public DataKaryawan getKaryawan() {
 		return karyawan;
 	}
 
-	public void setKaryawan(Employee karyawan) {
+	public void setKaryawan(DataKaryawan karyawan) {
 		this.karyawan = karyawan;
 	}
 

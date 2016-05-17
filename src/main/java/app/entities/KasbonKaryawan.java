@@ -16,23 +16,28 @@ import org.hibernate.annotations.GenericGenerator;
 import app.entities.master.DataKaryawan;
 
 @Entity
-@Table(name = "gaji_karyawan")
-public class Penggajian {
-
+@Table(name = "kasbon_karyawan")
+public class KasbonKaryawan {
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")
 	private String id;
 
-	@JoinColumn(name = "id_karyawan")
+	@JoinColumn(name = "id_karyawan", nullable = false)
 	@ManyToOne(cascade = CascadeType.ALL, optional = true)
 	private DataKaryawan karyawan;
 
-	@Column(nullable = false)
-	private Date tanggal;
+	@Column(nullable = false, name = "tanggal_pinjam")
+	private Date tanggalPinjam;
 
-	@Column(name = "saldo", nullable = false)
-	private Double gaji;
+	@Column(nullable = false)
+	private Double debit;
+
+	@Column(nullable = false)
+	private Double credit;
+
+	@Column(nullable = false)
+	private Double saldoTerakhir;
 
 	public String getId() {
 		return id;
@@ -50,20 +55,36 @@ public class Penggajian {
 		this.karyawan = karyawan;
 	}
 
-	public Date getTanggal() {
-		return tanggal;
+	public Date getTanggalPinjam() {
+		return tanggalPinjam;
 	}
 
-	public void setTanggal(Date tanggal) {
-		this.tanggal = tanggal;
+	public void setTanggalPinjam(Date tanggalPinjam) {
+		this.tanggalPinjam = tanggalPinjam;
 	}
 
-	public Double getGaji() {
-		return gaji;
+	public Double getDebit() {
+		return debit;
 	}
 
-	public void setGaji(Double gaji) {
-		this.gaji = gaji;
+	public void setDebit(Double debit) {
+		this.debit = debit;
+	}
+
+	public Double getCredit() {
+		return credit;
+	}
+
+	public void setCredit(Double credit) {
+		this.credit = credit;
+	}
+
+	public Double getSaldoTerakhir() {
+		return saldoTerakhir;
+	}
+
+	public void setSaldoTerakhir(Double saldoTerakhir) {
+		this.saldoTerakhir = saldoTerakhir;
 	}
 
 }

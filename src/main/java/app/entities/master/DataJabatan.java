@@ -1,4 +1,4 @@
-package app.entities;
+package app.entities.master;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class Jabatan {
+@Table(name = "data_jabatan")
+public class DataJabatan {
 
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -28,14 +30,13 @@ public class Jabatan {
 	private String keterangan;
 	private Double gapok;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "jabatan", orphanRemoval = true)
-	private List<Employee> daftarKaryawan = new ArrayList<>();
-	
+	private List<DataKaryawan> daftarKaryawan = new ArrayList<>();
 
-	public List<Employee> getDaftarKaryawan() {
+	public List<DataKaryawan> getDaftarKaryawan() {
 		return daftarKaryawan;
 	}
 
-	public void setDaftarKaryawan(List<Employee> daftarKaryawan) {
+	public void setDaftarKaryawan(List<DataKaryawan> daftarKaryawan) {
 		this.daftarKaryawan = daftarKaryawan;
 	}
 

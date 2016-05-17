@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.controller.HomeController;
-import app.entities.AbsensiKaryawan;
-import app.entities.Employee;
-import app.repositories.AbsensiRepository;
-import app.repositories.EmployeeRepository;
+import app.entities.KehadiranKaryawan;
+import app.entities.master.DataKaryawan;
+import app.repositories.AbsensiService;
+import app.repositories.KaryawanService;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,49 +33,49 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 @Component
-public class ListAbsensiController implements BootInitializable {
+public class AbsensiListController implements BootInitializable {
 
 	@Autowired
-	private AbsensiRepository absen;
+	private AbsensiService absen;
 	@Autowired
-	private EmployeeRepository karyawan;
+	private KaryawanService karyawan;
 	@Autowired
 	private HomeController homeController;
 
 	private ApplicationContext springContainer;
 	@FXML
-	private TableView<Employee> tableView;
+	private TableView<DataKaryawan> tableView;
 	@FXML
-	private TableColumn<Employee, String> columnNik;
+	private TableColumn<DataKaryawan, String> columnNik;
 	@FXML
-	private TableColumn<Employee, String> columnNama;
+	private TableColumn<DataKaryawan, String> columnNama;
 	@FXML
-	private ListView<AbsensiKaryawan> listView;
+	private ListView<KehadiranKaryawan> listView;
 	@FXML
 	private Button btnTambah;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		columnNik.setCellValueFactory(new PropertyValueFactory<Employee, String>("nik"));
-		columnNama.setCellValueFactory(new PropertyValueFactory<Employee, String>("nama"));
+		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
+		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
 		tableView.getSelectionModel().selectedItemProperty()
-				.addListener((ObservableValue<? extends Employee> values, Employee oldValue, Employee newValue) -> {
+				.addListener((ObservableValue<? extends DataKaryawan> values, DataKaryawan oldValue, DataKaryawan newValue) -> {
 					listView.getItems().clear();
 					if (newValue != null) {
 						listView.getItems().addAll(newValue.getDaftarAbsenKaryawan());
 					}
 				});
-		listView.setCellFactory(new Callback<ListView<AbsensiKaryawan>, ListCell<AbsensiKaryawan>>() {
+		listView.setCellFactory(new Callback<ListView<KehadiranKaryawan>, ListCell<KehadiranKaryawan>>() {
 
 			Label label;
 			HBox box;
 
 			@Override
-			public ListCell<AbsensiKaryawan> call(ListView<AbsensiKaryawan> param) {
+			public ListCell<KehadiranKaryawan> call(ListView<KehadiranKaryawan> param) {
 				// TODO Auto-generated method stub
-				return new ListCell<AbsensiKaryawan>() {
+				return new ListCell<KehadiranKaryawan>() {
 					@Override
-					protected void updateItem(AbsensiKaryawan item, boolean empty) {
+					protected void updateItem(KehadiranKaryawan item, boolean empty) {
 						// TODO Auto-generated method stub
 						super.updateItem(item, empty);
 						if (empty) {
@@ -134,7 +134,7 @@ public class ListAbsensiController implements BootInitializable {
 	@FXML
 	public void doAdd(ActionEvent event) {
 		try {
-			FormAbsensiController absen = springContainer.getBean(FormAbsensiController.class);
+			AbsensiFormController absen = springContainer.getBean(AbsensiFormController.class);
 			homeController.setLayout(absen.initView());
 			absen.initConstuct();
 		} catch (IOException e) {

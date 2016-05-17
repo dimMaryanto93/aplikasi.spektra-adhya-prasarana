@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.controller.HomeController;
-import app.entities.Employee;
-import app.entities.Jabatan;
-import app.repositories.EmployeeRepository;
+import app.entities.master.DataJabatan;
+import app.entities.master.DataKaryawan;
+import app.repositories.KaryawanService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -28,22 +28,21 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import scala.annotation.meta.param;
 
 @Component
-public class EmployeeController implements BootInitializable {
+public class KaryawanListController implements BootInitializable {
 
 	private Stage primaryStage;
 	private ApplicationContext springContext;
 
 	@Autowired
-	private EmployeeRepository service;
+	private KaryawanService service;
 
 	@Autowired
 	private HomeController homeController;
 
 	@Autowired
-	private EmployeeFormController formController;
+	private KaryawanFormController formController;
 
 	@FXML
 	TextField txtNama;
@@ -66,21 +65,21 @@ public class EmployeeController implements BootInitializable {
 	@FXML
 	TextField txtCari;
 	@FXML
-	TableView<Employee> tableView;
+	TableView<DataKaryawan> tableView;
 	@FXML
-	TableColumn<Employee, String> columnNik;
+	TableColumn<DataKaryawan, String> columnNik;
 	@FXML
-	TableColumn<Employee, String> columnNama;
+	TableColumn<DataKaryawan, String> columnNama;
 	@FXML
-	TableColumn<Employee, String> columnJabatan;
+	TableColumn<DataKaryawan, String> columnJabatan;
 	@FXML
-	TableColumn<Employee, String> columnAksi;
+	TableColumn<DataKaryawan, String> columnAksi;
 	@FXML
 	private Button btnRemoveEmployee;
 	@FXML
 	private Button btnUpdateEmployee;
 
-	private void setFields(Employee anEmployee) {
+	private void setFields(DataKaryawan anEmployee) {
 		if (anEmployee != null) {
 			txtNama.setText(anEmployee.getNama());
 			txtAgama.setText(anEmployee.getAgama().toString());
@@ -125,7 +124,7 @@ public class EmployeeController implements BootInitializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tableView.getSelectionModel().selectedItemProperty()
-				.addListener((ObservableValue<? extends Employee> ob, Employee e, Employee newValue) -> {
+				.addListener((ObservableValue<? extends DataKaryawan> ob, DataKaryawan e, DataKaryawan newValue) -> {
 					setFields(newValue);
 					btnRemoveEmployee.setDisable(newValue == null);
 					btnRemoveEmployee.setOnAction(new EventHandler<ActionEvent>() {
@@ -153,10 +152,10 @@ public class EmployeeController implements BootInitializable {
 					});
 
 				});
-		columnNik.setCellValueFactory(new PropertyValueFactory<Employee, String>("nik"));
-		columnNama.setCellValueFactory(new PropertyValueFactory<Employee, String>("nama"));
+		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
+		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
 		columnJabatan.setCellValueFactory(params -> {
-			Jabatan j = params.getValue().getJabatan();
+			DataJabatan j = params.getValue().getJabatan();
 			if (j != null) {
 				return new SimpleStringProperty(j.getNama());
 			} else {
@@ -196,12 +195,12 @@ public class EmployeeController implements BootInitializable {
 		initConstuct();
 	}
 
-	public void doUpdate(Employee employee) throws IOException {
+	public void doUpdate(DataKaryawan employee) throws IOException {
 		homeController.setLayout(formController.initView());
 		formController.initConstuct(employee);
 	}
 
-	public void doDelete(Employee employee) throws Exception {
+	public void doDelete(DataKaryawan employee) throws Exception {
 		service.delete(employee);
 		initConstuct();
 	}

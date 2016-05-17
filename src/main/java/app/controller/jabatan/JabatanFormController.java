@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.controller.HomeController;
-import app.entities.Jabatan;
-import app.repositories.JabatanRepository;
+import app.entities.master.DataJabatan;
+import app.repositories.JabatanService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,12 +37,12 @@ public class JabatanFormController implements BootInitializable {
 	@FXML
 	private Spinner<Double> spinGapok;
 
-	private Jabatan jabatan;
+	private DataJabatan jabatan;
 
 	private Boolean update;
 
 	@Autowired
-	private JabatanRepository repo;
+	private JabatanService repo;
 
 	public Boolean isUpdate() {
 		return update;
@@ -90,10 +90,10 @@ public class JabatanFormController implements BootInitializable {
 	@Override
 	public void initConstuct() {
 		setUpdate(false);
-		this.jabatan = new Jabatan();
+		this.jabatan = new DataJabatan();
 	}
 
-	public void initConstuct(Jabatan j) {
+	public void initConstuct(DataJabatan j) {
 		setUpdate(true);
 		this.jabatan = j;
 		txtKode.setText(j.getKodeJabatan());
