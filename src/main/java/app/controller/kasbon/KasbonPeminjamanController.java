@@ -104,25 +104,36 @@ public class KasbonPeminjamanController implements BootInitializable {
 
 	}
 
+	private Boolean pinjamLagi(DataKaryawan karyawan) {
+		Double sixtyPersenOfLastCredit = karyawan.getTotalPeminjaman() * 0.6;
+		System.out.println(sixtyPersenOfLastCredit + " : " + karyawan.getTotalPembayaran());
+		return karyawan.getTotalPembayaran() >= sixtyPersenOfLastCredit;
+	}
+
 	private void doSave(ActionEvent e) {
 		DataKaryawan dataKaryawan = tableView.getSelectionModel().getSelectedItem();
 		if (dataKaryawan != null) {
-			this.kasbon = new KasbonKaryawan();
+			if (pinjamLagi(dataKaryawan)) {
+				this.kasbon = new KasbonKaryawan();
 
-			kasbon.setKaryawan(dataKaryawan);
-			kasbon.setTanggalPinjam(Date.valueOf(txtTanggalTransaksi.getValue()));
-			kasbon.setPinjaman(txtPinjam.getValueFactory().getValue());
-			kasbon.setPembayaran(0D);
+				kasbon.setKaryawan(dataKaryawan);
+				kasbon.setTanggalPinjam(Date.valueOf(txtTanggalTransaksi.getValue()));
+				kasbon.setPinjaman(txtPinjam.getValueFactory().getValue());
+				kasbon.setPembayaran(0D);
 
-			kasbon.setSaldoTerakhir(dataKaryawan.getTotalSaldoTerakhir() + kasbon.getPinjaman());
+				kasbon.setSaldoTerakhir(dataKaryawan.getTotalSaldoTerakhir() + kasbon.getPinjaman());
 
-			dataKaryawan.getDaftarKasbon().add(kasbon);
+				dataKaryawan.getDaftarKasbon().add(kasbon);
 
-			dataKaryawan.setSaldoTerakhir(kasbon.getSaldoTerakhir());
+				karyawanService.save(dataKaryawan);
 
-			karyawanService.save(dataKaryawan);
-
-			initConstuct();
+				initConstuct();
+			} else {
+				// TODO message dialog gak boleh simpan karena masih memiliki
+				// hutang
+				System.out.println(
+						"Data karyawan tersebut tidak dapat melakukan" + " pinjaman karena masih memiliki hutang");
+			}
 		} else {
 			System.out.println("Table View belum dipilih");
 		}

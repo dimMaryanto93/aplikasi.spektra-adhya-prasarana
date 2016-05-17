@@ -66,9 +66,6 @@ public class DataKaryawan {
 	@Enumerated(EnumType.ORDINAL)
 	private DataPendidikan pendidikan;
 
-	@Column(name = "saldo_terakhir", nullable = false)
-	private Double saldoTerakhir;
-
 	public DataPendidikan getPendidikan() {
 		return pendidikan;
 	}
@@ -187,14 +184,6 @@ public class DataKaryawan {
 
 	public void setDaftarAbsenKaryawan(List<KehadiranKaryawan> daftarAbsenKaryawan) {
 		this.daftarAbsenKaryawan = daftarAbsenKaryawan;
-	}
-
-	public Double getSaldoTerakhir() {
-		return saldoTerakhir;
-	}
-
-	public void setSaldoTerakhir(Double saldoTerakhir) {
-		this.saldoTerakhir = saldoTerakhir;
 	}
 
 	public Double getTotalPeminjaman() {

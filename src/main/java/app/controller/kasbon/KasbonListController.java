@@ -78,7 +78,7 @@ public class KasbonListController implements BootInitializable {
 						}
 					}
 				});
-		columnPembayaran.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("pinjaman"));
+		columnPembayaran.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("pembayaran"));
 		columnPembayaran
 				.setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
 
@@ -100,7 +100,7 @@ public class KasbonListController implements BootInitializable {
 					}
 				});
 
-		columnPeminjaman.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("pembayaran"));
+		columnPeminjaman.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("pinjaman"));
 		columnPeminjaman
 				.setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
 

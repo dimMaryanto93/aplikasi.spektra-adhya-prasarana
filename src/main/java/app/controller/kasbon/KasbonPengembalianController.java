@@ -170,10 +170,10 @@ public class KasbonPengembalianController implements BootInitializable {
 					txtBayar.setDisable(newValue == null);
 					if (newValue != null) {
 						spinnerValueFactor.setAmountToStepBy(50000D);
-						spinnerValueFactor.setMax(newValue.getSaldoTerakhir());
+						spinnerValueFactor.setMax(newValue.getTotalSaldoTerakhir());
 						spinnerValueFactor.setMin(0D);
 						spinnerValueFactor.setValue(0D);
-						txtHutang.setText(formatUang.getCurrencyFormate(newValue.getSaldoTerakhir()));
+						txtHutang.setText(formatUang.getCurrencyFormate(newValue.getTotalSaldoTerakhir()));
 					} else {
 						spinnerValueFactor.setAmountToStepBy(0D);
 						spinnerValueFactor.setMax(0D);
@@ -191,9 +191,12 @@ public class KasbonPengembalianController implements BootInitializable {
 		});
 	}
 
+	
+
 	private void doSave(ActionEvent e) {
 		DataKaryawan dataKaryawan = tableView.getSelectionModel().getSelectedItem();
 		if (dataKaryawan != null) {
+
 			try {
 				this.kasbon = new KasbonKaryawan();
 
@@ -203,8 +206,6 @@ public class KasbonPengembalianController implements BootInitializable {
 				kasbon.setPinjaman(0D);
 
 				kasbon.setSaldoTerakhir(dataKaryawan.getTotalSaldoTerakhir() - kasbon.getPembayaran());
-
-				dataKaryawan.setSaldoTerakhir(kasbon.getSaldoTerakhir());
 
 				dataKaryawan.getDaftarKasbon().add(kasbon);
 

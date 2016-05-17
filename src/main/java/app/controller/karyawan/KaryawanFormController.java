@@ -207,7 +207,6 @@ public class KaryawanFormController implements BootInitializable {
 			anEmployee.setAlamat(txaAlamat.getText());
 			anEmployee.setJabatan(mapJabatan.get(cbkJabatan.getValue()));
 			anEmployee.setPendidikan(cbkPendidikan.getValue());
-			anEmployee.setSaldoTerakhir(0D);
 			service.save(anEmployee);
 			homeController.showEmployee();
 		} catch (Exception e1) {
