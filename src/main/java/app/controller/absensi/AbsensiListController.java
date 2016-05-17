@@ -36,7 +36,7 @@ import javafx.util.Callback;
 public class AbsensiListController implements BootInitializable {
 
 	@Autowired
-	private AbsensiService absen;
+	private AbsensiService absenService;
 	@Autowired
 	private KaryawanService karyawan;
 	@Autowired
@@ -58,11 +58,11 @@ public class AbsensiListController implements BootInitializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
-		tableView.getSelectionModel().selectedItemProperty()
-				.addListener((ObservableValue<? extends DataKaryawan> values, DataKaryawan oldValue, DataKaryawan newValue) -> {
+		tableView.getSelectionModel().selectedItemProperty().addListener(
+				(ObservableValue<? extends DataKaryawan> values, DataKaryawan oldValue, DataKaryawan newValue) -> {
 					listView.getItems().clear();
 					if (newValue != null) {
-						listView.getItems().addAll(newValue.getDaftarAbsenKaryawan());
+						listView.getItems().addAll(absenService.findByKaryawan(newValue));
 					}
 				});
 		listView.setCellFactory(new Callback<ListView<KehadiranKaryawan>, ListCell<KehadiranKaryawan>>() {
