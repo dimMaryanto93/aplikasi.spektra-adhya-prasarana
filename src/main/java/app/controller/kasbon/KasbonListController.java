@@ -77,13 +77,13 @@ public class KasbonListController implements BootInitializable {
 					public ObservableValue<String> call(CellDataFeatures<KasbonKaryawan, String> param) {
 						KasbonKaryawan kasbon = param.getValue();
 						if (kasbon != null) {
-							return new SimpleStringProperty(formatUang.getCurrencyFormate(kasbon.getCredit()));
+							return new SimpleStringProperty(formatUang.getCurrencyFormate(kasbon.getPembayaran()));
 						} else {
 							return null;
 						}
 					}
 				});
-		
+
 		columnPeminjaman.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<KasbonKaryawan, String>, ObservableValue<String>>() {
 
@@ -91,7 +91,7 @@ public class KasbonListController implements BootInitializable {
 					public ObservableValue<String> call(CellDataFeatures<KasbonKaryawan, String> param) {
 						KasbonKaryawan kasbon = param.getValue();
 						if (kasbon != null) {
-							return new SimpleStringProperty(formatUang.getCurrencyFormate(kasbon.getDebit()));
+							return new SimpleStringProperty(formatUang.getCurrencyFormate(kasbon.getPinjaman()));
 						} else {
 							return null;
 						}

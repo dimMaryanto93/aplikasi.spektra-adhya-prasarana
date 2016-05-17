@@ -31,10 +31,10 @@ public class KasbonKaryawan {
 	private Date tanggalPinjam;
 
 	@Column(nullable = false)
-	private Double debit;
+	private Double pinjaman;
 
 	@Column(nullable = false)
-	private Double credit;
+	private Double pembayaran;
 
 	@Column(nullable = false)
 	private Double saldoTerakhir;
@@ -63,20 +63,20 @@ public class KasbonKaryawan {
 		this.tanggalPinjam = tanggalPinjam;
 	}
 
-	public Double getDebit() {
-		return debit;
+	public Double getPinjaman() {
+		return pinjaman;
 	}
 
-	public void setDebit(Double debit) {
-		this.debit = debit;
+	public void setPinjaman(Double pinjaman) {
+		this.pinjaman = pinjaman;
 	}
 
-	public Double getCredit() {
-		return credit;
+	public Double getPembayaran() {
+		return pembayaran;
 	}
 
-	public void setCredit(Double credit) {
-		this.credit = credit;
+	public void setPembayaran(Double pembayaran) {
+		this.pembayaran = pembayaran;
 	}
 
 	public Double getSaldoTerakhir() {

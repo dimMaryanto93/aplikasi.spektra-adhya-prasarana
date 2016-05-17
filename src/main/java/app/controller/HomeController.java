@@ -15,6 +15,7 @@ import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.KaryawanListController;
 import app.controller.kasbon.KasbonListController;
 import app.controller.kasbon.KasbonPeminjamanController;
+import app.controller.kasbon.KasbonPengembalianController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,6 +44,9 @@ public class HomeController implements BootInitializable {
 	
 	@Autowired
 	private KasbonPeminjamanController formPeminjaman;
+	
+	@Autowired
+	private KasbonPengembalianController formPengembalian;
 
 	private ApplicationContext springContext;
 	private Stage primaryStage;
@@ -149,6 +153,14 @@ public class HomeController implements BootInitializable {
 
 	@FXML
 	public void showPengembalian(ActionEvent event) {
+		try {
+			setLayout(formPengembalian.initView());
+			formPengembalian.initConstuct();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

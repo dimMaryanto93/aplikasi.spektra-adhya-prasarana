@@ -12,34 +12,37 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import app.configs.CurrencyNumberFormatter;
 import app.entities.KasbonKaryawan;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
 import app.repositories.KaryawanService;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.stage.Stage;
+import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.Button;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 
 @Component
-public class KasbonPeminjamanController implements BootInitializable {
-
-	@Autowired
-	private KaryawanService karyawanService;
+public class KasbonPengembalianController implements BootInitializable {
 
 	private ApplicationContext springContext;
+	@Autowired
+	private KaryawanService karyawanService;
+	@Autowired
+	private CurrencyNumberFormatter formatUang;
+
 	@FXML
 	private DatePicker txtTanggalTransaksi;
 	@FXML
@@ -51,21 +54,30 @@ public class KasbonPeminjamanController implements BootInitializable {
 	@FXML
 	private TableColumn<DataKaryawan, String> columnJabatan;
 	@FXML
-	private TableColumn<DataKaryawan, String> columnCekSaldo;
+	Spinner<Double> txtBayar;
 	@FXML
-	private TextField txtCariKaryawan;
+	private TextField txtHutang;
 	@FXML
-	private Spinner<Double> txtPinjam;
+	private TextField txtSisa;
 	@FXML
 	private Button btnSimpan;
+	@FXML
+	private TextField txtCariKaryawan;
+
+	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerValueFactor = new SpinnerValueFactory.DoubleSpinnerValueFactory(
+			Double.valueOf(0), Double.valueOf(0), Double.valueOf(0), Double.valueOf(0));
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		txtTanggalTransaksi.getEditor().setAlignment(Pos.CENTER_RIGHT);
 		txtTanggalTransaksi.setValue(LocalDate.now());
 
-		txtPinjam.setValueFactory(
-				new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.valueOf(0), Double.MAX_VALUE, 0, 50000));
+		txtBayar.setValueFactory(spinnerValueFactor);
+		txtBayar.getEditor().setAlignment(Pos.CENTER_RIGHT);
+
+		txtHutang.setAlignment(Pos.CENTER_RIGHT);
+
+		txtSisa.setAlignment(Pos.CENTER_RIGHT);
 
 		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
@@ -80,20 +92,32 @@ public class KasbonPeminjamanController implements BootInitializable {
 
 		tableView.getSelectionModel().selectedItemProperty().addListener(
 				(ObservableValue<? extends DataKaryawan> values, DataKaryawan oldValue, DataKaryawan newValue) -> {
-					txtPinjam.setDisable(newValue == null);
+					txtBayar.setDisable(newValue == null);
 					btnSimpan.setDisable(newValue == null);
+					if (newValue != null) {
+						spinnerValueFactor.setAmountToStepBy(50000D);
+						spinnerValueFactor.setMax(newValue.getSaldoTerakhir());
+						spinnerValueFactor.setMin(0D);
+						spinnerValueFactor.setValue(0D);
+						txtHutang.setText(formatUang.getCurrencyFormate(newValue.getSaldoTerakhir()));
+					} else {
+						spinnerValueFactor.setAmountToStepBy(0D);
+						spinnerValueFactor.setMax(0D);
+						spinnerValueFactor.setMin(0D);
+						spinnerValueFactor.setValue(0D);
+						txtHutang.clear();
+					}
 				});
 		btnSimpan.setOnAction(e -> {
 			doSave(e);
 		});
-
 	}
 
 	private void doSave(ActionEvent e) {
 		DataKaryawan dataKaryawan = tableView.getSelectionModel().getSelectedItem();
 		if (dataKaryawan != null) {
 			KasbonKaryawan kasbon = new KasbonKaryawan();
-
+			
 			Double totalPinjam = 0D;
 			Double totalBayar = 0D;
 
@@ -101,23 +125,24 @@ public class KasbonPeminjamanController implements BootInitializable {
 				totalBayar += bon.getPembayaran();
 				totalPinjam += bon.getPinjaman();
 			}
-			System.out.println("Total Debit: " + totalBayar + ", Total pinjam : " + totalPinjam);
-
+			
 			kasbon.setKaryawan(dataKaryawan);
 			kasbon.setTanggalPinjam(Date.valueOf(txtTanggalTransaksi.getValue()));
-			kasbon.setPinjaman(txtPinjam.getValueFactory().getValue());
-			kasbon.setPembayaran(0D);
+			kasbon.setPembayaran(txtBayar.getValueFactory().getValue());
+			kasbon.setPinjaman(0D);
 			
-			kasbon.setSaldoTerakhir((totalPinjam - totalBayar) + kasbon.getPinjaman());
-
-			dataKaryawan.getDaftarKasbon().add(kasbon);
+			kasbon.setSaldoTerakhir((totalPinjam - totalBayar) - kasbon.getPembayaran());
 
 			dataKaryawan.setSaldoTerakhir(kasbon.getSaldoTerakhir());
 
+			dataKaryawan.getDaftarKasbon().add(kasbon);
+
 			karyawanService.save(dataKaryawan);
 		} else {
-			System.out.println("Table View belum dipilih");
+			// TODO tampilkan dialop peringatan karyawan belum pilih
+			System.out.println("Karyawan belum dipilih");
 		}
+
 	}
 
 	@Override
@@ -128,13 +153,14 @@ public class KasbonPeminjamanController implements BootInitializable {
 	@Override
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/kasbon/Peminjaman.fxml"));
+		loader.setLocation(getClass().getResource("/scenes/inner/kasbon/Pengembalian.fxml"));
 		loader.setController(springContext.getBean(this.getClass()));
 		return loader.load();
 	}
 
 	@Override
 	public void setStage(Stage stage) {
+		// TODO Auto-generated method stub
 
 	}
 
@@ -145,8 +171,17 @@ public class KasbonPeminjamanController implements BootInitializable {
 	}
 
 	@FXML
-	public void doBack() {
+	public void doBack(ActionEvent event) {
+	}
 
+	@FXML
+	public void doClearSelection() {
+		tableView.getSelectionModel().clearSelection();
+	}
+
+	@FXML
+	public void doRefresh() {
+		initConstuct();
 	}
 
 }

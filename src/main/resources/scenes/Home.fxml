@@ -39,11 +39,11 @@
 						<Menu mnemonicParsing="false" text="Kasbon Karyawan">
 							<items>
 								<MenuItem mnemonicParsing="false" onAction="#showKasbon"
-									text="Data Peminjaman dan Pengembalian" />
+									text="Data Peminjaman dan Pembayaran Kasbon" />
 								<MenuItem mnemonicParsing="false" onAction="#showPeminjaman"
 									text="Peminjaman" />
 								<MenuItem mnemonicParsing="false" onAction="#showPengembalian"
-									text="Pengembalian" />
+									text="Pembayaran Kasbon" />
 							</items>
 						</Menu>
 					</items>
