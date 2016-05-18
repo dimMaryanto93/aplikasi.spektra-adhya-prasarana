@@ -69,6 +69,8 @@ public class KasbonPeminjamanController implements BootInitializable {
 
 	private KasbonKaryawan kasbon;
 
+	private NotificationDialogs notif;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		txtTanggalTransaksi.getEditor().setAlignment(Pos.CENTER_RIGHT);
@@ -131,10 +133,8 @@ public class KasbonPeminjamanController implements BootInitializable {
 
 				initConstuct();
 			} else {
-				// TODO message dialog gak boleh simpan karena masih memiliki
-				// hutang
-				System.out.println(
-						"Data karyawan tersebut tidak dapat melakukan" + " pinjaman karena masih memiliki hutang");
+				notif.showWarningNotification("Peminjaman Karyawan",
+						"Tidak dapat melakukan peminjaman karena " + "\nkaryawan tersebut masih memiliki tunggakan");
 			}
 		} else {
 			System.out.println("Table View belum dipilih");
@@ -176,14 +176,13 @@ public class KasbonPeminjamanController implements BootInitializable {
 	@Override
 	@Autowired
 	public void setNotificationDialog(NotificationDialogs notif) {
-		// TODO Auto-generated method stub
-		
+		this.notif = notif;
 	}
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
