@@ -3,6 +3,8 @@ package app;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -21,6 +23,8 @@ import javafx.stage.StageStyle;
 
 @SpringBootApplication
 public class MainApplication extends Application {
+
+	private final Logger loger = LoggerFactory.getLogger(this.getClass());
 
 	private ConfigurableApplicationContext springContext;
 
@@ -63,21 +67,25 @@ public class MainApplication extends Application {
 			@Override
 			public void handle(WorkerStateEvent event) {
 				try {
+					loger.info("JavaFX loading...");
 					HomeController scene = springContext.getBean(HomeController.class);
 					Stage stage = springContext.getBean(Stage.class);
 					Parent parent = (Parent) scene.initView();
 					stage.setScene(new Scene(parent));
 					stage.show();
+					loger.info("JavaFX started, have nice day sir!");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					loger.error("Gagal load JavaFX Application", e);
 				}
 			}
 		});
 		worker.setOnFailed(e -> {
-			System.err.println("---------------------------------------------------");
-			System.err.println("Aplikasi dihentika secara paksa! karena berikut ini:\n" + e.getSource().getException());
-			System.exit(0);
+			try {
+				this.loger.info("Application force stoped!");
+				this.stop();
+			} catch (Exception e1) {
+				this.loger.error("Gagal menghentikan aplikasi secara paksa!", e1);
+			}
 		});
 		worker.run();
 	}
