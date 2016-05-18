@@ -1,6 +1,7 @@
 package app;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -41,6 +42,7 @@ public class MainApplication extends Application {
 	}
 
 	public static void main(String[] args) {
+		Locale.setDefault(new Locale("in", "ID"));
 		MainApplication.args = args;
 		launch(MainApplication.class, args);
 	}
@@ -71,6 +73,11 @@ public class MainApplication extends Application {
 					e.printStackTrace();
 				}
 			}
+		});
+		worker.setOnFailed(e -> {
+			System.err.println("---------------------------------------------------");
+			System.err.println("Aplikasi dihentika secara paksa! karena berikut ini:\n" + e.getSource().getException());
+			System.exit(0);
 		});
 		worker.run();
 	}

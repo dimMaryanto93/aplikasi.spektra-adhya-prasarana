@@ -13,7 +13,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
-import app.configs.CurrencyNumberFormatter;
+import app.configs.FormatterFactory;
 import app.configs.NotificationDialogs;
 import app.entities.KasbonKaryawan;
 import app.entities.master.DataJabatan;
@@ -43,7 +43,7 @@ public class KasbonPeminjamanController implements BootInitializable {
 	private KaryawanService karyawanService;
 
 	@Autowired
-	private CurrencyNumberFormatter formatUang;
+	private FormatterFactory formatUang;
 
 	private ApplicationContext springContext;
 	@FXML
