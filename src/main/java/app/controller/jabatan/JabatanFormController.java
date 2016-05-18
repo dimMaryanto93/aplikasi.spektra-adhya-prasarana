@@ -7,9 +7,11 @@ import java.util.ResourceBundle;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import app.configs.NotificationDialogs;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
 import app.repositories.JabatanService;
@@ -144,6 +146,19 @@ public class JabatanFormController implements BootInitializable {
 	@FXML
 	public void doCancel(ActionEvent event) {
 		homeController.showDepartment();
+	}
+
+	@Override
+	@Autowired
+	public void setNotificationDialog(NotificationDialogs notif) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setMessageSource(MessageSource messageSource) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

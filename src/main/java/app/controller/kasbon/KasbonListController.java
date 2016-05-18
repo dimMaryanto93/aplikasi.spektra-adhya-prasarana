@@ -7,10 +7,12 @@ import java.util.ResourceBundle;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.CurrencyNumberFormatter;
+import app.configs.NotificationDialogs;
 import app.entities.KasbonKaryawan;
 import app.entities.master.DataKaryawan;
 import app.repositories.KaryawanService;
@@ -218,6 +220,19 @@ public class KasbonListController implements BootInitializable {
 	public void doRefresh() {
 		listView.getItems().clear();
 		listView.getItems().addAll(karyawanService.findAll());
+	}
+
+	@Override
+	@Autowired
+	public void setNotificationDialog(NotificationDialogs notif) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setMessageSource(MessageSource messageSource) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

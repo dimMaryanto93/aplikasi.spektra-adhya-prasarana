@@ -7,9 +7,11 @@ import java.util.ResourceBundle;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import app.configs.NotificationDialogs;
 import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.KaryawanListController;
@@ -41,15 +43,17 @@ public class HomeController implements BootInitializable {
 
 	@Autowired
 	private KasbonListController listKasbon;
-	
+
 	@Autowired
 	private KasbonPeminjamanController formPeminjaman;
-	
+
 	@Autowired
 	private KasbonPengembalianController formPengembalian;
 
 	private ApplicationContext springContext;
 	private Stage primaryStage;
+
+	private NotificationDialogs notificationDialogs;
 
 	public void setLayout(Node anNode) {
 		mainLayout.setCenter(anNode);
@@ -84,6 +88,7 @@ public class HomeController implements BootInitializable {
 
 	@FXML
 	public void closed() {
+		System.out.println(notificationDialogs.toString());
 		Platform.exit();
 	}
 
@@ -160,7 +165,19 @@ public class HomeController implements BootInitializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	@Override
+	@Autowired
+	public void setNotificationDialog(NotificationDialogs notif) {
+		this.notificationDialogs = notif;
+	}
+
+	@Override
+	public void setMessageSource(MessageSource messageSource) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

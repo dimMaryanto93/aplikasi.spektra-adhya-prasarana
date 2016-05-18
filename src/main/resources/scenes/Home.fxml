@@ -28,8 +28,6 @@
 							text="Karyawan" />
 						<MenuItem mnemonicParsing="false" onAction="#showDepartment"
 							text="Jabatan" />
-						<MenuItem mnemonicParsing="false" onAction="#showProfile"
-							text="Profile" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Kepegawaian">
