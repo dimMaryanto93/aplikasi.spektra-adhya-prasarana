@@ -6,42 +6,46 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="mainLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
-	<top>
-		<MenuBar BorderPane.alignment="CENTER">
-			<menus>
-				<Menu mnemonicParsing="false" text="Akses">
-					<items>
-						<MenuItem mnemonicParsing="false" text="Masuk" />
-						<MenuItem mnemonicParsing="false" text="Keluar" />
-						<SeparatorMenuItem mnemonicParsing="false" />
-						<MenuItem mnemonicParsing="false" onAction="#closed" text="Tutup" />
-					</items>
-				</Menu>
-				<Menu mnemonicParsing="false" text="Data Master">
-					<items>
-						<MenuItem mnemonicParsing="false" onAction="#showEmployee" text="Karyawan" />
-						<MenuItem mnemonicParsing="false" onAction="#showDepartment" text="Jabatan" />
-					</items>
-				</Menu>
-				<Menu mnemonicParsing="false" text="Kepegawaian">
-					<items>
-						<MenuItem mnemonicParsing="false" onAction="#showAttendance" text="Absensi" />
-						<Menu mnemonicParsing="false" text="Kasbon Karyawan">
-							<items>
-								<MenuItem mnemonicParsing="false" onAction="#showKasbon" text="Data Peminjaman dan Pembayaran Kasbon" />
-								<MenuItem mnemonicParsing="false" onAction="#showPeminjaman" text="Peminjaman" />
-								<MenuItem mnemonicParsing="false" onAction="#showPengembalian" text="Pembayaran Kasbon" />
-							</items>
-						</Menu>
-					</items>
-				</Menu>
-				<Menu mnemonicParsing="false" text="Laporan">
-					<items>
-						<MenuItem mnemonicParsing="false" text="Action 1" />
-					</items>
-				</Menu>
-			</menus>
-		</MenuBar>
-	</top>
+<BorderPane fx:id="mainLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="550.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/null"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Akses">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Masuk"/>
+                        <MenuItem mnemonicParsing="false" text="Keluar"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" onAction="#closed" text="Tutup"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Data Master">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showEmployee" text="Karyawan"/>
+                        <MenuItem mnemonicParsing="false" onAction="#showDepartment" text="Jabatan"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Kepegawaian">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showAttendance" text="Absensi"/>
+                        <Menu mnemonicParsing="false" text="Kasbon Karyawan">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#showKasbon"
+                                          text="Data Peminjaman dan Pembayaran Kasbon"/>
+                                <MenuItem mnemonicParsing="false" onAction="#showPeminjaman" text="Peminjaman"/>
+                                <MenuItem mnemonicParsing="false" onAction="#showPengembalian"
+                                          text="Pembayaran Kasbon"/>
+                            </items>
+                        </Menu>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Laporan">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
 </BorderPane>
