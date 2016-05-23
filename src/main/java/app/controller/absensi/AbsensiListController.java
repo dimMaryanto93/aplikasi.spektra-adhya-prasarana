@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import app.configs.BootInitializable;
 import app.configs.NotificationDialogs;
 import app.controller.HomeController;
-import app.entities.KehadiranKaryawan;
+import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.master.DataKaryawan;
 import app.repositories.AbsensiService;
 import app.repositories.KaryawanService;

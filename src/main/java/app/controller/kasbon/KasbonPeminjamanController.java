@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import app.configs.BootInitializable;
 import app.configs.FormatterFactory;
 import app.configs.NotificationDialogs;
-import app.entities.KasbonKaryawan;
+import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
 import app.repositories.KaryawanService;

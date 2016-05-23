@@ -17,9 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import app.entities.KasbonKaryawan;
-import app.entities.KehadiranKaryawan;
-import app.entities.Penggajian;
+import app.entities.kepegawaian.KasbonKaryawan;
+import app.entities.kepegawaian.KehadiranKaryawan;
+import app.entities.kepegawaian.Penggajian;
+import app.entities.kepegawaian.uang.prestasi.Motor;
 
 @Entity
 @Table(name = "data_karyawan")
@@ -47,7 +48,12 @@ public class DataKaryawan {
 	private String alamat;
 	private Double gaji;
 
+	@Column(name = "tanggal_mulai_kerja", nullable = false)
 	private Date tanggalMulaiKerja;
+
+	@ManyToOne
+	@JoinColumn(name = "kode_motor")
+	private Motor ngicilMotor;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "karyawan", orphanRemoval = true)
 	private List<Penggajian> daftarTerimaGaji = new ArrayList<Penggajian>();
@@ -204,6 +210,14 @@ public class DataKaryawan {
 
 	public Double getTotalSaldoTerakhir() {
 		return getTotalPeminjaman() - getTotalPembayaran();
+	}
+
+	public Motor getNgicilMotor() {
+		return ngicilMotor;
+	}
+
+	public void setNgicilMotor(Motor ngicilMotor) {
+		this.ngicilMotor = ngicilMotor;
 	}
 
 }

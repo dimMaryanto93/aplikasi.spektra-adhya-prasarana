@@ -1,4 +1,4 @@
-package app.entities;
+package app.entities.kepegawaian;
 
 import java.sql.Date;
 import java.sql.Timestamp;

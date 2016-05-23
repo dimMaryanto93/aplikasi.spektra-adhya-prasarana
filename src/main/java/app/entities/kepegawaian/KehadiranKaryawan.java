@@ -1,4 +1,4 @@
-package app.entities;
+package app.entities.kepegawaian;
 
 import java.sql.Date;
 
@@ -18,7 +18,6 @@ import app.entities.master.DataKaryawan;
 @Entity
 @Table(name = "absensi_karyawan", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "tanggal_hadir", "id_karyawan" }, name = "uq_hadir_karyawan") })
-
 public class KehadiranKaryawan {
 
 	@Id
