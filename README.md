@@ -1,38 +1,7 @@
 # PT Spektra Adhya Prasaran
 
 ## Perancangan Data
-![Gambar class diagram](/exports/ClassDiagram.jpg)
-
-## Perancangan UI
-
-* Main MENU
-
-![Main Menu Aplikasi](/exports/mainmenu.png)
-
-* Data karyawan
-
-![Data karyawan](/exports/data_karyawan.png)
-
-* Data Jabatan Karyawan
-
-![Data jabatan](/exports/data_karyawan.png)
-
-* Data Peminjaman Karyawan
-
-![Data Peminjaman karyawan](/exports/datapeminjaman.png)
-
-* Form Peminjaman Karyawan
-
-![Form Peminjaman karyawan](/exports/formpeminjaman.png)
-
-* Absen Karyawan
-
-![Form Absen karyawan](/exports/absensi.png)
-
-* Penggajian
-
-![Penggajian karyawan](/exports/penggajian.png)
-
+![Gambar class diagram](/exports/4-1-4-1-ClassDiagram.png)
 
 ## Jadwal Penting (perkiraan)
 
