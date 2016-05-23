@@ -27,6 +27,9 @@ public class Motor {
 	@Column(name = "no_polisi", length = 20)
 	private String noPolisi;
 
+	@Column(name = "merek_motor", nullable = false, length = 50)
+	private String merkMotor;
+
 	@Column(name = "tanggal_pesan", nullable = false)
 	private Date tanggalPesan;
 
@@ -35,6 +38,9 @@ public class Motor {
 
 	@Column(name = "downpayment", nullable = false)
 	private Double dp;
+
+	@Column(name = "disetujui", nullable = false)
+	private Boolean setuju;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "motor", orphanRemoval = true)
 	private List<PembayaranCicilanMotor> daftarCicilan = new ArrayList<>();
