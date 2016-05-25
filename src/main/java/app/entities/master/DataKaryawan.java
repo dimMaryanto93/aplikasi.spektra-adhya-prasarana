@@ -229,7 +229,11 @@ public class DataKaryawan {
 	}
 
 	public Boolean isGettingCililanMotorUntukDisetujui() {
-		return getNgicilMotor() != null;
+		return getNgicilMotor() != null && !getNgicilMotor().isSetuju();
+	}
+	
+	public Boolean isGettingCicilanMotorDisetujui(){
+		return getNgicilMotor() != null && getNgicilMotor().isSetuju();
 	}
 
 }

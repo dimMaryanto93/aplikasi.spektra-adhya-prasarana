@@ -57,7 +57,7 @@
 								<MenuItem mnemonicParsing="false" onAction="#showPersetujuanCicilan"
 									text="Persetujuan" />
 								<MenuItem mnemonicParsing="false" onAction="#showPembayaranCicilan"
-									text="Pembayaran" />
+									text="Daftar Pembayaran Cicilan Motor" />
 							</items>
 						</Menu>
 					</items>

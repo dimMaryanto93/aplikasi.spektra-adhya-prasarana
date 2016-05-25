@@ -175,7 +175,7 @@ public class PersetujuanFormController implements BootInitializable {
 	public void initConstuct() {
 		tableView.getItems().clear();
 		for (DataKaryawan karyawan : serviceKaryawan.findAll()) {
-			if (karyawan.isGettingCililanMotorUntukDisetujui() && !karyawan.getNgicilMotor().isSetuju()) {
+			if (karyawan.isGettingCililanMotorUntukDisetujui()) {
 				tableView.getItems().add(karyawan);
 			}
 		}

@@ -19,6 +19,7 @@ import app.controller.karyawan.KaryawanListController;
 import app.controller.kasbon.KasbonListController;
 import app.controller.kasbon.KasbonPeminjamanController;
 import app.controller.kasbon.KasbonPengembalianController;
+import app.controller.prestasi.CicilanListController;
 import app.controller.prestasi.PengajuanFormController;
 import app.controller.prestasi.PersetujuanFormController;
 import javafx.application.Platform;
@@ -61,6 +62,9 @@ public class HomeController implements BootInitializable {
 	
 	@Autowired
 	private PersetujuanFormController formPersetujuanCicilanMotor;
+	
+	@Autowired
+	private CicilanListController listCicilanMotor;
 
 	private ApplicationContext springContext;
 	private Stage primaryStage;
@@ -204,6 +208,12 @@ public class HomeController implements BootInitializable {
 
 	@FXML
 	public void showPembayaranCicilan(ActionEvent event) {
+		try {
+			setLayout(listCicilanMotor.initView());
+			listCicilanMotor.initConstuct();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	@FXML
