@@ -39,6 +39,20 @@ public class Motor {
 	@Column(name = "downpayment", nullable = false)
 	private Double dp;
 
+	@Column(name = "pembayaran", nullable = false)
+	private Double pembayaran;
+
+	public Double getPembayaran() {
+		return pembayaran;
+	}
+
+	public void setPembayaran(Double pembayaran) {
+		this.pembayaran = pembayaran;
+	}
+
+	@Column(name = "sudah_diterima", nullable = false)
+	private Boolean sudahDiterima;
+
 	@Column(name = "disetujui", nullable = false)
 	private Boolean setuju;
 
@@ -84,5 +98,39 @@ public class Motor {
 	public void setDp(Double dp) {
 		this.dp = dp;
 	}
+
+	public String getMerkMotor() {
+		return merkMotor;
+	}
+
+	public void setMerkMotor(String merkMotor) {
+		this.merkMotor = merkMotor;
+	}
+
+	public Boolean isSudahDiterima() {
+		return sudahDiterima;
+	}
+
+	public void setSudahDiterima(Boolean sudahDiterima) {
+		this.sudahDiterima = sudahDiterima;
+	}
+
+	public Boolean isSetuju() {
+		return setuju;
+	}
+
+	public void setSetuju(Boolean setuju) {
+		this.setuju = setuju;
+	}
+
+	public List<PembayaranCicilanMotor> getDaftarCicilan() {
+		return daftarCicilan;
+	}
+
+	public void setDaftarCicilan(List<PembayaranCicilanMotor> daftarCicilan) {
+		this.daftarCicilan = daftarCicilan;
+	}
+	
+	
 
 }

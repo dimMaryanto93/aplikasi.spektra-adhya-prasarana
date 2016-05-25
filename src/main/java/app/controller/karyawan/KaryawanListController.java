@@ -92,6 +92,7 @@ public class KaryawanListController implements BootInitializable {
 			txtJabatan.setText(anEmployee.getJabatan().getNama());
 			txtGapok.setText(anEmployee.getGaji().toString());
 			txtJk.setText(anEmployee.getJenisKelamin().toString());
+			System.out.println("cicilan motor: " + anEmployee.isGettingCicilanMotor());
 		} else {
 			clearFields();
 		}
@@ -198,26 +199,36 @@ public class KaryawanListController implements BootInitializable {
 	}
 
 	public void doUpdate(DataKaryawan employee) throws IOException {
-		homeController.setLayout(formController.initView());
-		formController.initConstuct(employee);
+		try {
+			homeController.setLayout(formController.initView());
+			formController.initConstuct(employee);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void doDelete(DataKaryawan employee) throws Exception {
-		service.delete(employee);
-		initConstuct();
+		try {
+			service.delete(employee.getId());
+			initConstuct();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	@Autowired
 	public void setNotificationDialog(NotificationDialogs notif) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

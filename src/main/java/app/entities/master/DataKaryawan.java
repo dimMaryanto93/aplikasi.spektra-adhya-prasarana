@@ -1,6 +1,8 @@
 package app.entities.master;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import app.entities.kepegawaian.KasbonKaryawan;
@@ -51,7 +54,7 @@ public class DataKaryawan {
 	@Column(name = "tanggal_mulai_kerja", nullable = false)
 	private Date tanggalMulaiKerja;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "kode_motor")
 	private Motor ngicilMotor;
 
@@ -62,7 +65,7 @@ public class DataKaryawan {
 	private List<KasbonKaryawan> daftarKasbon = new ArrayList<KasbonKaryawan>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "karyawan", orphanRemoval = true)
-	private List<KehadiranKaryawan> daftarAbsenKaryawan = new ArrayList<>();
+	private List<KehadiranKaryawan> daftarAbsenKaryawan = new ArrayList<KehadiranKaryawan>();
 
 	@ManyToOne
 	@JoinColumn(name = "kode_jabatan", nullable = false)
@@ -218,6 +221,11 @@ public class DataKaryawan {
 
 	public void setNgicilMotor(Motor ngicilMotor) {
 		this.ngicilMotor = ngicilMotor;
+	}
+
+	public Boolean isGettingCicilanMotor() {
+		Long tahun = ChronoUnit.YEARS.between(getTanggalMulaiKerja().toLocalDate(), LocalDate.now());
+		return tahun >= 2 && getNgicilMotor() == null;
 	}
 
 }

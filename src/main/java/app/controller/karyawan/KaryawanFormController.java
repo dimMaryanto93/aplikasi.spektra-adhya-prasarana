@@ -51,6 +51,8 @@ public class KaryawanFormController implements BootInitializable {
 	@FXML
 	private TextArea txaAlamat;
 	@FXML
+	private DatePicker txtHireDate;
+	@FXML
 	private DatePicker datePicker;
 	@FXML
 	private ComboBox<DataAgama> cbkAgama;
@@ -93,6 +95,7 @@ public class KaryawanFormController implements BootInitializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		this.txtHireDate.setValue(LocalDate.now());
 		this.cbkJabatan.getSelectionModel().selectedItemProperty()
 				.addListener((ObservableValue<? extends String> value, String oldValue, String newValue) -> {
 					spinGapok.setDisable(newValue == null);
@@ -140,7 +143,7 @@ public class KaryawanFormController implements BootInitializable {
 		for (DataJabatan j : jabatanService.findAll()) {
 			String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
 			mapJabatan.put(key, j);
-			this.cbkJabatan.getItems().add(key);			
+			this.cbkJabatan.getItems().add(key);
 		}
 		cbkAgama.getItems().addAll(DataAgama.values());
 		cbkPendidikan.getItems().addAll(DataPendidikan.values());
@@ -155,23 +158,22 @@ public class KaryawanFormController implements BootInitializable {
 		cbkPendidikan.getItems().addAll(DataPendidikan.values());
 		this.txtNik.setText(String.valueOf(anEmployee.getNik()));
 		this.txtNama.setText(anEmployee.getNama());
-		
+
 		// add item to combobox jabatan
 		this.cbkJabatan.getItems().clear();
 		for (DataJabatan j : jabatanService.findAll()) {
 			String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
 			mapJabatan.put(key, j);
-			this.cbkJabatan.getItems().add(key);			
+			this.cbkJabatan.getItems().add(key);
 		}
-		
+
 		// set value
 		DataJabatan j = anEmployee.getJabatan();
 		String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
-		
+
 		// select value to combobox
 		this.cbkJabatan.getSelectionModel().select(key);
-		
-		
+
 		this.cbkAgama.setValue(anEmployee.getAgama());
 		this.cbkPendidikan.setValue(anEmployee.getPendidikan());
 		this.datePicker.setValue(anEmployee.gettLahir().toLocalDate());
@@ -201,6 +203,7 @@ public class KaryawanFormController implements BootInitializable {
 		try {
 			anEmployee.setNik(Integer.valueOf(txtNik.getText()));
 			anEmployee.setNama(txtNama.getText());
+			anEmployee.setTanggalMulaiKerja(Date.valueOf(txtHireDate.getValue()));
 			anEmployee.setAgama(cbkAgama.getValue());
 			anEmployee.setJenisKelamin(getJenisKelamin());
 			anEmployee.setGaji(spinGapok.getValueFactory().getValue());
@@ -220,6 +223,7 @@ public class KaryawanFormController implements BootInitializable {
 		// do thing update employee
 		try {
 			anEmployee.setNama(txtNama.getText());
+			anEmployee.setTanggalMulaiKerja(Date.valueOf(txtHireDate.getValue()));
 			anEmployee.setAgama(cbkAgama.getValue());
 			anEmployee.setJenisKelamin(getJenisKelamin());
 			anEmployee.setGaji(spinGapok.getValueFactory().getValue());
@@ -249,13 +253,13 @@ public class KaryawanFormController implements BootInitializable {
 	@Autowired
 	public void setNotificationDialog(NotificationDialogs notif) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
