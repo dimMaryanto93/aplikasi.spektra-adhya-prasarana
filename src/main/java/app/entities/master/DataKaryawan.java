@@ -228,4 +228,8 @@ public class DataKaryawan {
 		return tahun >= 2 && getNgicilMotor() == null;
 	}
 
+	public Boolean isGettingCililanMotorUntukDisetujui() {
+		return getNgicilMotor() != null && !getNgicilMotor().isSetuju();
+	}
+
 }

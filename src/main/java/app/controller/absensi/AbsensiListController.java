@@ -2,7 +2,9 @@ package app.controller.absensi;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.BeansException;
@@ -13,26 +15,28 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.NotificationDialogs;
-import app.controller.HomeController;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.master.DataKaryawan;
+import app.entities.master.DataTidakHadir;
 import app.repositories.AbsensiService;
 import app.repositories.KaryawanService;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
+import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.event.ActionEvent;
 
 @Component
 public class AbsensiListController implements BootInitializable {
@@ -41,63 +45,160 @@ public class AbsensiListController implements BootInitializable {
 	private AbsensiService absenService;
 	@Autowired
 	private KaryawanService karyawan;
-	@Autowired
-	private HomeController homeController;
 
 	private ApplicationContext springContainer;
 	@FXML
-	private TableView<DataKaryawan> tableView;
+	private TableView<DataKaryawan> tableKaryawan;
 	@FXML
-	private TableColumn<DataKaryawan, String> columnNik;
+	private TableColumn<DataKaryawan, String> columnkaryawanNik;
 	@FXML
-	private TableColumn<DataKaryawan, String> columnNama;
+	private TableColumn<DataKaryawan, String> columnKaryawanNama;
+
 	@FXML
-	private ListView<KehadiranKaryawan> listView;
+	private TableView<KehadiranKaryawan> tabelKehadiran;
 	@FXML
-	private Button btnTambah;
+	private TableColumn<KehadiranKaryawan, String> columnTanggal;
+	@FXML
+	private TableColumn<KehadiranKaryawan, Boolean> columnHadir;
+	@FXML
+	private TableColumn<KehadiranKaryawan, Boolean> columnLembur;
+	@FXML
+	private TableColumn<KehadiranKaryawan, String> columnKeterangan;
+	@FXML
+	private TextField txtNoInduk;
+	@FXML
+	private TextField txtNama;
+	@FXML
+	private TextField txtJabatan;
+	@FXML
+	private TextField txtHadir;
+	@FXML
+	private TextField txtLembur;
+
+	private void setFields(DataKaryawan karyawan) {
+		txtNoInduk.setText(karyawan.getNik().toString());
+		txtNama.setText(karyawan.getNama());
+		txtJabatan.setText(karyawan.getJabatan().getNama());
+		Integer hadir = 0;
+		Integer lembur = 0;
+		for (KehadiranKaryawan absen : absenService.findByKaryawan(karyawan)) {
+			tabelKehadiran.getItems().add(absen);
+			if (absen.getHadir()) {
+				hadir += 1;
+			}
+			if (absen.getLembur()) {
+				lembur += 1;
+			}
+		}
+		txtHadir.setText(hadir.toString());
+		txtLembur.setText(lembur.toString());
+	}
+
+	private void clearFields() {
+		txtNoInduk.clear();
+		txtNama.clear();
+		txtJabatan.clear();
+		txtHadir.clear();
+		txtLembur.clear();
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
-		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
-		tableView.getSelectionModel().selectedItemProperty().addListener(
+		tabelKehadiran.setSelectionModel(null);
+		columnkaryawanNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
+		columnKaryawanNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
+		tableKaryawan.getSelectionModel().selectedItemProperty().addListener(
 				(ObservableValue<? extends DataKaryawan> values, DataKaryawan oldValue, DataKaryawan newValue) -> {
-					listView.getItems().clear();
+					tabelKehadiran.getItems().clear();
 					if (newValue != null) {
-						listView.getItems().addAll(absenService.findByKaryawan(newValue));
+						setFields(newValue);
+					} else {
+						clearFields();
 					}
 				});
-		listView.setCellFactory(new Callback<ListView<KehadiranKaryawan>, ListCell<KehadiranKaryawan>>() {
 
-			Label label;
-			HBox box;
+		columnTanggal.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<KehadiranKaryawan, String>, ObservableValue<String>>() {
 
-			@Override
-			public ListCell<KehadiranKaryawan> call(ListView<KehadiranKaryawan> param) {
-				// TODO Auto-generated method stub
-				return new ListCell<KehadiranKaryawan>() {
 					@Override
-					protected void updateItem(KehadiranKaryawan item, boolean empty) {
+					public ObservableValue<String> call(CellDataFeatures<KehadiranKaryawan, String> param) {
 						// TODO Auto-generated method stub
-						super.updateItem(item, empty);
-						if (empty) {
-							setGraphic(null);
+						LocalDate date = param.getValue().getTanggalHadir().toLocalDate();
+						DateTimeFormatter time = DateTimeFormatter.ofPattern("E',' dd-MMM-yyyy", Locale.getDefault());
+						return new SimpleStringProperty(time.format(date));
+					}
+				});
+		columnHadir.setCellValueFactory(new PropertyValueFactory<KehadiranKaryawan, Boolean>("hadir"));
+		columnHadir.setCellFactory(
+				new Callback<TableColumn<KehadiranKaryawan, Boolean>, TableCell<KehadiranKaryawan, Boolean>>() {
+
+					@Override
+					public TableCell<KehadiranKaryawan, Boolean> call(TableColumn<KehadiranKaryawan, Boolean> param) {
+						// TODO Auto-generated method stub
+						return new TableCell<KehadiranKaryawan, Boolean>() {
+							CheckBox box;
+
+							@Override
+							protected void updateItem(Boolean item, boolean empty) {
+								// TODO Auto-generated method stub
+								setAlignment(Pos.CENTER);
+								super.updateItem(item, empty);
+								if (!empty) {
+									box = new CheckBox();
+									box.setDisable(true);
+									box.setOpacity(1.0);
+									box.setSelected(item);
+									setGraphic(box);
+								} else {
+									setGraphic(null);
+								}
+							}
+						};
+					}
+				});
+		columnLembur.setCellValueFactory(new PropertyValueFactory<KehadiranKaryawan, Boolean>("lembur"));
+		columnLembur.setCellFactory(
+				new Callback<TableColumn<KehadiranKaryawan, Boolean>, TableCell<KehadiranKaryawan, Boolean>>() {
+
+					@Override
+					public TableCell<KehadiranKaryawan, Boolean> call(TableColumn<KehadiranKaryawan, Boolean> param) {
+						// TODO Auto-generated method stub
+						return new TableCell<KehadiranKaryawan, Boolean>() {
+							CheckBox box;
+
+							@Override
+							protected void updateItem(Boolean item, boolean empty) {
+								// TODO Auto-generated method stub
+								setAlignment(Pos.CENTER);
+								super.updateItem(item, empty);
+								if (!empty) {
+									box = new CheckBox();
+									box.setDisable(true);
+									box.setOpacity(1.0);
+									box.setSelected(item);
+									setGraphic(box);
+								} else {
+									setGraphic(null);
+								}
+							}
+						};
+					}
+				});
+
+		columnKeterangan.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<KehadiranKaryawan, String>, ObservableValue<String>>() {
+
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<KehadiranKaryawan, String> param) {
+						// TODO Auto-generated method stub
+						DataTidakHadir gakHadir = param.getValue().getKet();
+						if (gakHadir != null) {
+							return new SimpleStringProperty(gakHadir.toString());
 						} else {
-							box = new HBox();
-							box.setSpacing(10);
-
-							box.getChildren().add(new Label(DateTimeFormatter.ofPattern("dd MMM yyyy")
-									.format(item.getTanggalHadir().toLocalDate())));
-
-							label = new Label("Lembur : " + item.getLembur());
-							box.getChildren().add(label);
-							setGraphic(box);
-
+							return new SimpleStringProperty("Tanpa Keterangan!");
 						}
 					}
-				};
-			}
-		});
+				});
 	}
 
 	@Override
@@ -121,8 +222,8 @@ public class AbsensiListController implements BootInitializable {
 
 	private void loadDataKaryawan() {
 		try {
-			tableView.getItems().clear();
-			tableView.getItems().addAll(karyawan.findAll());
+			tableKaryawan.getItems().clear();
+			tableKaryawan.getItems().addAll(karyawan.findAll());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -131,18 +232,6 @@ public class AbsensiListController implements BootInitializable {
 	@Override
 	public void initConstuct() {
 		loadDataKaryawan();
-	}
-
-	@FXML
-	public void doAdd(ActionEvent event) {
-		try {
-			AbsensiFormController absen = springContainer.getBean(AbsensiFormController.class);
-			homeController.setLayout(absen.initView());
-			absen.initConstuct();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -155,7 +244,17 @@ public class AbsensiListController implements BootInitializable {
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@FXML
+	public void doClear(ActionEvent event) {
+		tableKaryawan.getSelectionModel().clearSelection();
+	}
+
+	@FXML
+	public void doRefresh(ActionEvent event) {
+		initConstuct();
 	}
 
 }

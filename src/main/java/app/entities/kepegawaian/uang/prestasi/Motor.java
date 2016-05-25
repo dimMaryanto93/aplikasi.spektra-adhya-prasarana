@@ -130,7 +130,5 @@ public class Motor {
 	public void setDaftarCicilan(List<PembayaranCicilanMotor> daftarCicilan) {
 		this.daftarCicilan = daftarCicilan;
 	}
-	
-	
 
 }

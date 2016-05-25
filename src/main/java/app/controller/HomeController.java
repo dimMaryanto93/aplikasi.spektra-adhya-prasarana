@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.NotificationDialogs;
+import app.controller.absensi.AbsensiFormController;
 import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.KaryawanListController;
@@ -50,9 +51,12 @@ public class HomeController implements BootInitializable {
 
 	@Autowired
 	private KasbonPengembalianController formPengembalian;
-	
+
 	@Autowired
 	private PengajuanFormController formPengajuanCicilan;
+
+	@Autowired
+	private AbsensiFormController formAbsensi;
 
 	private ApplicationContext springContext;
 	private Stage primaryStage;
@@ -117,17 +121,6 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(listJabatan.initView());
 			listJabatan.initConstuct();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
-
-	@FXML
-	public void showAttendance(ActionEvent e) {
-		try {
-			setLayout(listAbsen.initView());
-			listAbsen.initConstuct();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -201,6 +194,28 @@ public class HomeController implements BootInitializable {
 
 	@FXML
 	public void showPembayaranCicilan(ActionEvent event) {
+	}
+
+	@FXML
+	public void showDaftarHadirKaryawan(ActionEvent event) {
+		try {
+			setLayout(listAbsen.initView());
+			listAbsen.initConstuct();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void showFormAbsensi(ActionEvent event) {
+		try {
+			setLayout(formAbsensi.initView());
+			formAbsensi.initConstuct();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
 	}
 
 }

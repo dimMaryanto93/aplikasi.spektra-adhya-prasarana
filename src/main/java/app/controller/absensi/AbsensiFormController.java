@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.NotificationDialogs;
-import app.controller.HomeController;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.master.DataKaryawan;
+import app.entities.master.DataTidakHadir;
 import app.repositories.AbsensiService;
 import app.repositories.KaryawanService;
 import javafx.beans.property.SimpleObjectProperty;
@@ -26,8 +26,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,13 +42,14 @@ import javafx.stage.Stage;
 public class AbsensiFormController implements BootInitializable {
 
 	@Autowired
-	private HomeController homeController;
-	@Autowired
 	private KaryawanService karyawanRepository;
 	@Autowired
 	private AbsensiService absensiRepository;
 
 	private ApplicationContext springContext;
+
+	@FXML
+	private Label txtTanggal;
 	@FXML
 	private TableView<KehadiranKaryawan> tableView;
 	@FXML
@@ -56,6 +61,7 @@ public class AbsensiFormController implements BootInitializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		tableView.setSelectionModel(null);
 		columnNik.setCellValueFactory(v -> {
 			DataKaryawan e = v.getValue().getKaryawan();
 
@@ -99,13 +105,19 @@ public class AbsensiFormController implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
+		txtTanggal.setText(LocalDate.now().toString());
 		tableView.getItems().clear();
 		for (DataKaryawan karyawan : karyawanRepository.findAll()) {
-			KehadiranKaryawan absen = new KehadiranKaryawan();
-			absen.setKaryawan(karyawan);
-			absen.setTanggalHadir(Date.valueOf(LocalDate.now()));
-			absen.setHadir(false);
-			absen.setLembur(false);
+
+			KehadiranKaryawan absen;
+			absen = absensiRepository.findByKaryawanAndTanggalHadir(karyawan, Date.valueOf(LocalDate.now()));
+			if (absen == null) {
+				absen = new KehadiranKaryawan();
+				absen.setHadir(false);
+				absen.setLembur(false);
+				absen.setKaryawan(karyawan);
+				absen.setTanggalHadir(Date.valueOf(LocalDate.now()));
+			}
 			tableView.getItems().add(absen);
 		}
 	}
@@ -113,11 +125,8 @@ public class AbsensiFormController implements BootInitializable {
 	@FXML
 	public void doSave(ActionEvent event) {
 		try {
-			for (KehadiranKaryawan absen : tableView.getItems()) {
-				if (absen.getHadir()) {
-					absensiRepository.save(absen);
-				}
-			}
+
+			absensiRepository.save(tableView.getItems());
 			doCancel(event);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -127,7 +136,7 @@ public class AbsensiFormController implements BootInitializable {
 
 	@FXML
 	public void doCancel(ActionEvent event) {
-		homeController.showAttendance(event);
+		initConstuct();
 	}
 
 	public class CheckboxInTableView extends TableCell<KehadiranKaryawan, Boolean> {
@@ -135,6 +144,7 @@ public class AbsensiFormController implements BootInitializable {
 		private CheckBox hadir;
 		private CheckBox lembur;
 		private ObservableList<KehadiranKaryawan> daftarAbsen;
+		private ChoiceBox<DataTidakHadir> keterangan;
 
 		public CheckboxInTableView(ObservableList<KehadiranKaryawan> items) {
 			this.daftarAbsen = items;
@@ -149,13 +159,31 @@ public class AbsensiFormController implements BootInitializable {
 
 				this.hadir = new CheckBox("Kehadiran");
 				this.lembur = new CheckBox("Lembur");
-				this.lembur.setDisable(true);
+				this.keterangan = new ChoiceBox<DataTidakHadir>();
+				this.keterangan.getItems().addAll(DataTidakHadir.values());
 
+				if (!absen.getHadir()) {
+					this.lembur.setDisable(true);
+				} else {
+					this.keterangan.setDisable(false);
+				}
+				this.keterangan.getSelectionModel().selectedItemProperty()
+						.addListener((ObservableValue<? extends DataTidakHadir> values, DataTidakHadir oldValue,
+								DataTidakHadir newValue) -> {
+							absen.setKet(newValue);
+						});
 				this.hadir.selectedProperty().addListener(
 						(ObservableValue<? extends Boolean> values, Boolean oldValue, Boolean newValue) -> {
 							lembur.setDisable(!newValue);
+							keterangan.setDisable(newValue);
 
 							absen.setHadir(newValue);
+
+							if (newValue) {
+								this.keterangan.getSelectionModel().clearSelection();
+							} else {
+								this.lembur.setSelected(false);
+							}
 
 							System.out.println(
 									"Nama Karyawan : " + absen.getKaryawan().getNama() + " hadir " + absen.getHadir());
@@ -163,18 +191,24 @@ public class AbsensiFormController implements BootInitializable {
 
 				this.lembur.selectedProperty().addListener(
 						(ObservableValue<? extends Boolean> values, Boolean oldValue, Boolean newValue) -> {
-							lembur.setDisable(!newValue);
-
 							absen.setLembur(newValue);
+
+							if (!this.hadir.isSelected()) {
+								this.lembur.setDisable(true);
+							}
 
 							System.out.println("Nama Karyawan : " + absen.getKaryawan().getNama() + " lembur "
 									+ absen.getLembur());
 						});
-
+				this.hadir.setSelected(absen.getHadir());
+				this.lembur.setSelected(absen.getLembur());
+				this.keterangan.getSelectionModel().select(absen.getKet());
 				HBox box = new HBox();
 				box.setSpacing(10);
 				box.getChildren().add(hadir);
 				box.getChildren().add(lembur);
+				box.getChildren().add(new Separator(Orientation.VERTICAL));
+				box.getChildren().add(keterangan);
 				setGraphic(box);
 			} else {
 				setGraphic(null);

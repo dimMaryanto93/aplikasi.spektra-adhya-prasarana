@@ -32,8 +32,14 @@
 				</Menu>
 				<Menu mnemonicParsing="false" text="Kepegawaian">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#showAttendance"
-							text="Absensi" />
+						<Menu mnemonicParsing="false" text="Absensi Karyawan">
+							<items>
+								<MenuItem mnemonicParsing="false" onAction="#showDaftarHadirKaryawan"
+									text="Daftar Hadir Karyawan" />
+								<MenuItem mnemonicParsing="false" onAction="#showFormAbsensi"
+									text="Absensi" />
+							</items>
+						</Menu>
 						<Menu mnemonicParsing="false" text="Kasbon Karyawan">
 							<items>
 								<MenuItem mnemonicParsing="false" onAction="#showKasbon"

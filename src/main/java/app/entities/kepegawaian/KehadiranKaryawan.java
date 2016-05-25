@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,6 +16,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.GenericGenerator;
 
 import app.entities.master.DataKaryawan;
+import app.entities.master.DataTidakHadir;
 
 @Entity
 @Table(name = "absensi_karyawan", uniqueConstraints = {
@@ -38,8 +41,9 @@ public class KehadiranKaryawan {
 	@Column(nullable = false)
 	private Boolean lembur;
 
+	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "keterangan")
-	private String ket;
+	private DataTidakHadir ket;
 
 	public String getId() {
 		return id;
@@ -81,11 +85,11 @@ public class KehadiranKaryawan {
 		this.hadir = hadir;
 	}
 
-	public String getKet() {
+	public DataTidakHadir getKet() {
 		return ket;
 	}
 
-	public void setKet(String ket) {
+	public void setKet(DataTidakHadir ket) {
 		this.ket = ket;
 	}
 
