@@ -53,8 +53,9 @@
 							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
 							AnchorPane.topAnchor="0.0">
 							<columns>
-								<TableColumn fx:id="columnNik" maxWidth="125.0"
-									minWidth="125.0" prefWidth="125.0" text="NIK" />
+								<TableColumn fx:id="columnNik" editable="false"
+									maxWidth="125.0" minWidth="125.0" prefWidth="125.0" sortable="false"
+									text="NIK" />
 								<TableColumn fx:id="columnNama" editable="false"
 									maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="-1.0"
 									sortable="false" text="Nama" />

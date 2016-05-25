@@ -195,7 +195,12 @@ public class AbsensiListController implements BootInitializable {
 						if (gakHadir != null) {
 							return new SimpleStringProperty(gakHadir.toString());
 						} else {
-							return new SimpleStringProperty("Tanpa Keterangan!");
+							if (param.getValue().getHadir()) {
+								return new SimpleStringProperty("-");
+							} else {
+
+								return new SimpleStringProperty("Tanpa Keterangan!");
+							}
 						}
 					}
 				});

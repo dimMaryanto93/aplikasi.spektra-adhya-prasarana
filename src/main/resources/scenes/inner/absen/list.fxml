@@ -109,14 +109,18 @@
 							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
 							AnchorPane.topAnchor="0.0">
 							<columns>
-								<TableColumn fx:id="columnTanggal" maxWidth="250.0"
-									minWidth="250.0" prefWidth="250.0" text="Hari, Tanggal-Bulan-Tahun" />
-								<TableColumn fx:id="columnHadir" maxWidth="100.0"
-									minWidth="100.0" prefWidth="100.0" text="Hadir" />
-								<TableColumn fx:id="columnLembur" maxWidth="100.0"
-									minWidth="100.0" prefWidth="100.0" text="Lembur" />
-								<TableColumn fx:id="columnKeterangan" maxWidth="150.0"
-									minWidth="150.0" prefWidth="150.0" text="Keterangan" />
+								<TableColumn fx:id="columnTanggal" editable="false"
+									maxWidth="250.0" minWidth="250.0" prefWidth="250.0" sortable="false"
+									text="Hari, Tanggal-Bulan-Tahun" />
+								<TableColumn fx:id="columnHadir" editable="false"
+									maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false"
+									text="Hadir" />
+								<TableColumn fx:id="columnLembur" editable="false"
+									maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false"
+									text="Lembur" />
+								<TableColumn fx:id="columnKeterangan" editable="false"
+									maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
+									text="Keterangan" />
 							</columns>
 						</TableView>
 					</children>
