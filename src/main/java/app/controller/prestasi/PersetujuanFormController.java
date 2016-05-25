@@ -121,7 +121,7 @@ public class PersetujuanFormController implements BootInitializable {
 					if (newValue != null) {
 						setFields(newValue);
 						this.check.setOpacity(0.9);
-						this.check.setText("Saya setuju dengan bersedia memberikan Uang Muka sebesar "
+						this.check.setText("Saya bersedia memberikan Uang Muka sebesar "
 								+ formater.getCurrencyFormate(newValue.getNgicilMotor().getDp()));
 					} else {
 						this.check.setOpacity(0D);

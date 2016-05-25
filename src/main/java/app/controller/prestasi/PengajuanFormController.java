@@ -23,6 +23,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
@@ -96,8 +97,16 @@ public class PengajuanFormController implements BootInitializable {
 		this.jumlahCicilan = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 5);
 		this.uangMuka = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, Double.MAX_VALUE, 0D, 500);
 
+		this.txtUangMuka.getEditor().setAlignment(Pos.CENTER_RIGHT);
+		this.txtUangMuka.setEditable(true);
 		this.txtUangMuka.setValueFactory(uangMuka);
+		
+		this.txtCicilan.getEditor().setAlignment(Pos.CENTER_RIGHT);
+		this.txtCicilan.setEditable(true);
 		this.txtCicilan.setValueFactory(cicilan);
+		
+		this.txtJumlahCicilan.getEditor().setAlignment(Pos.CENTER_RIGHT);
+		this.txtJumlahCicilan.setEditable(true);
 		this.txtJumlahCicilan.setValueFactory(jumlahCicilan);
 
 		this.tableView.getSelectionModel().selectedItemProperty().addListener(
