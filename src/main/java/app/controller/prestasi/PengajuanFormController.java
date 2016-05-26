@@ -227,4 +227,10 @@ public class PengajuanFormController implements BootFormInitializable {
 		
 	}
 
+	@Override
+	public void initValidator() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
+
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -18,11 +23,14 @@ import app.configs.DialogsFX;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
 import app.repositories.JabatanService;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
@@ -33,6 +41,7 @@ import javafx.stage.Stage;
 public class JabatanFormController implements BootFormInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	private ApplicationContext springContext;
 	@FXML
 	private TextField txtNama;
@@ -42,6 +51,8 @@ public class JabatanFormController implements BootFormInitializable {
 	private TextField txtKode;
 	@FXML
 	private Spinner<Double> spinGapok;
+	@FXML
+	private Button btnSave;
 
 	private DataJabatan jabatan;
 
@@ -61,15 +72,15 @@ public class JabatanFormController implements BootFormInitializable {
 	@Autowired
 	private HomeController homeController;
 	private ValidationSupport validation;
+	private DialogsFX notif;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		this.btnSave.setDisable(true);
 		this.spinGapok.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.valueOf(0),
 				Double.MAX_VALUE, Double.valueOf(0), 500000));
 		this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
 		this.spinGapok.setEditable(true);
-
-		// TODO Auto-generated method stub
 
 	}
 
@@ -95,7 +106,6 @@ public class JabatanFormController implements BootFormInitializable {
 
 	@Override
 	public void initConstuct() {
-		logger.info("validation support is : " + validation);
 		setUpdate(false);
 		this.jabatan = new DataJabatan();
 	}
@@ -117,9 +127,13 @@ public class JabatanFormController implements BootFormInitializable {
 			jabatan.setKeterangan(txtKeterangan.getText());
 			jabatan.setGapok(spinGapok.getValueFactory().getValue());
 			repo.save(jabatan);
+			notif.showDefaultSave("Data jabatan");
+			logger.info("Berhasil menyimpan data jabatan");
+
 			homeController.showDepartment();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			logger.error("Tidak dapat menyimpan data jabatan dengan nama: {}", jabatan.getNama());
+			notif.showDefaultErrorSave("Data jabatan", e1);
 		}
 
 	}
@@ -131,19 +145,21 @@ public class JabatanFormController implements BootFormInitializable {
 			jabatan.setKeterangan(txtKeterangan.getText());
 			jabatan.setGapok(spinGapok.getValueFactory().getValue());
 			repo.save(jabatan);
+			notif.showDefaultSave("Data jabatan");
+			logger.info("Berhasil menyimpan data jabatan");
+
 			homeController.showDepartment();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			logger.error("Tidak dapat melakukan perubahan data jabatan dengan nama: {}", jabatan.getKodeJabatan());
+			notif.showDefaultErrorSave("Data jabatan", e1);
 		}
 	}
 
 	@FXML
 	public void doSave(ActionEvent event) {
 		if (isUpdate()) {
-			// lakukan fungsi update
 			existJabatan();
 		} else {
-			// lakukan fungsi simpan
 			newDataJabatan();
 		}
 	}
@@ -156,8 +172,7 @@ public class JabatanFormController implements BootFormInitializable {
 	@Override
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		// TODO Auto-generated method stub
-
+		this.notif = notif;
 	}
 
 	@Override
@@ -170,6 +185,23 @@ public class JabatanFormController implements BootFormInitializable {
 	@Autowired
 	public void setValidationSupport(ValidationSupport validation) {
 		this.validation = validation;
+	}
+
+	@Override
+	public void initValidator() {
+		this.validation.redecorate();
+		this.validation.registerValidator(txtKode,
+				Validator.createEmptyValidator("Kode tidak boleh kosong", Severity.ERROR));
+		this.validation.registerValidator(txtNama,
+				Validator.createEmptyValidator("Nama jabatan tidak boleh kosong!", Severity.ERROR));
+		this.validation.registerValidator(txtKeterangan, (Control c, String value) -> ValidationResult.fromMessageIf(c,
+				"Keterangan masih kosong!", Severity.WARNING, value.isEmpty()));
+		this.validation.registerValidator(spinGapok.getEditor(), (Control c, String value) -> ValidationResult
+				.fromErrorIf(c, "Nominal belum diisi", Double.valueOf(value) < 100));
+		this.validation.invalidProperty()
+				.addListener((ObservableValue<? extends Boolean> values, Boolean oldValue, Boolean newValue) -> {
+					this.btnSave.setDisable(newValue);
+				});
 	}
 
 }

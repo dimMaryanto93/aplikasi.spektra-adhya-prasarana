@@ -156,6 +156,7 @@ public class JabatanListController implements BootInitializable {
 		try {
 			homeController.setLayout(formController.initView());
 			formController.initConstuct();
+			formController.initValidator();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

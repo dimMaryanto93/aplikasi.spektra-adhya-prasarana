@@ -271,6 +271,12 @@ public class KaryawanFormController implements BootFormInitializable {
 		
 	}
 
+	@Override
+	public void initValidator() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }

@@ -196,5 +196,11 @@ public class PersetujuanFormController implements BootFormInitializable {
 		
 	}
 
+	@Override
+	public void initValidator() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

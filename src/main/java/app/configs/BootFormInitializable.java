@@ -10,4 +10,6 @@ public interface BootFormInitializable extends BootInitializable {
 	 *            digunakan untuk menampilkan dialog atau notifikasi
 	 */
 	public void setValidationSupport(ValidationSupport validation);
+	
+	public void initValidator();
 }

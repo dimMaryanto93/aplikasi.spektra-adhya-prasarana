@@ -98,9 +98,12 @@
 	<center>
 		<GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
 			<columnConstraints>
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0"
-					minWidth="120.0" prefWidth="120.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity"
+					minWidth="-Infinity" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0"
+					minWidth="250.0" prefWidth="250.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308"
+					minWidth="-Infinity" />
 			</columnConstraints>
 			<rowConstraints>
 				<RowConstraints maxHeight="30.0" minHeight="30.0"
@@ -123,7 +126,7 @@
 					GridPane.rowIndex="3" />
 				<AnchorPane GridPane.columnIndex="1">
 					<children>
-						<TextField fx:id="txtKode" disable="true" prefHeight="30.0"
+						<TextField fx:id="txtKode" editable="false" prefHeight="30.0"
 							prefWidth="171.0" promptText="Kode" AnchorPane.bottomAnchor="0.0"
 							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
 							AnchorPane.topAnchor="0.0" />
@@ -132,21 +135,21 @@
 				<AnchorPane layoutX="150.0" layoutY="20.0"
 					GridPane.columnIndex="1" GridPane.rowIndex="1">
 					<children>
-						<TextField fx:id="txtNama" disable="true" prefHeight="30.0"
+						<TextField fx:id="txtNama" editable="false" prefHeight="30.0"
 							prefWidth="171.0" promptText="Nama" AnchorPane.bottomAnchor="0.0"
 							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
 							AnchorPane.topAnchor="0.0" />
 					</children>
 				</AnchorPane>
-				<TextArea fx:id="txtKeterangan" disable="true" prefHeight="200.0"
-					prefWidth="200.0" promptText="Keterangan" GridPane.columnIndex="1"
-					GridPane.rowIndex="3" />
+				<TextArea fx:id="txtKeterangan" editable="false"
+					prefHeight="200.0" prefWidth="200.0" promptText="Keterangan"
+					GridPane.columnIndex="1" GridPane.rowIndex="3" />
 				<Label text="Gaji Pokok" GridPane.rowIndex="2" />
 				<AnchorPane prefHeight="200.0" prefWidth="200.0"
 					GridPane.columnIndex="1" GridPane.rowIndex="2">
 					<children>
-						<TextField fx:id="txtGapok" layoutX="-9.0" layoutY="3.0"
-							prefHeight="30.0" prefWidth="204.0" promptText="Gaji Pokok"
+						<TextField fx:id="txtGapok" editable="false" layoutX="-9.0"
+							layoutY="3.0" prefHeight="30.0" prefWidth="204.0" promptText="Gaji Pokok"
 							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 					</children>
