@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.annotation.PostConstruct;
-
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -81,7 +79,7 @@ public class JabatanFormController implements BootFormInitializable {
 				Double.MAX_VALUE, Double.valueOf(0), 500000));
 		this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
 		this.spinGapok.setEditable(true);
-
+		initValidator();
 	}
 
 	@Override
@@ -107,12 +105,14 @@ public class JabatanFormController implements BootFormInitializable {
 	@Override
 	public void initConstuct() {
 		setUpdate(false);
+		this.txtKode.setEditable(true);
 		this.jabatan = new DataJabatan();
 	}
 
 	public void initConstuct(DataJabatan j) {
 		setUpdate(true);
 		this.jabatan = j;
+		this.txtKode.setEditable(false);
 		txtKode.setText(j.getKodeJabatan());
 		txtNama.setText(j.getNama());
 		txtKeterangan.setText(j.getKeterangan());
@@ -197,7 +197,7 @@ public class JabatanFormController implements BootFormInitializable {
 		this.validation.registerValidator(txtKeterangan, (Control c, String value) -> ValidationResult.fromMessageIf(c,
 				"Keterangan masih kosong!", Severity.WARNING, value.isEmpty()));
 		this.validation.registerValidator(spinGapok.getEditor(), (Control c, String value) -> ValidationResult
-				.fromErrorIf(c, "Nominal belum diisi", Double.valueOf(value) < 100));
+				.fromErrorIf(c, "Nominal minimum Rp.100,-", Double.valueOf(value) < 100));
 		this.validation.invalidProperty()
 				.addListener((ObservableValue<? extends Boolean> values, Boolean oldValue, Boolean newValue) -> {
 					this.btnSave.setDisable(newValue);

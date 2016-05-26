@@ -40,7 +40,7 @@ public class JabatanListController implements BootInitializable {
 
 	@Autowired
 	private HomeController homeController;
-	
+
 	@Autowired
 	private JabatanFormController formController;
 
@@ -62,19 +62,19 @@ public class JabatanListController implements BootInitializable {
 	private TextArea txtKeterangan;
 	@FXML
 	private TextField txtGapok;
-	
-	public void setFields(DataJabatan j){
-		if(j != null){		
+
+	public void setFields(DataJabatan j) {
+		if (j != null) {
 			txtKode.setText(j.getKodeJabatan());
 			txtNama.setText(j.getNama());
 			txtKeterangan.setText(j.getKeterangan());
 			txtGapok.setText(j.getGapok().toString());
-		}else {
+		} else {
 			clearFields();
 		}
 	}
-	
-	private void clearFields(){
+
+	private void clearFields() {
 		txtKode.clear();
 		txtNama.clear();
 		txtKeterangan.clear();
@@ -85,18 +85,18 @@ public class JabatanListController implements BootInitializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		tableView.getSelectionModel().selectedItemProperty().addListener(
-				(ObservableValue<? extends DataJabatan> value, DataJabatan oldValue, DataJabatan newValue) ->{
-			setFields(newValue);
-			btnUpdate.setDisable(newValue == null);
-			btnUpdate.setOnAction(e -> {
-				doUpdate(newValue);
-			});
-			btnDelete.setDisable(newValue == null);
-			btnDelete.setOnAction( e -> {
-				doDelete(newValue);
-			});
-			
-		});
+				(ObservableValue<? extends DataJabatan> value, DataJabatan oldValue, DataJabatan newValue) -> {
+					setFields(newValue);
+					btnUpdate.setDisable(newValue == null);
+					btnUpdate.setOnAction(e -> {
+						doUpdate(newValue);
+					});
+					btnDelete.setDisable(newValue == null);
+					btnDelete.setOnAction(e -> {
+						doDelete(newValue);
+					});
+
+				});
 		columnId.setCellValueFactory(new PropertyValueFactory<DataJabatan, String>("kodeJabatan"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<DataJabatan, String>("nama"));
 	}
@@ -109,7 +109,7 @@ public class JabatanListController implements BootInitializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private void doUpdate(DataJabatan jabatan) {
@@ -156,7 +156,6 @@ public class JabatanListController implements BootInitializable {
 		try {
 			homeController.setLayout(formController.initView());
 			formController.initConstuct();
-			formController.initValidator();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -177,14 +176,13 @@ public class JabatanListController implements BootInitializable {
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
 }
