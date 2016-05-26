@@ -2,6 +2,7 @@ package app.configs;
 
 import java.io.IOException;
 
+import org.controlsfx.validation.ValidationSupport;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSourceAware;
 
@@ -19,7 +20,9 @@ public interface BootInitializable extends Initializable, ApplicationContextAwar
 
 	/**
 	 * harus ditambahkan @Autowired secara manual
-	 * @param notif digunakan untuk menampilkan dialog atau notifikasi
+	 * 
+	 * @param notif
+	 *            digunakan untuk menampilkan dialog atau notifikasi
 	 */
 	public void setNotificationDialog(DialogsFX notif);
 

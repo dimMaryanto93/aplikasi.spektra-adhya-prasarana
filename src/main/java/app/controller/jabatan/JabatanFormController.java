@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -12,7 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
-import app.configs.BootInitializable;
+import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
@@ -29,7 +30,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 @Component
-public class JabatanFormController implements BootInitializable {
+public class JabatanFormController implements BootFormInitializable {
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;
 	@FXML
@@ -58,6 +60,7 @@ public class JabatanFormController implements BootInitializable {
 
 	@Autowired
 	private HomeController homeController;
+	private ValidationSupport validation;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -65,8 +68,7 @@ public class JabatanFormController implements BootInitializable {
 				Double.MAX_VALUE, Double.valueOf(0), 500000));
 		this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
 		this.spinGapok.setEditable(true);
-		
-		
+
 		// TODO Auto-generated method stub
 
 	}
@@ -93,6 +95,7 @@ public class JabatanFormController implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
+		logger.info("validation support is : " + validation);
 		setUpdate(false);
 		this.jabatan = new DataJabatan();
 	}
@@ -154,13 +157,19 @@ public class JabatanFormController implements BootInitializable {
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	@Autowired
+	public void setValidationSupport(ValidationSupport validation) {
+		this.validation = validation;
 	}
 
 }

@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -264,5 +265,7 @@ public class AbsensiListController implements BootInitializable {
 	public void doRefresh(ActionEvent event) {
 		initConstuct();
 	}
+
+	
 
 }

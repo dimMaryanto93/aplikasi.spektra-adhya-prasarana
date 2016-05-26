@@ -20,8 +20,6 @@ import org.slf4j.LoggerFactory;
 @Entity
 @Table(name = "data_motor")
 public class Motor {
-	
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")

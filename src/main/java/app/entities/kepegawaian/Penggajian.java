@@ -21,7 +21,6 @@ import app.entities.master.DataKaryawan;
 @Table(name = "gaji_karyawan")
 public class Penggajian {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")

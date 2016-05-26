@@ -24,7 +24,6 @@ import app.entities.master.DataKaryawan;
 @Table(name = "kasbon_karyawan")
 public class KasbonKaryawan {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	public KasbonKaryawan() {
 		setWaktu(Timestamp.valueOf(LocalDateTime.now()));
 		setTanggalPinjam(Date.valueOf(LocalDate.now()));

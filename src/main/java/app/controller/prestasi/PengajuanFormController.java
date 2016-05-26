@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -14,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
+import app.configs.BootFormInitializable;
 import app.configs.BootInitializable;
 import app.configs.DialogsFX;
 import app.entities.kepegawaian.uang.prestasi.Motor;
@@ -39,7 +41,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 @Component
-public class PengajuanFormController implements BootInitializable {
+public class PengajuanFormController implements BootFormInitializable {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;
 	@FXML
@@ -218,6 +220,12 @@ public class PengajuanFormController implements BootInitializable {
 
 	@FXML
 	public void doCancel(ActionEvent event) {
+	}
+
+	@Override
+	public void setValidationSupport(ValidationSupport validation) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

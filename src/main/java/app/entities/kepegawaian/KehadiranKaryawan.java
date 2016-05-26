@@ -25,7 +25,6 @@ import app.entities.master.DataTidakHadir;
 		@UniqueConstraint(columnNames = { "tanggal_hadir", "id_karyawan" }, name = "uq_hadir_karyawan") })
 public class KehadiranKaryawan {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")

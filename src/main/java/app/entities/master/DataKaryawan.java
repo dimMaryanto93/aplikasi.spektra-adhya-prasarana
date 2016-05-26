@@ -32,7 +32,6 @@ import app.entities.kepegawaian.uang.prestasi.Motor;
 @Table(name = "data_karyawan")
 public class DataKaryawan {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Id
 	@GeneratedValue
 	private Long id;

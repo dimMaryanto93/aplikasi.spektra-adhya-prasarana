@@ -3,12 +3,14 @@ package app;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 
 import app.controller.HomeController;
 import javafx.application.Application;
@@ -29,6 +31,12 @@ public class MainApplication extends Application {
 	private ConfigurableApplicationContext springContext;
 
 	private static String[] args;
+
+	@Bean
+	@Scope(value = "prototype")
+	public ValidationSupport validation() {
+		return new ValidationSupport();
+	}
 
 	@Bean()
 	public Stage getStage() {

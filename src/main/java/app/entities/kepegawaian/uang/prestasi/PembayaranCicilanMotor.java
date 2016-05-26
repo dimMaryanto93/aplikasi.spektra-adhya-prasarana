@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 		@UniqueConstraint(columnNames = { "kode_motor", "pembayaran_angsuran_ke" }, name = "uq_angsuran") })
 public class PembayaranCicilanMotor {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")

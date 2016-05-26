@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -14,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
+import app.configs.BootFormInitializable;
 import app.configs.BootInitializable;
 import app.configs.DialogsFX;
 import app.entities.kepegawaian.KehadiranKaryawan;
@@ -41,8 +43,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 @Component
-public class AbsensiFormController implements BootInitializable {
-	
+public class AbsensiFormController implements BootFormInitializable {
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -62,6 +64,8 @@ public class AbsensiFormController implements BootInitializable {
 	private TableColumn<KehadiranKaryawan, String> columnNama;
 	@FXML
 	private TableColumn<KehadiranKaryawan, Boolean> columnAbsen;
+
+	private ValidationSupport validation;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -109,6 +113,7 @@ public class AbsensiFormController implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
+		logger.info("validation support is : " + validation);
 		txtTanggal.setText(LocalDate.now().toString());
 		tableView.getItems().clear();
 		for (DataKaryawan karyawan : karyawanRepository.findAll()) {
@@ -129,7 +134,6 @@ public class AbsensiFormController implements BootInitializable {
 	@FXML
 	public void doSave(ActionEvent event) {
 		try {
-
 			absensiRepository.save(tableView.getItems());
 			doCancel(event);
 		} catch (Exception e) {
@@ -232,6 +236,12 @@ public class AbsensiFormController implements BootInitializable {
 	public void setMessageSource(MessageSource messageSource) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	@Autowired
+	public void setValidationSupport(ValidationSupport validation) {
+		this.validation = validation;
 	}
 
 }

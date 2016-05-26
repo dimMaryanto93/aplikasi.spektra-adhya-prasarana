@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -14,9 +15,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
-import app.configs.BootInitializable;
-import app.configs.FormatterFactory;
+import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
+import app.configs.FormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
@@ -48,7 +49,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 @Component
-public class KasbonPengembalianController implements BootInitializable {
+public class KasbonPengembalianController implements BootFormInitializable {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;
 	@Autowired
@@ -284,5 +285,16 @@ public class KasbonPengembalianController implements BootInitializable {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
+	@Override
+	public void setValidationSupport(ValidationSupport validation) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 
 }
