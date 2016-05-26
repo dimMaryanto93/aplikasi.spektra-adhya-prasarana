@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -11,7 +13,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
-import app.configs.NotificationDialogs;
+import app.configs.DialogsFX;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
 import app.repositories.JabatanService;
@@ -28,7 +30,7 @@ import javafx.stage.Stage;
 
 @Component
 public class JabatanFormController implements BootInitializable {
-
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;
 	@FXML
 	private TextField txtNama;
@@ -150,7 +152,7 @@ public class JabatanFormController implements BootInitializable {
 
 	@Override
 	@Autowired
-	public void setNotificationDialog(NotificationDialogs notif) {
+	public void setNotificationDialog(DialogsFX notif) {
 		// TODO Auto-generated method stub
 		
 	}

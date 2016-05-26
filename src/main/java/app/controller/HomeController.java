@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -11,7 +13,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
-import app.configs.NotificationDialogs;
+import app.configs.DialogsFX;
 import app.controller.absensi.AbsensiFormController;
 import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
@@ -32,7 +34,7 @@ import javafx.stage.Stage;
 
 @Component
 public class HomeController implements BootInitializable {
-
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@FXML
 	private BorderPane mainLayout;
 
@@ -59,17 +61,17 @@ public class HomeController implements BootInitializable {
 
 	@Autowired
 	private AbsensiFormController formAbsensi;
-	
+
 	@Autowired
 	private PersetujuanFormController formPersetujuanCicilanMotor;
-	
+
 	@Autowired
 	private CicilanListController listCicilanMotor;
 
 	private ApplicationContext springContext;
 	private Stage primaryStage;
 
-	private NotificationDialogs notificationDialogs;
+	private DialogsFX notificationDialogs;
 
 	public void setLayout(Node anNode) {
 		mainLayout.setCenter(anNode);
@@ -175,7 +177,7 @@ public class HomeController implements BootInitializable {
 
 	@Override
 	@Autowired
-	public void setNotificationDialog(NotificationDialogs notif) {
+	public void setNotificationDialog(DialogsFX notif) {
 		this.notificationDialogs = notif;
 	}
 

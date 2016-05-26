@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.FormatterFactory;
-import app.configs.NotificationDialogs;
+import app.configs.DialogsFX;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
@@ -47,7 +49,7 @@ import javafx.util.Callback;
 
 @Component
 public class KasbonPengembalianController implements BootInitializable {
-
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;
 	@Autowired
 	private KaryawanService karyawanService;
@@ -270,7 +272,7 @@ public class KasbonPengembalianController implements BootInitializable {
 
 	@Override
 	@Autowired
-	public void setNotificationDialog(NotificationDialogs notif) {
+	public void setNotificationDialog(DialogsFX notif) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -21,6 +21,6 @@ public interface BootInitializable extends Initializable, ApplicationContextAwar
 	 * harus ditambahkan @Autowired secara manual
 	 * @param notif digunakan untuk menampilkan dialog atau notifikasi
 	 */
-	public void setNotificationDialog(NotificationDialogs notif);
+	public void setNotificationDialog(DialogsFX notif);
 
 }

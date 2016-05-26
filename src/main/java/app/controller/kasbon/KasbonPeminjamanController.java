@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.FormatterFactory;
-import app.configs.NotificationDialogs;
+import app.configs.DialogsFX;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
@@ -38,6 +40,8 @@ import javafx.stage.Stage;
 
 @Component
 public class KasbonPeminjamanController implements BootInitializable {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private KaryawanService karyawanService;
@@ -69,7 +73,7 @@ public class KasbonPeminjamanController implements BootInitializable {
 
 	private KasbonKaryawan kasbon;
 
-	private NotificationDialogs notif;
+	private DialogsFX notif;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -115,29 +119,43 @@ public class KasbonPeminjamanController implements BootInitializable {
 	}
 
 	private void doSave(ActionEvent e) {
-		DataKaryawan dataKaryawan = tableView.getSelectionModel().getSelectedItem();
-		if (dataKaryawan != null) {
-			if (pinjamLagi(dataKaryawan)) {
-				this.kasbon = new KasbonKaryawan();
+		try {
+			DataKaryawan dataKaryawan = tableView.getSelectionModel().getSelectedItem();
+			if (dataKaryawan != null) {
+				if (pinjamLagi(dataKaryawan)) {
+					this.kasbon = new KasbonKaryawan();
 
-				kasbon.setKaryawan(dataKaryawan);
-				kasbon.setTanggalPinjam(Date.valueOf(txtTanggalTransaksi.getValue()));
-				kasbon.setPinjaman(txtPinjam.getValueFactory().getValue());
-				kasbon.setPembayaran(0D);
+					kasbon.setKaryawan(dataKaryawan);
+					kasbon.setTanggalPinjam(Date.valueOf(txtTanggalTransaksi.getValue()));
+					kasbon.setPinjaman(txtPinjam.getValueFactory().getValue());
+					kasbon.setPembayaran(0D);
 
-				kasbon.setSaldoTerakhir(dataKaryawan.getTotalSaldoTerakhir() + kasbon.getPinjaman());
+					kasbon.setSaldoTerakhir(dataKaryawan.getTotalSaldoTerakhir() + kasbon.getPinjaman());
 
-				dataKaryawan.getDaftarKasbon().add(kasbon);
+					dataKaryawan.getDaftarKasbon().add(kasbon);
 
-				karyawanService.save(dataKaryawan);
+					karyawanService.save(dataKaryawan);
 
-				initConstuct();
+					notif.showDefaultSave("Data peminjaman karyawan");
+
+					initConstuct();
+				} else {
+					logger.info("Tidak dapat melakukan peminjaman karena karyawan tersebut masih memiliki hutang");
+					notif.setTitle("Peminjaman Karyawan");
+					notif.setHeader("Tidak dapat melakukan peminjaman");
+					notif.setText("Karena karyawan tersebut masih memiliki tunggakan");
+					notif.showDialogWarning(notif.getTitle(), notif.getHeader(), notif.getText());
+				}
 			} else {
-				notif.showWarningNotification("Peminjaman Karyawan",
-						"Tidak dapat melakukan peminjaman karena " + "\nkaryawan tersebut masih memiliki tunggakan");
+				logger.warn("Data karyawan belum diseleksi pada tabel view");
+				notif.setTitle("Tabel data karyawan");
+				notif.setText("Karyawan belum dipilih!");
+				notif.setHeader("Tabel Data Karyawan");
+				notif.showDialogInformation(notif.getTitle(), notif.getHeader(), notif.getText());
 			}
-		} else {
-			System.out.println("Table View belum dipilih");
+		} catch (Exception e1) {
+			logger.error("Tidak dapat mengimpan dan melakukan perubahan data peminjaman karyawan", e1);
+			notif.showDefaultErrorSave("Data peminjaman karyawan", e1);
 		}
 	}
 
@@ -161,11 +179,16 @@ public class KasbonPeminjamanController implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
-		this.kasbon = new KasbonKaryawan();
-		txtTanggalTransaksi.setValue(LocalDate.now());
-		tableView.getItems().clear();
-		tableView.getItems().addAll(karyawanService.findAll());
-		txtPinjam.getValueFactory().setValue(0D);
+		try {
+			this.kasbon = new KasbonKaryawan();
+			txtTanggalTransaksi.setValue(LocalDate.now());
+			tableView.getItems().clear();
+			tableView.getItems().addAll(karyawanService.findAll());
+			txtPinjam.getValueFactory().setValue(0D);
+		} catch (Exception e) {
+			logger.error("Tidak dapat memuat data dari table karyawan", e);
+			notif.showDefaultErrorLoad("Data peminjaman karyawan", e);
+		}
 	}
 
 	@FXML
@@ -175,7 +198,7 @@ public class KasbonPeminjamanController implements BootInitializable {
 
 	@Override
 	@Autowired
-	public void setNotificationDialog(NotificationDialogs notif) {
+	public void setNotificationDialog(DialogsFX notif) {
 		this.notif = notif;
 	}
 

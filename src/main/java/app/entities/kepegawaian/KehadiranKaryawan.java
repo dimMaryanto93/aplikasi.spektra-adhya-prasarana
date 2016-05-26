@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import app.entities.master.DataKaryawan;
 import app.entities.master.DataTidakHadir;
@@ -23,6 +25,7 @@ import app.entities.master.DataTidakHadir;
 		@UniqueConstraint(columnNames = { "tanggal_hadir", "id_karyawan" }, name = "uq_hadir_karyawan") })
 public class KehadiranKaryawan {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")

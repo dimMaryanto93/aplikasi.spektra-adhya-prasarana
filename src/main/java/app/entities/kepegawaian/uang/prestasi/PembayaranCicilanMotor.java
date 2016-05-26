@@ -12,12 +12,15 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name = "cicilan_motor", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "kode_motor", "pembayaran_angsuran_ke" }, name = "uq_angsuran") })
 public class PembayaranCicilanMotor {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")

@@ -5,6 +5,8 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.FormatterFactory;
-import app.configs.NotificationDialogs;
+import app.configs.DialogsFX;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 import app.entities.master.DataKaryawan;
@@ -35,7 +37,7 @@ import javafx.event.ActionEvent;
 
 @Component
 public class CicilanListController implements BootInitializable {
-
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;
 	@FXML
 	private TableView<DataKaryawan> tableKaryawan;
@@ -196,7 +198,7 @@ public class CicilanListController implements BootInitializable {
 	}
 
 	@Override
-	public void setNotificationDialog(NotificationDialogs notif) {
+	public void setNotificationDialog(DialogsFX notif) {
 		// TODO Auto-generated method stub
 
 	}

@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import app.entities.master.DataKaryawan;
 
@@ -22,6 +24,7 @@ import app.entities.master.DataKaryawan;
 @Table(name = "kasbon_karyawan")
 public class KasbonKaryawan {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	public KasbonKaryawan() {
 		setWaktu(Timestamp.valueOf(LocalDateTime.now()));
 		setTanggalPinjam(Date.valueOf(LocalDate.now()));

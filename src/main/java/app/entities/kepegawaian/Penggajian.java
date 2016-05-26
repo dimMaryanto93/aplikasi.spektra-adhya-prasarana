@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import app.entities.master.DataKaryawan;
 
@@ -19,6 +21,7 @@ import app.entities.master.DataKaryawan;
 @Table(name = "gaji_karyawan")
 public class Penggajian {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")
