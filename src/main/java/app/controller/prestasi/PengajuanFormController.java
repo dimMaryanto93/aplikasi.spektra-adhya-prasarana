@@ -16,7 +16,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.BootInitializable;
 import app.configs.DialogsFX;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.master.DataKaryawan;

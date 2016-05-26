@@ -14,9 +14,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import app.entities.master.DataKaryawan;
 import app.entities.master.DataTidakHadir;
 

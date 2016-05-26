@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name = "data_motor")

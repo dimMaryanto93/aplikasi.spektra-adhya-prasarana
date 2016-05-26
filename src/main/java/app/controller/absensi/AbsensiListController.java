@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -36,7 +35,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.event.ActionEvent;
@@ -45,6 +43,7 @@ import javafx.event.ActionEvent;
 public class AbsensiListController implements BootInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@Autowired
 	private AbsensiService absenService;
 	@Autowired
@@ -79,20 +78,27 @@ public class AbsensiListController implements BootInitializable {
 	@FXML
 	private TextField txtLembur;
 
+	private DialogsFX notif;
+
 	private void setFields(DataKaryawan karyawan) {
 		txtNoInduk.setText(karyawan.getNik().toString());
 		txtNama.setText(karyawan.getNama());
 		txtJabatan.setText(karyawan.getJabatan().getNama());
 		Integer hadir = 0;
 		Integer lembur = 0;
-		for (KehadiranKaryawan absen : absenService.findByKaryawan(karyawan)) {
-			tabelKehadiran.getItems().add(absen);
-			if (absen.getHadir()) {
-				hadir += 1;
+		try {
+			for (KehadiranKaryawan absen : absenService.findByKaryawan(karyawan)) {
+				tabelKehadiran.getItems().add(absen);
+				if (absen.getHadir()) {
+					hadir += 1;
+				}
+				if (absen.getLembur()) {
+					lembur += 1;
+				}
 			}
-			if (absen.getLembur()) {
-				lembur += 1;
-			}
+		} catch (Exception e) {
+			logger.error("Tidak dapat memuat data absensi karyawan", e);
+			notif.showDefaultErrorLoad("Data absensi karyawan", e);
 		}
 		txtHadir.setText(hadir.toString());
 		txtLembur.setText(lembur.toString());
@@ -234,7 +240,8 @@ public class AbsensiListController implements BootInitializable {
 			tableKaryawan.getItems().clear();
 			tableKaryawan.getItems().addAll(karyawan.findAll());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Tidak dapat memuat data karyawan", e);
+			notif.showDefaultErrorLoad("Data karyawan", e);
 		}
 	}
 
@@ -246,8 +253,7 @@ public class AbsensiListController implements BootInitializable {
 	@Override
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		// TODO Auto-generated method stub
-
+		this.notif = notif;
 	}
 
 	@Override
@@ -265,7 +271,5 @@ public class AbsensiListController implements BootInitializable {
 	public void doRefresh(ActionEvent event) {
 		initConstuct();
 	}
-
-	
 
 }

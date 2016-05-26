@@ -12,8 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name = "cicilan_motor", uniqueConstraints = {

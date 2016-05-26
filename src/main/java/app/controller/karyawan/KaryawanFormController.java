@@ -17,7 +17,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.BootInitializable;
 import app.configs.DialogsFX;
 import app.controller.HomeController;
 import app.entities.master.DataAgama;

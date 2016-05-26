@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -15,7 +14,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
-import app.configs.BootFormInitializable;
 import app.configs.BootInitializable;
 import app.configs.DialogsFX;
 import app.entities.kepegawaian.KehadiranKaryawan;
@@ -43,7 +41,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 @Component
-public class AbsensiFormController implements BootFormInitializable {
+public class AbsensiFormController implements BootInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -65,7 +63,7 @@ public class AbsensiFormController implements BootFormInitializable {
 	@FXML
 	private TableColumn<KehadiranKaryawan, Boolean> columnAbsen;
 
-	private ValidationSupport validation;
+	private DialogsFX notif;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -113,21 +111,26 @@ public class AbsensiFormController implements BootFormInitializable {
 
 	@Override
 	public void initConstuct() {
-		logger.info("validation support is : " + validation);
-		txtTanggal.setText(LocalDate.now().toString());
-		tableView.getItems().clear();
-		for (DataKaryawan karyawan : karyawanRepository.findAll()) {
+		try {
+			txtTanggal.setText(LocalDate.now().toString());
+			tableView.getItems().clear();
+			for (DataKaryawan karyawan : karyawanRepository.findAll()) {
 
-			KehadiranKaryawan absen;
-			absen = absensiRepository.findByKaryawanAndTanggalHadir(karyawan, Date.valueOf(LocalDate.now()));
-			if (absen == null) {
-				absen = new KehadiranKaryawan();
-				absen.setHadir(false);
-				absen.setLembur(false);
-				absen.setKaryawan(karyawan);
-				absen.setTanggalHadir(Date.valueOf(LocalDate.now()));
+				KehadiranKaryawan absen;
+				absen = absensiRepository.findByKaryawanAndTanggalHadir(karyawan, Date.valueOf(LocalDate.now()));
+				if (absen == null) {
+					logger.info("karyawan {} belum hadir", karyawan.getNama());
+					absen = new KehadiranKaryawan();
+					absen.setHadir(false);
+					absen.setLembur(false);
+					absen.setKaryawan(karyawan);
+					absen.setTanggalHadir(Date.valueOf(LocalDate.now()));
+				}
+				tableView.getItems().add(absen);
 			}
-			tableView.getItems().add(absen);
+		} catch (Exception e) {
+			logger.error("Tidak dapat memuat data absensi yang dicari berdasarkan karyawan dan tanggal", e);
+			notif.showDefaultErrorLoad("Data absensi karyawan", e);
 		}
 	}
 
@@ -135,10 +138,13 @@ public class AbsensiFormController implements BootFormInitializable {
 	public void doSave(ActionEvent event) {
 		try {
 			absensiRepository.save(tableView.getItems());
-			doCancel(event);
+			notif.showDefaultSave("Data absensi karyawan");
+
+			logger.info("Data absensi berhasil disimpan atau diperbaharui");
+			initConstuct();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Tidak dapat mengimpan dan perubahan data absensi karyawan", e);
+			notif.showDefaultErrorSave("Data absensi karyawan", e);
 		}
 	}
 
@@ -189,12 +195,12 @@ public class AbsensiFormController implements BootFormInitializable {
 
 							if (newValue) {
 								this.keterangan.getSelectionModel().clearSelection();
+								logger.info("karyawan atas nama {} hadir", absen.getKaryawan().getNama());
 							} else {
 								this.lembur.setSelected(false);
+								logger.warn("karyawan atas nama {} tidak hadir", absen.getKaryawan().getNama());
 							}
 
-							System.out.println(
-									"Nama Karyawan : " + absen.getKaryawan().getNama() + " hadir " + absen.getHadir());
 						});
 
 				this.lembur.selectedProperty().addListener(
@@ -205,8 +211,9 @@ public class AbsensiFormController implements BootFormInitializable {
 								this.lembur.setDisable(true);
 							}
 
-							System.out.println("Nama Karyawan : " + absen.getKaryawan().getNama() + " lembur "
-									+ absen.getLembur());
+							if (newValue) {
+								logger.info("karyawan atas nama {} akan lembur!", absen.getKaryawan().getNama());
+							}
 						});
 				this.hadir.setSelected(absen.getHadir());
 				this.lembur.setSelected(absen.getLembur());
@@ -220,7 +227,6 @@ public class AbsensiFormController implements BootFormInitializable {
 				setGraphic(box);
 			} else {
 				setGraphic(null);
-
 			}
 		}
 	}
@@ -228,20 +234,13 @@ public class AbsensiFormController implements BootFormInitializable {
 	@Override
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		// TODO Auto-generated method stub
-
+		this.notif = notif;
 	}
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	@Autowired
-	public void setValidationSupport(ValidationSupport validation) {
-		this.validation = validation;
 	}
 
 }
