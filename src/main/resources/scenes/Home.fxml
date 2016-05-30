@@ -53,9 +53,9 @@
 						<Menu mnemonicParsing="false" text="Uang Prestasi">
 							<items>
 								<MenuItem mnemonicParsing="false" onAction="#showPengajuanCicilan"
-									text="Pengajuan" />
+									text="Pengajuan Uang Prestasi" />
 								<MenuItem mnemonicParsing="false" onAction="#showPersetujuanCicilan"
-									text="Persetujuan" />
+									text="Persetujuan Uang Prestasi" />
 								<MenuItem mnemonicParsing="false" onAction="#showPembayaranCicilan"
 									text="Daftar Pembayaran Cicilan Motor" />
 							</items>

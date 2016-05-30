@@ -104,6 +104,7 @@ public class PengajuanFormController implements BootFormInitializable {
 
 	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerUangMukaValueFactory;
 	private ValidationSupport validation;
+	private DialogsFX notif;
 
 	private void clearFields() {
 		txtKarywan.clear();
@@ -241,10 +242,14 @@ public class PengajuanFormController implements BootFormInitializable {
 			DataKaryawan dataKaryawan = serviceKaryawan.findOne(karyawan.getIndex());
 			dataKaryawan.setNgicilMotor(serviceMotor.findOne(this.motor.getId()));
 			this.serviceKaryawan.save(dataKaryawan);
+
+			notif.showDefaultSave("Data Pengajuan Uang Prestasi");
+
 			initConstuct();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			logger.error("Tidak dapat menyimpan data pengajuan uang prestasi untuk karyawan dengan nama {}",
+					karyawan.getNama(), e);
+			notif.showDefaultErrorSave("Data Pengajuan Uang Prestasi", e1);
 		}
 	}
 
@@ -275,24 +280,28 @@ public class PengajuanFormController implements BootFormInitializable {
 
 	@Override
 	public void initConstuct() {
-		this.motor = new Motor();
-		this.motor.setTanggalPesan(Date.valueOf(LocalDate.now()));
-		this.motor.setNoPolisi("-");
-		this.motor.setSetuju(false);
-		this.motor.setSudahDiterima(false);
-		tableView.getItems().clear();
-		for (DataKaryawan data : serviceKaryawan.findAll()) {
-			if (data.isGettingCicilanMotor()) {
-				tableView.getItems().add(data);
+		try {
+			this.motor = new Motor();
+			this.motor.setTanggalPesan(Date.valueOf(LocalDate.now()));
+			this.motor.setNoPolisi("-");
+			this.motor.setSetuju(false);
+			this.motor.setSudahDiterima(false);
+			tableView.getItems().clear();
+			for (DataKaryawan data : serviceKaryawan.findAll()) {
+				if (data.isGettingCicilanMotor()) {
+					tableView.getItems().add(data);
+				}
 			}
+		} catch (Exception e) {
+			logger.error("Tidak dapat mendapatkan data karayawan yang diperbolehkan mengajukan cicilan motor", e);
+			notif.showDefaultErrorLoad("Data Pengajuan Uang Prestasi", e);
 		}
 	}
 
 	@Override
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		// TODO Auto-generated method stub
-
+		this.notif = notif;
 	}
 
 	@FXML
@@ -323,6 +332,16 @@ public class PengajuanFormController implements BootFormInitializable {
 		this.validation.invalidProperty().addListener((o, old, newValue) -> {
 			btnSave.setDisable(newValue);
 		});
+	}
+
+	@FXML
+	public void doClear(ActionEvent event) {
+		tableView.getSelectionModel().clearSelection();
+	}
+
+	@FXML
+	public void doRefresh(ActionEvent event) {
+		initConstuct();
 	}
 
 }
