@@ -6,7 +6,11 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
+import org.neo4j.cypher.internal.compiler.v2_2.perty.recipe.formatErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
+import app.configs.FormatterFactory;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.master.DataKaryawan;
 import app.repositories.KaryawanService;
@@ -29,6 +34,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
@@ -76,6 +82,9 @@ public class PengajuanFormController implements BootFormInitializable {
 	@Autowired
 	private KaryawanService serviceKaryawan;
 
+	@Autowired
+	private FormatterFactory stringFormater;
+
 	private Motor motor;
 
 	private SpinnerValueFactory<Double> cicilan;
@@ -83,6 +92,7 @@ public class PengajuanFormController implements BootFormInitializable {
 	private SpinnerValueFactory<Integer> jumlahCicilan;
 
 	private SpinnerValueFactory<Double> uangMuka;
+	private ValidationSupport validation;
 
 	private void clearFields() {
 		txtKarywan.clear();
@@ -96,6 +106,8 @@ public class PengajuanFormController implements BootFormInitializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		this.btnSave.setDisable(true);
+				
 		this.cicilan = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, Double.MAX_VALUE, 0D, 500);
 		this.jumlahCicilan = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 5);
 		this.uangMuka = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, Double.MAX_VALUE, 0D, 500);
@@ -150,6 +162,7 @@ public class PengajuanFormController implements BootFormInitializable {
 						return new SimpleStringProperty(param.getValue().getJenisKelamin().toString());
 					}
 				});
+		this.initValidator();
 
 	}
 
@@ -223,8 +236,26 @@ public class PengajuanFormController implements BootFormInitializable {
 
 	@Override
 	public void initValidator() {
-		// TODO Auto-generated method stub
-
+		this.validation = new ValidationSupport();
+		this.validation.registerValidator(txtNik,
+				Validator.createEmptyValidator("Karyawan belum dipilih", Severity.ERROR));
+		this.validation.registerValidator(txtMerek,
+				Validator.createEmptyValidator("Nama merek kendaraan bermotor", Severity.ERROR));
+		this.validation.registerValidator(txtUangMuka.getEditor(),
+				(Control c, String value) -> ValidationResult.fromErrorIf(c,
+						"Uang muka minimal harus lebih dari " + stringFormater.getCurrencyFormate(100),
+						Double.valueOf(value) < 100));
+		this.validation.registerValidator(txtCicilan.getEditor(),
+				(Control c, String value) -> ValidationResult.fromErrorIf(c,
+						"Cicilam motor minimal harus lebih dari " + stringFormater.getCurrencyFormate(100),
+						Double.valueOf(value) < 100));
+		this.validation.registerValidator(txtJumlahCicilan.getEditor(),
+				(Control c, String value) -> ValidationResult.fromErrorIf(c,
+						"Jumlah cicilan minamal harus lebih dari " + stringFormater.getNumberIntegerOnlyFormate(5),
+						Integer.valueOf(value) < 5));
+		this.validation.invalidProperty().addListener((o, old, newValue) -> {
+			btnSave.setDisable(newValue);
+		});
 	}
 
 }

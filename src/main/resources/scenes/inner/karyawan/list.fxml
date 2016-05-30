@@ -49,8 +49,6 @@
 							prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="51.0" minHeight="0.0"
-							prefHeight="7.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
@@ -59,44 +57,48 @@
 							prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="80.0" minHeight="60.0"
-							prefHeight="80.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="1.7976931348623157E308"
-							vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="100.0" minHeight="100.0"
+							prefHeight="100.0" vgrow="SOMETIMES" />
 					</rowConstraints>
 					<children>
-						<Label text="Nama" GridPane.rowIndex="2">
+						<Label text="Nama" GridPane.rowIndex="5">
 							<GridPane.margin>
 								<Insets />
 							</GridPane.margin>
 						</Label>
-						<Label text="Agama" GridPane.rowIndex="6">
+						<Label text="Agama" GridPane.rowIndex="8">
 							<GridPane.margin>
 								<Insets />
 							</GridPane.margin>
 						</Label>
-						<Label text="Jenis Kelamin" GridPane.rowIndex="7">
+						<Label text="Jenis Kelamin" GridPane.rowIndex="9">
 							<GridPane.margin>
 								<Insets />
 							</GridPane.margin>
 						</Label>
-						<Label text="Tempat Lahir" GridPane.rowIndex="8">
+						<Label text="Tempat Lahir" GridPane.rowIndex="10">
 							<GridPane.margin>
 								<Insets />
 							</GridPane.margin>
 						</Label>
-						<Label text="Tanggal Lahir" GridPane.rowIndex="9">
+						<Label text="Tanggal Lahir" GridPane.rowIndex="11">
 							<GridPane.margin>
 								<Insets />
 							</GridPane.margin>
 						</Label>
-						<Label text="Alamat" GridPane.rowIndex="10">
+						<Label text="Alamat" GridPane.rowIndex="12">
 							<GridPane.margin>
 								<Insets />
 							</GridPane.margin>
 						</Label>
 						<AnchorPane GridPane.columnIndex="1"
-							GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+							GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
 							<children>
 								<TextField fx:id="txtNama" editable="false"
 									prefHeight="30.0" prefWidth="274.0" promptText="Nama Lengkap"
@@ -104,7 +106,7 @@
 									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
-						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="6">
+						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="8">
 							<children>
 								<TextField fx:id="txtAgama" editable="false"
 									prefHeight="30.0" prefWidth="274.0" promptText="Agama"
@@ -113,7 +115,7 @@
 							</children>
 						</AnchorPane>
 						<AnchorPane GridPane.columnIndex="1"
-							GridPane.columnSpan="2" GridPane.rowIndex="8">
+							GridPane.columnSpan="2" GridPane.rowIndex="10">
 							<children>
 								<TextField fx:id="txtTempatLahir" editable="false"
 									prefHeight="30.0" prefWidth="274.0" promptText="Tempat Lahir"
@@ -122,7 +124,7 @@
 							</children>
 						</AnchorPane>
 						<AnchorPane GridPane.columnIndex="1"
-							GridPane.columnSpan="2" GridPane.rowIndex="9">
+							GridPane.columnSpan="2" GridPane.rowIndex="11">
 							<children>
 								<TextField fx:id="txtTanggalLahir" editable="false"
 									layoutX="14.0" layoutY="1.0" prefHeight="30.0" prefWidth="250.0"
@@ -134,19 +136,19 @@
 						<TextArea fx:id="txaAlamat" editable="false" prefHeight="200.0"
 							prefWidth="200.0" promptText="Alamat Lengkap"
 							GridPane.columnIndex="1" GridPane.columnSpan="2147483647"
-							GridPane.rowIndex="10" />
-						<Label text="No Kependudukan" GridPane.rowIndex="1" />
-						<Label text="Gaji Pokok" GridPane.rowIndex="4" />
-						<Label text="Jabatan" GridPane.rowIndex="3" />
+							GridPane.rowIndex="12" />
+						<Label text="No Kependudukan" GridPane.rowIndex="4" />
+						<Label text="Gaji Pokok" GridPane.rowIndex="6" />
+						<Label text="Jabatan" GridPane.rowIndex="1" />
 						<TextField fx:id="txtNik" editable="false" prefHeight="30.0"
 							prefWidth="209.0" promptText="Nomor  KTP" GridPane.columnIndex="1"
-							GridPane.columnSpan="2" GridPane.rowIndex="1" />
+							GridPane.columnSpan="2" GridPane.rowIndex="4" />
 						<TextField fx:id="txtJabatan" editable="false"
 							prefHeight="30.0" prefWidth="259.0" promptText="Jabatan Pekerjaan"
 							GridPane.columnIndex="1" GridPane.columnSpan="2"
-							GridPane.rowIndex="3" />
+							GridPane.rowIndex="1" />
 						<AnchorPane GridPane.columnIndex="1"
-							GridPane.columnSpan="2" GridPane.rowIndex="4">
+							GridPane.columnSpan="2" GridPane.rowIndex="6">
 							<children>
 								<TextField fx:id="txtGapok" editable="false"
 									prefHeight="30.0" prefWidth="250.0" promptText="Gaji Pokok"
@@ -155,7 +157,7 @@
 							</children>
 						</AnchorPane>
 						<AnchorPane prefHeight="200.0" prefWidth="200.0"
-							GridPane.columnIndex="1" GridPane.rowIndex="7">
+							GridPane.columnIndex="1" GridPane.rowIndex="9">
 							<children>
 								<TextField fx:id="txtJk" alignment="CENTER" editable="false"
 									layoutX="86.0" layoutY="3.0" prefHeight="30.0" prefWidth="257.0"
@@ -168,6 +170,12 @@
 						<TextField fx:id="txtNip" editable="false" layoutX="180.0"
 							layoutY="60.0" prefHeight="30.0" prefWidth="209.0" promptText="Nomor Pegawai"
 							GridPane.columnIndex="1" />
+						<Label layoutX="20.0" layoutY="67.0" text="Tanggal Mulai Kerja"
+							GridPane.rowIndex="2" />
+						<TextField fx:id="txtHireDate" editable="false" layoutX="180.0"
+							layoutY="60.0" prefHeight="30.0" prefWidth="259.0" promptText="Tanggal Mulai Kerja"
+							GridPane.columnIndex="1" GridPane.columnSpan="2"
+							GridPane.rowIndex="2" />
 					</children>
 					<padding>
 						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

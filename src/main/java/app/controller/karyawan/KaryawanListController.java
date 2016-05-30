@@ -58,40 +58,45 @@ public class KaryawanListController implements BootInitializable {
 	@FXML
 	TextField txtTempatLahir;
 	@FXML
-	TextField txtTanggalLahir;
+	private TextField txtTanggalLahir;
 	@FXML
-	TextArea txaAlamat;
+	private TextArea txaAlamat;
 	@FXML
-	TextField txtNik;
+	private TextField txtNik;
 	@FXML
-	TextField txtJabatan;
+	private TextField txtJabatan;
 	@FXML
-	TextField txtGapok;
+	private TextField txtGapok;
 	@FXML
-	TextField txtJk;
+	private TextField txtJk;
 	@FXML
-	TextField txtCari;
+	private TextField txtCari;
 	@FXML
-	TableView<DataKaryawan> tableView;
+	private TableView<DataKaryawan> tableView;
 	@FXML
-	TableColumn<DataKaryawan, String> columnNik;
+	private TableColumn<DataKaryawan, String> columnNik;
 	@FXML
-	TableColumn<DataKaryawan, String> columnNama;
+	private TableColumn<DataKaryawan, String> columnNama;
 	@FXML
-	TableColumn<DataKaryawan, String> columnJabatan;
+	private TableColumn<DataKaryawan, String> columnJabatan;
 	@FXML
-	TableColumn<DataKaryawan, String> columnAksi;
+	private TableColumn<DataKaryawan, String> columnAksi;
 	@FXML
 	private Button btnRemoveEmployee;
 	@FXML
+	private TextField txtNip;
+	@FXML
+	private TextField txtHireDate;
+
+	@FXML
 	private Button btnUpdateEmployee;
 	private DialogsFX notif;
-	@FXML
-	TextField txtNip;
 
 	private void setFields(DataKaryawan anEmployee) {
 		if (anEmployee != null) {
 			txtNip.setText(anEmployee.getNip());
+			txtHireDate.setText(stringFormater
+					.getDateTimeFormatterWithDayAndDateMonthYear(anEmployee.getTanggalMulaiKerja().toLocalDate()));
 			txtNama.setText(anEmployee.getNama());
 			txtAgama.setText(anEmployee.getAgama().toString());
 			txtTempatLahir.setText(anEmployee.getTmLahir());
@@ -112,6 +117,7 @@ public class KaryawanListController implements BootInitializable {
 		txtAgama.clear();
 		txtTempatLahir.clear();
 		txtTanggalLahir.clear();
+		txtHireDate.clear();
 		txaAlamat.clear();
 		txtNik.clear();
 		txtJabatan.clear();

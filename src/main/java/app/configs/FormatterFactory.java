@@ -1,6 +1,8 @@
 package app.configs;
 
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import org.springframework.stereotype.Component;
@@ -17,6 +19,11 @@ public class FormatterFactory {
 		nf.setGroupingUsed(true);
 		nf.setParseIntegerOnly(true);
 		return nf.format(number);
+	}
+
+	public String getDateTimeFormatterWithDayAndDateMonthYear(LocalDate date) {
+		DateTimeFormatter formater = DateTimeFormatter.ofPattern("E, dd MMMM yyyy");
+		return formater.format(date);
 	}
 
 }

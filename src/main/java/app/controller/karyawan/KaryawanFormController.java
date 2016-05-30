@@ -258,9 +258,10 @@ public class KaryawanFormController implements BootFormInitializable {
 					.append(formater.format(anEmployee.getTanggalMulaiKerja().toLocalDate()))
 					.append(String.format("%03d", this.service.findAll().size() + 1));
 			anEmployee.setNip(sb.toString());
-			System.out.println(sb.toString());
 
 			service.save(anEmployee);
+			notif.showDefaultSave("Data Karyawan");
+
 			homeController.showEmployee();
 		} catch (Exception e) {
 			logger.error("Tidak dapat menambahkan data baru karyawan", e);
