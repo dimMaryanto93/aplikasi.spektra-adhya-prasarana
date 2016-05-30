@@ -21,7 +21,6 @@ import app.entities.master.DataKaryawan;
 import app.entities.master.DataTidakHadir;
 import app.repositories.AbsensiService;
 import app.repositories.KaryawanService;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -57,7 +56,7 @@ public class AbsensiFormController implements BootInitializable {
 	@FXML
 	private TableView<KehadiranKaryawan> tableView;
 	@FXML
-	private TableColumn<KehadiranKaryawan, Integer> columnNik;
+	private TableColumn<KehadiranKaryawan, String> columnNik;
 	@FXML
 	private TableColumn<KehadiranKaryawan, String> columnNama;
 	@FXML
@@ -72,9 +71,9 @@ public class AbsensiFormController implements BootInitializable {
 			DataKaryawan e = v.getValue().getKaryawan();
 
 			if (e != null) {
-				return new SimpleObjectProperty<Integer>(e.getNik());
+				return new SimpleStringProperty(e.getNip());
 			} else {
-				return new SimpleObjectProperty<Integer>(0);
+				return new SimpleStringProperty();
 			}
 		});
 

@@ -160,7 +160,7 @@ public class PengajuanFormController implements BootFormInitializable {
 			this.motor.setTotalAngsuran(txtJumlahCicilan.getValueFactory().getValue());
 			this.motor.setPembayaran(txtCicilan.getValueFactory().getValue());
 			serviceMotor.save(this.motor);
-			DataKaryawan dataKaryawan = serviceKaryawan.findOne(karyawan.getId());
+			DataKaryawan dataKaryawan = serviceKaryawan.findOne(karyawan.getIndex());
 			dataKaryawan.setNgicilMotor(serviceMotor.findOne(this.motor.getId()));
 			this.serviceKaryawan.save(dataKaryawan);
 			initConstuct();

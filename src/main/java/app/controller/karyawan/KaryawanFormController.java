@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
+import app.configs.FormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataAgama;
 import app.entities.master.DataJabatan;
@@ -32,8 +37,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -73,10 +81,15 @@ public class KaryawanFormController implements BootFormInitializable {
 	private Spinner<Double> spinGapok;
 	@FXML
 	private ToggleGroup groupGender;
+	@FXML
+	private Button btnSimpan;
+	@FXML
+	private Label txtNominal;
 
 	private ApplicationContext springContext;
 	private Boolean update;
 	private DataKaryawan anEmployee;
+	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerValueFactory;
 
 	private HashMap<String, DataJabatan> mapJabatan = new HashMap<>();
 
@@ -96,29 +109,40 @@ public class KaryawanFormController implements BootFormInitializable {
 
 	@Autowired
 	private HomeController homeController;
+
+	@Autowired
+	private FormatterFactory stringFormater;
+
 	private DialogsFX notif;
 	private ValidationSupport validation;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		this.spinnerValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, 0D, 0D, 0D);
+		this.spinGapok.setValueFactory(this.spinnerValueFactory);
+		this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
 		this.txtHireDate.setValue(LocalDate.now());
+		this.spinGapok.setDisable(true);
+		this.spinGapok.getValueFactory().valueProperty().addListener((d, old, newValue) -> {
+			this.txtNominal.setText(this.stringFormater.getCurrencyFormate(newValue));
+		});
 		this.cbkJabatan.getSelectionModel().selectedItemProperty()
 				.addListener((ObservableValue<? extends String> value, String oldValue, String newValue) -> {
 					spinGapok.setDisable(newValue == null);
+					this.spinGapok.setEditable(newValue != null);
 					if (newValue != null) {
-						this.spinGapok.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(
-								Double.valueOf(0), Double.MAX_VALUE, Double.valueOf(0), 500000));
-						this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
-						this.spinGapok.setEditable(true);
-						this.spinGapok.getValueFactory().setValue(mapJabatan.get(newValue).getGapok());
+						this.spinnerValueFactory.setAmountToStepBy(5000);
+						this.spinnerValueFactory.setMax(Double.MAX_VALUE);
+						this.spinnerValueFactory.setMin(0D);
+						this.spinnerValueFactory.setValue(mapJabatan.get(newValue).getGapok());
 					} else {
-						this.spinGapok.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(
-								Double.valueOf(0), Double.valueOf(0), Double.valueOf(0), Double.valueOf(0)));
-						this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
-						this.spinGapok.setEditable(true);
+						this.spinnerValueFactory.setAmountToStepBy(0D);
+						this.spinnerValueFactory.setMax(0D);
+						this.spinnerValueFactory.setMin(0D);
+						this.spinnerValueFactory.setValue(0D);
 					}
 				});
-
+		initValidator();
 	}
 
 	@Override
@@ -154,6 +178,7 @@ public class KaryawanFormController implements BootFormInitializable {
 			cbkAgama.getItems().addAll(DataAgama.values());
 			cbkPendidikan.getItems().addAll(DataPendidikan.values());
 			this.datePicker.setValue(LocalDate.now());
+
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan data jabatan", e);
 			notif.showDefaultErrorLoad("Data jabatan", e);
@@ -215,7 +240,7 @@ public class KaryawanFormController implements BootFormInitializable {
 
 	private void newDataEmployee() {
 		try {
-			anEmployee.setNik(Integer.valueOf(txtNik.getText()));
+			anEmployee.setNik(txtNik.getText());
 			anEmployee.setNama(txtNama.getText());
 			anEmployee.setTanggalMulaiKerja(Date.valueOf(txtHireDate.getValue()));
 			anEmployee.setAgama(cbkAgama.getValue());
@@ -226,6 +251,13 @@ public class KaryawanFormController implements BootFormInitializable {
 			anEmployee.setAlamat(txaAlamat.getText());
 			anEmployee.setJabatan(mapJabatan.get(cbkJabatan.getValue()));
 			anEmployee.setPendidikan(cbkPendidikan.getValue());
+			DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyMMdd");
+			StringBuilder sb = new StringBuilder(anEmployee.getJabatan().getKodeJabatan().toUpperCase())
+					.append(formater.format(anEmployee.getTanggalMulaiKerja().toLocalDate()))
+					.append(String.format("%03d", this.service.findAll().size() + 1));
+			anEmployee.setNip(sb.toString());
+			System.out.println(sb.toString());
+
 			service.save(anEmployee);
 			homeController.showEmployee();
 		} catch (Exception e) {
@@ -254,6 +286,39 @@ public class KaryawanFormController implements BootFormInitializable {
 		}
 	}
 
+	@Override
+	public void initValidator() {
+		this.validation = new ValidationSupport();
+		this.validation.registerValidator(txtNik, (Control c, String value) -> ValidationResult.fromErrorIf(c,
+				"Format No Induk kependudukan (No KTP) salah!", !value.matches("\\d[\\d.]*")));
+		this.validation.registerValidator(txtNama,
+				Validator.createEmptyValidator("Nama tidak boleh kosong", Severity.ERROR));
+		this.validation.registerValidator(txtHireDate,
+				(Control c, LocalDate value) -> ValidationResult.fromErrorIf(c,
+						"Tanggal tidak boleh lebih dari tanggal " + LocalDate.now().toString(),
+						value.isAfter(LocalDate.now())));
+		this.validation.registerValidator(cbkAgama,
+				Validator.createEmptyValidator("Agama belum dipilih!", Severity.ERROR));
+		this.validation.registerValidator(spinGapok.getEditor(),
+				(Control c, String value) -> ValidationResult.fromErrorIf(c,
+						"Gaji pokok nominalnya minimal harus lebih besar dari "
+								+ stringFormater.getCurrencyFormate(100),
+						Double.valueOf(value) < 100));
+		this.validation.registerValidator(cbkJabatan,
+				Validator.createEmptyValidator("Jabatan belum dipilih!", Severity.ERROR));
+		this.validation.registerValidator(cbkPendidikan,
+				Validator.createEmptyValidator("Pendidikan terakhir belum dipilih!", Severity.ERROR));
+		this.validation.registerValidator(txaAlamat,
+				Validator.createEmptyValidator("Alamat karyawan masih kosong", Severity.WARNING));
+		this.validation.registerValidator(txtTempatLahir,
+				Validator.createEmptyValidator("Tempat lahir karyawan masih kosong!", Severity.ERROR));
+
+		this.validation.invalidProperty()
+				.addListener((ObservableValue<? extends Boolean> values, Boolean oldValue, Boolean newValue) -> {
+					btnSimpan.setDisable(newValue);
+				});
+	}
+
 	@FXML
 	public void doSave(ActionEvent e) {
 		if (isUpdate()) {
@@ -274,12 +339,6 @@ public class KaryawanFormController implements BootFormInitializable {
 	public void setMessageSource(MessageSource messageSource) {
 		// TODO Auto-generated method stub
 
-	}
-
-	
-	@Override
-	public void initValidator() {
-		this.validation.getRegisteredControls().clear();
 	}
 
 }

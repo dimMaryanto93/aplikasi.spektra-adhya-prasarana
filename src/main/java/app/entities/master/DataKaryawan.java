@@ -13,11 +13,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import app.entities.kepegawaian.KasbonKaryawan;
@@ -27,13 +29,27 @@ import app.entities.kepegawaian.uang.prestasi.Motor;
 
 @Entity
 @Table(name = "data_karyawan")
+@SequenceGenerator(name = "seq_karyawan", allocationSize = 1, initialValue = 1, sequenceName = "seq_karyawan")
 public class DataKaryawan {
 
 	@Id
-	@GeneratedValue
-	private Long id;
-	@Column(nullable = false)
-	private Integer nik;
+	@GeneratedValue(generator = "seq_karyawan", strategy = GenerationType.SEQUENCE)
+	@Column(unique = true, nullable = false)
+	private Long index;
+
+	public Long getIndex() {
+		return index;
+	}
+
+	public void setIndex(Long index) {
+		this.index = index;
+	}
+
+	@Column(nullable = false, name = "no_kepegawaian", unique = true)
+	private String nip;
+
+	@Column(nullable = false, name = "no_kependudukan", unique = true)
+	private String nik;
 
 	@Column(nullable = false)
 	private String nama;
@@ -91,19 +107,11 @@ public class DataKaryawan {
 		this.jabatan = jabatan;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Integer getNik() {
+	public String getNik() {
 		return nik;
 	}
 
-	public void setNik(Integer nik) {
+	public void setNik(String nik) {
 		this.nik = nik;
 	}
 
@@ -231,9 +239,17 @@ public class DataKaryawan {
 	public Boolean isGettingCililanMotorUntukDisetujui() {
 		return getNgicilMotor() != null && !getNgicilMotor().isSetuju();
 	}
-	
-	public Boolean isGettingCicilanMotorDisetujui(){
+
+	public Boolean isGettingCicilanMotorDisetujui() {
 		return getNgicilMotor() != null && getNgicilMotor().isSetuju();
+	}
+
+	public String getNip() {
+		return nip;
+	}
+
+	public void setNip(String nip) {
+		this.nip = nip;
 	}
 
 }

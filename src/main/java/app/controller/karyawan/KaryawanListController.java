@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.DialogsFX;
+import app.configs.FormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
@@ -36,7 +37,6 @@ import javafx.stage.Stage;
 @Component
 public class KaryawanListController implements BootInitializable {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	private Stage primaryStage;
 	private ApplicationContext springContext;
 
 	@Autowired
@@ -47,6 +47,9 @@ public class KaryawanListController implements BootInitializable {
 
 	@Autowired
 	private KaryawanFormController formController;
+
+	@Autowired
+	private FormatterFactory stringFormater;
 
 	@FXML
 	TextField txtNama;
@@ -82,9 +85,13 @@ public class KaryawanListController implements BootInitializable {
 	private Button btnRemoveEmployee;
 	@FXML
 	private Button btnUpdateEmployee;
+	private DialogsFX notif;
+	@FXML
+	TextField txtNip;
 
 	private void setFields(DataKaryawan anEmployee) {
 		if (anEmployee != null) {
+			txtNip.setText(anEmployee.getNip());
 			txtNama.setText(anEmployee.getNama());
 			txtAgama.setText(anEmployee.getAgama().toString());
 			txtTempatLahir.setText(anEmployee.getTmLahir());
@@ -92,15 +99,15 @@ public class KaryawanListController implements BootInitializable {
 			txaAlamat.setText(anEmployee.getAlamat());
 			txtNik.setText(String.valueOf(anEmployee.getNik()));
 			txtJabatan.setText(anEmployee.getJabatan().getNama());
-			txtGapok.setText(anEmployee.getGaji().toString());
+			txtGapok.setText(this.stringFormater.getCurrencyFormate(anEmployee.getGaji()));
 			txtJk.setText(anEmployee.getJenisKelamin().toString());
-			System.out.println("cicilan motor: " + anEmployee.isGettingCicilanMotor());
 		} else {
 			clearFields();
 		}
 	}
 
 	private void clearFields() {
+		txtNip.clear();
 		txtNama.clear();
 		txtAgama.clear();
 		txtTempatLahir.clear();
@@ -116,14 +123,12 @@ public class KaryawanListController implements BootInitializable {
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/scenes/inner/karyawan/list.fxml"));
-
 		loader.setController(springContext.getBean(this.getClass()));
 		return loader.load();
 	}
 
 	@Override
 	public void setStage(Stage stage) {
-		this.primaryStage = stage;
 	}
 
 	@Override
@@ -136,11 +141,7 @@ public class KaryawanListController implements BootInitializable {
 
 						@Override
 						public void handle(ActionEvent event) {
-							try {
-								doDelete(newValue);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
+							doDelete(newValue);
 						}
 					});
 					btnUpdateEmployee.setDisable(newValue == null);
@@ -148,16 +149,12 @@ public class KaryawanListController implements BootInitializable {
 
 						@Override
 						public void handle(ActionEvent event) {
-							try {
-								doUpdate(newValue);
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
+							doUpdate(newValue);
 						}
 					});
 
 				});
-		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
+		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nip"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
 		columnJabatan.setCellValueFactory(params -> {
 			DataJabatan j = params.getValue().getJabatan();
@@ -180,14 +177,20 @@ public class KaryawanListController implements BootInitializable {
 			tableView.getItems().clear();
 			tableView.getItems().addAll(service.findAll());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan data karyawan", e);
+			notif.showDefaultErrorLoad("Daftar Karyawan", e);
 		}
 	}
 
 	@FXML
-	public void doAddEmployee(ActionEvent event) throws IOException {
-		homeController.setLayout(formController.initView());
-		formController.initConstuct();
+	public void doAddEmployee(ActionEvent event) {
+		try {
+			homeController.setLayout(formController.initView());
+			formController.initConstuct();
+		} catch (IOException e) {
+			logger.error("Tidak dapat menampilkan form karyawan", e);
+			notif.showDefaultErrorLoadForm("Data Karyawan", e);
+		}
 	}
 
 	@FXML
@@ -200,31 +203,30 @@ public class KaryawanListController implements BootInitializable {
 		initConstuct();
 	}
 
-	public void doUpdate(DataKaryawan employee) throws IOException {
+	public void doUpdate(DataKaryawan employee) {
 		try {
 			homeController.setLayout(formController.initView());
 			formController.initConstuct(employee);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan form karyawan", e);
+			notif.showDefaultErrorLoadForm("Data Karyawan", e);
 		}
 	}
 
-	public void doDelete(DataKaryawan employee) throws Exception {
+	public void doDelete(DataKaryawan employee) {
 		try {
-			service.delete(employee.getId());
+			service.delete(employee);
 			initConstuct();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Tidak dapat menghapus data karyawan", e);
+			notif.showDefaultErrorDelete("Data Karyawan", e);
 		}
 	}
 
 	@Override
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		// TODO Auto-generated method stub
-
+		this.notif = notif;
 	}
 
 	@Override
@@ -232,7 +234,5 @@ public class KaryawanListController implements BootInitializable {
 		// TODO Auto-generated method stub
 
 	}
-
-
 
 }
