@@ -194,6 +194,9 @@ public class KaryawanFormController implements BootFormInitializable {
 			cbkPendidikan.getItems().addAll(DataPendidikan.values());
 			this.txtNik.setText(String.valueOf(anEmployee.getNik()));
 			this.txtNama.setText(anEmployee.getNama());
+			this.txtTempatLahir.setText(anEmployee.getTmLahir());
+			this.txtHireDate.setValue(anEmployee.getTanggalMulaiKerja().toLocalDate());
+			this.datePicker.setValue(anEmployee.gettLahir().toLocalDate());
 
 			// add item to combobox jabatan
 			this.cbkJabatan.getItems().clear();
@@ -209,7 +212,6 @@ public class KaryawanFormController implements BootFormInitializable {
 
 			// select value to combobox
 			this.cbkJabatan.getSelectionModel().select(key);
-
 			this.cbkAgama.setValue(anEmployee.getAgama());
 			this.cbkPendidikan.setValue(anEmployee.getPendidikan());
 			this.datePicker.setValue(anEmployee.gettLahir().toLocalDate());
