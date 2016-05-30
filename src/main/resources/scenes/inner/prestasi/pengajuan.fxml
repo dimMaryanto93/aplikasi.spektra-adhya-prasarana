@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
@@ -49,14 +50,24 @@
 							minWidth="20.0" prefWidth="20.0" />
 						<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0"
 							minWidth="100.0" prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0"
+							minWidth="100.0" prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0"
+							minWidth="20.0" prefWidth="20.0" />
 						<ColumnConstraints hgrow="SOMETIMES"
-							maxWidth="1.7976931348623157E308" />
+							maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
 					</columnConstraints>
 					<rowConstraints>
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="150.0" minHeight="150.0"
 							prefHeight="150.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
@@ -95,9 +106,9 @@
 								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 							</columnResizePolicy>
 						</TableView>
-						<Label text="Merek kendaraan" GridPane.rowIndex="3" />
+						<Label text="Merek kendaraan" GridPane.rowIndex="4" />
 						<AnchorPane GridPane.columnIndex="1"
-							GridPane.columnSpan="3" GridPane.rowIndex="3">
+							GridPane.columnSpan="4" GridPane.rowIndex="4">
 							<children>
 								<TextField fx:id="txtMerek" prefHeight="30.0"
 									prefWidth="171.0" promptText="Merek Kendaraan bermotor"
@@ -106,8 +117,8 @@
 							</children>
 						</AnchorPane>
 						<Label layoutX="20.0" layoutY="227.0" text="Jumlah Cicilan"
-							GridPane.rowIndex="4" />
-						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+							GridPane.rowIndex="5" />
+						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="5">
 							<children>
 								<Spinner fx:id="txtCicilan" prefHeight="30.0" prefWidth="171.0"
 									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -115,12 +126,12 @@
 							</children>
 						</AnchorPane>
 						<HBox alignment="CENTER" GridPane.columnIndex="2"
-							GridPane.rowIndex="4">
+							GridPane.rowIndex="5">
 							<children>
 								<Label text="X" />
 							</children>
 						</HBox>
-						<AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="4">
+						<AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="5">
 							<children>
 								<Spinner fx:id="txtJumlahCicilan" prefHeight="30.0"
 									prefWidth="171.0" AnchorPane.bottomAnchor="0.0"
@@ -129,10 +140,10 @@
 							</children>
 						</AnchorPane>
 						<Label text="/ Bulan" GridPane.columnIndex="4"
-							GridPane.rowIndex="4" />
-						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Uang muka"
 							GridPane.rowIndex="5" />
-						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="5">
+						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Uang muka"
+							GridPane.rowIndex="7" />
+						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="7">
 							<children>
 								<Spinner fx:id="txtUangMuka" prefHeight="30.0"
 									prefWidth="171.0" AnchorPane.bottomAnchor="0.0"
@@ -140,26 +151,75 @@
 									AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
-						<Label layoutX="20.0" layoutY="227.0" text="Karyawan yang dipilih"
+						<Label layoutX="20.0" layoutY="227.0" text="Karyawan"
 							GridPane.rowIndex="2" />
-						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+						<AnchorPane GridPane.columnIndex="2"
+							GridPane.columnSpan="3" GridPane.rowIndex="2">
 							<children>
-								<TextField focusTraversable="false" editable="false"
-									fx:id="txtKarywan" prefHeight="30.0" prefWidth="171.0"
+								<TextField fx:id="txtKarywan" editable="false"
+									focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
 									promptText="Nama Karyawan" AnchorPane.bottomAnchor="0.0"
 									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
 									AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
-						<AnchorPane GridPane.columnIndex="2"
-							GridPane.columnSpan="2" GridPane.rowIndex="2">
+						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
 							<children>
-								<TextField editable="false" focusTraversable="false"
-									fx:id="txtNik" prefHeight="30.0" prefWidth="171.0" promptText="NIK"
+								<TextField fx:id="txtNik" editable="false"
+									focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
+									promptText="NIK" AnchorPane.bottomAnchor="0.0"
+									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+									AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="6">
+							<children>
+								<Label fx:id="nominalCicilan" prefHeight="30.0" prefWidth="150.0"
+									text="Rp." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<HBox alignment="CENTER" layoutX="304.0" layoutY="300.0"
+							GridPane.columnIndex="2" GridPane.rowIndex="6">
+							<children>
+								<Label text="X" />
+							</children>
+						</HBox>
+						<AnchorPane layoutX="144.0" layoutY="340.0"
+							GridPane.columnIndex="3" GridPane.rowIndex="6">
+							<children>
+								<Label fx:id="jumlahCicilan" alignment="CENTER"
+									prefHeight="30.0" prefWidth="150.0" text="0"
 									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
+						<Label layoutX="444.0" layoutY="307.0" text="/ Bulan"
+							GridPane.columnIndex="4" GridPane.rowIndex="6" />
+						<Label fx:id="totalPengeluaran" layoutX="444.0" layoutY="347.0"
+							text="Rp.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+						<AnchorPane layoutX="144.0" layoutY="340.0"
+							GridPane.columnIndex="3" GridPane.columnSpan="2"
+							GridPane.rowIndex="7">
+							<children>
+								<Label fx:id="totalUangMuka" prefHeight="30.0" prefWidth="150.0"
+									text="Rp." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<HBox alignment="CENTER" GridPane.columnIndex="5"
+							GridPane.rowIndex="6">
+							<children>
+								<Label text="=" />
+							</children>
+						</HBox>
+						<CheckBox fx:id="checkValid" mnemonicParsing="false"
+							text="Saya menyatakan data diatas adalah benar"
+							GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
+							<font>
+								<Font name="System Bold" size="15.0" />
+							</font>
+						</CheckBox>
 					</children>
 				</GridPane>
 			</content>

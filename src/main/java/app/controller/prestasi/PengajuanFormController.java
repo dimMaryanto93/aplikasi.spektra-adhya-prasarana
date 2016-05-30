@@ -10,7 +10,6 @@ import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
-import org.neo4j.cypher.internal.compiler.v2_2.perty.recipe.formatErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -34,7 +33,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
@@ -75,6 +76,16 @@ public class PengajuanFormController implements BootFormInitializable {
 	private TextField txtKarywan;
 	@FXML
 	private TextField txtNik;
+	@FXML
+	private Label nominalCicilan;
+	@FXML
+	private Label jumlahCicilan;
+	@FXML
+	private Label totalPengeluaran;
+	@FXML
+	private Label totalUangMuka;
+	@FXML
+	private CheckBox checkValid;
 
 	@Autowired
 	private MotorRepository serviceMotor;
@@ -87,55 +98,110 @@ public class PengajuanFormController implements BootFormInitializable {
 
 	private Motor motor;
 
-	private SpinnerValueFactory<Double> cicilan;
+	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerCicilanValueFactory;
 
-	private SpinnerValueFactory<Integer> jumlahCicilan;
+	private SpinnerValueFactory.IntegerSpinnerValueFactory spinnerJumlahCicilanValueFactory;
 
-	private SpinnerValueFactory<Double> uangMuka;
+	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerUangMukaValueFactory;
 	private ValidationSupport validation;
 
 	private void clearFields() {
 		txtKarywan.clear();
 		txtNik.clear();
 		txtMerek.clear();
-		txtCicilan.getValueFactory().setValue(0D);
-		txtJumlahCicilan.getValueFactory().setValue(0);
-		txtUangMuka.getValueFactory().setValue(0D);
+		this.checkValid.setSelected(false);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		this.totalUangMuka.setText(this.stringFormater.getCurrencyFormate(0));
+		this.nominalCicilan.setText(this.stringFormater.getCurrencyFormate(0));
+		this.jumlahCicilan.setText(this.stringFormater.getNumberIntegerOnlyFormate(0));
+		this.totalPengeluaran.setText(this.stringFormater.getCurrencyFormate(0));
+
 		this.btnSave.setDisable(true);
-				
-		this.cicilan = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, Double.MAX_VALUE, 0D, 500);
-		this.jumlahCicilan = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 5);
-		this.uangMuka = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, Double.MAX_VALUE, 0D, 500);
+
+		this.spinnerCicilanValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, 0D);
+		this.spinnerJumlahCicilanValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 0);
+		this.spinnerUangMukaValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, 0D);
 
 		this.txtUangMuka.getEditor().setAlignment(Pos.CENTER_RIGHT);
-		this.txtUangMuka.setEditable(true);
-		this.txtUangMuka.setValueFactory(uangMuka);
+		this.txtUangMuka.setValueFactory(spinnerUangMukaValueFactory);
+		this.txtUangMuka.setDisable(true);
+		this.txtUangMuka.getValueFactory().valueProperty().addListener((b, old, value) -> {
+			this.totalUangMuka.setText(this.stringFormater.getCurrencyFormate(value));
+		});
 
 		this.txtCicilan.getEditor().setAlignment(Pos.CENTER_RIGHT);
-		this.txtCicilan.setEditable(true);
-		this.txtCicilan.setValueFactory(cicilan);
+		this.txtCicilan.setValueFactory(spinnerCicilanValueFactory);
+		this.txtCicilan.setDisable(true);
+		this.txtCicilan.getValueFactory().valueProperty().addListener((d, old, value) -> {
+			this.nominalCicilan.setText(this.stringFormater.getCurrencyFormate(value));
+			this.totalPengeluaran.setText(
+					this.stringFormater.getCurrencyFormate(value * this.txtJumlahCicilan.getValueFactory().getValue()));
+		});
 
 		this.txtJumlahCicilan.getEditor().setAlignment(Pos.CENTER_RIGHT);
-		this.txtJumlahCicilan.setEditable(true);
-		this.txtJumlahCicilan.setValueFactory(jumlahCicilan);
+		this.txtJumlahCicilan.setValueFactory(spinnerJumlahCicilanValueFactory);
+		this.txtJumlahCicilan.setDisable(true);
+		this.txtJumlahCicilan.getValueFactory().valueProperty().addListener((d, old, value) -> {
+			this.jumlahCicilan.setText(this.stringFormater.getNumberIntegerOnlyFormate(value));
+			this.totalPengeluaran.setText(
+					this.stringFormater.getCurrencyFormate(value * this.txtCicilan.getValueFactory().getValue()));
+		});
 
 		this.tableView.getSelectionModel().selectedItemProperty().addListener(
 				(ObservableValue<? extends DataKaryawan> values, DataKaryawan oldValue, DataKaryawan newValue) -> {
 					this.btnSave.setOnAction(e -> {
 						doSave(e, newValue);
 					});
+
+					this.txtJumlahCicilan.setDisable(newValue == null);
+					this.txtCicilan.setDisable(newValue == null);
+					this.txtUangMuka.setDisable(newValue == null);
+
+					this.txtJumlahCicilan.setEditable(newValue != null);
+					this.txtCicilan.setEditable(newValue != null);
+					this.txtUangMuka.setEditable(newValue != null);
+
 					if (newValue != null) {
 						txtKarywan.setText(newValue.getNama());
 						txtNik.setText(newValue.getNik().toString());
+						this.spinnerCicilanValueFactory.setMax(Double.MAX_VALUE);
+						this.spinnerCicilanValueFactory.setMin(0D);
+						this.spinnerCicilanValueFactory.setAmountToStepBy(50000);
+						this.spinnerCicilanValueFactory.setValue(Double.valueOf(500000));
+
+						this.spinnerJumlahCicilanValueFactory.setMax(100);
+						this.spinnerJumlahCicilanValueFactory.setMin(0);
+						this.spinnerJumlahCicilanValueFactory.setAmountToStepBy(5);
+						this.spinnerJumlahCicilanValueFactory.setValue(30);
+
+						this.spinnerUangMukaValueFactory.setMax(Double.MAX_VALUE);
+						this.spinnerUangMukaValueFactory.setMin(0D);
+						this.spinnerUangMukaValueFactory.setAmountToStepBy(50000);
+						this.spinnerUangMukaValueFactory.setValue(Double.valueOf(3000000));
 					} else {
 						clearFields();
+
+						this.spinnerCicilanValueFactory.setValue(0D);
+						this.spinnerCicilanValueFactory.setMax(0D);
+						this.spinnerCicilanValueFactory.setMin(0D);
+						this.spinnerCicilanValueFactory.setAmountToStepBy(0D);
+
+						this.spinnerJumlahCicilanValueFactory.setValue(0);
+						this.spinnerJumlahCicilanValueFactory.setMax(0);
+						this.spinnerJumlahCicilanValueFactory.setMin(0);
+						this.spinnerCicilanValueFactory.setAmountToStepBy(0);
+
+						this.spinnerUangMukaValueFactory.setValue(0D);
+						this.spinnerUangMukaValueFactory.setMax(0D);
+						this.spinnerUangMukaValueFactory.setMin(0D);
+						this.spinnerUangMukaValueFactory.setAmountToStepBy(0D);
 					}
 				});
+
 		this.columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, Integer>("nik"));
 		this.columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
 		this.columnHireDate.setCellValueFactory(
@@ -163,7 +229,6 @@ public class PengajuanFormController implements BootFormInitializable {
 					}
 				});
 		this.initValidator();
-
 	}
 
 	private void doSave(ActionEvent e, DataKaryawan karyawan) {
@@ -253,6 +318,8 @@ public class PengajuanFormController implements BootFormInitializable {
 				(Control c, String value) -> ValidationResult.fromErrorIf(c,
 						"Jumlah cicilan minamal harus lebih dari " + stringFormater.getNumberIntegerOnlyFormate(5),
 						Integer.valueOf(value) < 5));
+		this.validation.registerValidator(checkValid, (Control c, Boolean value) -> ValidationResult.fromErrorIf(c,
+				"Silahkan ceklisk jika data diatas telah sesuia!", value == false));
 		this.validation.invalidProperty().addListener((o, old, newValue) -> {
 			btnSave.setDisable(newValue);
 		});
