@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.DialogsFX;
+import app.configs.FormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
 import app.repositories.JabatanService;
@@ -39,6 +40,9 @@ public class JabatanListController implements BootInitializable {
 	private JabatanService service;
 
 	@Autowired
+	private FormatterFactory stringFormater;
+
+	@Autowired
 	private HomeController homeController;
 
 	@Autowired
@@ -62,13 +66,14 @@ public class JabatanListController implements BootInitializable {
 	private TextArea txtKeterangan;
 	@FXML
 	private TextField txtGapok;
+	private DialogsFX notif;
 
 	public void setFields(DataJabatan j) {
 		if (j != null) {
 			txtKode.setText(j.getKodeJabatan());
 			txtNama.setText(j.getNama());
 			txtKeterangan.setText(j.getKeterangan());
-			txtGapok.setText(j.getGapok().toString());
+			txtGapok.setText(stringFormater.getCurrencyFormate(j.getGapok()));
 		} else {
 			clearFields();
 		}
@@ -106,8 +111,8 @@ public class JabatanListController implements BootInitializable {
 			service.delete(newValue);
 			initConstuct();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Tidak dapat menghapus data jabatan", e);
+
 		}
 
 	}
@@ -117,8 +122,8 @@ public class JabatanListController implements BootInitializable {
 			homeController.setLayout(formController.initView());
 			formController.initConstuct(jabatan);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan form jabatan", e);
+			notif.showDefaultErrorLoadForm("Form Jabatan", e);
 		}
 	}
 
@@ -147,7 +152,8 @@ public class JabatanListController implements BootInitializable {
 			tableView.getItems().clear();
 			tableView.getItems().addAll(service.findAll());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan data jabatan", e);
+			notif.showDefaultErrorLoad("Data Jabatan", e);
 		}
 	}
 
@@ -157,8 +163,8 @@ public class JabatanListController implements BootInitializable {
 			homeController.setLayout(formController.initView());
 			formController.initConstuct();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan form jabatan", e);
+			notif.showDefaultErrorLoadForm("Form Jabatan", e);
 		}
 	}
 
@@ -175,8 +181,7 @@ public class JabatanListController implements BootInitializable {
 	@Override
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		// TODO Auto-generated method stub
-
+		this.notif = notif;
 	}
 
 	@Override

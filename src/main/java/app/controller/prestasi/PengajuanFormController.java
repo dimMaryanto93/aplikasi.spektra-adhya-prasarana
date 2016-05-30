@@ -103,11 +103,11 @@ public class PengajuanFormController implements BootFormInitializable {
 		this.txtUangMuka.getEditor().setAlignment(Pos.CENTER_RIGHT);
 		this.txtUangMuka.setEditable(true);
 		this.txtUangMuka.setValueFactory(uangMuka);
-		
+
 		this.txtCicilan.getEditor().setAlignment(Pos.CENTER_RIGHT);
 		this.txtCicilan.setEditable(true);
 		this.txtCicilan.setValueFactory(cicilan);
-		
+
 		this.txtJumlahCicilan.getEditor().setAlignment(Pos.CENTER_RIGHT);
 		this.txtJumlahCicilan.setEditable(true);
 		this.txtJumlahCicilan.setValueFactory(jumlahCicilan);
@@ -222,15 +222,9 @@ public class PengajuanFormController implements BootFormInitializable {
 	}
 
 	@Override
-	public void setValidationSupport(ValidationSupport validation) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void initValidator() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

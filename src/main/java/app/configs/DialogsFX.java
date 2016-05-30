@@ -152,4 +152,10 @@ public class DialogsFX {
 		showDialogError(getTitle(), getHeader(), null, ex);
 	}
 
+	public void showDefaultErrorLoadForm(String title, Throwable ex) {
+		setTitle(title);
+		setHeader("Tidak dapat menampilkan scene");
+		showDialogError(getTitle(), getHeader(), null, ex);
+	}
+
 }

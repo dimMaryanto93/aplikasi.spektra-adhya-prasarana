@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
+import app.configs.FormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
 import app.repositories.JabatanService;
@@ -29,6 +30,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
@@ -51,6 +53,11 @@ public class JabatanFormController implements BootFormInitializable {
 	private Spinner<Double> spinGapok;
 	@FXML
 	private Button btnSave;
+	@FXML
+	private Label txtNominal;
+
+	@Autowired
+	private FormatterFactory stringFormater;
 
 	private DataJabatan jabatan;
 
@@ -75,8 +82,13 @@ public class JabatanFormController implements BootFormInitializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.btnSave.setDisable(true);
+		txtNominal.setText(stringFormater.getCurrencyFormate(0));
 		this.spinGapok.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.valueOf(0),
 				Double.MAX_VALUE, Double.valueOf(0), 500000));
+		this.spinGapok.getValueFactory().valueProperty()
+				.addListener((ObservableValue<? extends Double> values, Double oldValue, Double newValue) -> {
+					this.txtNominal.setText(this.stringFormater.getCurrencyFormate(newValue));
+				});
 		this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
 		this.spinGapok.setEditable(true);
 		initValidator();
@@ -182,16 +194,12 @@ public class JabatanFormController implements BootFormInitializable {
 	}
 
 	@Override
-	@Autowired
-	public void setValidationSupport(ValidationSupport validation) {
-		this.validation = validation;
-	}
-
-	@Override
 	public void initValidator() {
-		this.validation.redecorate();
+		this.validation = new ValidationSupport();
 		this.validation.registerValidator(txtKode,
-				Validator.createEmptyValidator("Kode tidak boleh kosong", Severity.ERROR));
+				(Control c, String value) -> ValidationResult.fromErrorIf(c,
+						"Format kode jabatan tidak sesuai, hanya terdiri dari 3 sampai 5 karakter",
+						!value.matches("[a-zA-Z_]{3,5}")));
 		this.validation.registerValidator(txtNama,
 				Validator.createEmptyValidator("Nama jabatan tidak boleh kosong!", Severity.ERROR));
 		this.validation.registerValidator(txtKeterangan, (Control c, String value) -> ValidationResult.fromMessageIf(c,

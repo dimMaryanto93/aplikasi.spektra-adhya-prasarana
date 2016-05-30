@@ -196,8 +196,6 @@ public class KasbonPengembalianController implements BootFormInitializable {
 		});
 	}
 
-	
-
 	private void doSave(ActionEvent e) {
 		DataKaryawan dataKaryawan = tableView.getSelectionModel().getSelectedItem();
 		if (dataKaryawan != null) {
@@ -269,40 +267,23 @@ public class KasbonPengembalianController implements BootFormInitializable {
 		initConstuct();
 	}
 
-
-
 	@Override
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
-
-	@Override
-	public void setValidationSupport(ValidationSupport validation) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 	@Override
 	public void initValidator() {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
-
 
 }

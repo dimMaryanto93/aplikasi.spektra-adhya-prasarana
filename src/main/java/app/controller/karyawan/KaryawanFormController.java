@@ -44,7 +44,9 @@ import javafx.stage.Stage;
 
 @Component
 public class KaryawanFormController implements BootFormInitializable {
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@FXML
 	private TextField txtNik;
 	@FXML
@@ -73,7 +75,6 @@ public class KaryawanFormController implements BootFormInitializable {
 	private ToggleGroup groupGender;
 
 	private ApplicationContext springContext;
-	private Stage stage;
 	private Boolean update;
 	private DataKaryawan anEmployee;
 
@@ -95,6 +96,8 @@ public class KaryawanFormController implements BootFormInitializable {
 
 	@Autowired
 	private HomeController homeController;
+	private DialogsFX notif;
+	private ValidationSupport validation;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -135,55 +138,64 @@ public class KaryawanFormController implements BootFormInitializable {
 
 	@Override
 	public void setStage(Stage stage) {
-		this.stage = stage;
 	}
 
 	@Override
 	public void initConstuct() {
-		this.setUpdate(false);
-		this.anEmployee = new DataKaryawan();
-		this.cbkJabatan.getItems().clear();
-		for (DataJabatan j : jabatanService.findAll()) {
-			String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
-			mapJabatan.put(key, j);
-			this.cbkJabatan.getItems().add(key);
+		try {
+			this.setUpdate(false);
+			this.anEmployee = new DataKaryawan();
+			this.cbkJabatan.getItems().clear();
+			for (DataJabatan j : jabatanService.findAll()) {
+				String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
+				mapJabatan.put(key, j);
+				this.cbkJabatan.getItems().add(key);
+			}
+			cbkAgama.getItems().addAll(DataAgama.values());
+			cbkPendidikan.getItems().addAll(DataPendidikan.values());
+			this.datePicker.setValue(LocalDate.now());
+		} catch (Exception e) {
+			logger.error("Tidak dapat menampilkan data jabatan", e);
+			notif.showDefaultErrorLoad("Data jabatan", e);
 		}
-		cbkAgama.getItems().addAll(DataAgama.values());
-		cbkPendidikan.getItems().addAll(DataPendidikan.values());
-		this.datePicker.setValue(LocalDate.now());
 
 	}
 
 	public void initConstuct(DataKaryawan anEmployee) {
-		this.setUpdate(true);
-		this.anEmployee = anEmployee;
-		cbkAgama.getItems().addAll(DataAgama.values());
-		cbkPendidikan.getItems().addAll(DataPendidikan.values());
-		this.txtNik.setText(String.valueOf(anEmployee.getNik()));
-		this.txtNama.setText(anEmployee.getNama());
+		try {
+			this.setUpdate(true);
+			this.anEmployee = anEmployee;
+			cbkAgama.getItems().addAll(DataAgama.values());
+			cbkPendidikan.getItems().addAll(DataPendidikan.values());
+			this.txtNik.setText(String.valueOf(anEmployee.getNik()));
+			this.txtNama.setText(anEmployee.getNama());
 
-		// add item to combobox jabatan
-		this.cbkJabatan.getItems().clear();
-		for (DataJabatan j : jabatanService.findAll()) {
+			// add item to combobox jabatan
+			this.cbkJabatan.getItems().clear();
+			for (DataJabatan j : jabatanService.findAll()) {
+				String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
+				mapJabatan.put(key, j);
+				this.cbkJabatan.getItems().add(key);
+			}
+
+			// set value
+			DataJabatan j = anEmployee.getJabatan();
 			String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
-			mapJabatan.put(key, j);
-			this.cbkJabatan.getItems().add(key);
+
+			// select value to combobox
+			this.cbkJabatan.getSelectionModel().select(key);
+
+			this.cbkAgama.setValue(anEmployee.getAgama());
+			this.cbkPendidikan.setValue(anEmployee.getPendidikan());
+			this.datePicker.setValue(anEmployee.gettLahir().toLocalDate());
+			this.spinGapok.getValueFactory().setValue(anEmployee.getGaji());
+
+			this.male.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Laki_Laki);
+			this.female.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Perempuan);
+		} catch (Exception e) {
+			logger.error("Tidak dapat menampilkan data jabatan", e);
+			notif.showDefaultErrorLoad("Data jabatan", e);
 		}
-
-		// set value
-		DataJabatan j = anEmployee.getJabatan();
-		String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
-
-		// select value to combobox
-		this.cbkJabatan.getSelectionModel().select(key);
-
-		this.cbkAgama.setValue(anEmployee.getAgama());
-		this.cbkPendidikan.setValue(anEmployee.getPendidikan());
-		this.datePicker.setValue(anEmployee.gettLahir().toLocalDate());
-		this.spinGapok.getValueFactory().setValue(anEmployee.getGaji());
-
-		this.male.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Laki_Laki);
-		this.female.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Perempuan);
 	}
 
 	@FXML
@@ -202,7 +214,6 @@ public class KaryawanFormController implements BootFormInitializable {
 	}
 
 	private void newDataEmployee() {
-		// do thing update employee
 		try {
 			anEmployee.setNik(Integer.valueOf(txtNik.getText()));
 			anEmployee.setNama(txtNama.getText());
@@ -217,13 +228,13 @@ public class KaryawanFormController implements BootFormInitializable {
 			anEmployee.setPendidikan(cbkPendidikan.getValue());
 			service.save(anEmployee);
 			homeController.showEmployee();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		} catch (Exception e) {
+			logger.error("Tidak dapat menambahkan data baru karyawan", e);
+			notif.showDefaultErrorSave("Data Karyawan", e);
 		}
 	}
 
 	private void existDateEmployess() {
-		// do thing update employee
 		try {
 			anEmployee.setNama(txtNama.getText());
 			anEmployee.setTanggalMulaiKerja(Date.valueOf(txtHireDate.getValue()));
@@ -237,9 +248,9 @@ public class KaryawanFormController implements BootFormInitializable {
 			anEmployee.setPendidikan(cbkPendidikan.getValue());
 			service.save(anEmployee);
 			homeController.showEmployee();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (Exception e) {
+			logger.error("Tidak dapat menyimpan data karyawan", e);
+			notif.showDefaultErrorSave("Data Karyawan", e);
 		}
 	}
 
@@ -256,7 +267,7 @@ public class KaryawanFormController implements BootFormInitializable {
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
 		// TODO Auto-generated method stub
-
+		this.notif = notif;
 	}
 
 	@Override
@@ -265,18 +276,10 @@ public class KaryawanFormController implements BootFormInitializable {
 
 	}
 
-	@Override
-	public void setValidationSupport(ValidationSupport validation) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public void initValidator() {
-		// TODO Auto-generated method stub
-		
+		this.validation.getRegisteredControls().clear();
 	}
-
-	
 
 }

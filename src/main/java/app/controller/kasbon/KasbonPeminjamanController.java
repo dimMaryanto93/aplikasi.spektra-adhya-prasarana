@@ -210,17 +210,9 @@ public class KasbonPeminjamanController implements BootFormInitializable {
 	}
 
 	@Override
-	public void setValidationSupport(ValidationSupport validation) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void initValidator() {
 		// TODO Auto-generated method stub
-		
-	}
 
-	
+	}
 
 }
