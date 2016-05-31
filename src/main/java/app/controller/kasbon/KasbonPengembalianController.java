@@ -85,6 +85,8 @@ public class KasbonPengembalianController implements BootFormInitializable {
 	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerValueFactor = new SpinnerValueFactory.DoubleSpinnerValueFactory(
 			Double.valueOf(0), Double.valueOf(0), Double.valueOf(0), Double.valueOf(0));
 	private KasbonKaryawan kasbon;
+	private DialogsFX notif;
+	private ValidationSupport validation;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -211,16 +213,17 @@ public class KasbonPengembalianController implements BootFormInitializable {
 				kasbon.setSaldoTerakhir(dataKaryawan.getTotalSaldoTerakhir() - kasbon.getPembayaran());
 
 				dataKaryawan.getDaftarKasbon().add(kasbon);
-
 				karyawanService.save(dataKaryawan);
+
+				notif.showDefaultSave("Data Pembayaran Kasbon Karyawan");
 				initConstuct();
 			} catch (Exception ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
+				logger.error("Tidak dapat menyimpan pembayaran untuk peminjaman karyawan dengan nama {}",
+						kasbon.getKaryawan().getNama(), ex);
+				notif.showDefaultErrorSave("Data Pembayaran Kasbon Karyawan", ex);
 			}
 		} else {
-			// TODO tampilkan dialop peringatan karyawan belum pilih
-			System.out.println("Karyawan belum dipilih");
+			logger.warn("Karyawan pada tableview belum diseleksi");
 		}
 
 	}
@@ -240,7 +243,6 @@ public class KasbonPengembalianController implements BootFormInitializable {
 
 	@Override
 	public void setStage(Stage stage) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -270,20 +272,17 @@ public class KasbonPengembalianController implements BootFormInitializable {
 	@Override
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		// TODO Auto-generated method stub
-
+		this.notif = notif;
 	}
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void initValidator() {
-		// TODO Auto-generated method stub
-
+		this.validation = new ValidationSupport();
 	}
 
 }

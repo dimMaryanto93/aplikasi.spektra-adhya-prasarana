@@ -198,8 +198,8 @@ public class JabatanFormController implements BootFormInitializable {
 		this.validation = new ValidationSupport();
 		this.validation.registerValidator(txtKode,
 				(Control c, String value) -> ValidationResult.fromErrorIf(c,
-						"Format kode jabatan tidak sesuai, hanya terdiri dari 3 sampai 5 karakter",
-						!value.matches("[a-zA-Z_]{3,5}")));
+						"Format kode jabatan tidak sesuai, hanya terdiri dari 3 angka",
+						!value.matches("[\\d]{3}")));
 		this.validation.registerValidator(txtNama,
 				Validator.createEmptyValidator("Nama jabatan tidak boleh kosong!", Severity.ERROR));
 		this.validation.registerValidator(txtKeterangan, (Control c, String value) -> ValidationResult.fromMessageIf(c,
