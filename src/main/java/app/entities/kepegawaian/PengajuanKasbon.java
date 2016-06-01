@@ -4,25 +4,21 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import app.entities.BasicEntity;
-import app.entities.master.DataKaryawan;
 
 @Entity
-@Table(name = "gaji_karyawan")
-public class Penggajian extends BasicEntity {
+@Table(name = "pengajuan_kasbon_karyawan")
+public class PengajuanKasbon extends BasicEntity {
 
-	public Penggajian() {
+	public PengajuanKasbon() {
 		this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
 		this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
 	}
@@ -32,15 +28,11 @@ public class Penggajian extends BasicEntity {
 	@GeneratedValue(generator = "uuid")
 	private String id;
 
-	@JoinColumn(name = "id_karyawan")
-	@ManyToOne(cascade = CascadeType.ALL, optional = true)
-	private DataKaryawan karyawan;
-
-	@Column(nullable = false)
+	@Column(name = "tanggal_transaksi", nullable = false)
 	private Date tanggal;
 
-	@Column(name = "saldo", nullable = false)
-	private Double gaji;
+	@Column(name = "jumlah_nominal", nullable = false)
+	private Double nominal;
 
 	public String getId() {
 		return id;
@@ -48,14 +40,6 @@ public class Penggajian extends BasicEntity {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public DataKaryawan getKaryawan() {
-		return karyawan;
-	}
-
-	public void setKaryawan(DataKaryawan karyawan) {
-		this.karyawan = karyawan;
 	}
 
 	public Date getTanggal() {
@@ -66,12 +50,12 @@ public class Penggajian extends BasicEntity {
 		this.tanggal = tanggal;
 	}
 
-	public Double getGaji() {
-		return gaji;
+	public Double getNominal() {
+		return nominal;
 	}
 
-	public void setGaji(Double gaji) {
-		this.gaji = gaji;
+	public void setNominal(Double nominal) {
+		this.nominal = nominal;
 	}
 
 }

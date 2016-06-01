@@ -1,5 +1,7 @@
 package app.entities.master;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,16 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import app.entities.BasicEntity;
+
 @Entity
 @Table(name = "data_jabatan")
-public class DataJabatan {
+public class DataJabatan extends BasicEntity {
+
+	public DataJabatan() {
+		this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+		this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+	}
 
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -28,7 +37,10 @@ public class DataJabatan {
 	private String nama;
 
 	private String keterangan;
+
+	@Column(name = "gaji_pokok", nullable = false)
 	private Double gapok;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "jabatan", orphanRemoval = true)
 	private List<DataKaryawan> daftarKaryawan = new ArrayList<>();
 

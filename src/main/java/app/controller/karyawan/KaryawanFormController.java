@@ -194,9 +194,9 @@ public class KaryawanFormController implements BootFormInitializable {
 			cbkPendidikan.getItems().addAll(DataPendidikan.values());
 			this.txtNik.setText(String.valueOf(anEmployee.getNik()));
 			this.txtNama.setText(anEmployee.getNama());
-			this.txtTempatLahir.setText(anEmployee.getTmLahir());
+			this.txtTempatLahir.setText(anEmployee.getTempatLahir());
 			this.txtHireDate.setValue(anEmployee.getTanggalMulaiKerja().toLocalDate());
-			this.datePicker.setValue(anEmployee.gettLahir().toLocalDate());
+			this.datePicker.setValue(anEmployee.getTanggalLahir().toLocalDate());
 
 			// add item to combobox jabatan
 			this.cbkJabatan.getItems().clear();
@@ -214,7 +214,7 @@ public class KaryawanFormController implements BootFormInitializable {
 			this.cbkJabatan.getSelectionModel().select(key);
 			this.cbkAgama.setValue(anEmployee.getAgama());
 			this.cbkPendidikan.setValue(anEmployee.getPendidikan());
-			this.datePicker.setValue(anEmployee.gettLahir().toLocalDate());
+			this.datePicker.setValue(anEmployee.getTanggalLahir().toLocalDate());
 			this.spinGapok.getValueFactory().setValue(anEmployee.getGaji());
 
 			this.male.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Laki_Laki);
@@ -248,8 +248,8 @@ public class KaryawanFormController implements BootFormInitializable {
 			anEmployee.setAgama(cbkAgama.getValue());
 			anEmployee.setJenisKelamin(getJenisKelamin());
 			anEmployee.setGaji(spinGapok.getValueFactory().getValue());
-			anEmployee.settLahir(Date.valueOf(datePicker.getValue()));
-			anEmployee.setTmLahir(txtTempatLahir.getText());
+			anEmployee.setTanggalLahir(Date.valueOf(datePicker.getValue()));
+			anEmployee.setTempatLahir(txtTempatLahir.getText());
 			anEmployee.setAlamat(txaAlamat.getText());
 			anEmployee.setJabatan(mapJabatan.get(cbkJabatan.getValue()));
 			anEmployee.setPendidikan(cbkPendidikan.getValue());
@@ -276,8 +276,8 @@ public class KaryawanFormController implements BootFormInitializable {
 			anEmployee.setAgama(cbkAgama.getValue());
 			anEmployee.setJenisKelamin(getJenisKelamin());
 			anEmployee.setGaji(spinGapok.getValueFactory().getValue());
-			anEmployee.settLahir(Date.valueOf(datePicker.getValue()));
-			anEmployee.setTmLahir(txtTempatLahir.getText());
+			anEmployee.setTanggalLahir(Date.valueOf(datePicker.getValue()));
+			anEmployee.setTempatLahir(txtTempatLahir.getText());
 			anEmployee.setAlamat(txaAlamat.getText());
 			anEmployee.setJabatan(mapJabatan.get(cbkJabatan.getValue()));
 			anEmployee.setPendidikan(cbkPendidikan.getValue());

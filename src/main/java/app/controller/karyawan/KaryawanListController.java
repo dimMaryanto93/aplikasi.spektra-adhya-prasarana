@@ -99,8 +99,8 @@ public class KaryawanListController implements BootInitializable {
 					.getDateTimeFormatterWithDayAndDateMonthYear(anEmployee.getTanggalMulaiKerja().toLocalDate()));
 			txtNama.setText(anEmployee.getNama());
 			txtAgama.setText(anEmployee.getAgama().toString());
-			txtTempatLahir.setText(anEmployee.getTmLahir());
-			txtTanggalLahir.setText(anEmployee.gettLahir().toString());
+			txtTempatLahir.setText(anEmployee.getTempatLahir());
+			txtTanggalLahir.setText(anEmployee.getTanggalLahir().toString());
 			txaAlamat.setText(anEmployee.getAlamat());
 			txtNik.setText(String.valueOf(anEmployee.getNik()));
 			txtJabatan.setText(anEmployee.getJabatan().getNama());

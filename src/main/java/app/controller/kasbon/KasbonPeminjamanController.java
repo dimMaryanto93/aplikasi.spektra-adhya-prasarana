@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -16,8 +15,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.FormatterFactory;
 import app.configs.DialogsFX;
+import app.configs.FormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
@@ -40,6 +39,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 @Component
+@Deprecated
 public class KasbonPeminjamanController implements BootFormInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());

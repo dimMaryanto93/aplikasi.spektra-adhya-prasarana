@@ -1,6 +1,8 @@
 package app.entities.kepegawaian;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,13 +16,20 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import app.entities.BasicEntity;
 import app.entities.master.DataKaryawan;
 import app.entities.master.DataTidakHadir;
 
 @Entity
 @Table(name = "absensi_karyawan", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "tanggal_hadir", "id_karyawan" }, name = "uq_hadir_karyawan") })
-public class KehadiranKaryawan {
+public class KehadiranKaryawan extends BasicEntity {
+
+	public KehadiranKaryawan() {
+		this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+		this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+	}
 
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")

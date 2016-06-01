@@ -48,12 +48,13 @@ import javafx.util.Callback;
 
 @Component
 public class PengajuanFormController implements BootFormInitializable {
+	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;
 	@FXML
 	private TableView<DataKaryawan> tableView;
 	@FXML
-	private TableColumn<DataKaryawan, Integer> columnNik;
+	private TableColumn<DataKaryawan, String> columnNik;
 	@FXML
 	private TableColumn<DataKaryawan, String> columnNama;
 	@FXML
@@ -203,14 +204,14 @@ public class PengajuanFormController implements BootFormInitializable {
 					}
 				});
 
-		this.columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, Integer>("nik"));
+		this.columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nip"));
 		this.columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
 		this.columnHireDate.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<DataKaryawan, String>, ObservableValue<String>>() {
 
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<DataKaryawan, String> param) {
-						return new SimpleStringProperty(param.getValue().gettLahir().toString());
+						return new SimpleStringProperty(param.getValue().getTanggalLahir().toString());
 					}
 				});
 		this.columnJabatan.setCellValueFactory(

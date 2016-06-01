@@ -1,6 +1,8 @@
 package app.entities.kepegawaian.uang.prestasi;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +17,16 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import app.entities.BasicEntity;
+
 @Entity
 @Table(name = "data_motor")
-public class Motor {
+public class Motor extends BasicEntity {
+
+	public Motor() {
+		this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+		this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+	}
 
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")

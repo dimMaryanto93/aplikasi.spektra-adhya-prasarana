@@ -40,6 +40,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 @Component
+@Deprecated
 public class KasbonListController implements BootInitializable {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
@@ -169,7 +170,7 @@ public class KasbonListController implements BootInitializable {
 							setGraphic(null);
 						} else {
 							box = new HBox(10);
-							nip = new Label(item.getNik().toString());
+							nip = new Label(item.getNip());
 							nama = new Label(item.getNama());
 							box.getChildren().add(nip);
 							box.getChildren().add(nama);
@@ -183,7 +184,7 @@ public class KasbonListController implements BootInitializable {
 				(ObservableValue<? extends DataKaryawan> observable, DataKaryawan oldValue, DataKaryawan newValue) -> {
 					tableView.getItems().clear();
 					if (newValue != null) {
-						tableView.getItems().addAll(kasbonService.findByKaryawanOrderByWaktuAsc(newValue));
+						tableView.getItems().addAll(kasbonService.findByKaryawanOrderByCreatedDateAsc(newValue));
 					}
 				});
 

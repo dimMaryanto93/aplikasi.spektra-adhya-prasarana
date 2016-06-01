@@ -1,6 +1,8 @@
 package app.entities.kepegawaian.uang.prestasi;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +15,17 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import app.entities.BasicEntity;
+
 @Entity
 @Table(name = "cicilan_motor", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "kode_motor", "pembayaran_angsuran_ke" }, name = "uq_angsuran") })
-public class PembayaranCicilanMotor {
+public class PembayaranCicilanMotor extends BasicEntity {
+
+	public PembayaranCicilanMotor() {
+		this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+		this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+	}
 
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")

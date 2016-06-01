@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 
 @Component
+@Deprecated
 public class KasbonPersetujuanController implements BootFormInitializable {
 
 	private DialogsFX notif;

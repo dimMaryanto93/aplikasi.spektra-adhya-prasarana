@@ -15,14 +15,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import app.entities.BasicEntity;
 import app.entities.master.DataKaryawan;
 
 @Entity
 @Table(name = "kasbon_karyawan")
-public class KasbonKaryawan {
+public class KasbonKaryawan extends BasicEntity {
 
 	public KasbonKaryawan() {
-		setWaktu(Timestamp.valueOf(LocalDateTime.now()));
+		this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+		this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
 		setTanggalPinjam(Date.valueOf(LocalDate.now()));
 		setPrinted(false);
 	}
@@ -47,9 +50,6 @@ public class KasbonKaryawan {
 
 	@Column(nullable = false)
 	private Double saldoTerakhir;
-
-	@Column(nullable = false)
-	private Timestamp waktu;
 
 	@Column(name = "dicetak", nullable = false)
 	private Boolean printed;
@@ -100,14 +100,6 @@ public class KasbonKaryawan {
 
 	public void setSaldoTerakhir(Double saldoTerakhir) {
 		this.saldoTerakhir = saldoTerakhir;
-	}
-
-	public Timestamp getWaktu() {
-		return waktu;
-	}
-
-	public void setWaktu(Timestamp waktu) {
-		this.waktu = waktu;
 	}
 
 	public Boolean getPrinted() {

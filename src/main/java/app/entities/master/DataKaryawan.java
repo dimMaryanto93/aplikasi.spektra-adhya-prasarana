@@ -1,7 +1,9 @@
 package app.entities.master;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,37 +15,36 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import app.entities.BasicEntity;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.kepegawaian.KehadiranKaryawan;
+import app.entities.kepegawaian.PengajuanKasbon;
 import app.entities.kepegawaian.Penggajian;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 
 @Entity
 @Table(name = "data_karyawan")
-@SequenceGenerator(name = "seq_karyawan", allocationSize = 1, initialValue = 1, sequenceName = "seq_karyawan")
-public class DataKaryawan {
+public class DataKaryawan extends BasicEntity {
+
+	public DataKaryawan() {
+		this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+		this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+	}
 
 	@Id
-	@GeneratedValue(generator = "seq_karyawan", strategy = GenerationType.SEQUENCE)
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@GeneratedValue(generator = "uuid")
 	@Column(unique = true, nullable = false)
-	private Long index;
-
-	public Long getIndex() {
-		return index;
-	}
-
-	public void setIndex(Long index) {
-		this.index = index;
-	}
+	private String index;
 
 	@Column(nullable = false, name = "no_kepegawaian", unique = true)
 	private String nip;
@@ -62,10 +63,16 @@ public class DataKaryawan {
 	@Column(nullable = false)
 	private DataJenisKelamin jenisKelamin;
 
-	private Date tLahir;
-	private String tmLahir;
+	@Column(nullable = false, name = "tanggal_lahir")
+	private Date tanggalLahir;
+
+	@Column(name = "tempat_lahir", nullable = false)
+	private String tempatLahir;
+
 	private String alamat;
-	private Double gaji;
+
+	@Column(name = "gaji_pokok", nullable = false)
+	private Double gajiPokok;
 
 	@Column(name = "tanggal_mulai_kerja", nullable = false)
 	private Date tanggalMulaiKerja;
@@ -90,6 +97,26 @@ public class DataKaryawan {
 	@Column(nullable = false)
 	@Enumerated(EnumType.ORDINAL)
 	private DataPendidikan pendidikan;
+
+	@OneToOne
+	@JoinColumn(name = "kode_pengajuan_kasbon")
+	private PengajuanKasbon pengajuanKasbon;
+
+	public String getNip() {
+		return nip;
+	}
+
+	public void setNip(String nip) {
+		this.nip = nip;
+	}
+
+	public String getIndex() {
+		return index;
+	}
+
+	public void setIndex(String index) {
+		this.index = index;
+	}
 
 	public DataPendidikan getPendidikan() {
 		return pendidikan;
@@ -139,20 +166,28 @@ public class DataKaryawan {
 		this.jenisKelamin = jenisKelamin;
 	}
 
-	public Date gettLahir() {
-		return tLahir;
+	public Date getTanggalLahir() {
+		return tanggalLahir;
 	}
 
-	public void settLahir(Date tLahir) {
-		this.tLahir = tLahir;
+	public void setTanggalLahir(Date tanggalLahir) {
+		this.tanggalLahir = tanggalLahir;
 	}
 
-	public String getTmLahir() {
-		return tmLahir;
+	public String getTempatLahir() {
+		return tempatLahir;
 	}
 
-	public void setTmLahir(String tmLahir) {
-		this.tmLahir = tmLahir;
+	public void setTempatLahir(String tempatLahir) {
+		this.tempatLahir = tempatLahir;
+	}
+
+	public PengajuanKasbon getPengajuanKasbon() {
+		return pengajuanKasbon;
+	}
+
+	public void setPengajuanKasbon(PengajuanKasbon pengajuanKasbon) {
+		this.pengajuanKasbon = pengajuanKasbon;
 	}
 
 	public String getAlamat() {
@@ -164,15 +199,23 @@ public class DataKaryawan {
 	}
 
 	public Double getGaji() {
-		return gaji;
+		return gajiPokok;
 	}
 
 	public void setGaji(Double gaji) {
-		this.gaji = gaji;
+		this.gajiPokok = gaji;
 	}
 
 	public Date getTanggalMulaiKerja() {
 		return tanggalMulaiKerja;
+	}
+
+	public Double getGajiPokok() {
+		return gajiPokok;
+	}
+
+	public void setGajiPokok(Double gajiPokok) {
+		this.gajiPokok = gajiPokok;
 	}
 
 	public void setTanggalMulaiKerja(Date tanggalMulaiKerja) {
@@ -203,6 +246,7 @@ public class DataKaryawan {
 		this.daftarAbsenKaryawan = daftarAbsenKaryawan;
 	}
 
+	@Deprecated
 	public Double getTotalPeminjaman() {
 		Double value = 0D;
 		for (KasbonKaryawan kasbon : this.daftarKasbon) {
@@ -211,6 +255,7 @@ public class DataKaryawan {
 		return value;
 	}
 
+	@Deprecated
 	public Double getTotalPembayaran() {
 		Double value = 0D;
 		for (KasbonKaryawan kasbon : this.daftarKasbon) {
@@ -219,6 +264,7 @@ public class DataKaryawan {
 		return value;
 	}
 
+	@Deprecated
 	public Double getTotalSaldoTerakhir() {
 		return getTotalPeminjaman() - getTotalPembayaran();
 	}
@@ -242,14 +288,6 @@ public class DataKaryawan {
 
 	public Boolean isGettingCicilanMotorDisetujui() {
 		return getNgicilMotor() != null && getNgicilMotor().isSetuju();
-	}
-
-	public String getNip() {
-		return nip;
-	}
-
-	public void setNip(String nip) {
-		this.nip = nip;
 	}
 
 }

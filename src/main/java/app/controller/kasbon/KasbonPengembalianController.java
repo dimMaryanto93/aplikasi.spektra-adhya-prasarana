@@ -49,6 +49,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 @Component
+@Deprecated
 public class KasbonPengembalianController implements BootFormInitializable {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;
@@ -160,7 +161,7 @@ public class KasbonPengembalianController implements BootFormInitializable {
 					}
 
 					private void doShowDialog(ActionEvent e, DataKaryawan karyawan) {
-						for (KasbonKaryawan bon : kasbonService.findByKaryawanOrderByWaktuAsc(karyawan)) {
+						for (KasbonKaryawan bon : kasbonService.findByKaryawanOrderByCreatedDateAsc(karyawan)) {
 							StringBuilder sb = new StringBuilder("|").append(bon.getTanggalPinjam()).append("|")
 									.append(formatUang.getCurrencyFormate(bon.getPembayaran())).append("|")
 									.append(formatUang.getCurrencyFormate(bon.getPinjaman())).append("|")

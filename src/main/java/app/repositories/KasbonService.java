@@ -11,6 +11,8 @@ public interface KasbonService extends CrudRepository<KasbonKaryawan, String> {
 
 	public List<KasbonKaryawan> findAll();
 
-	public List<KasbonKaryawan> findByKaryawanOrderByWaktuAsc(DataKaryawan karyawan);
+	public List<KasbonKaryawan> findByKaryawanOrderByCreatedDateAsc(DataKaryawan karyawan);
+
+	public List<KasbonKaryawan> findByKaryawan(DataKaryawan karyawan);
 
 }
