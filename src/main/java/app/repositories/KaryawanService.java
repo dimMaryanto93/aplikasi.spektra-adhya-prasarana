@@ -12,7 +12,7 @@ public interface KaryawanService extends PagingAndSortingRepository<app.entities
 
 	public DataKaryawan findByNama(String name);
 
-	public List<DataKaryawan> findByPengajuanKasbonIsNotNull();
+	public List<DataKaryawan> findByPengajuanKasbonIsNotNullAndPengajuanKasbonAccepted(Boolean accepted);
 
 	public List<DataKaryawan> findByPengajuanKasbonIsNullOrPengajuanKasbonAccepted(Boolean accepted);
 

@@ -39,7 +39,9 @@
 								<MenuItem mnemonicParsing="false" onAction="#showPengajuanKasbon"
 									text="Pengajuan" />
 								<MenuItem mnemonicParsing="false" onAction="#showPersetujuanKasbon"
-									text="Persetujuan" />
+									text="Persetujuan oleh Direktur" />
+								<MenuItem mnemonicParsing="false" onAction="#showPencairanDanaKasbon"
+									text="Pencairan Dana" />
 								<MenuItem mnemonicParsing="false" onAction="#showPembayaranKasbon"
 									text="Pembayaran" />
 							</items>

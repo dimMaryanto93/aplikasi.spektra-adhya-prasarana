@@ -18,10 +18,10 @@ import app.controller.absensi.AbsensiFormController;
 import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.KaryawanListController;
-import app.controller.kasbon.KasbonPeminjamanController;
 import app.controller.kasbon.KasbonPengembalianController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanListController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPengajuanController;
+import app.controller.peminjaman.karyawan.KasbonKaryawanPersetujuanDirekturController;
 import app.controller.prestasi.CicilanListController;
 import app.controller.prestasi.PengajuanFormController;
 import app.controller.prestasi.PersetujuanFormController;
@@ -55,7 +55,7 @@ public class HomeController implements BootInitializable {
 	private KasbonKaryawanPengajuanController formKasbonPengajuan;
 
 	@Autowired
-	private KasbonPengembalianController formPengembalian;
+	private KasbonKaryawanPersetujuanDirekturController formKasbonPersetujuan;
 
 	@Autowired
 	private PengajuanFormController formPengajuanCicilan;
@@ -77,6 +77,7 @@ public class HomeController implements BootInitializable {
 	public void setLayout(Node anNode) {
 		mainLayout.setCenter(anNode);
 		mainLayout.getCenter().autosize();
+		mainLayout.getCenter().requestFocus();
 	}
 
 	@Override
@@ -193,6 +194,18 @@ public class HomeController implements BootInitializable {
 
 	@FXML
 	public void showPersetujuanKasbon(ActionEvent event) {
+		try {
+			setLayout(formKasbonPersetujuan.initView());
+			formKasbonPersetujuan.initConstuct();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void showPencairanDanaKasbon(ActionEvent event) {
+
 	}
 
 	@FXML

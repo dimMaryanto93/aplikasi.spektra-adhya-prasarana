@@ -192,7 +192,6 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 
 	@Override
 	public void setStage(Stage stage) {
-		// TODO Auto-generated method stub
 
 	}
 
