@@ -26,4 +26,9 @@ public class FormatterFactory {
 		return formater.format(date);
 	}
 
+	public String getDateIndonesianFormatter(LocalDate date) {
+		DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd MMMM yyyy").withLocale(Locale.getDefault());
+		return formater.format(date);
+	}
+
 }

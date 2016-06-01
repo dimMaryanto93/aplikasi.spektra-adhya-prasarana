@@ -18,9 +18,9 @@ import app.controller.absensi.AbsensiFormController;
 import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.KaryawanListController;
-import app.controller.kasbon.KasbonListController;
 import app.controller.kasbon.KasbonPeminjamanController;
 import app.controller.kasbon.KasbonPengembalianController;
+import app.controller.peminjaman.karyawan.KasbonKaryawanListController;
 import app.controller.prestasi.CicilanListController;
 import app.controller.prestasi.PengajuanFormController;
 import app.controller.prestasi.PersetujuanFormController;
@@ -48,7 +48,7 @@ public class HomeController implements BootInitializable {
 	private AbsensiListController listAbsen;
 
 	@Autowired
-	private KasbonListController listKasbon;
+	private KasbonKaryawanListController listKasbon;
 
 	@Autowired
 	private KasbonPeminjamanController formPeminjaman;
