@@ -125,6 +125,27 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
 
+		columnTanggal.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Date>("tanggalPinjam"));
+		columnTanggal
+				.setCellFactory(new Callback<TableColumn<KasbonKaryawan, Date>, TableCell<KasbonKaryawan, Date>>() {
+
+					@Override
+					public TableCell<KasbonKaryawan, Date> call(TableColumn<KasbonKaryawan, Date> param) {
+						return new TableCell<KasbonKaryawan, Date>() {
+							@Override
+							protected void updateItem(Date item, boolean empty) {
+								setAlignment(Pos.CENTER);
+								super.updateItem(item, empty);
+								if (empty) {
+									setText(null);
+								} else {
+									setText(stringFormatter.getDateIndonesianFormatter(item.toLocalDate()));
+								}
+							}
+						};
+					}
+				});
+
 		columnBayar.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("pembayaran"));
 		columnBayar
 				.setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
@@ -192,7 +213,7 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 						};
 					}
 				});
-	
+
 		tablePeminjaman.setSelectionModel(null);
 
 		tableView.getSelectionModel().selectedItemProperty().addListener((e, old, value) -> {
@@ -263,23 +284,38 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 		});
 	}
 
+	private Boolean pinjamLagi(DataKaryawan karyawan) {
+		Double sixtyPersenOfLastCredit = karyawan.getTotalPeminjaman() * 0.6;
+		System.out.println(sixtyPersenOfLastCredit + " : " + karyawan.getTotalPembayaran());
+		return karyawan.getTotalPembayaran() >= sixtyPersenOfLastCredit;
+	}
+
 	@FXML
 	public void doSave(ActionEvent event) {
 		DataKaryawan karyawan = tableView.getSelectionModel().getSelectedItem();
 		if (karyawan != null) {
-			PengajuanKasbon kasbon = karyawan.getPengajuanKasbon();
-			try {
-				kasbon.setAccepted(true);
+			if (pinjamLagi(karyawan)) {
+				PengajuanKasbon kasbon = karyawan.getPengajuanKasbon();
+				try {
+					kasbon.setAccepted(true);
 
-				servicePengajuanKasbon.save(kasbon);
-				notif.showDefaultSave("Data Persetujuan Kasbon Karyawan");
+					servicePengajuanKasbon.save(kasbon);
+					notif.showDefaultSave("Data Persetujuan Kasbon Karyawan");
 
-				initConstuct();
-			} catch (Exception e) {
-				logger.error("Tidak dapat menyimpan data persetujuan kasbon karyawan atas nama {} sebesar {}",
-						karyawan.getNama(), stringFormatter.getCurrencyFormate(kasbon.getNominal()), e);
-				notif.showDefaultErrorSave("Persetujuan kasbon karyawan", e);
+					initConstuct();
+				} catch (Exception e) {
+					logger.error("Tidak dapat menyimpan data persetujuan kasbon karyawan atas nama {} sebesar {}",
+							karyawan.getNama(), stringFormatter.getCurrencyFormate(kasbon.getNominal()), e);
+					notif.showDefaultErrorSave("Persetujuan kasbon karyawan", e);
+				}
+			} else {
+				logger.info("Tidak dapat melakukan peminjaman karena karyawan tersebut masih memiliki hutang");
+				notif.setTitle("Peminjaman Karyawan");
+				notif.setHeader("Tidak dapat melakukan peminjaman");
+				notif.setText("Karena karyawan tersebut masih memiliki tunggakan");
+				notif.showDialogWarning(notif.getTitle(), notif.getHeader(), notif.getText());
 			}
+
 		} else {
 			// TODO warning notification
 		}
