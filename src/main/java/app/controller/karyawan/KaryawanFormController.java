@@ -254,8 +254,8 @@ public class KaryawanFormController implements BootFormInitializable {
 			anEmployee.setJabatan(mapJabatan.get(cbkJabatan.getValue()));
 			anEmployee.setPendidikan(cbkPendidikan.getValue());
 			DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyMMdd");
-			StringBuilder sb = new StringBuilder(anEmployee.getJabatan().getKodeJabatan().toUpperCase())
-					.append(formater.format(anEmployee.getTanggalMulaiKerja().toLocalDate()))
+			StringBuilder sb = new StringBuilder(anEmployee.getJabatan().getKodeJabatan()).append(".")
+					.append(formater.format(anEmployee.getTanggalMulaiKerja().toLocalDate())).append(".")
 					.append(String.format("%03d", this.service.findAll().size() + 1));
 			anEmployee.setNip(sb.toString());
 

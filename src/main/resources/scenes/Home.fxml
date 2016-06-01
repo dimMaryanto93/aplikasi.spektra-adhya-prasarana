@@ -32,39 +32,36 @@
 				</Menu>
 				<Menu mnemonicParsing="false" text="Kepegawaian">
 					<items>
-						<Menu mnemonicParsing="false" text="Absensi Karyawan">
-							<items>
-								<MenuItem mnemonicParsing="false" onAction="#showDaftarHadirKaryawan"
-									text="Daftar Hadir Karyawan" />
-								<MenuItem mnemonicParsing="false" onAction="#showFormAbsensi"
-									text="Absensi" />
-							</items>
-						</Menu>
+						<MenuItem mnemonicParsing="false" onAction="#showFormAbsensi"
+							text="Absensi Karyawan" />
 						<Menu mnemonicParsing="false" text="Kasbon Karyawan">
 							<items>
-								<MenuItem mnemonicParsing="false" onAction="#showKasbon"
-									text="Data Peminjaman dan Pembayaran Kasbon" />
-								<MenuItem mnemonicParsing="false" onAction="#showPeminjaman"
-									text="Peminjaman" />
-								<MenuItem mnemonicParsing="false" onAction="#showPengembalian"
-									text="Pembayaran Kasbon" />
+								<MenuItem mnemonicParsing="false" onAction="#showPengajuanKasbon"
+									text="Pengajuan" />
+								<MenuItem mnemonicParsing="false" onAction="#showPersetujuanKasbon"
+									text="Persetujuan" />
+								<MenuItem mnemonicParsing="false" onAction="#showPembayaranKasbon"
+									text="Pembayaran" />
 							</items>
 						</Menu>
 						<Menu mnemonicParsing="false" text="Uang Prestasi">
 							<items>
 								<MenuItem mnemonicParsing="false" onAction="#showPengajuanCicilan"
-									text="Pengajuan Uang Prestasi" />
+									text="Pengajuan" />
 								<MenuItem mnemonicParsing="false" onAction="#showPersetujuanCicilan"
-									text="Persetujuan Uang Prestasi" />
-								<MenuItem mnemonicParsing="false" onAction="#showPembayaranCicilan"
-									text="Daftar Pembayaran Cicilan Motor" />
+									text="Persetujuan" />
 							</items>
 						</Menu>
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Laporan">
 					<items>
-						<MenuItem mnemonicParsing="false" text="Action 1" />
+						<MenuItem mnemonicParsing="false" onAction="#showDaftarKehadiranKaryawan"
+							text="Daftar Hadir Karyawan" />
+						<MenuItem mnemonicParsing="false" onAction="#showDaftarKasbonKaryawan"
+							text="Daftar Kasbon Karyawan" />
+						<MenuItem mnemonicParsing="false"
+							onAction="#showDaftarPembayaranCicilanMotor" text="Daftar Pembayaran Cicilan Motor" />
 					</items>
 				</Menu>
 			</menus>

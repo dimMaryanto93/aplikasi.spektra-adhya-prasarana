@@ -21,6 +21,7 @@ import app.controller.karyawan.KaryawanListController;
 import app.controller.kasbon.KasbonPeminjamanController;
 import app.controller.kasbon.KasbonPengembalianController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanListController;
+import app.controller.peminjaman.karyawan.KasbonKaryawanPengajuanController;
 import app.controller.prestasi.CicilanListController;
 import app.controller.prestasi.PengajuanFormController;
 import app.controller.prestasi.PersetujuanFormController;
@@ -51,7 +52,7 @@ public class HomeController implements BootInitializable {
 	private KasbonKaryawanListController listKasbon;
 
 	@Autowired
-	private KasbonPeminjamanController formPeminjaman;
+	private KasbonKaryawanPengajuanController formKasbonPengajuan;
 
 	@Autowired
 	private KasbonPengembalianController formPengembalian;
@@ -122,11 +123,6 @@ public class HomeController implements BootInitializable {
 	}
 
 	@FXML
-	public void showProfile() {
-
-	}
-
-	@FXML
 	public void showDepartment() {
 		try {
 			setLayout(listJabatan.initView());
@@ -139,40 +135,6 @@ public class HomeController implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
-	}
-
-	@FXML
-	public void showKasbon(ActionEvent event) {
-		try {
-			setLayout(listKasbon.initView());
-			listKasbon.initConstuct();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@FXML
-	public void showPeminjaman(ActionEvent event) {
-		try {
-			setLayout(formPeminjaman.initView());
-			formPeminjaman.initConstuct();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@FXML
-	public void showPengembalian(ActionEvent event) {
-		try {
-			setLayout(formPengembalian.initView());
-			formPengembalian.initConstuct();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 
 	@Override
@@ -209,17 +171,36 @@ public class HomeController implements BootInitializable {
 	}
 
 	@FXML
-	public void showPembayaranCicilan(ActionEvent event) {
+	public void showFormAbsensi(ActionEvent event) {
 		try {
-			setLayout(listCicilanMotor.initView());
-			listCicilanMotor.initConstuct();
+			setLayout(formAbsensi.initView());
+			formAbsensi.initConstuct();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
 
 	@FXML
-	public void showDaftarHadirKaryawan(ActionEvent event) {
+	public void showPengajuanKasbon(ActionEvent event) {
+		try {
+			setLayout(formKasbonPengajuan.initView());
+			formKasbonPengajuan.initConstuct();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void showPersetujuanKasbon(ActionEvent event) {
+	}
+
+	@FXML
+	public void showPembayaranKasbon(ActionEvent event) {
+	}
+
+	@FXML
+	public void showDaftarKehadiranKaryawan(ActionEvent event) {
 		try {
 			setLayout(listAbsen.initView());
 			listAbsen.initConstuct();
@@ -230,14 +211,24 @@ public class HomeController implements BootInitializable {
 	}
 
 	@FXML
-	public void showFormAbsensi(ActionEvent event) {
+	public void showDaftarKasbonKaryawan(ActionEvent event) {
 		try {
-			setLayout(formAbsensi.initView());
-			formAbsensi.initConstuct();
+			setLayout(listKasbon.initView());
+			listKasbon.initConstuct();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void showDaftarPembayaranCicilanMotor(ActionEvent event) {
+		try {
+			setLayout(listCicilanMotor.initView());
+			listCicilanMotor.initConstuct();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
 	}
 
 }
