@@ -121,8 +121,7 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
+		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nip"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
 
 		columnTanggal.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Date>("tanggalPinjam"));
@@ -315,9 +314,12 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 				notif.setText("Karena karyawan tersebut masih memiliki tunggakan");
 				notif.showDialogWarning(notif.getTitle(), notif.getHeader(), notif.getText());
 			}
-
 		} else {
-			// TODO warning notification
+			logger.warn("Data karyawan belum diseleksi pada tabel view");
+			notif.setTitle("Tabel data karyawan");
+			notif.setText("Karyawan belum dipilih!");
+			notif.setHeader("Tabel Data Karyawan");
+			notif.showDialogInformation(notif.getTitle(), notif.getHeader(), notif.getText());
 		}
 
 	}

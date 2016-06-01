@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -27,6 +30,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -99,11 +103,11 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		btnSave.setDisable(false);
-
-		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
+		initValidator();
+		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nip"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
 		tableView.getSelectionModel().selectedItemProperty().addListener((d, old, value) -> {
+			this.checkValid.setDisable(value == null);
 			if (value != null) {
 				setFields(value);
 			} else {
@@ -156,6 +160,14 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 	@Override
 	public void initValidator() {
 		this.validation = new ValidationSupport();
+		this.validation.registerValidator(txtNip, true,
+				Validator.createEmptyValidator("Karyawan belum dipilih!", Severity.ERROR));
+		this.validation.registerValidator(checkValid, (Control c, Boolean value) -> ValidationResult.fromErrorIf(c,
+				"Anda belum melakukan persetujuan perjanjian", !value));
+		this.validation.invalidProperty().addListener((b, old, value) -> {
+			btnSave.setDisable(value);
+		});
+		this.validation.redecorate();
 	}
 
 	@FXML
