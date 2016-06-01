@@ -2,11 +2,11 @@ package app.repositories;
 
 import java.util.List;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.CrudRepository;
 
 import app.entities.master.DataKaryawan;
 
-public interface KaryawanService extends PagingAndSortingRepository<app.entities.master.DataKaryawan, String> {
+public interface KaryawanService extends CrudRepository<app.entities.master.DataKaryawan, String> {
 
 	public List<DataKaryawan> findAll();
 

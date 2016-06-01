@@ -19,6 +19,7 @@ import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.KaryawanListController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanListController;
+import app.controller.peminjaman.karyawan.KasbonKaryawanPembayaranController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPencairanDanaController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPengajuanController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPersetujuanDirekturController;
@@ -59,6 +60,9 @@ public class HomeController implements BootInitializable {
 	
 	@Autowired
 	private KasbonKaryawanPencairanDanaController formKasbonPencairan;
+	
+	@Autowired
+	private KasbonKaryawanPembayaranController formKasbonPembayaran;
 
 	@Autowired
 	private PengajuanFormController formPengajuanCicilan;
@@ -179,6 +183,7 @@ public class HomeController implements BootInitializable {
 			setLayout(formAbsensi.initView());
 			formAbsensi.initConstuct();
 		} catch (IOException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -219,6 +224,13 @@ public class HomeController implements BootInitializable {
 
 	@FXML
 	public void showPembayaranKasbon(ActionEvent event) {
+		try {
+			setLayout(formKasbonPembayaran.initView());
+			formKasbonPembayaran.initConstuct();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
