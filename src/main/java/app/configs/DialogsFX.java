@@ -149,7 +149,7 @@ public class DialogsFX {
 	public void showDefaultErrorLoad(String title, Throwable ex) {
 		setTitle(title);
 		setHeader("Tidak dapat mendapatkan data!");
-		showDialogError(getTitle(), getHeader(), null, ex);
+		showDialogError(getTitle(), getHeader(), ex.getMessage(), ex);
 	}
 
 	/**

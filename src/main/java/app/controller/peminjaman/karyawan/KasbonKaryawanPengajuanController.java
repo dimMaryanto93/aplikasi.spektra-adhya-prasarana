@@ -74,6 +74,10 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 	@FXML
 	private TextField txtJabatan;
 	@FXML
+	private TextField txtStatus;
+	@FXML
+	private TextField txtNominal;
+	@FXML
 	private Button btnSimpan;
 	@FXML
 	private CheckBox txtValid;
@@ -87,11 +91,25 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 	private void setFields(DataKaryawan karyawan) {
 		txtNama.setText(karyawan.getNama());
 		txtJabatan.setText(karyawan.getJabatan().getNama());
+		PengajuanKasbon kasbon = karyawan.getPengajuanKasbon();
+		if (kasbon != null) {
+			if (kasbon.getAccepted()) {
+				txtStatus.setText("SUDAH");
+			} else {
+				txtStatus.setText("SEDANG DIPROSES");
+			}
+			txtNominal.setText(stringFormater.getCurrencyFormate(kasbon.getNominal()));
+		} else {
+			txtStatus.setText("BELUM");
+			txtNominal.clear();
+		}
 	}
 
 	private void clearFields() {
 		txtNama.clear();
 		txtJabatan.clear();
+		txtStatus.clear();
+		txtNominal.clear();
 	}
 
 	@Override
@@ -181,9 +199,10 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 	@Override
 	public void initConstuct() {
 		try {
-			this.txtKaryawan.getItems().clear();
 			this.mapDataKaryawan = new HashMap<String, DataKaryawan>();
-			for (DataKaryawan karyawan : this.serviceKaryawan.findByPengajuanKasbonIsNull()) {
+			this.txtKaryawan.getItems().clear();
+			for (DataKaryawan karyawan : this.serviceKaryawan
+					.findByPengajuanKasbonIsNullOrPengajuanKasbonAccepted(false)) {
 				mapDataKaryawan.put(karyawan.getNip(), karyawan);
 				this.txtKaryawan.getItems().add(karyawan.getNip());
 			}
@@ -236,6 +255,13 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 	public void doSave(ActionEvent event) {
 		DataKaryawan karyawan = mapDataKaryawan.get(txtKaryawan.getValue());
 		try {
+			PengajuanKasbon oldKasbon = karyawan.getPengajuanKasbon();
+			if (oldKasbon != null) {
+				karyawan.setPengajuanKasbon(null);
+				this.serviceKaryawan.save(karyawan);
+				this.servicePengajuan.delete(oldKasbon.getId());
+			}
+
 			this.pengajuanKasbon.setNominal(txtPinjam.getValueFactory().getValue());
 			this.pengajuanKasbon.setTanggal(Date.valueOf(txtTanggal.getValue()));
 			this.servicePengajuan.save(this.pengajuanKasbon);
@@ -247,7 +273,7 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 			initConstuct();
 		} catch (Exception e) {
 			logger.error("Tidak bisa menyimpan data pengajuan karyawan atas nama karyawan {} sebesar {}",
-					karyawan.getNama(), stringFormater.getCurrencyFormate(txtPinjam.getValueFactory().getValue()));
+					karyawan.getNama(), stringFormater.getCurrencyFormate(txtPinjam.getValueFactory().getValue()), e);
 			notif.showDefaultErrorSave("Data pengajuan kasbon karyawan", e);
 		}
 	}

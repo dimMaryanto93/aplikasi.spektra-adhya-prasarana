@@ -14,6 +14,6 @@ public interface KaryawanService extends PagingAndSortingRepository<app.entities
 
 	public List<DataKaryawan> findByPengajuanKasbonIsNotNull();
 
-	public List<DataKaryawan> findByPengajuanKasbonIsNull();
+	public List<DataKaryawan> findByPengajuanKasbonIsNullOrPengajuanKasbonAccepted(Boolean accepted);
 
 }
