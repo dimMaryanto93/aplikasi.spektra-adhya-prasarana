@@ -78,6 +78,7 @@ public class MainApplication extends Application {
 					loger.info("JavaFX loading...");
 					HomeController scene = springContext.getBean(HomeController.class);
 					Stage stage = springContext.getBean(Stage.class);
+					
 					Parent parent = (Parent) scene.initView();
 					stage.setScene(new Scene(parent));
 					stage.show();

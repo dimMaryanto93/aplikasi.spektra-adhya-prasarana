@@ -121,21 +121,6 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.checkValid.setDisable(true);
-		this.checkValid.setOpacity(0D);
-
-		tableView.getSelectionModel().selectedItemProperty().addListener((e, old, value) -> {
-			tablePeminjaman.getItems().clear();
-
-			this.checkValid.setDisable(value == null);
-			if (value != null) {
-				setFields(value);
-
-			} else {
-				cleanFields();
-
-			}
-		});
 
 		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
@@ -207,13 +192,27 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 						};
 					}
 				});
+	
+		tablePeminjaman.setSelectionModel(null);
+
+		tableView.getSelectionModel().selectedItemProperty().addListener((e, old, value) -> {
+			tablePeminjaman.getItems().clear();
+
+			this.checkValid.setDisable(value == null);
+			if (value != null) {
+				setFields(value);
+			} else {
+				cleanFields();
+
+			}
+		});
 		initValidator();
 	}
 
 	@Override
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/peminjaman/karyawan/PersetujuanDirektur.fxml"));
+		loader.setLocation(getClass().getResource("/scenes/inner/peminjaman/karyawan/Persetujuan.fxml"));
 		loader.setController(springContext.getBean(this.getClass()));
 		return loader.load();
 	}
@@ -256,8 +255,9 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 		this.validation = new ValidationSupport();
 		this.validation.registerValidator(txtNip,
 				Validator.createEmptyValidator("Karyawan belum pilih!", Severity.ERROR));
-		this.validation.registerValidator(checkValid, (Control c, Boolean value) -> ValidationResult.fromErrorIf(c,
-				"Anda belum menyetujui perjanjian!", !value));
+		this.validation.registerValidator(checkValid, (Control c, Boolean value) -> ValidationResult
+				.fromErrorIf(checkValid, "Anda belum menyetujui perjanjian!", !value));
+
 		this.validation.invalidProperty().addListener((b, old, value) -> {
 			btnSave.setDisable(value);
 		});

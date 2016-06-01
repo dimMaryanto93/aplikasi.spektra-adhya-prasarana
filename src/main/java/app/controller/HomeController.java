@@ -18,7 +18,6 @@ import app.controller.absensi.AbsensiFormController;
 import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.KaryawanListController;
-import app.controller.kasbon.KasbonPengembalianController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanListController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPengajuanController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPersetujuanDirekturController;
@@ -77,7 +76,6 @@ public class HomeController implements BootInitializable {
 	public void setLayout(Node anNode) {
 		mainLayout.setCenter(anNode);
 		mainLayout.getCenter().autosize();
-		mainLayout.getCenter().requestFocus();
 	}
 
 	@Override
