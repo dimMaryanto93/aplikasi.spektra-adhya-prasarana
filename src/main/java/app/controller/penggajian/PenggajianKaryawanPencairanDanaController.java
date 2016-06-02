@@ -68,13 +68,9 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	@FXML
 	private TextField txtTotalKehadiran;
 	@FXML
-	private Spinner<Double> txtBonusKehadiran;
-	@FXML
 	private TextField txtJumlahKehadiran;
 	@FXML
 	private TextField txtJumlahLembur;
-	@FXML
-	private Spinner<Double> txtBonusLembur;
 	@FXML
 	private TextField txtTotalLembur;
 	@FXML
@@ -107,41 +103,27 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	private SpinnerValueFactory.DoubleSpinnerValueFactory kehadiranValueFactory, lemburValueFactory;
 
 	private PembayaranCicilanMotor pembayaranCicilanMotor;
+	private Motor cicilanMotor;
+	private DataKaryawan karyawan;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.kehadiranValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, 0D, 0D, 0D);
-		this.txtBonusKehadiran.setDisable(true);
-		this.txtBonusKehadiran.setValueFactory(kehadiranValueFactory);
-		this.txtBonusKehadiran.getEditor().setAlignment(Pos.CENTER_RIGHT);
-		this.txtBonusKehadiran.setEditable(true);
-		this.txtBonusKehadiran.getValueFactory().valueProperty().addListener((d, old, value) -> {
-			this.penggajian.setUangTransport(listTransport.size() * value);
-			txtTotalKehadiran.setText(stringFormatter.getCurrencyFormate(this.penggajian.getUangTransport()));
-		});
-
-		this.lemburValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, 0D, 0D, 0D);
-		this.txtBonusLembur.setDisable(true);
-		this.txtBonusLembur.setValueFactory(lemburValueFactory);
-		this.txtBonusLembur.getEditor().setAlignment(Pos.CENTER_RIGHT);
-		this.txtBonusLembur.setEditable(true);
-		this.txtBonusLembur.getValueFactory().valueProperty().addListener((d, old, value) -> {
-			this.penggajian.setUangLembur(listLembur.size() * value);
-			txtTotalLembur.setText(stringFormatter.getCurrencyFormate(this.penggajian.getUangLembur()));
-		});
-
 		txtNip.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 
 			@Override
 			public ListCell<String> call(ListView<String> param) {
 				return new ListCell<String>() {
+
+					private DataKaryawan karyawan;
+
 					@Override
 					protected void updateItem(String item, boolean empty) {
 						super.updateItem(item, empty);
 						if (empty) {
 							setText(null);
+
 						} else {
-							DataKaryawan karyawan = mapKaryawan.get(item);
+							this.karyawan = mapKaryawan.get(item);
 							StringBuilder sb = new StringBuilder(karyawan.getNip()).append(" (")
 									.append(karyawan.getNama()).append(" bagian ")
 									.append(karyawan.getJabatan().getNama()).append(")");
@@ -152,33 +134,12 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			}
 		});
 		txtNip.getSelectionModel().selectedItemProperty().addListener((s, old, value) -> {
-			txtBonusKehadiran.setDisable(value == null);
-			txtBonusLembur.setDisable(value == null);
+			this.karyawan = mapKaryawan.get(value);
 
 			if (value != null) {
 				setFields(mapKaryawan.get(value));
-
-				this.kehadiranValueFactory.setMin(0D);
-				this.kehadiranValueFactory.setMax(100000);
-				this.kehadiranValueFactory.setAmountToStepBy(5000);
-				this.kehadiranValueFactory.setValue(30000D);
-
-				this.lemburValueFactory.setMin(0D);
-				this.lemburValueFactory.setMax(100000);
-				this.lemburValueFactory.setAmountToStepBy(5000);
-				this.lemburValueFactory.setValue(30000D);
 			} else {
 				clearFields();
-
-				this.kehadiranValueFactory.setMin(0D);
-				this.kehadiranValueFactory.setMax(0D);
-				this.kehadiranValueFactory.setAmountToStepBy(0D);
-				this.kehadiranValueFactory.setValue(0D);
-
-				this.lemburValueFactory.setMin(0D);
-				this.lemburValueFactory.setMax(0D);
-				this.lemburValueFactory.setAmountToStepBy(0D);
-				this.lemburValueFactory.setValue(0D);
 			}
 		});
 
@@ -205,6 +166,8 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 				listTransport.add(hadir);
 			}
 			txtJumlahKehadiran.setText(stringFormatter.getNumberIntegerOnlyFormate(listTransport.size()));
+			this.penggajian.setUangTransport(listTransport.size() * 30000D);
+			txtTotalKehadiran.setText(stringFormatter.getCurrencyFormate(this.penggajian.getUangTransport()));
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data absensi karyawan atas nama {}", karyawan.getNama(), e);
 		}
@@ -216,26 +179,42 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 				this.listLembur.add(lembur);
 			}
 			txtJumlahLembur.setText(stringFormatter.getNumberIntegerOnlyFormate(listLembur.size()));
+			this.penggajian.setUangLembur(listLembur.size() * 30000D);
+			txtTotalLembur.setText(stringFormatter.getCurrencyFormate(this.penggajian.getUangLembur()));
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data lembur karyawan atas nama {}", karyawan.getNama(), e);
 		}
 
-		Motor cicilanMotor = karyawan.getNgicilMotor();
-		if (cicilanMotor != null) {
+		this.cicilanMotor = karyawan.getNgicilMotor();
+		Double bayarCicilanMotor;
+		if (cicilanMotor != null && cicilanMotor.isSetuju()) {
 			this.pembayaranCicilanMotor = new PembayaranCicilanMotor();
 			this.pembayaranCicilanMotor.setTanggalBayar(Date.valueOf(LocalDate.now()));
 			this.pembayaranCicilanMotor.setAngsuranKe(cicilanMotor.getDaftarCicilan().size() + 1);
 			this.pembayaranCicilanMotor.setBayar(cicilanMotor.getPembayaran());
+			this.pembayaranCicilanMotor.setMotor(cicilanMotor);
+			bayarCicilanMotor = this.pembayaranCicilanMotor.getBayar();
 
 			txtCicilanKe.setText(
 					stringFormatter.getNumberIntegerOnlyFormate(this.pembayaranCicilanMotor.getAngsuranKe()) + "x");
 			txtMerekMotor.setText(cicilanMotor.getMerkMotor());
 			txtUangPrestasi.setText(stringFormatter.getCurrencyFormate(pembayaranCicilanMotor.getBayar()));
 		} else {
+			bayarCicilanMotor = 0D;
+
 			txtCicilanKe.clear();
 			txtMerekMotor.clear();
 			txtUangPrestasi.clear();
 		}
+
+		logger.info("Transport: {} / Lembur: {}",
+				stringFormatter.getCurrencyFormate(this.penggajian.getUangTransport()),
+				stringFormatter.getCurrencyFormate(this.penggajian.getUangLembur()));
+
+		Double totalGaji = this.penggajian.getGajiPokok() + this.penggajian.getUangLembur()
+				+ this.penggajian.getUangTransport() + bayarCicilanMotor;
+
+		this.txtTotal.setText(stringFormatter.getCurrencyFormate(totalGaji));
 	}
 
 	private void clearFields() {
