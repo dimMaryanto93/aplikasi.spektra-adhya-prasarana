@@ -104,7 +104,7 @@ public class KaryawanListController implements BootInitializable {
 			txaAlamat.setText(anEmployee.getAlamat());
 			txtNik.setText(String.valueOf(anEmployee.getNik()));
 			txtJabatan.setText(anEmployee.getJabatan().getNama());
-			txtGapok.setText(this.stringFormater.getCurrencyFormate(anEmployee.getGaji()));
+			txtGapok.setText(this.stringFormater.getCurrencyFormate(anEmployee.getGajiPokok()));
 			txtJk.setText(anEmployee.getJenisKelamin().toString());
 		} else {
 			clearFields();

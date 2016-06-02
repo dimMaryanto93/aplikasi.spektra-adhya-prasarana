@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -16,8 +15,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.FormatterFactory;
 import app.configs.DialogsFX;
+import app.configs.FormatterFactory;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 import app.entities.master.DataKaryawan;
@@ -38,8 +37,10 @@ import javafx.stage.Stage;
 
 @Component
 public class PersetujuanFormController implements BootFormInitializable {
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;
+
 	@FXML
 	private Button btnSetuju;
 	@FXML
@@ -102,7 +103,7 @@ public class PersetujuanFormController implements BootFormInitializable {
 		txtCicilan.setText(formater.getCurrencyFormate(motor.getPembayaran()));
 		txtAngsuran.setText(formater.getNumberIntegerOnlyFormate(motor.getTotalAngsuran()));
 		txtUangMuka.setText(formater.getCurrencyFormate(motor.getDp()));
-		txtGajiPokok.setText(formater.getCurrencyFormate(karyawan.getGaji()));
+		txtGajiPokok.setText(formater.getCurrencyFormate(karyawan.getGajiPokok()));
 	}
 
 	@Override
@@ -176,11 +177,16 @@ public class PersetujuanFormController implements BootFormInitializable {
 
 	@Override
 	public void initConstuct() {
-		tableView.getItems().clear();
-		for (DataKaryawan karyawan : serviceKaryawan.findAll()) {
-			if (karyawan.isGettingCililanMotorUntukDisetujui()) {
-				tableView.getItems().add(karyawan);
+		try {
+			tableView.getItems().clear();
+			for (DataKaryawan karyawan : serviceKaryawan.findAll()) {
+				if (karyawan.isGettingCililanMotorUntukDisetujui()) {
+					tableView.getItems().add(karyawan);
+				}
 			}
+		} catch (Exception e) {
+			logger.error("Tidak dapat menampilkan daftar karyawan yang siap untuk disetujui oleh direktur", e);
+			// TODO notification error
 		}
 	}
 

@@ -215,7 +215,7 @@ public class KaryawanFormController implements BootFormInitializable {
 			this.cbkAgama.setValue(anEmployee.getAgama());
 			this.cbkPendidikan.setValue(anEmployee.getPendidikan());
 			this.datePicker.setValue(anEmployee.getTanggalLahir().toLocalDate());
-			this.spinGapok.getValueFactory().setValue(anEmployee.getGaji());
+			this.spinGapok.getValueFactory().setValue(anEmployee.getGajiPokok());
 
 			this.male.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Laki_Laki);
 			this.female.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Perempuan);
@@ -247,7 +247,7 @@ public class KaryawanFormController implements BootFormInitializable {
 			anEmployee.setTanggalMulaiKerja(Date.valueOf(txtHireDate.getValue()));
 			anEmployee.setAgama(cbkAgama.getValue());
 			anEmployee.setJenisKelamin(getJenisKelamin());
-			anEmployee.setGaji(spinGapok.getValueFactory().getValue());
+			anEmployee.setGajiPokok(spinGapok.getValueFactory().getValue());
 			anEmployee.setTanggalLahir(Date.valueOf(datePicker.getValue()));
 			anEmployee.setTempatLahir(txtTempatLahir.getText());
 			anEmployee.setAlamat(txaAlamat.getText());
@@ -275,7 +275,7 @@ public class KaryawanFormController implements BootFormInitializable {
 			anEmployee.setTanggalMulaiKerja(Date.valueOf(txtHireDate.getValue()));
 			anEmployee.setAgama(cbkAgama.getValue());
 			anEmployee.setJenisKelamin(getJenisKelamin());
-			anEmployee.setGaji(spinGapok.getValueFactory().getValue());
+			anEmployee.setGajiPokok(spinGapok.getValueFactory().getValue());
 			anEmployee.setTanggalLahir(Date.valueOf(datePicker.getValue()));
 			anEmployee.setTempatLahir(txtTempatLahir.getText());
 			anEmployee.setAlamat(txaAlamat.getText());

@@ -16,4 +16,10 @@ public interface AbsensiService extends PagingAndSortingRepository<KehadiranKary
 
 	public KehadiranKaryawan findByKaryawanAndTanggalHadir(DataKaryawan karyawan, Date tanggal);
 
+	public List<KehadiranKaryawan> findByKaryawanAndTanggalHadirBetweenAndHadir(DataKaryawan karyawan, Date awal,
+			Date akhir, Boolean hadir);
+
+	public List<KehadiranKaryawan> findByKaryawanAndTanggalHadirBetweenAndLembur(DataKaryawan karyawan, Date awal,
+			Date akhir, Boolean lembur);
+
 }

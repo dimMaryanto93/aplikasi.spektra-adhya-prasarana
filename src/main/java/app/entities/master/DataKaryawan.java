@@ -198,14 +198,6 @@ public class DataKaryawan extends BasicEntity {
 		this.alamat = alamat;
 	}
 
-	public Double getGaji() {
-		return gajiPokok;
-	}
-
-	public void setGaji(Double gaji) {
-		this.gajiPokok = gaji;
-	}
-
 	public Date getTanggalMulaiKerja() {
 		return tanggalMulaiKerja;
 	}
@@ -220,14 +212,6 @@ public class DataKaryawan extends BasicEntity {
 
 	public void setTanggalMulaiKerja(Date tanggalMulaiKerja) {
 		this.tanggalMulaiKerja = tanggalMulaiKerja;
-	}
-
-	public List<Penggajian> getDaftarTerimaGaji() {
-		return daftarTerimaGaji;
-	}
-
-	public void setDaftarTerimaGaji(List<Penggajian> daftarTerimaGaji) {
-		this.daftarTerimaGaji = daftarTerimaGaji;
 	}
 
 	public List<KasbonKaryawan> getDaftarKasbon() {

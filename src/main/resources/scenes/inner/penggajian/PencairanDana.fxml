@@ -87,19 +87,21 @@
 				<AnchorPane GridPane.columnSpan="2147483647"
 					GridPane.rowIndex="3">
 					<children>
-						<TextField fx:id="txtNama" editable="false" prefHeight="30.0"
-							prefWidth="330.0" promptText="Nama Karyawan"
-							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+						<TextField fx:id="txtNama" editable="false"
+							focusTraversable="false" prefHeight="30.0" prefWidth="330.0"
+							promptText="Nama Karyawan" AnchorPane.bottomAnchor="0.0"
+							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+							AnchorPane.topAnchor="0.0" />
 					</children>
 				</AnchorPane>
 				<AnchorPane layoutX="20.0" layoutY="100.0"
 					GridPane.rowIndex="5">
 					<children>
 						<TextField fx:id="txtJabatan" editable="false"
-							prefHeight="30.0" prefWidth="330.0" promptText="Jabatan"
-							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							focusTraversable="false" prefHeight="30.0" prefWidth="330.0"
+							promptText="Jabatan" AnchorPane.bottomAnchor="0.0"
+							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+							AnchorPane.topAnchor="0.0" />
 					</children>
 				</AnchorPane>
 				<Text layoutX="20.0" layoutY="39.0" strokeType="OUTSIDE"
@@ -113,7 +115,8 @@
 					GridPane.columnIndex="1" GridPane.rowIndex="5">
 					<children>
 						<TextField fx:id="txtJenisKelamin" alignment="CENTER"
-							editable="false" prefHeight="30.0" prefWidth="330.0" promptText="Jenis Kelamin"
+							editable="false" focusTraversable="false" prefHeight="30.0"
+							prefWidth="330.0" promptText="Jenis Kelamin"
 							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 					</children>
@@ -171,10 +174,10 @@
 							GridPane.columnIndex="5" GridPane.rowIndex="1">
 							<children>
 								<TextField fx:id="txtGajiPokok" alignment="CENTER_RIGHT"
-									editable="false" layoutX="-20.0" layoutY="1.0" prefHeight="30.0"
-									prefWidth="175.0" promptText="Rp.0,00" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+									editable="false" focusTraversable="false" layoutX="-20.0"
+									layoutY="1.0" prefHeight="30.0" prefWidth="175.0" promptText="Rp.0,00"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gaji Pokok"
@@ -187,10 +190,10 @@
 							prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
 							<children>
 								<TextField fx:id="txtTotalKehadiran" alignment="CENTER_RIGHT"
-									editable="false" layoutX="-20.0" layoutY="1.0" prefHeight="30.0"
-									prefWidth="175.0" promptText="Rp.0,00" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+									editable="false" focusTraversable="false" layoutX="-20.0"
+									layoutY="1.0" prefHeight="30.0" prefWidth="175.0" promptText="Rp.0,00"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<Text layoutX="475.0" layoutY="39.0" strokeType="OUTSIDE"
@@ -223,10 +226,10 @@
 							prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
 							<children>
 								<TextField fx:id="txtJumlahKehadiran" alignment="CENTER_RIGHT"
-									editable="false" layoutX="-20.0" layoutY="1.0" prefHeight="30.0"
-									prefWidth="175.0" promptText="0" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+									editable="false" focusTraversable="false" layoutX="-20.0"
+									layoutY="1.0" prefHeight="30.0" prefWidth="175.0" promptText="0"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<HBox alignment="CENTER" layoutX="410.0" layoutY="140.0"
@@ -248,10 +251,10 @@
 							prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
 							<children>
 								<TextField fx:id="txtJumlahLembur" alignment="CENTER_RIGHT"
-									editable="false" layoutX="-20.0" layoutY="1.0" prefHeight="30.0"
-									prefWidth="175.0" promptText="0" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+									editable="false" focusTraversable="false" layoutX="-20.0"
+									layoutY="1.0" prefHeight="30.0" prefWidth="175.0" promptText="0"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<HBox alignment="CENTER" layoutX="122.0" layoutY="140.0"
@@ -294,10 +297,10 @@
 							prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
 							<children>
 								<TextField fx:id="txtTotalLembur" alignment="CENTER_RIGHT"
-									editable="false" layoutX="-20.0" layoutY="1.0" prefHeight="30.0"
-									prefWidth="175.0" promptText="Rp.0,00" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+									editable="false" focusTraversable="false" layoutX="-20.0"
+									layoutY="1.0" prefHeight="30.0" prefWidth="175.0" promptText="Rp.0,00"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<Text layoutX="47.0" layoutY="200.0" strokeType="OUTSIDE"
@@ -307,10 +310,10 @@
 							prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
 							<children>
 								<TextField fx:id="txtCicilanKe" alignment="CENTER_RIGHT"
-									editable="false" layoutX="-20.0" layoutY="1.0" prefHeight="30.0"
-									prefWidth="175.0" promptText="0x" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+									editable="false" focusTraversable="false" layoutX="-20.0"
+									layoutY="1.0" prefHeight="30.0" prefWidth="175.0" promptText="0x"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<AnchorPane layoutX="47.0" layoutY="300.0" prefHeight="200.0"
@@ -318,10 +321,10 @@
 							GridPane.rowIndex="7">
 							<children>
 								<TextField fx:id="txtMerekMotor" editable="false"
-									layoutX="-20.0" layoutY="1.0" prefHeight="30.0" prefWidth="175.0"
-									promptText="Merek kendaraan" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+									focusTraversable="false" layoutX="-20.0" layoutY="1.0"
+									prefHeight="30.0" prefWidth="175.0" promptText="Merek kendaraan"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<HBox alignment="CENTER" layoutX="292.0" layoutY="220.0"
@@ -345,16 +348,16 @@
 							prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="7">
 							<children>
 								<TextField fx:id="txtUangPrestasi" alignment="CENTER_RIGHT"
-									editable="false" layoutX="-20.0" layoutY="1.0" prefHeight="30.0"
-									prefWidth="175.0" promptText="Rp.0,00" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+									editable="false" focusTraversable="false" layoutX="-20.0"
+									layoutY="1.0" prefHeight="30.0" prefWidth="175.0" promptText="Rp.0,00"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<Separator prefWidth="200.0" GridPane.columnSpan="2147483647"
 							GridPane.rowIndex="8" />
 						<HBox alignment="CENTER_RIGHT" GridPane.columnIndex="3"
-							GridPane.rowIndex="9">
+							GridPane.columnSpan="2" GridPane.rowIndex="9">
 							<children>
 								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jumlah">
 									<font>
@@ -367,10 +370,10 @@
 							prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="9">
 							<children>
 								<TextField fx:id="txtTotal" alignment="CENTER_RIGHT"
-									editable="false" layoutX="-20.0" layoutY="1.0" prefHeight="30.0"
-									prefWidth="175.0" promptText="Rp.0,00" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+									editable="false" focusTraversable="false" layoutX="-20.0"
+									layoutY="1.0" prefHeight="30.0" prefWidth="175.0" promptText="Rp.0,00"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<AnchorPane GridPane.columnSpan="2147483647"
