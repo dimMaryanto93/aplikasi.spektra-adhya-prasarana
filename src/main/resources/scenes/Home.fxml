@@ -54,6 +54,8 @@
 									text="Persetujuan" />
 							</items>
 						</Menu>
+						<MenuItem mnemonicParsing="false" onAction="#showFormPencairanDanaGaji"
+							text="Penggajian Karyawan" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Laporan">

@@ -23,6 +23,7 @@ import app.controller.peminjaman.karyawan.KasbonKaryawanPembayaranController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPencairanDanaController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPengajuanController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPersetujuanDirekturController;
+import app.controller.penggajian.PenggajianKaryawanPencairanDanaController;
 import app.controller.prestasi.CicilanListController;
 import app.controller.prestasi.PengajuanFormController;
 import app.controller.prestasi.PersetujuanFormController;
@@ -72,6 +73,9 @@ public class HomeController implements BootInitializable {
 
 	@Autowired
 	private PersetujuanFormController formPersetujuanCicilanMotor;
+	
+	@Autowired
+	private PenggajianKaryawanPencairanDanaController formPencairanDanaGaji;
 
 	@Autowired
 	private CicilanListController listCicilanMotor;
@@ -262,6 +266,16 @@ public class HomeController implements BootInitializable {
 			listCicilanMotor.initConstuct();
 		} catch (IOException e1) {
 			e1.printStackTrace();
+		}
+	}
+	
+	public void showFormPencairanDanaGaji(ActionEvent event){
+		try {
+			setLayout(formPencairanDanaGaji.initView());
+			formPencairanDanaGaji.initConstuct();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

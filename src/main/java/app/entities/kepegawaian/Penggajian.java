@@ -32,12 +32,12 @@ public class Penggajian extends BasicEntity {
 	@GeneratedValue(generator = "uuid")
 	private String id;
 
-	@Column(name = "slip_gaji", nullable = false, unique = true)
-	private String slipGaji;
-
 	@JoinColumn(name = "id_karyawan")
 	@ManyToOne(cascade = CascadeType.ALL, optional = true)
 	private DataKaryawan karyawan;
+
+	@Column(name = "tahun_bulan_penerimaan", nullable = false)
+	private String tahunBulan;
 
 	@Column(nullable = false, name = "tanggal_penerimaan_gaji")
 	private Date tanggal;
@@ -57,14 +57,6 @@ public class Penggajian extends BasicEntity {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getSlipGaji() {
-		return slipGaji;
-	}
-
-	public void setSlipGaji(String slipGaji) {
-		this.slipGaji = slipGaji;
 	}
 
 	public DataKaryawan getKaryawan() {
