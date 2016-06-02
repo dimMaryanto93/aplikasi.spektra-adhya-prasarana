@@ -245,9 +245,14 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 			this.mapKaryawan = new HashMap<String, DataKaryawan>();
 			txtNip.getItems().clear();
-			for (DataKaryawan karyawan : serviceKaryawan.findAll()) {
-				this.mapKaryawan.put(karyawan.getNip(), karyawan);
-				this.txtNip.getItems().add(karyawan.getNip());
+			List<DataKaryawan> daftarKaryawan = serviceKaryawan.findAll();
+			for (DataKaryawan karyawan : daftarKaryawan) {
+				Penggajian gaji = servicePenggajian.findByKaryawanAndTahunBulan(karyawan,
+						stringFormatter.getDateIndonesionFormatterOnlyYearAndMonth(LocalDate.now()));
+				if (gaji == null) {
+					this.mapKaryawan.put(karyawan.getNip(), karyawan);
+					this.txtNip.getItems().add(karyawan.getNip());
+				}
 			}
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data karyawan yang belum menerima gaji pada bulan {}",
