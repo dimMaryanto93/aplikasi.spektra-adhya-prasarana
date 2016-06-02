@@ -3,9 +3,7 @@ package app.controller.penggajian;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +22,8 @@ import app.configs.DialogsFX;
 import app.configs.FormatterFactory;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.kepegawaian.Penggajian;
+import app.entities.kepegawaian.uang.prestasi.Motor;
+import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
 import app.repositories.AbsensiService;
@@ -105,6 +105,8 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	private List<KehadiranKaryawan> listTransport = new ArrayList<KehadiranKaryawan>();
 	private List<KehadiranKaryawan> listLembur = new ArrayList<KehadiranKaryawan>();
 	private SpinnerValueFactory.DoubleSpinnerValueFactory kehadiranValueFactory, lemburValueFactory;
+
+	private PembayaranCicilanMotor pembayaranCicilanMotor;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -216,6 +218,23 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			txtJumlahLembur.setText(stringFormatter.getNumberIntegerOnlyFormate(listLembur.size()));
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data lembur karyawan atas nama {}", karyawan.getNama(), e);
+		}
+
+		Motor cicilanMotor = karyawan.getNgicilMotor();
+		if (cicilanMotor != null) {
+			this.pembayaranCicilanMotor = new PembayaranCicilanMotor();
+			this.pembayaranCicilanMotor.setTanggalBayar(Date.valueOf(LocalDate.now()));
+			this.pembayaranCicilanMotor.setAngsuranKe(cicilanMotor.getDaftarCicilan().size() + 1);
+			this.pembayaranCicilanMotor.setBayar(cicilanMotor.getPembayaran());
+
+			txtCicilanKe.setText(
+					stringFormatter.getNumberIntegerOnlyFormate(this.pembayaranCicilanMotor.getAngsuranKe()) + "x");
+			txtMerekMotor.setText(cicilanMotor.getMerkMotor());
+			txtUangPrestasi.setText(stringFormatter.getCurrencyFormate(pembayaranCicilanMotor.getBayar()));
+		} else {
+			txtCicilanKe.clear();
+			txtMerekMotor.clear();
+			txtUangPrestasi.clear();
 		}
 	}
 
