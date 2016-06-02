@@ -274,4 +274,12 @@ public class DataKaryawan extends BasicEntity {
 		return getNgicilMotor() != null && getNgicilMotor().isSetuju();
 	}
 
+	public List<Penggajian> getDaftarTerimaGaji() {
+		return daftarTerimaGaji;
+	}
+
+	public void setDaftarTerimaGaji(List<Penggajian> daftarTerimaGaji) {
+		this.daftarTerimaGaji = daftarTerimaGaji;
+	}
+
 }

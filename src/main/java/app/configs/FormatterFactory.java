@@ -31,4 +31,9 @@ public class FormatterFactory {
 		return formater.format(date);
 	}
 
+	public String getDateIndonesionFormatterOnlyYearAndMonth(LocalDate date) {
+		DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MMMM").withLocale(Locale.getDefault());
+		return formater.format(date);
+	}
+
 }

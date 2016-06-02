@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,7 +19,8 @@ import app.entities.BasicEntity;
 import app.entities.master.DataKaryawan;
 
 @Entity
-@Table(name = "gaji_karyawan")
+@Table(name = "gaji_karyawan", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "tahun_bulan_penerimaan", "id_karyawan" }, name = "uq_karyawan_gaji") })
 public class Penggajian extends BasicEntity {
 
 	public Penggajian() {
@@ -32,8 +33,8 @@ public class Penggajian extends BasicEntity {
 	@GeneratedValue(generator = "uuid")
 	private String id;
 
-	@JoinColumn(name = "id_karyawan")
-	@ManyToOne(cascade = CascadeType.ALL, optional = true)
+	@JoinColumn(name = "id_karyawan", nullable = false)
+	@ManyToOne
 	private DataKaryawan karyawan;
 
 	@Column(name = "tahun_bulan_penerimaan", nullable = false)
@@ -97,6 +98,14 @@ public class Penggajian extends BasicEntity {
 
 	public void setUangLembur(Double uangLembur) {
 		this.uangLembur = uangLembur;
+	}
+
+	public String getTahunBulan() {
+		return tahunBulan;
+	}
+
+	public void setTahunBulan(String tahunBulan) {
+		this.tahunBulan = tahunBulan;
 	}
 
 }

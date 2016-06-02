@@ -27,20 +27,18 @@ import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
 import app.repositories.AbsensiService;
+import app.repositories.CicilanMotorRepository;
 import app.repositories.KaryawanService;
 import app.repositories.PenggajianService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -91,6 +89,9 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	private KaryawanService serviceKaryawan;
 
 	@Autowired
+	private CicilanMotorRepository serviceCicilanMotor;
+
+	@Autowired
 	private FormatterFactory stringFormatter;
 
 	@Autowired
@@ -100,11 +101,9 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	private Penggajian penggajian;
 	private List<KehadiranKaryawan> listTransport = new ArrayList<KehadiranKaryawan>();
 	private List<KehadiranKaryawan> listLembur = new ArrayList<KehadiranKaryawan>();
-	private SpinnerValueFactory.DoubleSpinnerValueFactory kehadiranValueFactory, lemburValueFactory;
 
 	private PembayaranCicilanMotor pembayaranCicilanMotor;
 	private Motor cicilanMotor;
-	private DataKaryawan karyawan;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -134,8 +133,6 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			}
 		});
 		txtNip.getSelectionModel().selectedItemProperty().addListener((s, old, value) -> {
-			this.karyawan = mapKaryawan.get(value);
-
 			if (value != null) {
 				setFields(mapKaryawan.get(value));
 			} else {
@@ -146,9 +143,13 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	}
 
 	private void setFields(DataKaryawan karyawan) {
+		this.penggajian.setKaryawan(karyawan);
+
 		LocalDate sekarang = LocalDate.now();
 		LocalDate awalBulan = sekarang.withDayOfMonth(1);
 		LocalDate akhirBulan = sekarang.withDayOfMonth(sekarang.lengthOfMonth());
+
+		this.penggajian.setTahunBulan(stringFormatter.getDateIndonesionFormatterOnlyYearAndMonth(sekarang));
 
 		DataJabatan jabatan = karyawan.getJabatan();
 
@@ -207,10 +208,6 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			txtUangPrestasi.clear();
 		}
 
-		logger.info("Transport: {} / Lembur: {}",
-				stringFormatter.getCurrencyFormate(this.penggajian.getUangTransport()),
-				stringFormatter.getCurrencyFormate(this.penggajian.getUangLembur()));
-
 		Double totalGaji = this.penggajian.getGajiPokok() + this.penggajian.getUangLembur()
 				+ this.penggajian.getUangTransport() + bayarCicilanMotor;
 
@@ -248,30 +245,15 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 			this.mapKaryawan = new HashMap<String, DataKaryawan>();
 			txtNip.getItems().clear();
-
-			LocalDate sekarang = LocalDate.now();
-			LocalDate awalBulan = sekarang.withDayOfMonth(1);
-			LocalDate akhirBulan = sekarang.withDayOfMonth(sekarang.lengthOfMonth());
-
-			logger.info("{} s/d {}", awalBulan.toString(), akhirBulan.toString());
-
 			for (DataKaryawan karyawan : serviceKaryawan.findAll()) {
-				Penggajian gaji = servicePenggajian.findByKaryawanAndTanggalBetween(karyawan, Date.valueOf(awalBulan),
-						Date.valueOf(akhirBulan));
-				if (gaji == null) {
-					logger.info("Karyawan atas nama {} belum menerima gaji pada {}", karyawan.getNama(),
-							sekarang.toString());
-
-					this.mapKaryawan.put(karyawan.getNip(), karyawan);
-					this.txtNip.getItems().add(karyawan.getNip());
-				} else {
-					logger.warn("Karyawan atas nama {} telah menerima gaji!", karyawan.getNama());
-				}
+				this.mapKaryawan.put(karyawan.getNip(), karyawan);
+				this.txtNip.getItems().add(karyawan.getNip());
 			}
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data karyawan yang belum menerima gaji pada bulan {}",
 					LocalDate.now().toString());
 			notif.showDefaultErrorLoad("Data karyawan", e);
+			e.printStackTrace();
 		}
 	}
 
@@ -297,6 +279,12 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 	@FXML
 	public void doSave(ActionEvent event) {
+
+		servicePenggajian.save(this.penggajian);
+		if (this.cicilanMotor != null) {
+			serviceCicilanMotor.save(this.pembayaranCicilanMotor);
+		}
+		initConstuct();
 	}
 
 	@FXML
