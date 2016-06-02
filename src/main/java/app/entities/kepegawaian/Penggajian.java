@@ -32,15 +32,24 @@ public class Penggajian extends BasicEntity {
 	@GeneratedValue(generator = "uuid")
 	private String id;
 
+	@Column(name = "slip_gaji", nullable = false, unique = true)
+	private String slipGaji;
+
 	@JoinColumn(name = "id_karyawan")
 	@ManyToOne(cascade = CascadeType.ALL, optional = true)
 	private DataKaryawan karyawan;
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "tanggal_penerimaan_gaji")
 	private Date tanggal;
 
-	@Column(name = "saldo", nullable = false)
-	private Double gaji;
+	@Column(name = "gaji_pokok", nullable = false)
+	private Double gajiPokok;
+
+	@Column(name = "uang_transport", nullable = false)
+	private Double uangTransport;
+
+	@Column(name = "uang_lembur", nullable = false)
+	private Double uangLembur;
 
 	public String getId() {
 		return id;
@@ -48,6 +57,14 @@ public class Penggajian extends BasicEntity {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getSlipGaji() {
+		return slipGaji;
+	}
+
+	public void setSlipGaji(String slipGaji) {
+		this.slipGaji = slipGaji;
 	}
 
 	public DataKaryawan getKaryawan() {
@@ -66,12 +83,28 @@ public class Penggajian extends BasicEntity {
 		this.tanggal = tanggal;
 	}
 
-	public Double getGaji() {
-		return gaji;
+	public Double getGajiPokok() {
+		return gajiPokok;
 	}
 
-	public void setGaji(Double gaji) {
-		this.gaji = gaji;
+	public void setGajiPokok(Double gajiPokok) {
+		this.gajiPokok = gajiPokok;
+	}
+
+	public Double getUangTransport() {
+		return uangTransport;
+	}
+
+	public void setUangTransport(Double uangTransport) {
+		this.uangTransport = uangTransport;
+	}
+
+	public Double getUangLembur() {
+		return uangLembur;
+	}
+
+	public void setUangLembur(Double uangLembur) {
+		this.uangLembur = uangLembur;
 	}
 
 }
