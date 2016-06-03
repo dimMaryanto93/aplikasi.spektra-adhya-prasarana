@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationResult;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -37,6 +41,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -105,8 +110,13 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	private PembayaranCicilanMotor pembayaranCicilanMotor;
 	private Motor cicilanMotor;
 
+	private ValidationSupport validation;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		checkValid.setDisable(true);
+		checkValid.setOpacity(0D);
+
 		txtNip.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 
 			@Override
@@ -120,7 +130,6 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 						super.updateItem(item, empty);
 						if (empty) {
 							setText(null);
-
 						} else {
 							this.karyawan = mapKaryawan.get(item);
 							StringBuilder sb = new StringBuilder(karyawan.getNip()).append(" (")
@@ -133,12 +142,19 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			}
 		});
 		txtNip.getSelectionModel().selectedItemProperty().addListener((s, old, value) -> {
+			this.checkValid.setDisable(value == null);
+			this.checkValid.setSelected(false);
+			this.checkValid.setText("");
 			if (value != null) {
+				this.checkValid.setOpacity(1D);
+				this.checkValid.setText("Saya setuju");
 				setFields(mapKaryawan.get(value));
 			} else {
+				checkValid.setOpacity(0D);
 				clearFields();
 			}
 		});
+		initValidator();
 
 	}
 
@@ -162,10 +178,9 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 		try {
 			this.listTransport.clear();
-			for (KehadiranKaryawan hadir : serviceAbsen.findByKaryawanAndTanggalHadirBetweenAndHadir(karyawan,
-					Date.valueOf(awalBulan), Date.valueOf(akhirBulan), true)) {
-				listTransport.add(hadir);
-			}
+			listTransport.addAll(serviceAbsen.findByKaryawanAndTanggalHadirBetweenAndHadir(karyawan,
+					Date.valueOf(awalBulan), Date.valueOf(akhirBulan), true));
+
 			txtJumlahKehadiran.setText(stringFormatter.getNumberIntegerOnlyFormate(listTransport.size()));
 			this.penggajian.setUangTransport(listTransport.size() * 30000D);
 			txtTotalKehadiran.setText(stringFormatter.getCurrencyFormate(this.penggajian.getUangTransport()));
@@ -175,10 +190,9 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 		try {
 			this.listLembur.clear();
-			for (KehadiranKaryawan lembur : serviceAbsen.findByKaryawanAndTanggalHadirBetweenAndLembur(karyawan,
-					Date.valueOf(awalBulan), Date.valueOf(akhirBulan), true)) {
-				this.listLembur.add(lembur);
-			}
+			this.listLembur.addAll(serviceAbsen.findByKaryawanAndTanggalHadirBetweenAndLembur(karyawan,
+					Date.valueOf(awalBulan), Date.valueOf(akhirBulan), true));
+
 			txtJumlahLembur.setText(stringFormatter.getNumberIntegerOnlyFormate(listLembur.size()));
 			this.penggajian.setUangLembur(listLembur.size() * 30000D);
 			txtTotalLembur.setText(stringFormatter.getCurrencyFormate(this.penggajian.getUangLembur()));
@@ -258,11 +272,11 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			logger.error("Tidak dapat mendapatkan data karyawan yang belum menerima gaji pada bulan {}",
 					LocalDate.now().toString());
 			notif.showDefaultErrorLoad("Data karyawan", e);
-			e.printStackTrace();
 		}
 	}
 
 	@Override
+	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
 		this.notif = notif;
 	}
@@ -279,17 +293,37 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 	@Override
 	public void initValidator() {
+		this.validation = new ValidationSupport();
+		this.validation.registerValidator(txtNip, true,
+				Validator.createEmptyValidator("Karyawan belum dipilih!", Severity.ERROR));
+		this.validation.registerValidator(checkValid, (Control c, Boolean value) -> ValidationResult.fromErrorIf(c,
+				"Anda belum mengetujui perjanjian!", !value));
 
+		this.validation.invalidProperty().addListener((b, old, value) -> {
+			btnSave.setDisable(value);
+		});
 	}
 
 	@FXML
 	public void doSave(ActionEvent event) {
+		try {
+			servicePenggajian.save(this.penggajian);
+			notif.showDefaultSave("Penggajian Karyawan");
+			logger.info("Penggajian karyawan atas nama {} sebesar {} berhasil disimpan",
+					this.penggajian.getKaryawan().getNama(), txtTotal.getText());
+			if (this.cicilanMotor != null) {
+				serviceCicilanMotor.save(this.pembayaranCicilanMotor);
+				notif.showDefaultSave("Uang prestasi");
+				logger.info("Penyerahan uang prestasi kepada karyawan atas nama {} sebesar {} untuk cicilan ke {}",
+						this.penggajian.getKaryawan().getNama(), txtUangPrestasi.getText(), txtCicilanKe.getText());
+			}
 
-		servicePenggajian.save(this.penggajian);
-		if (this.cicilanMotor != null) {
-			serviceCicilanMotor.save(this.pembayaranCicilanMotor);
+			initConstuct();
+		} catch (Exception e) {
+			logger.error("Tidak dapat menyimpan penggajian karyawan atas nama {} sebesar {}",
+					this.penggajian.getKaryawan().getNama(), txtTotal.getText());
+			notif.showDefaultErrorSave("Data penggajian karyawan", e);
 		}
-		initConstuct();
 	}
 
 	@FXML
