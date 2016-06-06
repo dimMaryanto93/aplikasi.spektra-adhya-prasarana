@@ -125,6 +125,7 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 		this.txtPinjam.setDisable(true);
 		this.txtPinjam.valueProperty().addListener((d, old, value) -> {
 			txtValid.setDisable(value <= 0D);
+			txtValid.setSelected(false);
 			if (value > 0D) {
 				String namaKaryawan = mapDataKaryawan.get(txtKaryawan.getSelectionModel().getSelectedItem()).getNama();
 				StringBuilder sb = new StringBuilder(
@@ -136,7 +137,6 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 			} else {
 				txtValid.setText("");
 				txtValid.setOpacity(0D);
-				txtValid.setSelected(false);
 			}
 		});
 
@@ -147,7 +147,7 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 			if (value != null) {
 				DataKaryawan karyawan = mapDataKaryawan.get(value);
 				setFields(karyawan);
-				doubleSpinnerValueFactory.setMax(Double.MAX_VALUE);
+				doubleSpinnerValueFactory.setMax(20000000);
 				doubleSpinnerValueFactory.setAmountToStepBy(50000);
 
 			} else {
@@ -240,6 +240,11 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 				Validator.createEmptyValidator("No induk karyawan belum pilih!", Severity.ERROR));
 		this.validation.registerValidator(txtValid, (Control c, Boolean value) -> ValidationResult.fromErrorIf(c,
 				"Anda belum menyutujui perjanjain!", !value));
+		this.validation.registerValidator(txtPinjam.getEditor(),
+				(Control c, String value) -> ValidationResult.fromErrorIf(c,
+						"Minimal peminjaman lebih dari Rp50.000,00 dan maksimal Rp20.000.000,00",
+						Double.valueOf(value) < Double.valueOf(50000)
+								|| Double.valueOf(value) > Double.valueOf(20000000)));
 
 		this.validation.invalidProperty().addListener((b, old, value) -> {
 			btnSimpan.setDisable(value);

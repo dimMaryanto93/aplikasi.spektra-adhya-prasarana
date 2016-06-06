@@ -121,11 +121,9 @@ public class KasbonKaryawanListController implements BootInitializable {
 
 					@Override
 					public TableCell<KasbonKaryawan, String> call(TableColumn<KasbonKaryawan, String> param) {
-						// TODO Auto-generated method stub
 						return new TableCell<KasbonKaryawan, String>() {
 							@Override
 							protected void updateItem(String item, boolean empty) {
-								// TODO Auto-generated method stub
 								setAlignment(Pos.CENTER);
 								super.updateItem(item, empty);
 								if (empty) {
@@ -147,7 +145,6 @@ public class KasbonKaryawanListController implements BootInitializable {
 						return new TableCell<KasbonKaryawan, Double>() {
 							@Override
 							protected void updateItem(Double item, boolean empty) {
-								// TODO Auto-generated method stub
 								super.updateItem(item, empty);
 								setAlignment(Pos.CENTER_RIGHT);
 								if (empty) {
@@ -169,7 +166,6 @@ public class KasbonKaryawanListController implements BootInitializable {
 						return new TableCell<KasbonKaryawan, Double>() {
 							@Override
 							protected void updateItem(Double item, boolean empty) {
-								// TODO Auto-generated method stub
 								super.updateItem(item, empty);
 								setAlignment(Pos.CENTER_RIGHT);
 								if (empty) {
@@ -191,7 +187,6 @@ public class KasbonKaryawanListController implements BootInitializable {
 						return new TableCell<KasbonKaryawan, Double>() {
 							@Override
 							protected void updateItem(Double item, boolean empty) {
-								// TODO Auto-generated method stub
 								super.updateItem(item, empty);
 								setAlignment(Pos.CENTER_RIGHT);
 								if (empty) {

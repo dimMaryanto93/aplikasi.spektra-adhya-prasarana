@@ -286,11 +286,11 @@ public class KasbonKaryawanPembayaranController implements BootFormInitializable
 	@Override
 	public void initConstuct() {
 		try {
-			this.mapKaryawan = new HashMap<String, DataKaryawan>();
 			txtNip.getItems().clear();
+			this.mapKaryawan = new HashMap<String, DataKaryawan>();
 			for (DataKaryawan karyawan : serviceKaryawan.findAll()) {
-				txtNip.getItems().add(karyawan.getNip());
 				this.mapKaryawan.put(karyawan.getNip(), karyawan);
+				txtNip.getItems().add(karyawan.getNip());
 			}
 		} catch (Exception e) {
 			logger.info("Tidak dapat memuat data karyawan", e);
