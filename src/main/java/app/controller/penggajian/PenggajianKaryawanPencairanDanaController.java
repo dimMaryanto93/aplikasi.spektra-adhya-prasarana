@@ -193,15 +193,20 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 		txtGajiPokok.setText(stringFormatter.getCurrencyFormate(karyawan.getGajiPokok()));
 
 		try {
+
 			this.listTransport.clear();
 			listTransport.addAll(serviceAbsen.findByKaryawanAndTanggalHadirBetweenAndHadir(karyawan,
 					Date.valueOf(awalBulan), Date.valueOf(akhirBulan), true));
 
-			txtJumlahKehadiran.setText(stringFormatter.getNumberIntegerOnlyFormate(listTransport.size()));
-			this.penggajian.setUangTransport(listTransport.size() * 30000D);
+			this.penggajian.setJumlahKehadiran(listTransport.size());
+			txtJumlahKehadiran
+					.setText(stringFormatter.getNumberIntegerOnlyFormate(this.penggajian.getJumlahKehadiran()));
+			this.penggajian.setUangTransport(this.penggajian.getJumlahKehadiran() * 30000D);
+
 			txtTotalKehadiran.setText(stringFormatter.getCurrencyFormate(this.penggajian.getUangTransport()));
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data absensi karyawan atas nama {}", karyawan.getNama(), e);
+			notif.showDefaultErrorLoad("Kehadiran karyawan", e);
 		}
 
 		try {
@@ -209,11 +214,13 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			this.listLembur.addAll(serviceAbsen.findByKaryawanAndTanggalHadirBetweenAndLembur(karyawan,
 					Date.valueOf(awalBulan), Date.valueOf(akhirBulan), true));
 
-			txtJumlahLembur.setText(stringFormatter.getNumberIntegerOnlyFormate(listLembur.size()));
-			this.penggajian.setUangLembur(listLembur.size() * 30000D);
+			this.penggajian.setJumlahLembur(listLembur.size());
+			txtJumlahLembur.setText(stringFormatter.getNumberIntegerOnlyFormate(this.penggajian.getJumlahLembur()));
+			this.penggajian.setUangLembur(this.penggajian.getJumlahLembur() * 30000D);
 			txtTotalLembur.setText(stringFormatter.getCurrencyFormate(this.penggajian.getUangLembur()));
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data lembur karyawan atas nama {}", karyawan.getNama(), e);
+			notif.showDefaultErrorLoad("Lembur karyawan", e);
 		}
 
 		this.cicilanMotor = karyawan.getNgicilMotor();

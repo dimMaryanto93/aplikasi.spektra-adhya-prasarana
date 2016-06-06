@@ -49,8 +49,14 @@ public class Penggajian extends BasicEntity {
 	@Column(name = "uang_transport", nullable = false)
 	private Double uangTransport;
 
+	@Column(name = "jumlah_kehadiran", nullable = false)
+	private Integer jumlahKehadiran;
+
 	@Column(name = "uang_lembur", nullable = false)
 	private Double uangLembur;
+
+	@Column(name = "jumlah_lembur", nullable = false)
+	private Integer jumlahLembur;
 
 	public String getId() {
 		return id;
@@ -107,5 +113,23 @@ public class Penggajian extends BasicEntity {
 	public void setTahunBulan(String tahunBulan) {
 		this.tahunBulan = tahunBulan;
 	}
+
+	public Integer getJumlahKehadiran() {
+		return jumlahKehadiran;
+	}
+
+	public void setJumlahKehadiran(Integer jumlahKehadiran) {
+		this.jumlahKehadiran = jumlahKehadiran;
+	}
+
+	public Integer getJumlahLembur() {
+		return jumlahLembur;
+	}
+
+	public void setJumlahLembur(Integer jumlahLembur) {
+		this.jumlahLembur = jumlahLembur;
+	}
+	
+	
 
 }

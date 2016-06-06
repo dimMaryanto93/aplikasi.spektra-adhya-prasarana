@@ -14,6 +14,8 @@ public interface PenggajianService extends CrudRepository<Penggajian, String> {
 
 	public Penggajian findByKaryawanAndTahunBulan(DataKaryawan karyawan, String gajian);
 
+	public List<Penggajian> findByTahunBulan(String gaji);
+
 	public List<Penggajian> findBykaryawan(DataKaryawan karyawan);
 
 }
