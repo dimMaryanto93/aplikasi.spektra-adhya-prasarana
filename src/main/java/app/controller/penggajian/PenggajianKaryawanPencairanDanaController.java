@@ -112,6 +112,22 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 	private ValidationSupport validation;
 
+	private void clearFields() {
+		txtNip.getSelectionModel().clearSelection();
+		txtNama.clear();
+		txtJabatan.clear();
+		txtJenisKelamin.clear();
+		txtGajiPokok.clear();
+		txtTotalKehadiran.clear();
+		txtJumlahKehadiran.clear();
+		txtJumlahLembur.clear();
+		txtTotalLembur.clear();
+		txtCicilanKe.clear();
+		txtMerekMotor.clear();
+		txtUangPrestasi.clear();
+		txtTotal.clear();
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		checkValid.setDisable(true);
@@ -226,16 +242,6 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 				+ this.penggajian.getUangTransport() + bayarCicilanMotor;
 
 		this.txtTotal.setText(stringFormatter.getCurrencyFormate(totalGaji));
-	}
-
-	private void clearFields() {
-		txtNama.clear();
-		txtJabatan.clear();
-		txtJenisKelamin.clear();
-
-		txtGajiPokok.clear();
-		txtJumlahKehadiran.clear();
-		txtJumlahLembur.clear();
 	}
 
 	@Override
