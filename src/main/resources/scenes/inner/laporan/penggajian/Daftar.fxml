@@ -75,10 +75,14 @@
 							maxWidth="1.7976931348623157E308" />
 						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
 							minWidth="10.0" prefWidth="150.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity"
+							minWidth="-Infinity" />
 					</columnConstraints>
 					<rowConstraints>
-						<RowConstraints maxHeight="150.0" minHeight="150.0"
-							prefHeight="150.0" vgrow="SOMETIMES" />
+						<RowConstraints />
+						<RowConstraints />
+						<RowConstraints maxHeight="200.0" minHeight="200.0"
+							prefHeight="200.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
@@ -86,6 +90,8 @@
 							prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity"
+							vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity"
@@ -98,7 +104,7 @@
 					</padding>
 					<children>
 						<AnchorPane prefHeight="200.0" prefWidth="200.0"
-							GridPane.columnSpan="2147483647">
+							GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
 							<children>
 								<TableView fx:id="tableView" focusTraversable="false"
 									layoutX="125.0" layoutY="14.0" prefHeight="214.0" prefWidth="778.0"
@@ -126,13 +132,13 @@
 							</children>
 						</AnchorPane>
 						<HBox alignment="CENTER_RIGHT" GridPane.columnIndex="2"
-							GridPane.rowIndex="1">
+							GridPane.rowIndex="3">
 							<children>
 								<Label text="Total" />
 							</children>
 						</HBox>
 						<AnchorPane prefHeight="200.0" prefWidth="200.0"
-							GridPane.columnIndex="3" GridPane.rowIndex="1">
+							GridPane.columnIndex="3" GridPane.rowIndex="3">
 							<children>
 								<TextField fx:id="txtTotalGajiPokok" alignment="CENTER_RIGHT"
 									editable="false" focusTraversable="false" layoutX="-10.0"
@@ -142,17 +148,17 @@
 							</children>
 						</AnchorPane>
 						<Separator prefWidth="200.0" GridPane.columnSpan="2147483647"
-							GridPane.rowIndex="2" />
+							GridPane.rowIndex="4" />
 						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Biaya Tambahan : "
-							GridPane.rowIndex="3" />
+							GridPane.rowIndex="5" />
 						<Text strokeType="OUTSIDE" strokeWidth="0.0"
 							text="- Transport &amp; makan" GridPane.columnIndex="1"
-							GridPane.rowIndex="3" />
+							GridPane.rowIndex="5" />
 						<Text layoutX="84.0" layoutY="303.0" strokeType="OUTSIDE"
 							strokeWidth="0.0" text="- Lembur" GridPane.columnIndex="1"
-							GridPane.rowIndex="4" />
+							GridPane.rowIndex="6" />
 						<AnchorPane layoutX="648.0" layoutY="230.0" prefHeight="200.0"
-							prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+							prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
 							<children>
 								<TextField fx:id="txtTotalHadir" alignment="CENTER_RIGHT"
 									editable="false" focusTraversable="false" layoutX="-10.0"
@@ -162,7 +168,7 @@
 							</children>
 						</AnchorPane>
 						<AnchorPane layoutX="648.0" layoutY="283.0" prefHeight="200.0"
-							prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+							prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
 							<children>
 								<TextField fx:id="txtTotalLembur" alignment="CENTER_RIGHT"
 									editable="false" focusTraversable="false" layoutX="-10.0"
@@ -172,13 +178,13 @@
 							</children>
 						</AnchorPane>
 						<HBox alignment="CENTER_RIGHT" layoutX="214.0" layoutY="230.0"
-							GridPane.columnIndex="2" GridPane.rowIndex="5">
+							GridPane.columnIndex="2" GridPane.rowIndex="8">
 							<children>
 								<Label text="Total" />
 							</children>
 						</HBox>
 						<AnchorPane layoutX="632.0" layoutY="323.0" prefHeight="200.0"
-							prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+							prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="8">
 							<children>
 								<TextField fx:id="totalSumHadirLembur" alignment="CENTER_RIGHT"
 									editable="false" focusTraversable="false" layoutX="-10.0"
@@ -188,15 +194,15 @@
 							</children>
 						</AnchorPane>
 						<Separator layoutX="20.0" layoutY="270.0" prefWidth="200.0"
-							GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
+							GridPane.columnSpan="2147483647" GridPane.rowIndex="9" />
 						<HBox alignment="CENTER_RIGHT" layoutX="214.0" layoutY="363.0"
-							GridPane.columnIndex="2" GridPane.rowIndex="7">
+							GridPane.columnIndex="2" GridPane.rowIndex="10">
 							<children>
 								<Label text="Grant Total" />
 							</children>
 						</HBox>
 						<AnchorPane layoutX="648.0" layoutY="363.0" prefHeight="200.0"
-							prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
+							prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="10">
 							<children>
 								<TextField fx:id="txtGrantTotal" alignment="CENTER_RIGHT"
 									editable="false" focusTraversable="false" layoutX="-10.0"
@@ -205,6 +211,34 @@
 									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
+						<Separator prefWidth="200.0" GridPane.columnIndex="3"
+							GridPane.rowIndex="7" />
+						<HBox alignment="BOTTOM_LEFT" GridPane.columnIndex="4"
+							GridPane.rowIndex="6">
+							<children>
+								<Label text="+">
+									<font>
+										<Font name="System Bold" size="16.0" />
+									</font>
+								</Label>
+							</children>
+						</HBox>
+						<AnchorPane prefHeight="200.0" prefWidth="200.0"
+							GridPane.columnSpan="2147483647">
+							<children>
+								<Label alignment="CENTER" focusTraversable="false"
+									layoutX="364.0" layoutY="17.0" prefHeight="50.0" prefWidth="778.0"
+									text="Laporan Penggajian Karyawan" AnchorPane.bottomAnchor="0.0"
+									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+									AnchorPane.topAnchor="0.0">
+									<font>
+										<Font name="System Bold" size="20.0" />
+									</font>
+								</Label>
+							</children>
+						</AnchorPane>
+						<Separator layoutX="20.0" layoutY="180.0" prefWidth="200.0"
+							GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
 					</children>
 				</GridPane>
 			</content>

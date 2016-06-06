@@ -66,6 +66,8 @@
 							text="Daftar Kasbon Karyawan" />
 						<MenuItem mnemonicParsing="false"
 							onAction="#showDaftarPembayaranCicilanMotor" text="Daftar Pembayaran Cicilan Motor" />
+						<MenuItem mnemonicParsing="false" onAction="#showDaftarPenggajianKaryawan"
+							text="Daftar Penggajian Karyawan" />
 					</items>
 				</Menu>
 			</menus>

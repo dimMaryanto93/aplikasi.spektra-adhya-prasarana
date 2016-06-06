@@ -18,6 +18,7 @@ import app.controller.absensi.AbsensiFormController;
 import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.KaryawanListController;
+import app.controller.laporan.penggajian.LaporanDaftarPenggajian;
 import app.controller.peminjaman.karyawan.KasbonKaryawanListController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPembayaranController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPencairanDanaController;
@@ -37,7 +38,9 @@ import javafx.stage.Stage;
 
 @Component
 public class HomeController implements BootInitializable {
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@FXML
 	private BorderPane mainLayout;
 
@@ -58,10 +61,10 @@ public class HomeController implements BootInitializable {
 
 	@Autowired
 	private KasbonKaryawanPersetujuanDirekturController formKasbonPersetujuan;
-	
+
 	@Autowired
 	private KasbonKaryawanPencairanDanaController formKasbonPencairan;
-	
+
 	@Autowired
 	private KasbonKaryawanPembayaranController formKasbonPembayaran;
 
@@ -73,12 +76,15 @@ public class HomeController implements BootInitializable {
 
 	@Autowired
 	private PersetujuanFormController formPersetujuanCicilanMotor;
-	
+
 	@Autowired
 	private PenggajianKaryawanPencairanDanaController formPencairanDanaGaji;
 
 	@Autowired
 	private CicilanListController listCicilanMotor;
+	
+	@Autowired
+	private LaporanDaftarPenggajian listPenggajian;
 
 	private ApplicationContext springContext;
 	private Stage primaryStage;
@@ -92,13 +98,11 @@ public class HomeController implements BootInitializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
-		// TODO Auto-generated method stub
 		this.springContext = arg0;
 	}
 
@@ -128,7 +132,6 @@ public class HomeController implements BootInitializable {
 			setLayout(listKaryawan.initView());
 			listKaryawan.initConstuct();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -139,7 +142,6 @@ public class HomeController implements BootInitializable {
 			setLayout(listJabatan.initView());
 			listJabatan.initConstuct();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -156,7 +158,6 @@ public class HomeController implements BootInitializable {
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -166,7 +167,6 @@ public class HomeController implements BootInitializable {
 			setLayout(formPengajuanCicilan.initView());
 			formPengajuanCicilan.initConstuct();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -187,7 +187,6 @@ public class HomeController implements BootInitializable {
 			setLayout(formAbsensi.initView());
 			formAbsensi.initConstuct();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -198,7 +197,6 @@ public class HomeController implements BootInitializable {
 			setLayout(formKasbonPengajuan.initView());
 			formKasbonPengajuan.initConstuct();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -209,7 +207,6 @@ public class HomeController implements BootInitializable {
 			setLayout(formKasbonPersetujuan.initView());
 			formKasbonPersetujuan.initConstuct();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -220,7 +217,6 @@ public class HomeController implements BootInitializable {
 			setLayout(formKasbonPencairan.initView());
 			formKasbonPencairan.initConstuct();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -232,7 +228,6 @@ public class HomeController implements BootInitializable {
 			setLayout(formKasbonPembayaran.initView());
 			formKasbonPembayaran.initConstuct();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -254,7 +249,6 @@ public class HomeController implements BootInitializable {
 			setLayout(listKasbon.initView());
 			listKasbon.initConstuct();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -268,13 +262,22 @@ public class HomeController implements BootInitializable {
 			e1.printStackTrace();
 		}
 	}
-	
-	public void showFormPencairanDanaGaji(ActionEvent event){
+
+	@FXML
+	public void showFormPencairanDanaGaji(ActionEvent event) {
 		try {
 			setLayout(formPencairanDanaGaji.initView());
 			formPencairanDanaGaji.initConstuct();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void showDaftarPenggajianKaryawan(ActionEvent event) {
+		try {
+			setLayout(listPenggajian.initView());
+			listPenggajian.initConstuct();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
