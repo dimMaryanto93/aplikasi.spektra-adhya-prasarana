@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
-<!-- 2016-06-07T15:11:47 -->
+<!-- 2016-06-07T16:03:18 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DaftarGajiKaryawan" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="24f2847a-475b-4af9-aff2-597ef12b9c19">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<queryString>
@@ -32,9 +32,6 @@
 	</variable>
 	<variable name="sumUangLembur" class="java.lang.Double" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{uangLembur}]]></variableExpression>
-	</variable>
-	<variable name="sumTransportLembur" class="java.lang.Double" resetType="Column" calculation="Sum">
-		<variableExpression><![CDATA[$V{sumUangTransport} + $V{sumUangLembur}]]></variableExpression>
 	</variable>
 	<variable name="sumGajiPokok" class="java.lang.Double" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{gajiPokok}]]></variableExpression>
@@ -172,7 +169,7 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="160" splitType="Stretch">
+		<band height="161" splitType="Stretch">
 			<line>
 				<reportElement x="0" y="30" width="550" height="1" uuid="4f7b0243-a3c8-47ed-97e8-777bd12c2819"/>
 			</line>
@@ -214,11 +211,6 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{sumUangLembur}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.##;¤-#,##0.##">
-				<reportElement x="430" y="100" width="120" height="30" uuid="2cbe36d2-2fbb-45d3-a7d0-a9b2b1107cca"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{sumTransportLembur}]]></textFieldExpression>
-			</textField>
 			<line>
 				<reportElement x="80" y="100" width="470" height="1" uuid="3c1c1d2e-4bba-4182-9fab-022a951936f6"/>
 			</line>
@@ -240,14 +232,25 @@
 				<text><![CDATA[Grant Total]]></text>
 			</staticText>
 			<textField pattern="¤#,##0.##;¤-#,##0.##">
-				<reportElement x="430" y="130" width="120" height="30" uuid="5cbb0c39-cd18-4c14-b312-55ff6165764b"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{sumTransportLembur} + $V{sumGajiPokok}]]></textFieldExpression>
+				<reportElement x="430" y="0" width="120" height="30" uuid="2c57926d-7a99-41c9-a9bf-eea503918ffb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumGajiPokok}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.##;¤-#,##0.##">
-				<reportElement x="430" y="0" width="120" height="30" uuid="2c57926d-7a99-41c9-a9bf-eea503918ffb"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{sumGajiPokok}]]></textFieldExpression>
+				<reportElement x="430" y="131" width="120" height="30" uuid="07f424af-48c4-45a0-9747-2fc8f76c9343"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumGajiPokok} + $V{sumUangLembur} + $V{sumUangTransport}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.##;¤-#,##0.##">
+				<reportElement x="430" y="100" width="120" height="30" uuid="063f2322-5ab2-4a31-aa7a-2de81c65c385"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumUangTransport} + $V{sumUangLembur}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

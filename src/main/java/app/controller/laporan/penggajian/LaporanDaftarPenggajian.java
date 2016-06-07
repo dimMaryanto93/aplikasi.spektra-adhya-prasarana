@@ -46,12 +46,11 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
@@ -128,8 +127,8 @@ public class LaporanDaftarPenggajian implements BootFormInitializable {
 
 	}
 
-	@Override
 	@Autowired
+	@Override
 	public void setNotificationDialog(DialogsFX notif) {
 		this.notif = notif;
 	}
@@ -294,17 +293,18 @@ public class LaporanDaftarPenggajian implements BootFormInitializable {
 
 	@FXML
 	public void doProceess(ActionEvent event) {
+		Month bulan = txtMonth.getSelectionModel().getSelectedItem();
+		StringBuilder sb = new StringBuilder(txtYear.getValue().toString()).append("-")
+				.append(bulan.getDisplayName(TextStyle.FULL, Locale.getDefault()));
+		txtPeriode.setText(sb.toString());
 		try {
-			Month bulan = txtMonth.getSelectionModel().getSelectedItem();
-			StringBuilder sb = new StringBuilder(txtYear.getValue().toString()).append("-")
-					.append(bulan.getDisplayName(TextStyle.FULL, Locale.getDefault()));
-			txtPeriode.setText(sb.toString());
 			tableView.getItems().clear();
 			tableView.getItems().addAll(servicePenggajian.findByTahunBulan(sb.toString()));
 
 			printed(chenkPrinted.isSelected(), tableView.getItems());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
+			logger.error("Tidak dapat mendapatkan data penggajian pada bulan {}", sb.toString(), e);
 			e.printStackTrace();
 		}
 	}
@@ -312,11 +312,17 @@ public class LaporanDaftarPenggajian implements BootFormInitializable {
 	private void printed(Boolean cetak, List<Penggajian> daftarPenggajian) {
 		if (cetak) {
 			try {
-				print.setValue("/jasper/penggajian/DaftarGajiKaryawan.jrxml", null,
+				this.print.setValue("/jasper/penggajian/DaftarGajiKaryawan.jrxml", null,
 						new JRBeanCollectionDataSource(daftarPenggajian));
-				print.setPrinted(print.getPrint());
+				this.print.doPrinted();
+
+				// notifikasi cetak
+				notif.setTitle("Cetak Laporan");
+				notif.setText("Silahkan hubungkan dengan device printer, Untuk mencetak daftar gaji karyawan");
+				notif.showNotificationInformation(notif.getText(), notif.getText());
+
 			} catch (JRException e) {
-				// TODO Auto-generated catch block
+				logger.error("Tidak dapat mencetak dokument daftar gaji karyawan pada bulan", e);
 				e.printStackTrace();
 			}
 		}

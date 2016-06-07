@@ -74,25 +74,27 @@ public class PrintConfig {
 	 */
 	public void setValue(String jrxml, HashMap<String, Object> map, JRBeanCollectionDataSource collection)
 			throws JRException {
-		this.design = JRXmlLoader.load(getClass().getResourceAsStream(jrxml));
-		this.report = JasperCompileManager.compileReport(this.design);
-		this.print = JasperFillManager.fillReport(report, map, collection);
+		setDesign(JRXmlLoader.load(getClass().getResourceAsStream(jrxml)));
+		setReport(JasperCompileManager.compileReport(getDesign()));
+		setPrint(JasperFillManager.fillReport(report, map, collection));
+
 	}
 
 	public void setValue(String jrxml, HashMap<String, Object> map) throws JRException {
-		this.design = JRXmlLoader.load(getClass().getResourceAsStream(jrxml));
-		this.report = JasperCompileManager.compileReport(this.design);
-		this.print = JasperFillManager.fillReport(report, map, new JREmptyDataSource());
+		setDesign(JRXmlLoader.load(getClass().getResourceAsStream(jrxml)));
+		setReport(JasperCompileManager.compileReport(getDesign()));
+		setPrint(JasperFillManager.fillReport(report, map, new JREmptyDataSource()));
 	}
 
 	public void setValueSQL(String jrxml, HashMap<String, Object> map) throws JRException, SQLException {
-		this.design = JRXmlLoader.load(getClass().getResourceAsStream(jrxml));
-		this.report = JasperCompileManager.compileReport(this.design);
-		this.print = JasperFillManager.fillReport(report, map, this.dataSource.getConnection());
+		setDesign(JRXmlLoader.load(getClass().getResourceAsStream(jrxml)));
+		setReport(JasperCompileManager.compileReport(getDesign()));
+		setPrint(JasperFillManager.fillReport(report, map, this.dataSource.getConnection()));
+
 	}
 
-	public void setViewer(JasperPrint print, String title) {
-		this.viewer = new JasperViewer(print, false);
+	public void setViewer(String title) {
+		this.viewer = new JasperViewer(this.getPrint(), false);
 		this.viewer.setSize(600, 400);
 		this.viewer.setTitle(title);
 		this.viewer.setFitWidthZoomRatio();
@@ -100,8 +102,8 @@ public class PrintConfig {
 		this.viewer.requestFocus();
 	}
 
-	public void setPrinted(JasperPrint print) throws JRException {
-		JasperPrintManager.printReport(print, false);
+	public void doPrinted() throws JRException {
+		JasperPrintManager.printReport(this.getPrint(), false);
 	}
 
 }

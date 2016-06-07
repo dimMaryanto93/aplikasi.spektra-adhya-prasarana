@@ -293,8 +293,8 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 		}
 	}
 
-	@Override
 	@Autowired
+	@Override
 	public void setNotificationDialog(DialogsFX notif) {
 		this.notif = notif;
 	}
@@ -335,6 +335,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 				logger.info("Penyerahan uang prestasi kepada karyawan atas nama {} sebesar {} untuk cicilan ke {}",
 						this.penggajian.getKaryawan().getNama(), txtUangPrestasi.getText(), txtCicilanKe.getText());
 			}
+
 			printed(this.penggajian, this.pembayaranCicilanMotor);
 			initConstuct();
 		} catch (Exception e) {
@@ -345,6 +346,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	}
 
 	private void printed(Penggajian gaji, PembayaranCicilanMotor cicilan) {
+		notif.showNotificationInformation("Cetak Laporan", "Laporan daftar gaji karyawan akan dicetak!");
 		try {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			DataKaryawan karyawan = gaji.getKaryawan();
@@ -360,7 +362,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			}
 
 			print.setValue("/jasper/penggajian/SlipGajiKaryawan.jrxml", map);
-			print.setPrinted(print.getPrint());
+			print.doPrinted();
 		} catch (JRException e) {
 			logger.error("Tidak dapat print dokument", e);
 			e.printStackTrace();
