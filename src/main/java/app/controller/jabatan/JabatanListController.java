@@ -143,7 +143,6 @@ public class JabatanListController implements BootInitializable {
 			ex.setContentText(e.getMessage());
 			ex.initModality(Modality.APPLICATION_MODAL);
 			ex.show();
-
 		}
 	}
 

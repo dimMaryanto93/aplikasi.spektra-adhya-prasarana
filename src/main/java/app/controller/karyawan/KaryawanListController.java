@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.dialog.ExceptionDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -32,6 +33,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 @Component
@@ -87,10 +89,8 @@ public class KaryawanListController implements BootInitializable {
 	private TextField txtNip;
 	@FXML
 	private TextField txtHireDate;
-
 	@FXML
 	private Button btnUpdateEmployee;
-	private DialogsFX notif;
 
 	private void setFields(DataKaryawan anEmployee) {
 		if (anEmployee != null) {
@@ -184,7 +184,13 @@ public class KaryawanListController implements BootInitializable {
 			tableView.getItems().addAll(service.findAll());
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan data karyawan", e);
-			notif.showDefaultErrorLoad("Daftar Karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar data karyawan");
+			ex.setHeaderText("Tidak dapat mendapatkan data karyawan");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -195,7 +201,13 @@ public class KaryawanListController implements BootInitializable {
 			formController.initConstuct();
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan form karyawan", e);
-			notif.showDefaultErrorLoadForm("Data Karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan form data karyawan");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -215,7 +227,13 @@ public class KaryawanListController implements BootInitializable {
 			formController.initConstuct(employee);
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan form karyawan", e);
-			notif.showDefaultErrorLoadForm("Data Karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan form data karyawan");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -225,19 +243,26 @@ public class KaryawanListController implements BootInitializable {
 			initConstuct();
 		} catch (Exception e) {
 			logger.error("Tidak dapat menghapus data karyawan", e);
-			notif.showDefaultErrorDelete("Data Karyawan", e);
+
+			StringBuilder sb = new StringBuilder("Tidak dapat menghapus data karyawan dengan nip ");
+			sb.append(employee.getNip()).append(" dan nama ").append(employee.getNama());
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data karyawan");
+			ex.setHeaderText(sb.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
 	@Override
-	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		this.notif = notif;
+
 	}
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
-		// TODO Auto-generated method stub
 
 	}
 

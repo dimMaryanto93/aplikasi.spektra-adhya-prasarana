@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+import org.controlsfx.dialog.ExceptionDialog;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -48,7 +50,9 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 @Component
 public class KaryawanFormController implements BootFormInitializable {
@@ -113,7 +117,6 @@ public class KaryawanFormController implements BootFormInitializable {
 	@Autowired
 	private StringFormatterFactory stringFormater;
 
-	private DialogsFX notif;
 	private ValidationSupport validation;
 
 	@Override
@@ -147,7 +150,6 @@ public class KaryawanFormController implements BootFormInitializable {
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		// TODO Auto-generated method stub
 		this.springContext = applicationContext;
 
 	}
@@ -178,10 +180,15 @@ public class KaryawanFormController implements BootFormInitializable {
 			cbkAgama.getItems().addAll(DataAgama.values());
 			cbkPendidikan.getItems().addAll(DataPendidikan.values());
 			this.datePicker.setValue(LocalDate.now());
-
 		} catch (Exception e) {
-			logger.error("Tidak dapat menampilkan data jabatan", e);
-			notif.showDefaultErrorLoad("Data jabatan", e);
+			logger.error("Tidak dapat menampilkan data jabatan pada form karyawan", e.getMessage());
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Form data karyawan");
+			ex.setHeaderText("Tidak dapat mendapatkan data jabatan!");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 
 	}
@@ -220,8 +227,14 @@ public class KaryawanFormController implements BootFormInitializable {
 			this.male.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Laki_Laki);
 			this.female.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Perempuan);
 		} catch (Exception e) {
-			logger.error("Tidak dapat menampilkan data jabatan", e);
-			notif.showDefaultErrorLoad("Data jabatan", e);
+			logger.error("Tidak dapat menampilkan data jabatan", e.getMessage());
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Form data karyawan");
+			ex.setHeaderText("Tidak dapat mendapatkan data jabatan!");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -260,12 +273,27 @@ public class KaryawanFormController implements BootFormInitializable {
 			anEmployee.setNip(sb.toString());
 
 			service.save(anEmployee);
-			notif.showDefaultSave("Data Karyawan");
+
+			StringBuilder pesanSimpan = new StringBuilder("Data karyawan baru dengan nip ");
+			pesanSimpan.append(anEmployee.getNip());
+			pesanSimpan.append(", Berhasil disimpan!");
+
+			Notifications.create().title("Data Karyawan").text(pesanSimpan.toString()).hideAfter(Duration.seconds(3D))
+					.position(Pos.BOTTOM_RIGHT).showInformation();
 
 			homeController.showEmployee();
 		} catch (Exception e) {
 			logger.error("Tidak dapat menambahkan data baru karyawan", e);
-			notif.showDefaultErrorSave("Data Karyawan", e);
+
+			StringBuilder sb = new StringBuilder("Tidak dapat menyimpan data karyawan dengan nip ");
+			sb.append(anEmployee.getNip());
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Form data karyawan");
+			ex.setHeaderText(sb.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -282,10 +310,27 @@ public class KaryawanFormController implements BootFormInitializable {
 			anEmployee.setJabatan(mapJabatan.get(cbkJabatan.getValue()));
 			anEmployee.setPendidikan(cbkPendidikan.getValue());
 			service.save(anEmployee);
+
+			StringBuilder pesanSimpan = new StringBuilder("Data karyawan dengan nip ");
+			pesanSimpan.append(anEmployee.getNip());
+			pesanSimpan.append(", Berhasil diperbaharui!");
+
+			Notifications.create().title("Data Karyawan").text(pesanSimpan.toString()).hideAfter(Duration.seconds(3D))
+					.position(Pos.BOTTOM_RIGHT).showInformation();
+
 			homeController.showEmployee();
 		} catch (Exception e) {
 			logger.error("Tidak dapat menyimpan data karyawan", e);
-			notif.showDefaultErrorSave("Data Karyawan", e);
+
+			StringBuilder sb = new StringBuilder("Tidak dapat menyimpan data karyawan dengan nip ");
+			sb.append(anEmployee.getNip());
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Form data karyawan");
+			ex.setHeaderText(sb.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -334,13 +379,11 @@ public class KaryawanFormController implements BootFormInitializable {
 	@Override
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		// TODO Auto-generated method stub
-		this.notif = notif;
+
 	}
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
-		// TODO Auto-generated method stub
 
 	}
 
