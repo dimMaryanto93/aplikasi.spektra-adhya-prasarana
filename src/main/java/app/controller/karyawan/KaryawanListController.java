@@ -128,7 +128,7 @@ public class KaryawanListController implements BootInitializable {
 	@Override
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/karyawan/list.fxml"));
+		loader.setLocation(getClass().getResource("/scenes/inner/karyawan/List.fxml"));
 		loader.setController(springContext.getBean(this.getClass()));
 		return loader.load();
 	}

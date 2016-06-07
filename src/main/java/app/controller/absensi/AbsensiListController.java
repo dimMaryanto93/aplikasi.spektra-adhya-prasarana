@@ -224,7 +224,7 @@ public class AbsensiListController implements BootInitializable {
 	@Override
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/absen/list.fxml"));
+		loader.setLocation(getClass().getResource("/scenes/inner/absen/List.fxml"));
 		loader.setController(springContainer.getBean(this.getClass()));
 		return loader.load();
 	}

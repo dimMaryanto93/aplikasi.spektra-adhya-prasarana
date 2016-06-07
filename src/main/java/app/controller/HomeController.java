@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.dialog.ExceptionDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -18,12 +19,12 @@ import app.controller.absensi.AbsensiFormController;
 import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
 import app.controller.karyawan.KaryawanListController;
-import app.controller.laporan.penggajian.LaporanDaftarPenggajian;
 import app.controller.peminjaman.karyawan.KasbonKaryawanListController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPembayaranController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPencairanDanaController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPengajuanController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPersetujuanDirekturController;
+import app.controller.penggajian.PenggajianKaryawanDaftarController;
 import app.controller.penggajian.PenggajianKaryawanPencairanDanaController;
 import app.controller.prestasi.CicilanListController;
 import app.controller.prestasi.PengajuanFormController;
@@ -82,14 +83,11 @@ public class HomeController implements BootInitializable {
 
 	@Autowired
 	private CicilanListController listCicilanMotor;
-	
+
 	@Autowired
-	private LaporanDaftarPenggajian listPenggajian;
+	private PenggajianKaryawanDaftarController listPenggajian;
 
 	private ApplicationContext springContext;
-	private Stage primaryStage;
-
-	private DialogsFX notificationDialogs;
 
 	public void setLayout(Node anNode) {
 		mainLayout.setCenter(anNode);
@@ -116,13 +114,11 @@ public class HomeController implements BootInitializable {
 	@Autowired
 	@Override
 	public void setStage(Stage stage) {
-		this.primaryStage = stage;
 
 	}
 
 	@FXML
 	public void closed() {
-		System.out.println(notificationDialogs.toString());
 		Platform.exit();
 	}
 
@@ -132,7 +128,13 @@ public class HomeController implements BootInitializable {
 			setLayout(listKaryawan.initView());
 			listKaryawan.initConstuct();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan daftar karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar Karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan daftar karyawan");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -141,8 +143,14 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(listJabatan.initView());
 			listJabatan.initConstuct();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			logger.error("Tidak dapat menampilkan daftar jabatan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar Jabatan");
+			ex.setHeaderText("Tidak dapat menampilkan daftar jabatan");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -151,9 +159,8 @@ public class HomeController implements BootInitializable {
 	}
 
 	@Override
-	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		this.notificationDialogs = notif;
+
 	}
 
 	@Override
@@ -167,7 +174,13 @@ public class HomeController implements BootInitializable {
 			setLayout(formPengajuanCicilan.initView());
 			formPengajuanCicilan.initConstuct();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan form pengajuan angsuran prestasi", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data pengajuan angsuran prestasi");
+			ex.setHeaderText("Tidak dapat menampilkan form pengajuan angsuran prestasi");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -176,8 +189,14 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(formPersetujuanCicilanMotor.initView());
 			formPersetujuanCicilanMotor.initConstuct();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			logger.error("Tidak dapat menampilkan form persetujuan angsuran prestasi ", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data persetujuan angsuran prestasi");
+			ex.setHeaderText("Tidak dapat menampilkan form persetujuan angsuran prestasi");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -186,8 +205,14 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(formAbsensi.initView());
 			formAbsensi.initConstuct();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			logger.error("Tidak dapat menampilkan daftar absensi karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data absensi karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan form absensi untuk karyawan");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -197,7 +222,13 @@ public class HomeController implements BootInitializable {
 			setLayout(formKasbonPengajuan.initView());
 			formKasbonPengajuan.initConstuct();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan form pengajuan kasbon karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data pengajuan kasbon karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan form pengajuan kasbon karyawan");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -207,7 +238,13 @@ public class HomeController implements BootInitializable {
 			setLayout(formKasbonPersetujuan.initView());
 			formKasbonPersetujuan.initConstuct();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan form persetujuan kasbon karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data persetujuan kasbon karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan form persetujuan kasbon karyawan");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -217,9 +254,14 @@ public class HomeController implements BootInitializable {
 			setLayout(formKasbonPencairan.initView());
 			formKasbonPencairan.initConstuct();
 		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			logger.error("Tidak dapat menampilkan form pencairan dana kasbon karyawan", e);
 
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data pencairan dana kasbon karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan form pencairan dana kasbon untuk karyawan");
+			ex.setContentText(e.getMessage());
+			ex.show();
+		}
 	}
 
 	@FXML
@@ -228,7 +270,13 @@ public class HomeController implements BootInitializable {
 			setLayout(formKasbonPembayaran.initView());
 			formKasbonPembayaran.initConstuct();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan form pembayaran kasbon karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data pembayaran kasbon karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan form pembayaran kasbon karyawan");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -237,9 +285,14 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(listAbsen.initView());
 			listAbsen.initConstuct();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (IOException e) {
+			logger.error("Tidak dapat menampilkan daftar hadir karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar absensi karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan daftar absensi seluruh karyawan");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -249,7 +302,13 @@ public class HomeController implements BootInitializable {
 			setLayout(listKasbon.initView());
 			listKasbon.initConstuct();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan daftar kasbon karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar kasbon karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan daftar kasbon karyawan");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -258,8 +317,14 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(listCicilanMotor.initView());
 			listCicilanMotor.initConstuct();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			logger.error("Tidak dapat menampilkan daftar pembayaran angsuran prestasi", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar angsuran prestasi");
+			ex.setHeaderText("Tidak dapat menampilkan daftar angsuran prestasi untuk semua karyawan");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -269,7 +334,13 @@ public class HomeController implements BootInitializable {
 			setLayout(formPencairanDanaGaji.initView());
 			formPencairanDanaGaji.initConstuct();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan form pencairan dana gaji karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data penggajian karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan form persetujuan pencairan dana gaji dan bonus untuk karyawan");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 
@@ -278,7 +349,14 @@ public class HomeController implements BootInitializable {
 			setLayout(listPenggajian.initView());
 			listPenggajian.initConstuct();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Tidak dapat menampilkan daftar penggajian karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar penggajian karyawan");
+			ex.setHeaderText(
+					"Tidak dapat menampilkan daftar semua karyawan yang telah menirima gaji pada periode tertentu");
+			ex.setContentText(e.getMessage());
+			ex.show();
 		}
 	}
 

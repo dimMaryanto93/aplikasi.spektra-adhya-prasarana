@@ -33,9 +33,11 @@ import javafx.stage.Stage;
 
 @Component
 public class JabatanListController implements BootInitializable {
+	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	private ApplicationContext springContext;
+	private ApplicationContext springContext;	
 	private Stage primaryStage;
+	
 	@Autowired
 	private JabatanService service;
 
@@ -135,7 +137,7 @@ public class JabatanListController implements BootInitializable {
 	@Override
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/jabatan/list.fxml"));
+		loader.setLocation(getClass().getResource("/scenes/inner/jabatan/List.fxml"));
 		loader.setController(springContext.getBean(this.getClass()));
 		return loader.load();
 	}

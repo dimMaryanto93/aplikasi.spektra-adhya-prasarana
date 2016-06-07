@@ -1,4 +1,4 @@
-package app.controller.laporan.penggajian;
+package app.controller.penggajian;
 
 import java.io.IOException;
 import java.net.URL;
@@ -57,7 +57,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Component
-public class LaporanDaftarPenggajian implements BootFormInitializable {
+public class PenggajianKaryawanDaftarController implements BootFormInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -112,7 +112,7 @@ public class LaporanDaftarPenggajian implements BootFormInitializable {
 	@Override
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/laporan/penggajian/Daftar.fxml"));
+		loader.setLocation(getClass().getResource("/scenes/inner/penggajian/Daftar.fxml"));
 		loader.setController(springContext.getBean(this.getClass()));
 		return loader.load();
 	}

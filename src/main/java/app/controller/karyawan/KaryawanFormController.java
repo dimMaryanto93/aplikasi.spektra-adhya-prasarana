@@ -155,7 +155,7 @@ public class KaryawanFormController implements BootFormInitializable {
 	@Override
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/karyawan/form.fxml"));
+		loader.setLocation(getClass().getResource("/scenes/inner/karyawan/Form.fxml"));
 		loader.setController(springContext.getBean(this.getClass()));
 		return loader.load();
 	}

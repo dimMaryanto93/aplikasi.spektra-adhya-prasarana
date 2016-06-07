@@ -176,7 +176,7 @@ public class CicilanListController implements BootInitializable {
 	@Override
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/prestasi/list.fxml"));
+		loader.setLocation(getClass().getResource("/scenes/inner/prestasi/List.fxml"));
 		loader.setController(springContext.getBean(this.getClass()));
 		return loader.load();
 	}

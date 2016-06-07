@@ -268,7 +268,7 @@ public class PengajuanFormController implements BootFormInitializable {
 	@Override
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/prestasi/pengajuan.fxml"));
+		loader.setLocation(getClass().getResource("/scenes/inner/prestasi/Pengajuan.fxml"));
 		loader.setController(springContext.getBean(this.getClass()));
 		return loader.load();
 	}
