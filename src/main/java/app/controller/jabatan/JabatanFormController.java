@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+import org.controlsfx.dialog.ExceptionDialog;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -35,7 +37,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 @Component
 public class JabatanFormController implements BootFormInitializable {
@@ -110,7 +114,6 @@ public class JabatanFormController implements BootFormInitializable {
 
 	@Override
 	public void setStage(Stage stage) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -139,13 +142,32 @@ public class JabatanFormController implements BootFormInitializable {
 			jabatan.setKeterangan(txtKeterangan.getText());
 			jabatan.setGapok(spinGapok.getValueFactory().getValue());
 			repo.save(jabatan);
-			notif.showDefaultSave("Data jabatan");
+
+			// pesan simpan
+			StringBuilder sb = new StringBuilder("Kode jabatan ");
+			sb.append(jabatan.getKodeJabatan());
+			sb.append(", Berhasil disimpan");
+
+			// menampilkan notifikasi
+			Notifications.create().title("Data jabatan").text(sb.toString()).hideAfter(Duration.seconds(3D))
+					.position(Pos.BOTTOM_RIGHT).showInformation();
+
+			// log ke console
 			logger.info("Berhasil menyimpan data jabatan");
 
-			homeController.showDepartment();
-		} catch (Exception e1) {
+			initConstuct();
+		} catch (Exception e) {
 			logger.error("Tidak dapat menyimpan data jabatan dengan nama: {}", jabatan.getNama());
-			notif.showDefaultErrorSave("Data jabatan", e1);
+
+			StringBuilder sb = new StringBuilder("Tidak dapat menyimpan data jabatan dengan kode ");
+			sb.append(jabatan.getKodeJabatan());
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data jabatan");
+			ex.setHeaderText(sb.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 
 	}
@@ -157,13 +179,32 @@ public class JabatanFormController implements BootFormInitializable {
 			jabatan.setKeterangan(txtKeterangan.getText());
 			jabatan.setGapok(spinGapok.getValueFactory().getValue());
 			repo.save(jabatan);
-			notif.showDefaultSave("Data jabatan");
+
+			// pesan simpan
+			StringBuilder sb = new StringBuilder("Kode jabatan ");
+			sb.append(jabatan.getKodeJabatan());
+			sb.append(", Berhasil diperbaharui");
+
+			// menampilkan notifikasi
+			Notifications.create().title("Data jabatan").text(sb.toString()).hideAfter(Duration.seconds(3D))
+					.position(Pos.BOTTOM_RIGHT).showInformation();
+
+			// log ke console
 			logger.info("Berhasil menyimpan data jabatan");
 
 			homeController.showDepartment();
-		} catch (Exception e1) {
+		} catch (Exception e) {
 			logger.error("Tidak dapat melakukan perubahan data jabatan dengan nama: {}", jabatan.getKodeJabatan());
-			notif.showDefaultErrorSave("Data jabatan", e1);
+
+			StringBuilder sb = new StringBuilder("Tidak dapat melakukan perubahan data jabatan dengan kode ");
+			sb.append(jabatan.getKodeJabatan());
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data jabatan");
+			ex.setHeaderText(sb.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -189,17 +230,14 @@ public class JabatanFormController implements BootFormInitializable {
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void initValidator() {
 		this.validation = new ValidationSupport();
-		this.validation.registerValidator(txtKode,
-				(Control c, String value) -> ValidationResult.fromErrorIf(c,
-						"Format kode jabatan tidak sesuai, hanya terdiri dari 3 angka",
-						!value.matches("[\\d]{3}")));
+		this.validation.registerValidator(txtKode, (Control c, String value) -> ValidationResult.fromErrorIf(c,
+				"Format kode jabatan tidak sesuai, hanya terdiri dari 3 angka", !value.matches("[\\d]{3}")));
 		this.validation.registerValidator(txtNama,
 				Validator.createEmptyValidator("Nama jabatan tidak boleh kosong!", Severity.ERROR));
 		this.validation.registerValidator(txtKeterangan, (Control c, String value) -> ValidationResult.fromMessageIf(c,
