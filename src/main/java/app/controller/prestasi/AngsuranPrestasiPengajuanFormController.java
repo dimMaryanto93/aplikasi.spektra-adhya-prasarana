@@ -47,7 +47,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 @Component
-public class PengajuanFormController implements BootFormInitializable {
+public class AngsuranPrestasiPengajuanFormController implements BootFormInitializable {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;

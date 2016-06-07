@@ -26,9 +26,9 @@ import app.controller.peminjaman.karyawan.KasbonKaryawanPengajuanController;
 import app.controller.peminjaman.karyawan.KasbonKaryawanPersetujuanDirekturController;
 import app.controller.penggajian.PenggajianKaryawanDaftarController;
 import app.controller.penggajian.PenggajianKaryawanPencairanDanaController;
-import app.controller.prestasi.CicilanListController;
-import app.controller.prestasi.PengajuanFormController;
-import app.controller.prestasi.PersetujuanFormController;
+import app.controller.prestasi.AngsuranPrestasiListController;
+import app.controller.prestasi.AngsuranPrestasiPengajuanFormController;
+import app.controller.prestasi.AngsuranPrestasiPersetujuanFormController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,19 +70,19 @@ public class HomeController implements BootInitializable {
 	private KasbonKaryawanPembayaranController formKasbonPembayaran;
 
 	@Autowired
-	private PengajuanFormController formPengajuanCicilan;
+	private AngsuranPrestasiPengajuanFormController formPengajuanCicilan;
 
 	@Autowired
 	private AbsensiFormController formAbsensi;
 
 	@Autowired
-	private PersetujuanFormController formPersetujuanCicilanMotor;
+	private AngsuranPrestasiPersetujuanFormController formPersetujuanCicilanMotor;
 
 	@Autowired
 	private PenggajianKaryawanPencairanDanaController formPencairanDanaGaji;
 
 	@Autowired
-	private CicilanListController listCicilanMotor;
+	private AngsuranPrestasiListController listCicilanMotor;
 
 	@Autowired
 	private PenggajianKaryawanDaftarController listPenggajian;

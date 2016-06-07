@@ -36,7 +36,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 @Component
-public class PersetujuanFormController implements BootFormInitializable {
+public class AngsuranPrestasiPersetujuanFormController implements BootFormInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;

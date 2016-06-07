@@ -36,7 +36,7 @@ import javafx.util.Callback;
 import javafx.event.ActionEvent;
 
 @Component
-public class CicilanListController implements BootInitializable {
+public class AngsuranPrestasiListController implements BootInitializable {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;
 	@FXML
