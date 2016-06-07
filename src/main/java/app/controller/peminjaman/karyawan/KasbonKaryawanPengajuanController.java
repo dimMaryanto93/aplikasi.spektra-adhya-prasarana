@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+import org.controlsfx.dialog.ExceptionDialog;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -42,15 +44,16 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 @Component
 public class KasbonKaryawanPengajuanController implements BootFormInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private DialogsFX notif;
 	private ApplicationContext springContext;
 	private ValidationSupport validation;
 
@@ -208,14 +211,18 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 			this.pengajuanKasbon.setTanggal(Date.valueOf(LocalDate.now()));
 		} catch (Exception e) {
 			logger.error("Tidak dapat memuat data karyawan yang bisa melakukan pengajuan kasbon", e);
-			notif.showDefaultErrorLoad("Data Pengajuan Kasbon Karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data pengajuan kasbon karyawan");
+			ex.setHeaderText("Tidak dapat mendapatkan daftar data karyawan yang dapat melakukan pengajuan kasbon");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
 	@Override
-	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		this.notif = notif;
 	}
 
 	@Override
@@ -272,12 +279,28 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 			karyawan.setPengajuanKasbon(this.repoPengajuanKasbon.findOne(this.pengajuanKasbon.getId()));
 			this.repoKaryawan.save(karyawan);
 
-			notif.showDefaultSave("Data pengajuan kasbon karyawan");
+			StringBuilder saveMessage = new StringBuilder("Pengajuan kasbon karyawan atas nama ");
+			saveMessage.append(karyawan.getNama()).append(" dengan NIP ").append(karyawan.getNip());
+			saveMessage.append(" sebesar ").append(stringFormater.getCurrencyFormate(pengajuanKasbon.getNominal()))
+					.append(", Berhasil disimpan");
+			Notifications.create().title("Data pencairan kasbon karyawan").text(saveMessage.toString())
+					.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(4D)).showInformation();
+
 			initConstuct();
 		} catch (Exception e) {
 			logger.error("Tidak bisa menyimpan data pengajuan karyawan atas nama karyawan {} sebesar {}",
 					karyawan.getNama(), stringFormater.getCurrencyFormate(txtPinjam.getValueFactory().getValue()), e);
-			notif.showDefaultErrorSave("Data pengajuan kasbon karyawan", e);
+
+			StringBuilder errorMessage = new StringBuilder(
+					"Tidak dapat menyimpan pengajuan kasbon karyawan atas nama ");
+			errorMessage.append(karyawan.getNama()).append(" dengan NIP ").append(karyawan.getNip()).append(" sebesar ")
+					.append(stringFormater.getCurrencyFormate(pengajuanKasbon.getNominal()));
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data pengajuan kasbon karyawan");
+			ex.setHeaderText(errorMessage.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 

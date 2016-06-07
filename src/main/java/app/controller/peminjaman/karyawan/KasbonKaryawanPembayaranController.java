@@ -153,6 +153,8 @@ public class KasbonKaryawanPembayaranController implements BootFormInitializable
 		txtTanggal.setValue(LocalDate.now());
 
 		this.bayarSpinnerValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, 0D, 0D, 0D);
+		txtBayar.getEditor().setAlignment(Pos.CENTER_RIGHT);
+		txtBayar.setEditable(true);
 		txtBayar.setValueFactory(this.bayarSpinnerValueFactory);
 		txtBayar.getValueFactory().valueProperty().addListener((d, old, value) -> {
 			checkValid.setText("Karyawan tersebut, telah melakukan pembayaran sebesar "

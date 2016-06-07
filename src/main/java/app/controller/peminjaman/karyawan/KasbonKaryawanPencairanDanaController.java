@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+import org.controlsfx.dialog.ExceptionDialog;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -28,22 +30,26 @@ import app.service.ServiceKasbonKaryawan;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 @Component
 public class KasbonKaryawanPencairanDanaController implements BootFormInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private DialogsFX notif;
 	private ApplicationContext springContext;
 	private ValidationSupport validation;
 
@@ -141,14 +147,19 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 					.addAll(this.repoKaryawan.findByPengajuanKasbonIsNotNullAndPengajuanKasbonAccepted(true));
 		} catch (Exception e) {
 			logger.error("Tidak dapat memuat data karyawan", e);
-			notif.showDefaultErrorLoad("Data Karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data pencairan kasbon karyawan");
+			ex.setHeaderText("Tidak dapat mendapatkan daftar data karyawan yang memiliki pengajuan kasbon");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
 	@Override
-	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		this.notif = notif;
+
 	}
 
 	@Override
@@ -176,8 +187,8 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 
 	@FXML
 	public void doSave(ActionEvent event) {
+		DataKaryawan dataKaryawan = tableView.getSelectionModel().getSelectedItem();
 		try {
-			DataKaryawan dataKaryawan = tableView.getSelectionModel().getSelectedItem();
 			if (dataKaryawan != null) {
 				this.kasbon = new KasbonKaryawan();
 
@@ -195,21 +206,39 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 				dataKaryawan.getDaftarKasbon().add(kasbon);
 
 				repoKaryawan.save(dataKaryawan);
-
 				repoPengajuanKaryawan.delete(pengajuan);
 
-				notif.showDefaultSave("Data peminjaman karyawan");
+				StringBuilder saveMessage = new StringBuilder("Pencairan dana kasbon karyawan atas nama ");
+				saveMessage.append(dataKaryawan.getNama()).append(" dengan NIP ").append(dataKaryawan.getNip());
+				saveMessage.append(" sebesar ").append(stringFormatter.getCurrencyFormate(kasbon.getPinjaman()))
+						.append(", Berhasil disimpan");
+				Notifications.create().title("Data pencairan kasbon karyawan").text(saveMessage.toString())
+						.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(4D)).showInformation();
+
 				initConstuct();
 			} else {
 				logger.warn("Data karyawan belum diseleksi pada tabel view");
-				notif.setTitle("Tabel data karyawan");
-				notif.setText("Karyawan belum dipilih!");
-				notif.setHeader("Tabel Data Karyawan");
-				notif.showDialogInformation(notif.getTitle(), notif.getHeader(), notif.getText());
+
+				Alert exe = new Alert(AlertType.WARNING);
+				exe.setTitle("Data pencairan dana kasbon karyawan");
+				exe.setHeaderText("Data karyawan belum dipilih!");
+				exe.setContentText("Daftar karyawan pada tabel harus diseleksi salah satu");
+				exe.initModality(Modality.APPLICATION_MODAL);
+				exe.show();
 			}
-		} catch (Exception e1) {
-			logger.error("Tidak dapat mengimpan dan melakukan perubahan data peminjaman karyawan", e1);
-			notif.showDefaultErrorSave("Data peminjaman karyawan", e1);
+		} catch (Exception e) {
+			logger.error("Tidak dapat mengimpan dan melakukan perubahan data peminjaman karyawan", e);
+
+			StringBuilder errorMessages = new StringBuilder(
+					"Tidak dapat menyimpan pencairan dana kasbon untuk karyawan atas nama ");
+			errorMessages.append(dataKaryawan.getNama()).append(" dengan NIP ").append(dataKaryawan.getNip());
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data pencairan kasbon karyawan");
+			ex.setHeaderText(errorMessages.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
