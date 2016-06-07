@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
 import app.configs.FormatterFactory;
+import app.configs.PrintConfig;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.kepegawaian.Penggajian;
 import app.entities.kepegawaian.uang.prestasi.Motor;
@@ -47,6 +48,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
 
 @Component
 public class PenggajianKaryawanPencairanDanaController implements BootFormInitializable {
@@ -101,6 +104,9 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 	@Autowired
 	private AbsensiService serviceAbsen;
+
+	@Autowired
+	private PrintConfig print;
 
 	private HashMap<String, DataKaryawan> mapKaryawan;
 	private Penggajian penggajian;
@@ -330,12 +336,37 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 				logger.info("Penyerahan uang prestasi kepada karyawan atas nama {} sebesar {} untuk cicilan ke {}",
 						this.penggajian.getKaryawan().getNama(), txtUangPrestasi.getText(), txtCicilanKe.getText());
 			}
-
+			printed(this.penggajian, this.pembayaranCicilanMotor);
 			initConstuct();
 		} catch (Exception e) {
 			logger.error("Tidak dapat menyimpan penggajian karyawan atas nama {} sebesar {}",
 					this.penggajian.getKaryawan().getNama(), txtTotal.getText());
 			notif.showDefaultErrorSave("Data penggajian karyawan", e);
+		}
+	}
+
+	private void printed(Penggajian gaji, PembayaranCicilanMotor cicilan) {
+		try {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			DataKaryawan karyawan = gaji.getKaryawan();
+			map.put("nip", karyawan.getNip());
+			map.put("nama", karyawan.getNama());
+			map.put("bulan", penggajian.getTahunBulan());
+			map.put("gapok", penggajian.getGajiPokok());
+			map.put("transport", penggajian.getUangTransport());
+			map.put("lembur", penggajian.getUangLembur());
+			map.put("prestasi", 0D);
+			if (cicilan != null) {
+				map.put("prestasi", cicilan.getBayar());
+			}
+
+			print.setDesign("/jasper/penggajian/SlipGajiKaryawan.jrxml");
+			print.setReport(print.getDesign());
+			print.setPrint(print.getReport(), map, new JREmptyDataSource());
+			print.setPrinted(print.getPrint(), "Penggajian Karyawan");
+		} catch (JRException e) {
+			logger.error("Tidak dapat print dokument", e);
+			e.printStackTrace();
 		}
 	}
 

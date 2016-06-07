@@ -120,3 +120,6 @@ dist/
 nbdist/
 nbactions.xml
 .nb-gradle/
+
+# jasper report
+*.jasper
