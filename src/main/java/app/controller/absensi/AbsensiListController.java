@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.controlsfx.dialog.ExceptionDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.DialogsFX;
+import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.master.DataKaryawan;
 import app.entities.master.DataTidakHadir;
@@ -35,6 +37,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.event.ActionEvent;
@@ -78,7 +81,8 @@ public class AbsensiListController implements BootInitializable {
 	@FXML
 	private TextField txtLembur;
 
-	private DialogsFX notif;
+	@Autowired
+	private StringFormatterFactory stringFormatter;
 
 	private void setFields(DataKaryawan karyawan) {
 		txtNoInduk.setText(karyawan.getNik().toString());
@@ -98,8 +102,20 @@ public class AbsensiListController implements BootInitializable {
 			}
 		} catch (Exception e) {
 			logger.error("Tidak dapat memuat data absensi karyawan", e);
-			notif.showDefaultErrorLoad("Data absensi karyawan", e);
+
+			StringBuilder sb = new StringBuilder("Tidak dapat mendapatkan data absensi karyawan atas nama ");
+			sb.append(karyawan.getNama());
+			sb.append(" dengan NIP ");
+			sb.append(karyawan.getNip());
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data absensi karyawan");
+			ex.setHeaderText(sb.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
+
 		txtHadir.setText(hadir.toString());
 		txtLembur.setText(lembur.toString());
 	}
@@ -132,10 +148,9 @@ public class AbsensiListController implements BootInitializable {
 
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<KehadiranKaryawan, String> param) {
-						// TODO Auto-generated method stub
 						LocalDate date = param.getValue().getTanggalHadir().toLocalDate();
-						DateTimeFormatter time = DateTimeFormatter.ofPattern("E',' dd-MMM-yyyy", Locale.getDefault());
-						return new SimpleStringProperty(time.format(date));
+						return new SimpleStringProperty(
+								stringFormatter.getDateTimeFormatterWithDayAndDateMonthYear(date));
 					}
 				});
 		columnHadir.setCellValueFactory(new PropertyValueFactory<KehadiranKaryawan, Boolean>("hadir"));
@@ -144,13 +159,11 @@ public class AbsensiListController implements BootInitializable {
 
 					@Override
 					public TableCell<KehadiranKaryawan, Boolean> call(TableColumn<KehadiranKaryawan, Boolean> param) {
-						// TODO Auto-generated method stub
 						return new TableCell<KehadiranKaryawan, Boolean>() {
 							CheckBox box;
 
 							@Override
 							protected void updateItem(Boolean item, boolean empty) {
-								// TODO Auto-generated method stub
 								setAlignment(Pos.CENTER);
 								super.updateItem(item, empty);
 								if (!empty) {
@@ -172,13 +185,11 @@ public class AbsensiListController implements BootInitializable {
 
 					@Override
 					public TableCell<KehadiranKaryawan, Boolean> call(TableColumn<KehadiranKaryawan, Boolean> param) {
-						// TODO Auto-generated method stub
 						return new TableCell<KehadiranKaryawan, Boolean>() {
 							CheckBox box;
 
 							@Override
 							protected void updateItem(Boolean item, boolean empty) {
-								// TODO Auto-generated method stub
 								setAlignment(Pos.CENTER);
 								super.updateItem(item, empty);
 								if (!empty) {
@@ -200,7 +211,6 @@ public class AbsensiListController implements BootInitializable {
 
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<KehadiranKaryawan, String> param) {
-						// TODO Auto-generated method stub
 						DataTidakHadir gakHadir = param.getValue().getKet();
 						if (gakHadir != null) {
 							return new SimpleStringProperty(gakHadir.toString());
@@ -208,7 +218,6 @@ public class AbsensiListController implements BootInitializable {
 							if (param.getValue().getHadir()) {
 								return new SimpleStringProperty("-");
 							} else {
-
 								return new SimpleStringProperty("Tanpa Keterangan!");
 							}
 						}
@@ -231,8 +240,6 @@ public class AbsensiListController implements BootInitializable {
 
 	@Override
 	public void setStage(Stage stage) {
-		// TODO Auto-generated method stub
-
 	}
 
 	private void loadDataKaryawan() {
@@ -241,7 +248,15 @@ public class AbsensiListController implements BootInitializable {
 			tableKaryawan.getItems().addAll(karyawan.findAll());
 		} catch (Exception e) {
 			logger.error("Tidak dapat memuat data karyawan", e);
-			notif.showDefaultErrorLoad("Data karyawan", e);
+
+			StringBuilder sb = new StringBuilder("Tidak dapat mendapatkan daftar data karyawan!");
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data Karyawan");
+			ex.setHeaderText(sb.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -253,12 +268,10 @@ public class AbsensiListController implements BootInitializable {
 	@Override
 	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		this.notif = notif;
 	}
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
-		// TODO Auto-generated method stub
 
 	}
 
