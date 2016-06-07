@@ -22,8 +22,9 @@ import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.kepegawaian.PengajuanKasbon;
 import app.entities.master.DataKaryawan;
-import app.repositories.KaryawanService;
-import app.repositories.PengajuanKasbonService;
+import app.repositories.RepositoryKaryawan;
+import app.repositories.RepositoryPengajuanKasbonKaryawan;
+import app.service.ServiceKasbonKaryawan;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,10 +67,13 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 	private Button btnSave;
 
 	@Autowired
-	private KaryawanService serviceKaryawan;
+	private RepositoryKaryawan repoKaryawan;
 
 	@Autowired
-	private PengajuanKasbonService servicePengajuanKasbon;
+	private RepositoryPengajuanKasbonKaryawan repoPengajuanKaryawan;
+
+	@Autowired
+	private ServiceKasbonKaryawan serviceKasbonKaryawan;
 
 	@Autowired
 	private StringFormatterFactory stringFormatter;
@@ -134,7 +138,7 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 		try {
 			tableView.getItems().clear();
 			tableView.getItems()
-					.addAll(this.serviceKaryawan.findByPengajuanKasbonIsNotNullAndPengajuanKasbonAccepted(true));
+					.addAll(this.repoKaryawan.findByPengajuanKasbonIsNotNullAndPengajuanKasbonAccepted(true));
 		} catch (Exception e) {
 			logger.error("Tidak dapat memuat data karyawan", e);
 			notif.showDefaultErrorLoad("Data Karyawan", e);
@@ -185,14 +189,14 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 				kasbon.setPinjaman(pengajuan.getNominal());
 				kasbon.setPembayaran(0D);
 
-				kasbon.setSaldoTerakhir(dataKaryawan.getTotalSaldoTerakhir() + kasbon.getPinjaman());
+				kasbon.setSaldoTerakhir(serviceKasbonKaryawan.getSaldoTerakhir(dataKaryawan) + kasbon.getPinjaman());
 
 				dataKaryawan.setPengajuanKasbon(null);
 				dataKaryawan.getDaftarKasbon().add(kasbon);
 
-				serviceKaryawan.save(dataKaryawan);
+				repoKaryawan.save(dataKaryawan);
 
-				servicePengajuanKasbon.delete(pengajuan);
+				repoPengajuanKaryawan.delete(pengajuan);
 
 				notif.showDefaultSave("Data peminjaman karyawan");
 				initConstuct();

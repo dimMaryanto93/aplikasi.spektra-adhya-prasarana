@@ -19,7 +19,7 @@ import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
-import app.repositories.KaryawanService;
+import app.repositories.RepositoryKaryawan;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -42,7 +42,7 @@ public class KaryawanListController implements BootInitializable {
 	private ApplicationContext springContext;
 
 	@Autowired
-	private KaryawanService service;
+	private RepositoryKaryawan service;
 
 	@Autowired
 	private HomeController homeController;

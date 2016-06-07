@@ -31,8 +31,8 @@ import app.entities.master.DataJabatan;
 import app.entities.master.DataJenisKelamin;
 import app.entities.master.DataKaryawan;
 import app.entities.master.DataPendidikan;
-import app.repositories.JabatanService;
-import app.repositories.KaryawanService;
+import app.repositories.RepositoryJabatan;
+import app.repositories.RepositoryKaryawan;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -106,10 +106,10 @@ public class KaryawanFormController implements BootFormInitializable {
 	}
 
 	@Autowired
-	private KaryawanService service;
+	private RepositoryKaryawan service;
 
 	@Autowired
-	private JabatanService jabatanService;
+	private RepositoryJabatan jabatanService;
 
 	@Autowired
 	private HomeController homeController;

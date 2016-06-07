@@ -8,7 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.master.DataKaryawan;
 
-public interface AbsensiService extends PagingAndSortingRepository<KehadiranKaryawan, String> {
+public interface RepositoryAbsensi extends PagingAndSortingRepository<KehadiranKaryawan, String> {
 
 	public List<KehadiranKaryawan> findAll();
 

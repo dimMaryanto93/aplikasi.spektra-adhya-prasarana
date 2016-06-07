@@ -20,8 +20,8 @@ import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 import app.entities.master.DataKaryawan;
-import app.repositories.KaryawanService;
-import app.repositories.MotorRepository;
+import app.repositories.RepositoryKaryawan;
+import app.repositories.RepositoryPengajuanAngsuranPrestasi;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,12 +73,12 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 	private TextField txtGajiPokok;
 
 	@Autowired
-	private KaryawanService serviceKaryawan;
+	private RepositoryKaryawan serviceKaryawan;
 	@Autowired
 	private StringFormatterFactory formater;
 
 	@Autowired
-	private MotorRepository serviceMotor;
+	private RepositoryPengajuanAngsuranPrestasi serviceMotor;
 
 	private void clearFields() {
 		txtNik.clear();

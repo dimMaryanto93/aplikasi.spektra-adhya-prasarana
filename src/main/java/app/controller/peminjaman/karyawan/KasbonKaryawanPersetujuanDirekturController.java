@@ -23,9 +23,10 @@ import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.kepegawaian.PengajuanKasbon;
 import app.entities.master.DataKaryawan;
-import app.repositories.KaryawanService;
-import app.repositories.KasbonService;
-import app.repositories.PengajuanKasbonService;
+import app.repositories.RepositoryKaryawan;
+import app.repositories.RepositoryKasbonKaryawan;
+import app.repositories.RepositoryPengajuanKasbonKaryawan;
+import app.service.ServiceKasbonKaryawan;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -85,18 +86,21 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 	private StringFormatterFactory stringFormatter;
 
 	@Autowired
-	private KaryawanService serviceKaryawan;
+	private RepositoryKaryawan repoKaryawan;
 
 	@Autowired
-	private KasbonService serviceKasbon;
+	private RepositoryKasbonKaryawan repoKasbon;
 
 	@Autowired
-	private PengajuanKasbonService servicePengajuanKasbon;
+	private RepositoryPengajuanKasbonKaryawan repoPengajuanKasbon;
+
+	@Autowired
+	private ServiceKasbonKaryawan serviceKasbon;
 
 	private void setFields(DataKaryawan karyawan) {
 		txtNip.setText(karyawan.getNip());
 		txtNama.setText(karyawan.getNama());
-		tablePeminjaman.getItems().addAll(serviceKasbon.findByKaryawan(karyawan));
+		tablePeminjaman.getItems().addAll(repoKasbon.findByKaryawan(karyawan));
 
 		PengajuanKasbon pengajuan = karyawan.getPengajuanKasbon();
 		txtTanggalPengajuan.setText(stringFormatter.getDateIndonesianFormatter(pengajuan.getTanggal().toLocalDate()));
@@ -246,7 +250,7 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 		try {
 			tableView.getItems().clear();
 			tableView.getItems()
-					.addAll(this.serviceKaryawan.findByPengajuanKasbonIsNotNullAndPengajuanKasbonAccepted(false));
+					.addAll(this.repoKaryawan.findByPengajuanKasbonIsNotNullAndPengajuanKasbonAccepted(false));
 		} catch (Exception e) {
 			logger.error("Tidak dapat memuat data karyawan", e);
 			notif.showDefaultErrorLoad("Data Karyawan", e);
@@ -266,7 +270,6 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -284,9 +287,8 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 	}
 
 	private Boolean pinjamLagi(DataKaryawan karyawan) {
-		Double sixtyPersenOfLastCredit = karyawan.getTotalPeminjaman() * 0.6;
-		System.out.println(sixtyPersenOfLastCredit + " : " + karyawan.getTotalPembayaran());
-		return karyawan.getTotalPembayaran() >= sixtyPersenOfLastCredit;
+		Double sixtyPersenOfLastCredit = serviceKasbon.getTotalPeminjaman(karyawan) * 0.6;
+		return serviceKasbon.getTotalPembayaran(karyawan) >= sixtyPersenOfLastCredit;
 	}
 
 	@FXML
@@ -298,7 +300,7 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 				try {
 					kasbon.setAccepted(true);
 
-					servicePengajuanKasbon.save(kasbon);
+					repoPengajuanKasbon.save(kasbon);
 					notif.showDefaultSave("Data Persetujuan Kasbon Karyawan");
 
 					initConstuct();

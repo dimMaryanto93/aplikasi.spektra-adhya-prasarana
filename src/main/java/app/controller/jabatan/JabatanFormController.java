@@ -23,7 +23,7 @@ import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
-import app.repositories.JabatanService;
+import app.repositories.RepositoryJabatan;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,7 +68,7 @@ public class JabatanFormController implements BootFormInitializable {
 	private Boolean update;
 
 	@Autowired
-	private JabatanService repo;
+	private RepositoryJabatan repo;
 
 	public Boolean isUpdate() {
 		return update;

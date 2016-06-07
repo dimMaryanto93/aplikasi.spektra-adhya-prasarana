@@ -24,8 +24,8 @@ import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.PengajuanKasbon;
 import app.entities.master.DataKaryawan;
-import app.repositories.KaryawanService;
-import app.repositories.PengajuanKasbonService;
+import app.repositories.RepositoryKaryawan;
+import app.repositories.RepositoryPengajuanKasbonKaryawan;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,10 +58,10 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 	private StringFormatterFactory stringFormater;
 
 	@Autowired
-	private KaryawanService serviceKaryawan;
+	private RepositoryKaryawan repoKaryawan;
 
 	@Autowired
-	private PengajuanKasbonService servicePengajuan;
+	private RepositoryPengajuanKasbonKaryawan repoPengajuanKasbon;
 
 	@FXML
 	private DatePicker txtTanggal;
@@ -163,7 +163,6 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 				return new ListCell<String>() {
 					@Override
 					protected void updateItem(String item, boolean empty) {
-						// TODO Auto-generated method stub
 						super.updateItem(item, empty);
 						if (empty) {
 							setText(null);
@@ -200,7 +199,7 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 		try {
 			this.mapDataKaryawan = new HashMap<String, DataKaryawan>();
 			this.txtKaryawan.getItems().clear();
-			for (DataKaryawan karyawan : this.serviceKaryawan
+			for (DataKaryawan karyawan : this.repoKaryawan
 					.findByPengajuanKasbonIsNullOrPengajuanKasbonAccepted(false)) {
 				mapDataKaryawan.put(karyawan.getNip(), karyawan);
 				this.txtKaryawan.getItems().add(karyawan.getNip());
@@ -262,16 +261,16 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 			PengajuanKasbon oldKasbon = karyawan.getPengajuanKasbon();
 			if (oldKasbon != null) {
 				karyawan.setPengajuanKasbon(null);
-				this.serviceKaryawan.save(karyawan);
-				this.servicePengajuan.delete(oldKasbon.getId());
+				this.repoKaryawan.save(karyawan);
+				this.repoPengajuanKasbon.delete(oldKasbon.getId());
 			}
 
 			this.pengajuanKasbon.setNominal(txtPinjam.getValueFactory().getValue());
 			this.pengajuanKasbon.setTanggal(Date.valueOf(txtTanggal.getValue()));
-			this.servicePengajuan.save(this.pengajuanKasbon);
+			this.repoPengajuanKasbon.save(this.pengajuanKasbon);
 
-			karyawan.setPengajuanKasbon(this.servicePengajuan.findOne(this.pengajuanKasbon.getId()));
-			this.serviceKaryawan.save(karyawan);
+			karyawan.setPengajuanKasbon(this.repoPengajuanKasbon.findOne(this.pengajuanKasbon.getId()));
+			this.repoKaryawan.save(karyawan);
 
 			notif.showDefaultSave("Data pengajuan kasbon karyawan");
 			initConstuct();

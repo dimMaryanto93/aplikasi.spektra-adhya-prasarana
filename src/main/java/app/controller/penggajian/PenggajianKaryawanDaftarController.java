@@ -27,7 +27,7 @@ import app.configs.StringFormatterFactory;
 import app.configs.PrintConfig;
 import app.entities.kepegawaian.Penggajian;
 import app.entities.master.DataKaryawan;
-import app.repositories.PenggajianService;
+import app.repositories.RepositoryPenggajianKaryawan;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -99,7 +99,7 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 	private Label txtPeriode;
 
 	@Autowired
-	private PenggajianService servicePenggajian;
+	private RepositoryPenggajianKaryawan servicePenggajian;
 
 	@Autowired
 	private StringFormatterFactory stringFormatter;

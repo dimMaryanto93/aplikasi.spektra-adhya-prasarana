@@ -19,8 +19,8 @@ import app.configs.DialogsFX;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 import app.entities.master.DataKaryawan;
-import app.repositories.CicilanMotorRepository;
-import app.repositories.KaryawanService;
+import app.repositories.RepositoryCicilanMotor;
+import app.repositories.RepositoryKaryawan;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -69,10 +69,10 @@ public class AngsuranPrestasiListController implements BootInitializable {
 	private TableColumn<PembayaranCicilanMotor, Date> columnTanggal;
 
 	@Autowired
-	private KaryawanService serviceKaryawan;
+	private RepositoryKaryawan serviceKaryawan;
 
 	@Autowired
-	private CicilanMotorRepository serviceCicilanMotor;
+	private RepositoryCicilanMotor serviceCicilanMotor;
 
 	@Autowired
 	private StringFormatterFactory formater;

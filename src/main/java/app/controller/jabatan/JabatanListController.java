@@ -18,7 +18,7 @@ import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
-import app.repositories.JabatanService;
+import app.repositories.RepositoryJabatan;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,7 +41,7 @@ public class JabatanListController implements BootInitializable {
 	private Stage primaryStage;
 
 	@Autowired
-	private JabatanService service;
+	private RepositoryJabatan service;
 
 	@Autowired
 	private StringFormatterFactory stringFormater;

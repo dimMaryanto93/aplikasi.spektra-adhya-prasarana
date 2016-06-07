@@ -22,8 +22,8 @@ import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.master.DataKaryawan;
 import app.entities.master.DataTidakHadir;
-import app.repositories.AbsensiService;
-import app.repositories.KaryawanService;
+import app.repositories.RepositoryAbsensi;
+import app.repositories.RepositoryKaryawan;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -53,9 +53,9 @@ public class AbsensiFormController implements BootInitializable {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private KaryawanService karyawanRepository;
+	private RepositoryKaryawan karyawanRepository;
 	@Autowired
-	private AbsensiService absensiRepository;
+	private RepositoryAbsensi absensiRepository;
 
 	private ApplicationContext springContext;
 

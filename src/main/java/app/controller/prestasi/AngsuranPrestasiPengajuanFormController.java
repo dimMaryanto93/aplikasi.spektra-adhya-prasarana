@@ -23,8 +23,8 @@ import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.master.DataKaryawan;
-import app.repositories.KaryawanService;
-import app.repositories.MotorRepository;
+import app.repositories.RepositoryKaryawan;
+import app.repositories.RepositoryPengajuanAngsuranPrestasi;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -89,10 +89,10 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 	private CheckBox checkValid;
 
 	@Autowired
-	private MotorRepository serviceMotor;
+	private RepositoryPengajuanAngsuranPrestasi serviceMotor;
 
 	@Autowired
-	private KaryawanService serviceKaryawan;
+	private RepositoryKaryawan serviceKaryawan;
 
 	@Autowired
 	private StringFormatterFactory stringFormater;

@@ -31,10 +31,10 @@ import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
-import app.repositories.AbsensiService;
-import app.repositories.CicilanMotorRepository;
-import app.repositories.KaryawanService;
-import app.repositories.PenggajianService;
+import app.repositories.RepositoryAbsensi;
+import app.repositories.RepositoryCicilanMotor;
+import app.repositories.RepositoryKaryawan;
+import app.repositories.RepositoryPenggajianKaryawan;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,19 +90,19 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	private CheckBox checkValid;
 
 	@Autowired
-	private PenggajianService servicePenggajian;
+	private RepositoryPenggajianKaryawan servicePenggajian;
 
 	@Autowired
-	private KaryawanService serviceKaryawan;
+	private RepositoryKaryawan serviceKaryawan;
 
 	@Autowired
-	private CicilanMotorRepository serviceCicilanMotor;
+	private RepositoryCicilanMotor serviceCicilanMotor;
 
 	@Autowired
 	private StringFormatterFactory stringFormatter;
 
 	@Autowired
-	private AbsensiService serviceAbsen;
+	private RepositoryAbsensi serviceAbsen;
 
 	@Autowired
 	private PrintConfig print;

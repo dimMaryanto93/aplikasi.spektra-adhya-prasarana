@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.dialog.ExceptionDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -17,8 +18,8 @@ import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataKaryawan;
-import app.repositories.KaryawanService;
-import app.repositories.KasbonService;
+import app.repositories.RepositoryKaryawan;
+import app.repositories.RepositoryKasbonKaryawan;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -38,6 +39,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -46,13 +48,12 @@ public class KasbonKaryawanListController implements BootInitializable {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private ApplicationContext springContext;
-	private DialogsFX notif;
 
 	@Autowired
-	private KaryawanService serviceKaryawan;
+	private RepositoryKaryawan serviceKaryawan;
 
 	@Autowired
-	private KasbonService kasbonKaryawanService;
+	private RepositoryKasbonKaryawan kasbonKaryawanService;
 
 	@Autowired
 	private StringFormatterFactory stringFormater;
@@ -88,7 +89,16 @@ public class KasbonKaryawanListController implements BootInitializable {
 			tableView.getItems().addAll(kasbonKaryawanService.findByKaryawanOrderByCreatedDateAsc(karyawan));
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data kasbon untuk karyawan atas nama {}" + karyawan.getNama(), e);
-			notif.showDefaultErrorLoad("Data kasbon karyawan", e);
+
+			StringBuilder sb = new StringBuilder("Tidak dapat mendapatkan informasi kasbon karyawan atas nama ");
+			sb.append(karyawan.getNama()).append(" dengan nip ").append(karyawan.getNip());
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar kasbon karyawan");
+			ex.setHeaderText(sb.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -272,15 +282,20 @@ public class KasbonKaryawanListController implements BootInitializable {
 			listView.getItems().addAll(this.serviceKaryawan.findAll());
 		} catch (Exception e) {
 			logger.error("Tidak dapat memuat data karyawan", e);
-			notif.showDefaultErrorLoad("Data Karyawan", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar kasbon karyawan");
+			ex.setHeaderText("Tidak dapat memuat daftar data karyawan");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 
 	}
 
 	@Override
-	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		this.notif = notif;
+
 	}
 
 	@FXML

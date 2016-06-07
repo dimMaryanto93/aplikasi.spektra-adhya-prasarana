@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import app.entities.master.DataKaryawan;
 
-public interface KaryawanService extends CrudRepository<app.entities.master.DataKaryawan, String> {
+public interface RepositoryKaryawan extends CrudRepository<app.entities.master.DataKaryawan, String> {
 
 	public List<DataKaryawan> findAll();
 

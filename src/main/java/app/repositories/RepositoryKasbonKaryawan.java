@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataKaryawan;
 
-public interface KasbonService extends CrudRepository<KasbonKaryawan, String> {
+public interface RepositoryKasbonKaryawan extends CrudRepository<KasbonKaryawan, String> {
 
 	public List<KasbonKaryawan> findAll();
 
