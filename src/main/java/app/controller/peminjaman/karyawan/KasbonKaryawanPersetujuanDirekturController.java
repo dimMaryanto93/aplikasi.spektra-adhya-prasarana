@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
-import app.configs.FormatterFactory;
+import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.kepegawaian.PengajuanKasbon;
 import app.entities.master.DataKaryawan;
@@ -82,7 +82,7 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 	private TableColumn<DataKaryawan, String> columnNama;
 
 	@Autowired
-	private FormatterFactory stringFormatter;
+	private StringFormatterFactory stringFormatter;
 
 	@Autowired
 	private KaryawanService serviceKaryawan;

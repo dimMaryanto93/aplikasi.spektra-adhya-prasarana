@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.DialogsFX;
-import app.configs.FormatterFactory;
+import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
@@ -49,7 +49,7 @@ public class KaryawanListController implements BootInitializable {
 	private KaryawanFormController formController;
 
 	@Autowired
-	private FormatterFactory stringFormater;
+	private StringFormatterFactory stringFormater;
 
 	@FXML
 	TextField txtNama;

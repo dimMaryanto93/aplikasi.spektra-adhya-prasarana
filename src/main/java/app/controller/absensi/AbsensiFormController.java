@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+import org.controlsfx.dialog.ExceptionDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.DialogsFX;
+import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.master.DataKaryawan;
 import app.entities.master.DataTidakHadir;
@@ -28,7 +31,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -37,7 +43,9 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 @Component
 public class AbsensiFormController implements BootInitializable {
@@ -62,7 +70,13 @@ public class AbsensiFormController implements BootInitializable {
 	@FXML
 	private TableColumn<KehadiranKaryawan, Boolean> columnAbsen;
 
+	@Deprecated
 	private DialogsFX notif;
+
+	private Stage stage;
+
+	@Autowired
+	private StringFormatterFactory stringFormat;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -105,6 +119,7 @@ public class AbsensiFormController implements BootInitializable {
 
 	@Override
 	public void setStage(Stage stage) {
+		this.stage = stage;
 
 	}
 
@@ -127,9 +142,22 @@ public class AbsensiFormController implements BootInitializable {
 				}
 				tableView.getItems().add(absen);
 			}
+
 		} catch (Exception e) {
 			logger.error("Tidak dapat memuat data absensi yang dicari berdasarkan karyawan dan tanggal", e);
-			notif.showDefaultErrorLoad("Data absensi karyawan", e);
+
+			// menampmilkan pesan
+			StringBuilder sb = new StringBuilder(
+					"Tidak dapat mendapatkan daftar karyawan untuk melakukan absensi pada tanggal ");
+			sb.append(stringFormat.getDateTimeFormatterWithDayAndDateMonthYear(LocalDate.now()));
+
+			// menampilkan dialog exception
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar karyawan");
+			ex.setHeaderText(sb.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -137,13 +165,27 @@ public class AbsensiFormController implements BootInitializable {
 	public void doSave(ActionEvent event) {
 		try {
 			absensiRepository.save(tableView.getItems());
-			notif.showDefaultSave("Data absensi karyawan");
 
+			// tampilkan notifikasi berhasil disimpan
 			logger.info("Data absensi berhasil disimpan atau diperbaharui");
+			Notifications.create().title("Data absen")
+					.text("Daftar absensi karyawan pada tanggal " + LocalDate.now().toString() + ", Berhasil disimpan!")
+					.showInformation();
+
+			// kemabalikan atau refresh data setelah disimpan
 			initConstuct();
 		} catch (Exception e) {
 			logger.error("Tidak dapat mengimpan dan perubahan data absensi karyawan", e);
-			notif.showDefaultErrorSave("Data absensi karyawan", e);
+
+			StringBuilder sb = new StringBuilder("Tidak dapat menyimpan perubahan data absensi karyawan pada tanggal ");
+			sb.append(stringFormat.getDateTimeFormatterWithDayAndDateMonthYear(LocalDate.now()));
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Data absensi karyawan");
+			ex.setHeaderText(sb.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -165,7 +207,6 @@ public class AbsensiFormController implements BootInitializable {
 
 		@Override
 		protected void updateItem(Boolean item, boolean empty) {
-			// TODO Auto-generated method stub
 			super.updateItem(item, empty);
 			if (!empty) {
 				KehadiranKaryawan absen = daftarAbsen.get(getIndex());
@@ -180,6 +221,7 @@ public class AbsensiFormController implements BootInitializable {
 				} else {
 					this.keterangan.setDisable(false);
 				}
+
 				this.keterangan.getSelectionModel().selectedItemProperty()
 						.addListener((ObservableValue<? extends DataTidakHadir> values, DataTidakHadir oldValue,
 								DataTidakHadir newValue) -> {

@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
-import app.configs.FormatterFactory;
+import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataAgama;
 import app.entities.master.DataJabatan;
@@ -111,7 +111,7 @@ public class KaryawanFormController implements BootFormInitializable {
 	private HomeController homeController;
 
 	@Autowired
-	private FormatterFactory stringFormater;
+	private StringFormatterFactory stringFormater;
 
 	private DialogsFX notif;
 	private ValidationSupport validation;

@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
-import app.configs.FormatterFactory;
+import app.configs.StringFormatterFactory;
 import app.configs.PrintConfig;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.kepegawaian.Penggajian;
@@ -99,7 +99,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	private CicilanMotorRepository serviceCicilanMotor;
 
 	@Autowired
-	private FormatterFactory stringFormatter;
+	private StringFormatterFactory stringFormatter;
 
 	@Autowired
 	private AbsensiService serviceAbsen;

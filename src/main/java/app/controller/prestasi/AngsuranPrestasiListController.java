@@ -14,7 +14,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
-import app.configs.FormatterFactory;
+import app.configs.StringFormatterFactory;
 import app.configs.DialogsFX;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
@@ -75,7 +75,7 @@ public class AngsuranPrestasiListController implements BootInitializable {
 	private CicilanMotorRepository serviceCicilanMotor;
 
 	@Autowired
-	private FormatterFactory formater;
+	private StringFormatterFactory formater;
 
 	private void setFields(DataKaryawan karyawan) {
 		txtNik.setText(karyawan.getNik().toString());

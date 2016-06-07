@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.DialogsFX;
-import app.configs.FormatterFactory;
+import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
 import app.repositories.JabatanService;
@@ -42,7 +42,7 @@ public class JabatanListController implements BootInitializable {
 	private JabatanService service;
 
 	@Autowired
-	private FormatterFactory stringFormater;
+	private StringFormatterFactory stringFormater;
 
 	@Autowired
 	private HomeController homeController;

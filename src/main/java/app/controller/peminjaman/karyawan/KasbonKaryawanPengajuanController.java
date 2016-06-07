@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
-import app.configs.FormatterFactory;
+import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.PengajuanKasbon;
 import app.entities.master.DataKaryawan;
 import app.repositories.KaryawanService;
@@ -55,7 +55,7 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 	private ValidationSupport validation;
 
 	@Autowired
-	private FormatterFactory stringFormater;
+	private StringFormatterFactory stringFormater;
 
 	@Autowired
 	private KaryawanService serviceKaryawan;

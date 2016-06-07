@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.DialogsFX;
-import app.configs.FormatterFactory;
+import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataKaryawan;
 import app.repositories.KaryawanService;
@@ -55,7 +55,7 @@ public class KasbonKaryawanListController implements BootInitializable {
 	private KasbonService kasbonKaryawanService;
 
 	@Autowired
-	private FormatterFactory stringFormater;
+	private StringFormatterFactory stringFormater;
 
 	@FXML
 	private ListView<DataKaryawan> listView;

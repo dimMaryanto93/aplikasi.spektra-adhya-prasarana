@@ -8,7 +8,7 @@ import java.util.Locale;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FormatterFactory {
+public class StringFormatterFactory {
 
 	public String getCurrencyFormate(Number number) {
 		return NumberFormat.getCurrencyInstance(Locale.getDefault()).format(number);

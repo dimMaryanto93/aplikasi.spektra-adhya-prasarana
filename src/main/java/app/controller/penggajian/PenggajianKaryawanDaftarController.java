@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
-import app.configs.FormatterFactory;
+import app.configs.StringFormatterFactory;
 import app.configs.PrintConfig;
 import app.entities.kepegawaian.Penggajian;
 import app.entities.master.DataKaryawan;
@@ -102,7 +102,7 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 	private PenggajianService servicePenggajian;
 
 	@Autowired
-	private FormatterFactory stringFormatter;
+	private StringFormatterFactory stringFormatter;
 
 	@Autowired
 	private PrintConfig print;

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
-import app.configs.FormatterFactory;
+import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 import app.entities.master.DataKaryawan;
@@ -75,7 +75,7 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 	@Autowired
 	private KaryawanService serviceKaryawan;
 	@Autowired
-	private FormatterFactory formater;
+	private StringFormatterFactory formater;
 
 	@Autowired
 	private MotorRepository serviceMotor;
