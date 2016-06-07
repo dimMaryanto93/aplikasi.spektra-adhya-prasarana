@@ -362,7 +362,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 			print.setDesign("/jasper/penggajian/SlipGajiKaryawan.jrxml");
 			print.setReport(print.getDesign());
-			print.setPrint(print.getReport(), map, new JREmptyDataSource());
+			print.setPrint(print.getReport(), map);
 			print.setPrinted(print.getPrint(), "Penggajian Karyawan");
 		} catch (JRException e) {
 			logger.error("Tidak dapat print dokument", e);

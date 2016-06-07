@@ -28,7 +28,6 @@ public class PrintConfig {
 	private JasperReport report;
 	private JasperPrint print;
 	private JasperViewer viewer;
-	private JasperPrintManager printManager;
 
 	public JasperDesign getDesign() {
 		return design;
@@ -62,14 +61,6 @@ public class PrintConfig {
 		this.viewer = viewer;
 	}
 
-	public JasperPrintManager getPrintManager() {
-		return printManager;
-	}
-
-	public void setPrintManager(JasperPrintManager printManager) {
-		this.printManager = printManager;
-	}
-
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
@@ -77,6 +68,7 @@ public class PrintConfig {
 
 	/**
 	 * 1. lakukan load file .jrxml
+	 * 
 	 * @param jrxml
 	 * @throws JRException
 	 */
@@ -86,6 +78,7 @@ public class PrintConfig {
 
 	/**
 	 * 2. lakukan comipilasi file .jrxml menjadi .jasper
+	 * 
 	 * @param design
 	 * @throws JRException
 	 */
@@ -93,14 +86,30 @@ public class PrintConfig {
 		this.report = JasperCompileManager.compileReport(design);
 	}
 
+	/**
+	 * 3. isi data menggunakan parameter atau JRBeanCollection
+	 * 
+	 * @param report
+	 * @param map
+	 * @param collection
+	 * @throws JRException
+	 */
 	public void setPrint(JasperReport report, HashMap<String, Object> map, JRBeanCollectionDataSource collection)
 			throws JRException {
 		this.print = JasperFillManager.fillReport(report, map, collection);
 	}
 
-	public void setPrint(JasperReport report, HashMap<String, Object> map, JREmptyDataSource collection)
+	/**
+	 * 3. isi data menggunakan parameter aja
+	 * 
+	 * @param report
+	 * @param map
+	 * @param collection
+	 * @throws JRException
+	 */
+	public void setPrint(JasperReport report, HashMap<String, Object> map)
 			throws JRException {
-		this.print = JasperFillManager.fillReport(report, map, collection);
+		this.print = JasperFillManager.fillReport(report, map, new JREmptyDataSource());
 	}
 
 	public void setPrint(JasperReport report, HashMap<String, Object> map, DataSource dataSource)
