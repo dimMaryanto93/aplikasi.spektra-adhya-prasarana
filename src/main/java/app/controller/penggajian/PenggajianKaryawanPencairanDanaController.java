@@ -48,7 +48,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 
 @Component
@@ -360,10 +359,8 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 				map.put("prestasi", cicilan.getBayar());
 			}
 
-			print.setDesign("/jasper/penggajian/SlipGajiKaryawan.jrxml");
-			print.setReport(print.getDesign());
-			print.setPrint(print.getReport(), map);
-			print.setPrinted(print.getPrint(), "Penggajian Karyawan");
+			print.setValue("/jasper/penggajian/SlipGajiKaryawan.jrxml", map);
+			print.setPrinted(print.getPrint());
 		} catch (JRException e) {
 			logger.error("Tidak dapat print dokument", e);
 			e.printStackTrace();

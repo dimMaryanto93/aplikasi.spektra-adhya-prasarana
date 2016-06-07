@@ -5,6 +5,7 @@ import java.net.URL;
 import java.time.Month;
 import java.time.Year;
 import java.time.format.TextStyle;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 import app.configs.BootFormInitializable;
 import app.configs.DialogsFX;
 import app.configs.FormatterFactory;
+import app.configs.PrintConfig;
 import app.entities.kepegawaian.Penggajian;
 import app.entities.master.DataKaryawan;
 import app.repositories.PenggajianService;
@@ -36,6 +38,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
@@ -51,6 +54,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Component
 public class LaporanDaftarPenggajian implements BootFormInitializable {
@@ -64,7 +69,7 @@ public class LaporanDaftarPenggajian implements BootFormInitializable {
 	@FXML
 	private Button btnProccessed;
 	@FXML
-	private GridPane chenkPrinted;
+	private CheckBox chenkPrinted;
 	@FXML
 	private TableView<Penggajian> tableView;
 	@FXML
@@ -99,6 +104,9 @@ public class LaporanDaftarPenggajian implements BootFormInitializable {
 
 	@Autowired
 	private FormatterFactory stringFormatter;
+
+	@Autowired
+	private PrintConfig print;
 
 	private IntegerSpinnerValueFactory yearValueFactory;
 
@@ -286,12 +294,32 @@ public class LaporanDaftarPenggajian implements BootFormInitializable {
 
 	@FXML
 	public void doProceess(ActionEvent event) {
-		Month bulan = txtMonth.getSelectionModel().getSelectedItem();
-		StringBuilder sb = new StringBuilder(txtYear.getValue().toString()).append("-")
-				.append(bulan.getDisplayName(TextStyle.FULL, Locale.getDefault()));
-		txtPeriode.setText(sb.toString());
-		tableView.getItems().clear();
-		tableView.getItems().addAll(servicePenggajian.findByTahunBulan(sb.toString()));
+		try {
+			Month bulan = txtMonth.getSelectionModel().getSelectedItem();
+			StringBuilder sb = new StringBuilder(txtYear.getValue().toString()).append("-")
+					.append(bulan.getDisplayName(TextStyle.FULL, Locale.getDefault()));
+			txtPeriode.setText(sb.toString());
+			tableView.getItems().clear();
+			tableView.getItems().addAll(servicePenggajian.findByTahunBulan(sb.toString()));
+
+			printed(chenkPrinted.isSelected(), tableView.getItems());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void printed(Boolean cetak, List<Penggajian> daftarPenggajian) {
+		if (cetak) {
+			try {
+				print.setValue("/jasper/penggajian/DaftarGajiKaryawan.jrxml", null,
+						new JRBeanCollectionDataSource(daftarPenggajian));
+				print.setPrinted(print.getPrint());
+			} catch (JRException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

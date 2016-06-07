@@ -56,7 +56,8 @@
 		<ToolBar prefHeight="40.0" prefWidth="200.0"
 			BorderPane.alignment="CENTER">
 			<items>
-				<CheckBox mnemonicParsing="false" selected="true" text="Cetak Laporan" />
+				<CheckBox fx:id="chenkPrinted" mnemonicParsing="false"
+					selected="true" text="Cetak Laporan" />
 				<Separator orientation="VERTICAL" />
 				<ChoiceBox fx:id="txtMonth" prefHeight="30.0" prefWidth="150.0" />
 				<Spinner fx:id="txtYear" prefHeight="30.0" prefWidth="100.0" />
@@ -71,7 +72,7 @@
 		<ScrollPane fitToHeight="true" fitToWidth="true"
 			BorderPane.alignment="CENTER">
 			<content>
-				<GridPane fx:id="chenkPrinted" hgap="10.0" vgap="10.0">
+				<GridPane hgap="10.0" vgap="10.0">
 					<columnConstraints>
 						<ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" />
 						<ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0"

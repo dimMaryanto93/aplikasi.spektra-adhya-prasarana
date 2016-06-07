@@ -72,49 +72,23 @@ public class PrintConfig {
 	 * @param jrxml
 	 * @throws JRException
 	 */
-	public void setDesign(String jrxml) throws JRException {
-		this.design = JRXmlLoader.load(getClass().getResourceAsStream(jrxml));
-	}
-
-	/**
-	 * 2. lakukan comipilasi file .jrxml menjadi .jasper
-	 * 
-	 * @param design
-	 * @throws JRException
-	 */
-	public void setReport(JasperDesign design) throws JRException {
-		this.report = JasperCompileManager.compileReport(design);
-	}
-
-	/**
-	 * 3. isi data menggunakan parameter atau JRBeanCollection
-	 * 
-	 * @param report
-	 * @param map
-	 * @param collection
-	 * @throws JRException
-	 */
-	public void setPrint(JasperReport report, HashMap<String, Object> map, JRBeanCollectionDataSource collection)
+	public void setValue(String jrxml, HashMap<String, Object> map, JRBeanCollectionDataSource collection)
 			throws JRException {
+		this.design = JRXmlLoader.load(getClass().getResourceAsStream(jrxml));
+		this.report = JasperCompileManager.compileReport(this.design);
 		this.print = JasperFillManager.fillReport(report, map, collection);
 	}
 
-	/**
-	 * 3. isi data menggunakan parameter aja
-	 * 
-	 * @param report
-	 * @param map
-	 * @param collection
-	 * @throws JRException
-	 */
-	public void setPrint(JasperReport report, HashMap<String, Object> map)
-			throws JRException {
+	public void setValue(String jrxml, HashMap<String, Object> map) throws JRException {
+		this.design = JRXmlLoader.load(getClass().getResourceAsStream(jrxml));
+		this.report = JasperCompileManager.compileReport(this.design);
 		this.print = JasperFillManager.fillReport(report, map, new JREmptyDataSource());
 	}
 
-	public void setPrint(JasperReport report, HashMap<String, Object> map, DataSource dataSource)
-			throws SQLException, JRException {
-		this.print = JasperFillManager.fillReport(report, map, dataSource.getConnection());
+	public void setValueSQL(String jrxml, HashMap<String, Object> map) throws JRException, SQLException {
+		this.design = JRXmlLoader.load(getClass().getResourceAsStream(jrxml));
+		this.report = JasperCompileManager.compileReport(this.design);
+		this.print = JasperFillManager.fillReport(report, map, this.dataSource.getConnection());
 	}
 
 	public void setViewer(JasperPrint print, String title) {
@@ -126,7 +100,7 @@ public class PrintConfig {
 		this.viewer.requestFocus();
 	}
 
-	public void setPrinted(JasperPrint print, String title) throws JRException {
+	public void setPrinted(JasperPrint print) throws JRException {
 		JasperPrintManager.printReport(print, false);
 	}
 
