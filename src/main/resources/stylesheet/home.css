@@ -1,0 +1,18 @@
+.button { 
+	-fx-background-color: transparent;
+}
+
+.menu-button { 
+	-fx-background-color: transparent;
+}
+
+.footer{
+	-fx-background-color: GRAY;
+}
+
+.footer-label{
+	-fx-fill: #f0ffff;
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+}
+

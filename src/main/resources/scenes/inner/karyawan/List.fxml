@@ -20,8 +20,8 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-	prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+	prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<center>
 		<ScrollPane fitToHeight="true" fitToWidth="true"
 			hbarPolicy="NEVER" prefHeight="354.0" prefWidth="419.0"
@@ -187,16 +187,17 @@
 	<bottom>
 		<ToolBar BorderPane.alignment="CENTER">
 			<items>
-				<Button alignment="CENTER" defaultButton="true" maxHeight="30.0"
-					maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false"
-					onAction="#doAddEmployee" prefHeight="30.0" prefWidth="100.0" text="Tambah" />
+				<Button alignment="CENTER" defaultButton="true"
+					mnemonicParsing="false" onAction="#doAddEmployee" prefHeight="30.0"
+					prefWidth="100.0" text="Tambah" />
 				<Button fx:id="btnUpdateEmployee" alignment="CENTER" disable="true"
-					maxHeight="30.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0"
 					mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Ubah" />
 				<Button fx:id="btnRemoveEmployee" alignment="CENTER" disable="true"
-					maxHeight="30.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0"
 					mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Hapus" />
 			</items>
+			<BorderPane.margin>
+				<Insets top="10.0" />
+			</BorderPane.margin>
 		</ToolBar>
 	</bottom>
 	<top>
@@ -205,8 +206,8 @@
 			<columnConstraints>
 				<ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0"
 					minWidth="200.0" prefWidth="200.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="594.0"
-					minWidth="461.0" prefWidth="461.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308"
+					minWidth="-Infinity" />
 				<ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0"
 					minWidth="200.0" prefWidth="339.0" />
 			</columnConstraints>
