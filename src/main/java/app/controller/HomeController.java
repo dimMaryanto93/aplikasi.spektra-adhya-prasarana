@@ -171,6 +171,8 @@ public class HomeController implements BootInitializable {
 	private MenuItem mniBarKeamananLogout;
 	@FXML
 	private MenuItem mniBarKeamananExit;
+	@FXML
+	private Menu mnuKeamananNotifikasi;
 
 	private ApplicationContext springContext;
 
@@ -234,6 +236,8 @@ public class HomeController implements BootInitializable {
 		// menu item laporan
 
 		// top-side navigation right
+		icon.createFontAwesomeIcon18px(mnuKeamananNotifikasi, FontAwesomeIcon.BELL_ALT);
+
 		icon.createFontAwesomeIcon18px(mnuKeamananUser, FontAwesomeIcon.USER);
 		icon.createFontAwesomeIcon18px(mniBarKeamananProfile, FontAwesomeIcon.COGS);
 		icon.createFontAwesomeIcon18px(mniBarKeamananExit, FontAwesomeIcon.POWER_OFF);
@@ -243,6 +247,179 @@ public class HomeController implements BootInitializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initIcons();
+
+		/**
+		 * tampilnotifkasi ketika diklik langsung hilang
+		 */
+		for (int i = 0; i < 10; i++) {
+			MenuItem menu = new MenuItem("Menu ke-" + (i + 1));
+			menu.setOnAction(e -> {
+				mnuKeamananNotifikasi.getItems().remove(menu);
+			});
+			mnuKeamananNotifikasi.getItems().add(menu);
+
+		}
+
+	}
+
+	public void setMnuBarAplikasi(Boolean disable) {
+		this.mnuBarAplikasi.setDisable(disable);
+	}
+
+	public void setMnuBarMaster(Boolean disable) {
+		this.mnuBarMaster.setDisable(disable);
+	}
+
+	public void setMnuMasterKaryawan(Boolean disable) {
+		this.mnuMasterKaryawan.setDisable(disable);
+	}
+
+	public void setMnuMasterJabatan(Boolean disable) {
+		this.mnuMasterJabatan.setDisable(disable);
+	}
+
+	public void setMnuBarKepegawaian(Boolean disable) {
+		this.mnuBarKepegawaian.setDisable(disable);
+	}
+
+	public void setMniKepegAbsensi(Boolean disable) {
+		this.mniKepegAbsensi.setDisable(disable);
+	}
+
+	public void setMnuBarKepegKasbon(Boolean disable) {
+		this.mnuBarKepegKasbon.setDisable(disable);
+	}
+
+	public void setMniKepegKasbonPengajuan(Boolean disable) {
+		this.mniKepegKasbonPengajuan.setDisable(disable);
+	}
+
+	public void setMniKepegKasbonPersetujuan(Boolean disable) {
+		this.mniKepegKasbonPersetujuan.setDisable(disable);
+	}
+
+	public void setMniKepegKasbonPencairan(Boolean disable) {
+		this.mniKepegKasbonPencairan.setDisable(disable);
+	}
+
+	public void setMniKepegKasbonPembayaran(Boolean disable) {
+		this.mniKepegKasbonPembayaran.setDisable(disable);
+	}
+
+	public void setMnuBarKepegAngsuran(Boolean disable) {
+		this.mnuBarKepegAngsuran.setDisable(disable);
+	}
+
+	public void setMniKepegAngsuranPengajuan(Boolean disable) {
+		this.mniKepegAngsuranPengajuan.setDisable(disable);
+	}
+
+	public void setMniKepegAngsuranPersetujuan(Boolean disable) {
+		this.mniKepegAngsuranPersetujuan.setDisable(disable);
+	}
+
+	public void setMniKepegPenggajian(Boolean disable) {
+		this.mniKepegPenggajian.setDisable(disable);
+	}
+
+	public void setMnuBarLaporan(Boolean disable) {
+		this.mnuBarLaporan.setDisable(disable);
+	}
+
+	public void setMniLaporanAbsensi(Boolean disable) {
+		this.mniLaporanAbsensi.setDisable(disable);
+	}
+
+	public void setMniLaporanKasbon(Boolean disable) {
+		this.mniLaporanKasbon.setDisable(disable);
+	}
+
+	public void setMniLaporanAngsuran(Boolean disable) {
+		this.mniLaporanAngsuran.setDisable(disable);
+	}
+
+	public void setMniLaporanPenggajian(Boolean disable) {
+		this.mniLaporanPenggajian.setDisable(disable);
+	}
+
+	public void setMnuBarKeamanan(Boolean disable) {
+		this.mnuBarKeamanan.setDisable(disable);
+	}
+
+	public void setMnuKeamananUser(Boolean disable) {
+		this.mnuKeamananUser.setDisable(disable);
+	}
+
+	public void setMniButtonHome(Boolean disable) {
+		this.mniButtonHome.setDisable(disable);
+	}
+
+	public void setMniButtonLogin(Boolean disable) {
+		this.mniButtonLogin.setDisable(disable);
+	}
+
+	public void setMniButtonJabatan(Boolean disable) {
+		this.mniButtonJabatan.setDisable(disable);
+	}
+
+	public void setMniButtonKaryawan(Boolean disable) {
+		this.mniButtonKaryawan.setDisable(disable);
+	}
+
+	public void setMniButtonAbsensi(Boolean disable) {
+		this.mniButtonAbsensi.setDisable(disable);
+	}
+
+	public void setMnuButtonKasbon(Boolean disable) {
+		this.mnuButtonKasbon.setDisable(disable);
+	}
+
+	public void setMniButtonKasbonPengajuan(Boolean disable) {
+		this.mniButtonKasbonPengajuan.setDisable(disable);
+	}
+
+	public void setMniButtonKasbonPersetujuan(Boolean disable) {
+		this.mniButtonKasbonPersetujuan.setDisable(disable);
+	}
+
+	public void setMniButtonKasbonPencairan(Boolean disable) {
+		this.mniButtonKasbonPencairan.setDisable(disable);
+	}
+
+	public void setMniButtonKasbonPembayaran(Boolean disable) {
+		this.mniButtonKasbonPembayaran.setDisable(disable);
+	}
+
+	public void setMnuButtonAnggsuran(Boolean disable) {
+		this.mnuButtonAnggsuran.setDisable(disable);
+	}
+
+	public void setMniButtonAngsuranPengajuan(Boolean disable) {
+		this.mniButtonAngsuranPengajuan.setDisable(disable);
+	}
+
+	public void setMniButtonAngsuranPersetujuan(Boolean disable) {
+		this.mniButtonAngsuranPersetujuan.setDisable(disable);
+	}
+
+	public void setMniButtonPenggajian(Boolean disable) {
+		this.mniButtonPenggajian.setDisable(disable);
+	}
+
+	public void setMniButtonLogout(Boolean disable) {
+		this.mniButtonLogout.setDisable(disable);
+	}
+
+	public void setMniBarKeamananProfile(Boolean disable) {
+		this.mniBarKeamananProfile.setDisable(disable);
+	}
+
+	public void setMniBarKeamananLogout(Boolean disable) {
+		this.mniBarKeamananLogout.setDisable(disable);
+	}
+
+	public void setMnuKeamananNotifikasi(Boolean disable) {
+		this.mnuKeamananNotifikasi.setDisable(disable);
 	}
 
 	@Override
@@ -268,9 +445,17 @@ public class HomeController implements BootInitializable {
 		Platform.exit();
 	}
 
+	public void doLogout() {
+		showLoginForm();
+		setMniButtonLogout(true);
+	}
+
+	@FXML
 	public void showLoginForm() {
 		try {
 			setLayout(loginForm.initView());
+			setMniButtonHome(true);
+			setMniButtonLogin(false);
 			loginForm.initConstuct();
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan form login", e);
@@ -283,6 +468,7 @@ public class HomeController implements BootInitializable {
 		}
 	}
 
+	@FXML
 	public void showWellcome() {
 		try {
 			setLayout(wellcomeForm.initView());

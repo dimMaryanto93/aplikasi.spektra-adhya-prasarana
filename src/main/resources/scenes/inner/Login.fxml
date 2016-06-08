@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
@@ -25,4 +26,9 @@
 			</padding>
 		</VBox>
 	</top>
+	<center>
+		<Button fx:id="btnLogin" mnemonicParsing="false" onAction="#doSignIn"
+			prefHeight="30.0" prefWidth="100.0" text="Login"
+			BorderPane.alignment="CENTER" />
+	</center>
 </BorderPane>
