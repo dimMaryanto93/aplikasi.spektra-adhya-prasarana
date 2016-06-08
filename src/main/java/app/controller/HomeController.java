@@ -84,6 +84,10 @@ public class HomeController implements BootInitializable {
 	private AngsuranPrestasiListController listCicilanMotor;
 	@Autowired
 	private PenggajianKaryawanDaftarController listPenggajian;
+	@Autowired
+	private LoginController loginForm;
+	@Autowired
+	private WellcomeController wellcomeForm;
 
 	@FXML
 	private MenuBar mnuBarAplikasi;
@@ -262,6 +266,36 @@ public class HomeController implements BootInitializable {
 	@FXML
 	public void closed() {
 		Platform.exit();
+	}
+
+	public void showLoginForm() {
+		try {
+			setLayout(loginForm.initView());
+			loginForm.initConstuct();
+		} catch (Exception e) {
+			logger.error("Tidak dapat menampilkan form login", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Login form");
+			ex.setHeaderText("Tidak dapat menampilkan form login!");
+			ex.setContentText(e.getMessage());
+			ex.show();
+		}
+	}
+
+	public void showWellcome() {
+		try {
+			setLayout(wellcomeForm.initView());
+			wellcomeForm.initConstuct();
+		} catch (Exception e) {
+			logger.error("Tidak dapat menampilkan form login", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Login form");
+			ex.setHeaderText("Tidak dapat menampilkan form login!");
+			ex.setContentText(e.getMessage());
+			ex.show();
+		}
 	}
 
 	@FXML

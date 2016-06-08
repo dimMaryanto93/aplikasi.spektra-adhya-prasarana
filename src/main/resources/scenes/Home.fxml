@@ -22,7 +22,7 @@
 
 <BorderPane fx:id="mainLayout" maxHeight="1.7976931348623157E308"
 	maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-	prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.65"
+	prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65"
 	xmlns:fx="http://javafx.com/fxml/1">
 	<top>
 		<GridPane BorderPane.alignment="CENTER">
@@ -150,11 +150,13 @@
 										<Button fx:id="mniButtonHome" alignment="BASELINE_LEFT"
 											layoutX="15.0" layoutY="15.0" maxHeight="50.0"
 											maxWidth="1.7976931348623157E308" minHeight="50.0"
-											mnemonicParsing="false" prefHeight="50.0" text="Home" />
+											mnemonicParsing="false" onAction="#showWellcome" prefHeight="50.0"
+											text="Home" />
 										<Button fx:id="mniButtonLogin" alignment="BASELINE_LEFT"
 											layoutX="15.0" layoutY="23.0" maxHeight="50.0"
 											maxWidth="1.7976931348623157E308" minHeight="50.0"
-											mnemonicParsing="false" prefHeight="50.0" text="Sign in" />
+											mnemonicParsing="false" onAction="#showLoginForm" prefHeight="50.0"
+											text="Sign in" />
 										<Separator layoutX="15.0" layoutY="125.0" prefWidth="200.0" />
 										<Button fx:id="mniButtonJabatan" alignment="BASELINE_LEFT"
 											maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0"

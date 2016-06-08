@@ -3,7 +3,6 @@ package app;
 import java.io.IOException;
 import java.util.Locale;
 
-import org.controlsfx.control.Notifications;
 import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,6 +82,8 @@ public class MainApplication extends Application {
 					stage.setScene(new Scene(parent));
 					stage.setResizable(false);
 					stage.show();
+					
+					scene.showLoginForm();
 					loger.info("JavaFX started, have nice day sir!");
 				} catch (IOException e) {
 					loger.error("Gagal load JavaFX Application", e);
