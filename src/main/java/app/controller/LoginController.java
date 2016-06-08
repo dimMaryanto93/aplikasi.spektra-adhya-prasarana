@@ -68,6 +68,7 @@ public class LoginController implements BootFormInitializable {
 
 	@FXML
 	public void doSignIn(ActionEvent event) {
+		homeController.enabledMenu(false);
 		homeController.setMniButtonHome(false);
 		homeController.setMniButtonLogout(false);
 		homeController.setMniButtonLogin(true);
