@@ -161,12 +161,17 @@
 											disable="true" layoutX="15.0" layoutY="15.0" maxHeight="50.0"
 											maxWidth="1.7976931348623157E308" minHeight="50.0"
 											mnemonicParsing="false" onAction="#showWellcome" prefHeight="50.0"
-											text="Home" />
+											text="Halaman Utama" />
 										<Button fx:id="mniButtonLogin" alignment="BASELINE_LEFT"
 											layoutX="15.0" layoutY="23.0" maxHeight="50.0"
 											maxWidth="1.7976931348623157E308" minHeight="50.0"
 											mnemonicParsing="false" onAction="#showLoginForm" prefHeight="50.0"
-											text="Sign in" />
+											text="Login" />
+										<Button fx:id="mniButtonLogout" alignment="BASELINE_LEFT"
+											disable="true" layoutX="15.0" layoutY="15.0" maxHeight="50.0"
+											maxWidth="1.7976931348623157E308" minHeight="50.0"
+											mnemonicParsing="false" onAction="#doLogout" prefHeight="50.0"
+											text="Logout" />
 										<Separator layoutX="15.0" layoutY="125.0" prefWidth="200.0" />
 										<Button fx:id="mniButtonJabatan" alignment="BASELINE_LEFT"
 											disable="true" maxHeight="50.0" maxWidth="1.7976931348623157E308"
@@ -223,11 +228,6 @@
 											mnemonicParsing="false" onAction="#showFormPencairanDanaGaji"
 											prefHeight="50.0" text="Penggajian" />
 										<Separator layoutX="15.0" layoutY="70.0" prefWidth="200.0" />
-										<Button fx:id="mniButtonLogout" alignment="BASELINE_LEFT"
-											disable="true" layoutX="15.0" layoutY="15.0" maxHeight="50.0"
-											maxWidth="1.7976931348623157E308" minHeight="50.0"
-											mnemonicParsing="false" onAction="#doLogout" prefHeight="50.0"
-											text="Logout" />
 										<Button fx:id="mniButtonExit" alignment="BASELINE_LEFT"
 											layoutX="15.0" layoutY="424.0" maxHeight="50.0"
 											maxWidth="1.7976931348623157E308" minHeight="50.0"
