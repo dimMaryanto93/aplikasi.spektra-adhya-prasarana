@@ -65,6 +65,7 @@ public class Motor extends BasicEntity {
 	@Column(name = "disetujui", nullable = false)
 	private Boolean setuju;
 
+	@Deprecated
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "motor", orphanRemoval = true)
 	private List<PembayaranCicilanMotor> daftarCicilan = new ArrayList<>();
 
@@ -132,6 +133,7 @@ public class Motor extends BasicEntity {
 		this.setuju = setuju;
 	}
 
+	@Deprecated
 	public List<PembayaranCicilanMotor> getDaftarCicilan() {
 		return daftarCicilan;
 	}

@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+import org.controlsfx.dialog.ExceptionDialog;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -51,8 +53,10 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
@@ -61,7 +65,6 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private DialogsFX notif;
 	private ApplicationContext springContext;
 	private ValidationSupport validation;
 
@@ -127,10 +130,9 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 
 	}
 
-	@Autowired
 	@Override
 	public void setNotificationDialog(DialogsFX notif) {
-		this.notif = notif;
+
 	}
 
 	@Override
@@ -303,9 +305,14 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 
 			printed(chenkPrinted.isSelected(), tableView.getItems());
 		} catch (Exception e) {
-
 			logger.error("Tidak dapat mendapatkan data penggajian pada bulan {}", sb.toString(), e);
-			e.printStackTrace();
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Cetak laporan daftar gaji karyawan");
+			ex.setHeaderText("Tidak dapat mendapatkan data daftar gaji karyawan pada bulan " + txtPeriode.getText());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -316,14 +323,21 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 						new JRBeanCollectionDataSource(daftarPenggajian));
 				this.print.doPrinted();
 
-				// notifikasi cetak
-				notif.setTitle("Cetak Laporan");
-				notif.setText("Silahkan hubungkan dengan device printer, Untuk mencetak daftar gaji karyawan");
-				notif.showNotificationInformation(notif.getText(), notif.getText());
+				Notifications.create().title("Cetak Laporan daftar gaji karyawan")
+						.text("Silahkan hubungkan dengan device printer, Untuk mencetak daftar gaji karyawan")
+						.hideAfter(Duration.seconds(4D)).position(Pos.CENTER_RIGHT).showWarning();
 
 			} catch (JRException e) {
-				logger.error("Tidak dapat mencetak dokument daftar gaji karyawan pada bulan", e);
-				e.printStackTrace();
+				logger.error("Tidak dapat mencetak dokument daftar gaji karyawan pada bulan {}", txtPeriode.getText(),
+						e);
+
+				ExceptionDialog ex = new ExceptionDialog(e);
+				ex.setTitle("Cetak laporan daftar gaji karyawan");
+				ex.setHeaderText(
+						"Tidak dapat mencetak dokument daftar gaji karyawan pada bulan " + txtPeriode.getText());
+				ex.setContentText(e.getMessage());
+				ex.initModality(Modality.APPLICATION_MODAL);
+				ex.show();
 			}
 		}
 	}

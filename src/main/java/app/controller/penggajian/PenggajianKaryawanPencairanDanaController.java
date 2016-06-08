@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+import org.controlsfx.dialog.ExceptionDialog;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -38,6 +40,7 @@ import app.repositories.RepositoryPenggajianKaryawan;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -46,16 +49,16 @@ import javafx.scene.control.Control;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import net.sf.jasperreports.engine.JRException;
 
 @Component
 public class PenggajianKaryawanPencairanDanaController implements BootFormInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	private DialogsFX notif;
 	private ApplicationContext springContext;
 
 	@FXML
@@ -211,7 +214,16 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			txtTotalKehadiran.setText(stringFormatter.getCurrencyFormate(this.penggajian.getUangTransport()));
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data absensi karyawan atas nama {}", karyawan.getNama(), e);
-			notif.showDefaultErrorLoad("Kehadiran karyawan", e);
+
+			StringBuilder errorMessage = new StringBuilder(
+					"Tidak dapat menghitung jumlah kehadiran karyawan atas nama ");
+			errorMessage.append(karyawan.getNama()).append(" dengan NIP ").append(karyawan.getNip());
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Pencairan penggajian karyawan");
+			ex.setHeaderText(errorMessage.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 
 		try {
@@ -225,7 +237,15 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			txtTotalLembur.setText(stringFormatter.getCurrencyFormate(this.penggajian.getUangLembur()));
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data lembur karyawan atas nama {}", karyawan.getNama(), e);
-			notif.showDefaultErrorLoad("Lembur karyawan", e);
+
+			StringBuilder errorMessage = new StringBuilder("Tidak dapat menghitung jumlah lembur karyawan atas nama ");
+			errorMessage.append(karyawan.getNama()).append(" dengan NIP ").append(karyawan.getNip());
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Pencairan penggajian karyawan");
+			ex.setHeaderText(errorMessage.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 
 		this.cicilanMotor = karyawan.getNgicilMotor();
@@ -233,7 +253,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 		if (cicilanMotor != null && cicilanMotor.isSetuju()) {
 			this.pembayaranCicilanMotor = new PembayaranCicilanMotor();
 			this.pembayaranCicilanMotor.setTanggalBayar(Date.valueOf(LocalDate.now()));
-			this.pembayaranCicilanMotor.setAngsuranKe(cicilanMotor.getDaftarCicilan().size() + 1);
+			this.pembayaranCicilanMotor.setAngsuranKe(serviceCicilanMotor.findByMotor(cicilanMotor).size() + 1);
 			this.pembayaranCicilanMotor.setBayar(cicilanMotor.getPembayaran());
 			this.pembayaranCicilanMotor.setMotor(cicilanMotor);
 			bayarCicilanMotor = this.pembayaranCicilanMotor.getBayar();
@@ -288,15 +308,24 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			}
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data karyawan yang belum menerima gaji pada bulan {}",
-					LocalDate.now().toString());
-			notif.showDefaultErrorLoad("Data karyawan", e);
+					stringFormatter.getDateIndonesionFormatterOnlyYearAndMonth(LocalDate.now()));
+
+			StringBuilder errorMessage = new StringBuilder(
+					"Tidak dapat mendapatkan data karyawan yang belum menerima gaji pada bulan ");
+			errorMessage.append(stringFormatter.getDateIndonesionFormatterOnlyYearAndMonth(LocalDate.now()));
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Pencairan penggajian karyawan");
+			ex.setHeaderText(errorMessage.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
-	@Autowired
 	@Override
 	public void setNotificationDialog(DialogsFX notif) {
-		this.notif = notif;
+
 	}
 
 	@Override
@@ -326,14 +355,29 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	public void doSave(ActionEvent event) {
 		try {
 			servicePenggajian.save(this.penggajian);
-			notif.showDefaultSave("Penggajian Karyawan");
+			DataKaryawan karyawan = this.penggajian.getKaryawan();
+
 			logger.info("Penggajian karyawan atas nama {} sebesar {} berhasil disimpan",
 					this.penggajian.getKaryawan().getNama(), txtTotal.getText());
+
+			StringBuilder saveMessage = new StringBuilder("Penggajian karyawan atas nama ");
+			saveMessage.append(karyawan.getNama()).append(" dengan NIP ").append(karyawan.getNip()).append(" sebesar ")
+					.append(txtTotal.getText());
+			Notifications.create().title("Pencairan gaji karyawan").text(saveMessage.toString())
+					.hideAfter(Duration.seconds(3D)).position(Pos.BOTTOM_RIGHT).showInformation();
+
 			if (this.cicilanMotor != null) {
 				serviceCicilanMotor.save(this.pembayaranCicilanMotor);
-				notif.showDefaultSave("Uang prestasi");
 				logger.info("Penyerahan uang prestasi kepada karyawan atas nama {} sebesar {} untuk cicilan ke {}",
 						this.penggajian.getKaryawan().getNama(), txtUangPrestasi.getText(), txtCicilanKe.getText());
+
+				StringBuilder saveCicilanMessage = new StringBuilder(
+						"Pembayaran angsuran prestasi karyawan atas nama ");
+				saveMessage.append(karyawan.getNama()).append(" dengan NIP ").append(karyawan.getNip())
+						.append(" sebesar ").append(txtUangPrestasi.getText()).append(" angsuran ke ")
+						.append(txtCicilanKe.getText());
+				Notifications.create().title("Pencairan gaji karyawan").text(saveCicilanMessage.toString())
+						.hideAfter(Duration.seconds(3D)).position(Pos.BOTTOM_RIGHT).showInformation();
 			}
 
 			printed(this.penggajian, this.pembayaranCicilanMotor);
@@ -341,12 +385,25 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 		} catch (Exception e) {
 			logger.error("Tidak dapat menyimpan penggajian karyawan atas nama {} sebesar {}",
 					this.penggajian.getKaryawan().getNama(), txtTotal.getText());
-			notif.showDefaultErrorSave("Data penggajian karyawan", e);
+
+			StringBuilder errorMessage = new StringBuilder("Tidak dapat mengimpan penggajian karyawan atas nama ");
+			errorMessage.append(this.penggajian.getKaryawan().getNama());
+			errorMessage.append(" dengan NIP ").append(this.penggajian.getKaryawan().getNip());
+			errorMessage.append(" pada bulan ")
+					.append(stringFormatter.getDateIndonesionFormatterOnlyYearAndMonth(LocalDate.now()));
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Pencairan penggajian karyawan");
+			ex.setHeaderText(errorMessage.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
 	private void printed(Penggajian gaji, PembayaranCicilanMotor cicilan) {
-		notif.showNotificationInformation("Cetak Laporan", "Laporan daftar gaji karyawan akan dicetak!");
+
+		Notifications.create().title("Pencairan gaji karyawan").text("Mencetak dokument penggajian karyawan!")
+				.hideAfter(Duration.seconds(3D)).position(Pos.BOTTOM_RIGHT).showInformation();
 		try {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			DataKaryawan karyawan = gaji.getKaryawan();
@@ -365,7 +422,14 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			print.doPrinted();
 		} catch (JRException e) {
 			logger.error("Tidak dapat print dokument", e);
-			e.printStackTrace();
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Pencairan penggajian karyawan");
+			ex.setHeaderText("Tidak dapat mencetak dokument penggajian karyawan atas nama "
+					+ gaji.getKaryawan().getNama() + " dengan NIP " + gaji.getKaryawan().getNip());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
