@@ -124,3 +124,6 @@ nbactions.xml
 # jasper report
 
 *.jasper
+
+# loggin 
+*.log
