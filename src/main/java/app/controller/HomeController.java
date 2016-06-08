@@ -14,6 +14,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import app.configs.FontIconFactory;
 import app.controller.absensi.AbsensiFormController;
 import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
@@ -28,6 +29,7 @@ import app.controller.penggajian.PenggajianKaryawanPencairanDanaController;
 import app.controller.prestasi.AngsuranPrestasiListController;
 import app.controller.prestasi.AngsuranPrestasiPengajuanFormController;
 import app.controller.prestasi.AngsuranPrestasiPersetujuanFormController;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -96,8 +98,6 @@ public class HomeController implements BootInitializable {
 	@Autowired
 	private PenggajianKaryawanDaftarController listPenggajian;
 
-	private ApplicationContext springContext;
-
 	@FXML
 	private MenuBar mnuBarAplikasi;
 	@FXML
@@ -143,6 +143,8 @@ public class HomeController implements BootInitializable {
 	@FXML
 	private Menu mnuKeamananUser;
 	@FXML
+	private Button mniButtonHome;
+	@FXML
 	private Button mniButtonLogin;
 	@FXML
 	private Button mniButtonJabatan;
@@ -173,6 +175,8 @@ public class HomeController implements BootInitializable {
 	@FXML
 	private Button mniButtonExit;
 
+	private ApplicationContext springContext;
+
 	public void setLayout(Node anNode) {
 		DoubleProperty opacity = anNode.opacityProperty();
 		anNode.setOpacity(0.0);
@@ -184,9 +188,53 @@ public class HomeController implements BootInitializable {
 
 	}
 
+	private void initIcons() {
+		FontIconFactory icon = springContext.getBean(FontIconFactory.class);
+		// left side navigation
+		icon.createFontAwesomeIcon32px(mniButtonHome, FontAwesomeIcon.HOME);
+		icon.createFontAwesomeIcon32px(mniButtonLogin, FontAwesomeIcon.SIGN_IN);
+		icon.createFontAwesomeIcon32px(mniButtonJabatan, FontAwesomeIcon.BUILDING_ALT);
+		icon.createFontAwesomeIcon32px(mniButtonKaryawan, FontAwesomeIcon.MALE);
+		icon.createFontAwesomeIcon32px(mniButtonAbsensi, FontAwesomeIcon.BOOK);
+
+		icon.createFontAwesomeIcon32px(mnuButtonKasbon, FontAwesomeIcon.GOOGLE_WALLET);
+		icon.createFontAwesomeIcon24px(mniButtonKasbonPengajuan, FontAwesomeIcon.ENVELOPE);
+		icon.createFontAwesomeIcon24px(mniButtonKasbonPersetujuan, FontAwesomeIcon.LEGAL);
+		icon.createFontAwesomeIcon24px(mniButtonKasbonPencairan, FontAwesomeIcon.MAIL_FORWARD);
+		icon.createFontAwesomeIcon24px(mniButtonKasbonPembayaran, FontAwesomeIcon.MAIL_REPLY);
+
+		icon.createFontAwesomeIcon32px(mnuButtonAnggsuran, FontAwesomeIcon.CC_VISA);
+		icon.createFontAwesomeIcon24px(mniButtonAngsuranPersetujuan, FontAwesomeIcon.LEGAL);
+		icon.createFontAwesomeIcon24px(mniButtonAngsuranPengajuan, FontAwesomeIcon.ENVELOPE);
+
+		icon.createFontAwesomeIcon32px(mniButtonPenggajian, FontAwesomeIcon.DOLLAR);
+		icon.createFontAwesomeIcon32px(mniButtonLogout, FontAwesomeIcon.SIGN_OUT);
+		icon.createFontAwesomeIcon32px(mniButtonExit, FontAwesomeIcon.POWER_OFF);
+
+		// top-side navigation
+		icon.createFontAwesomeIcon18px(mnuBarMaster, FontAwesomeIcon.DATABASE);
+		icon.createFontAwesomeIcon18px(mnuMasterKaryawan, FontAwesomeIcon.MALE);
+		icon.createFontAwesomeIcon18px(mnuMasterJabatan, FontAwesomeIcon.BUILDING_ALT);
+
+		icon.createFontAwesomeIcon18px(mnuBarKepegawaian, FontAwesomeIcon.UNIVERSITY);
+		icon.createFontAwesomeIcon18px(mniKepegAbsensi, FontAwesomeIcon.BOOK);
+
+		icon.createFontAwesomeIcon18px(mnuBarKepegKasbon, FontAwesomeIcon.GOOGLE_WALLET);
+		icon.createFontAwesomeIcon18px(mniKepegKasbonPengajuan, FontAwesomeIcon.ENVELOPE);
+		icon.createFontAwesomeIcon18px(mniKepegKasbonPersetujuan, FontAwesomeIcon.LEGAL);
+		icon.createFontAwesomeIcon18px(mniKepegKasbonPencairan, FontAwesomeIcon.MAIL_FORWARD);
+		icon.createFontAwesomeIcon18px(mniKepegKasbonPembayaran, FontAwesomeIcon.MAIL_REPLY);
+
+		icon.createFontAwesomeIcon18px(mnuBarKepegAngsuran, FontAwesomeIcon.CC_VISA);
+		icon.createFontAwesomeIcon18px(mniKepegAngsuranPersetujuan, FontAwesomeIcon.LEGAL);
+		icon.createFontAwesomeIcon18px(mniKepegAngsuranPengajuan, FontAwesomeIcon.ENVELOPE);
+
+		icon.createFontAwesomeIcon18px(mniKepegPenggajian, FontAwesomeIcon.DOLLAR);
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		initIcons();
 	}
 
 	@Override

@@ -1,9 +1,27 @@
 .button { 
 	-fx-background-color: transparent;
+	-fx-font-size: 12px;
+}
+
+.button:hover{
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
 }
 
 .menu-button { 
+	-fx-font-size: 12px;
 	-fx-background-color: transparent;
+}
+
+.menu-button:hover { 
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+}
+
+.menu-item { 
+	-fx-fill: BLACK;
+	-fx-font-size: 12px;
+	-fx-font-weight: normal;
 }
 
 .footer{
