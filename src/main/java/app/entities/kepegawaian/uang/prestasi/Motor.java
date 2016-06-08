@@ -133,7 +133,6 @@ public class Motor extends BasicEntity {
 		this.setuju = setuju;
 	}
 
-	@Deprecated
 	public List<PembayaranCicilanMotor> getDaftarCicilan() {
 		return daftarCicilan;
 	}

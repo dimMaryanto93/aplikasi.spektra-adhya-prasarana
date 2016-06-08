@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
+import org.controlsfx.dialog.ExceptionDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -31,6 +32,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.event.ActionEvent;
@@ -38,6 +40,7 @@ import javafx.event.ActionEvent;
 @Component
 public class AngsuranPrestasiListController implements BootInitializable {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	private ApplicationContext springContext;
 	@FXML
 	private TableView<DataKaryawan> tableKaryawan;
@@ -169,7 +172,6 @@ public class AngsuranPrestasiListController implements BootInitializable {
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -183,23 +185,32 @@ public class AngsuranPrestasiListController implements BootInitializable {
 
 	@Override
 	public void setStage(Stage stage) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void initConstuct() {
-		tableKaryawan.getItems().clear();
-		for (DataKaryawan karyawan : serviceKaryawan.findAll()) {
-			if (karyawan.isGettingCicilanMotorDisetujui()) {
-				tableKaryawan.getItems().add(karyawan);
+		try {
+			tableKaryawan.getItems().clear();
+			for (DataKaryawan karyawan : serviceKaryawan.findAll()) {
+				if (karyawan.isGettingCicilanMotorDisetujui()) {
+					tableKaryawan.getItems().add(karyawan);
+				}
 			}
+		} catch (Exception e) {
+			logger.error("Tidak dapat mendapatkan data karyawan yang pengajuan angsuran telah disetujui", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar angsuran prestasi");
+			ex.setHeaderText("Tidak dapat mendapatkan data karyawan yang pengajuan angsuran telah disetujui");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
 	@Override
 	public void setNotificationDialog(DialogsFX notif) {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+import org.controlsfx.dialog.ExceptionDialog;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -43,13 +45,16 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 @Component
 public class AngsuranPrestasiPengajuanFormController implements BootFormInitializable {
-	
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	private ApplicationContext springContext;
 	@FXML
 	private TableView<DataKaryawan> tableView;
@@ -105,7 +110,6 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 
 	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerUangMukaValueFactory;
 	private ValidationSupport validation;
-	private DialogsFX notif;
 
 	private void clearFields() {
 		txtKarywan.clear();
@@ -233,7 +237,7 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 		this.initValidator();
 	}
 
-	private void doSave(ActionEvent e, DataKaryawan karyawan) {
+	private void doSave(ActionEvent event, DataKaryawan karyawan) {
 		try {
 			this.motor.setMerkMotor(txtMerek.getText());
 			this.motor.setDp(txtUangMuka.getValueFactory().getValue());
@@ -244,13 +248,26 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 			dataKaryawan.setNgicilMotor(serviceMotor.findOne(this.motor.getId()));
 			this.serviceKaryawan.save(dataKaryawan);
 
-			notif.showDefaultSave("Data Pengajuan Uang Prestasi");
+			StringBuilder saveMessage = new StringBuilder("Penggajuan angsuran prestasi karyawan atas nama ");
+			saveMessage.append(karyawan.getNama()).append(" dengan NIP ").append(karyawan.getNip())
+					.append(", Berhasil disimpan!");
+			Notifications.create().title("Pengajuan angsuran prestasi karyawan").text(saveMessage.toString())
+					.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(3D)).showInformation();
 
 			initConstuct();
-		} catch (Exception e1) {
+		} catch (Exception e) {
 			logger.error("Tidak dapat menyimpan data pengajuan uang prestasi untuk karyawan dengan nama {}",
 					karyawan.getNama(), e);
-			notif.showDefaultErrorSave("Data Pengajuan Uang Prestasi", e1);
+
+			StringBuilder errorMessage = new StringBuilder(
+					"Tidak dapat menyimpan data pengajuan angsuran prestasi karyawan atas nama ");
+			errorMessage.append(karyawan.getNama()).append(" dengan NIP ").append(karyawan.getNip());
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Pengajuan angsuran prestasi karyawan");
+			ex.setHeaderText(errorMessage.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
@@ -261,7 +278,6 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -275,7 +291,6 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 
 	@Override
 	public void setStage(Stage stage) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -295,14 +310,19 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 			}
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data karayawan yang diperbolehkan mengajukan cicilan motor", e);
-			notif.showDefaultErrorLoad("Data Pengajuan Uang Prestasi", e);
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Pengajuan angsuran prestasi karyawan");
+			ex.setHeaderText("Tidak dapat mendapatkan data karayawan yang diperbolehkan mengajukan cicilan motor");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
 	@Override
-	@Autowired
 	public void setNotificationDialog(DialogsFX notif) {
-		this.notif = notif;
+
 	}
 
 	@FXML

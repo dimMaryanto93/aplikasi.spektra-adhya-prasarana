@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+import org.controlsfx.dialog.ExceptionDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -26,6 +28,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -33,7 +36,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 @Component
 public class AngsuranPrestasiPersetujuanFormController implements BootFormInitializable {
@@ -137,18 +142,39 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
 	}
 
-	private void doSave(ActionEvent e, DataKaryawan newValue) {
-		Motor m = newValue.getNgicilMotor();
-		m.setSetuju(true);
-		PembayaranCicilanMotor cicilanMotor = new PembayaranCicilanMotor();
-		cicilanMotor.setMotor(m);
-		cicilanMotor.setTanggalBayar(Date.valueOf(LocalDate.now()));
-		cicilanMotor.setBayar(m.getDp());
-		cicilanMotor.setAngsuranKe(1);
-		m.getDaftarCicilan().add(cicilanMotor);
+	private void doSave(ActionEvent event, DataKaryawan newValue) {
+		try {
+			Motor m = newValue.getNgicilMotor();
+			m.setSetuju(true);
+			PembayaranCicilanMotor cicilanMotor = new PembayaranCicilanMotor();
+			cicilanMotor.setMotor(m);
+			cicilanMotor.setTanggalBayar(Date.valueOf(LocalDate.now()));
+			cicilanMotor.setBayar(m.getDp());
+			cicilanMotor.setAngsuranKe(1);
+			m.getDaftarCicilan().add(cicilanMotor);
+			serviceMotor.save(m);
 
-		serviceMotor.save(m);
-		initConstuct();
+			StringBuilder saveMessage = new StringBuilder("Penggajuan angsuran prestasi karyawan atas nama ");
+			saveMessage.append(newValue.getNama()).append(" dengan NIP ").append(newValue.getNip())
+					.append(", Berhasil disimpan!");
+			Notifications.create().title("Pengajuan angsuran prestasi karyawan").text(saveMessage.toString())
+					.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(3D)).showInformation();
+
+			initConstuct();
+		} catch (Exception e) {
+			logger.error("Tidak dapat menyimpan data pengajuan uang prestasi untuk karyawan dengan nama {}",
+					newValue.getNama(), e);
+
+			StringBuilder errorMessage = new StringBuilder(
+					"Tidak dapat menyimpan data persetujuan angsuran prestasi karyawan atas nama ");
+			errorMessage.append(newValue.getNama()).append(" dengan NIP ").append(newValue.getNip());
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Pengajuan angsuran prestasi karyawan");
+			ex.setHeaderText(errorMessage.toString());
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
+		}
 	}
 
 	@Override
@@ -171,8 +197,7 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 
 	@Override
 	public void setStage(Stage stage) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -186,20 +211,24 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 			}
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan daftar karyawan yang siap untuk disetujui oleh direktur", e);
-			// TODO notification error
+
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Persetujuan angsuran prestasi karyawan");
+			ex.setHeaderText("Tidak dapat menampilkan daftar karyawan yang siap untuk disetujui oleh direktur");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
 	@Override
 	public void setNotificationDialog(DialogsFX notif) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void initValidator() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }
