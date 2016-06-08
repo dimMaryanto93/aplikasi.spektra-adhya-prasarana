@@ -21,7 +21,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.master.DataKaryawan;
@@ -318,11 +317,6 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 			ex.initModality(Modality.APPLICATION_MODAL);
 			ex.show();
 		}
-	}
-
-	@Override
-	public void setNotificationDialog(DialogsFX notif) {
-
 	}
 
 	@FXML

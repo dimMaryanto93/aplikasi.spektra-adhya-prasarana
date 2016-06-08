@@ -23,7 +23,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataAgama;
@@ -240,7 +239,7 @@ public class KaryawanFormController implements BootFormInitializable {
 
 	@FXML
 	public void doCancel(ActionEvent e) {
-		homeController.showEmployee();
+		homeController.showDaftarKaryawan();
 	}
 
 	public DataJenisKelamin getJenisKelamin() {
@@ -281,7 +280,7 @@ public class KaryawanFormController implements BootFormInitializable {
 			Notifications.create().title("Data Karyawan").text(pesanSimpan.toString()).hideAfter(Duration.seconds(3D))
 					.position(Pos.BOTTOM_RIGHT).showInformation();
 
-			homeController.showEmployee();
+			initConstuct();
 		} catch (Exception e) {
 			logger.error("Tidak dapat menambahkan data baru karyawan", e);
 
@@ -318,7 +317,7 @@ public class KaryawanFormController implements BootFormInitializable {
 			Notifications.create().title("Data Karyawan").text(pesanSimpan.toString()).hideAfter(Duration.seconds(3D))
 					.position(Pos.BOTTOM_RIGHT).showInformation();
 
-			homeController.showEmployee();
+			homeController.showDaftarKaryawan();
 		} catch (Exception e) {
 			logger.error("Tidak dapat menyimpan data karyawan", e);
 
@@ -374,12 +373,6 @@ public class KaryawanFormController implements BootFormInitializable {
 		} else {
 			newDataEmployee();
 		}
-	}
-
-	@Override
-	@Autowired
-	public void setNotificationDialog(DialogsFX notif) {
-
 	}
 
 	@Override

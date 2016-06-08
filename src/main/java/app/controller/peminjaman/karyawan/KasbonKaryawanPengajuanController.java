@@ -22,7 +22,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.PengajuanKasbon;
 import app.entities.master.DataKaryawan;
@@ -219,10 +218,6 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 			ex.initModality(Modality.APPLICATION_MODAL);
 			ex.show();
 		}
-	}
-
-	@Override
-	public void setNotificationDialog(DialogsFX notif) {
 	}
 
 	@Override

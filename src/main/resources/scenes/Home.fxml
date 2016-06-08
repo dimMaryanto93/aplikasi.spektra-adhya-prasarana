@@ -19,130 +19,213 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainLayout" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainLayout" maxHeight="1.7976931348623157E308"
+	maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.65"
+	xmlns:fx="http://javafx.com/fxml/1">
 	<top>
-      <GridPane BorderPane.alignment="CENTER">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <AnchorPane>
-               <children>
-            		<MenuBar prefHeight="50.0" prefWidth="874.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            			<menus>
-            				<Menu mnemonicParsing="false" text="Data Master">
-            					<items>
-            						<MenuItem mnemonicParsing="false" onAction="#showEmployee" text="Karyawan" />
-            						<MenuItem mnemonicParsing="false" onAction="#showDepartment" text="Jabatan" />
-            					</items>
-            				</Menu>
-            				<Menu mnemonicParsing="false" text="Kepegawaian">
-            					<items>
-            						<MenuItem mnemonicParsing="false" onAction="#showFormAbsensi" text="Absensi Karyawan" />
-            						<Menu mnemonicParsing="false" text="Kasbon Karyawan">
-            							<items>
-            								<MenuItem mnemonicParsing="false" onAction="#showPengajuanKasbon" text="Pengajuan" />
-            								<MenuItem mnemonicParsing="false" onAction="#showPersetujuanKasbon" text="Persetujuan oleh Direktur" />
-            								<MenuItem mnemonicParsing="false" onAction="#showPencairanDanaKasbon" text="Pencairan Dana" />
-            								<MenuItem mnemonicParsing="false" onAction="#showPembayaranKasbon" text="Pembayaran" />
-            							</items>
-            						</Menu>
-            						<Menu mnemonicParsing="false" text="Angsuran Prestasi">
-            							<items>
-            								<MenuItem mnemonicParsing="false" onAction="#showPengajuanCicilan" text="Pengajuan" />
-            								<MenuItem mnemonicParsing="false" onAction="#showPersetujuanCicilan" text="Persetujuan" />
-            							</items>
-            						</Menu>
-            						<MenuItem mnemonicParsing="false" onAction="#showFormPencairanDanaGaji" text="Penggajian Karyawan" />
-            					</items>
-            				</Menu>
-            				<Menu mnemonicParsing="false" text="Laporan">
-            					<items>
-            						<MenuItem mnemonicParsing="false" onAction="#showDaftarKehadiranKaryawan" text="Daftar Hadir Karyawan" />
-            						<MenuItem mnemonicParsing="false" onAction="#showDaftarKasbonKaryawan" text="Daftar Kasbon Karyawan" />
-            						<MenuItem mnemonicParsing="false" onAction="#showDaftarPembayaranCicilanMotor" text="Daftar Pembayaran Cicilan Motor" />
-            						<MenuItem mnemonicParsing="false" onAction="#showDaftarPenggajianKaryawan" text="Daftar Penggajian Karyawan" />
-            					</items>
-            				</Menu>
-            			</menus>
-            		</MenuBar>
-               </children>
-            </AnchorPane>
-            <AnchorPane GridPane.columnIndex="1">
-               <children>
-                  <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="50.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <menus>
-                        <Menu mnemonicParsing="false" text="Akses">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Masuk" />
-                              <MenuItem mnemonicParsing="false" text="Keluar" />
-                              <SeparatorMenuItem mnemonicParsing="false" />
-                              <MenuItem mnemonicParsing="false" onAction="#closed" text="Tutup" />
-                           </items>
-                        </Menu>
-                     </menus>
-                  </MenuBar>
-               </children>
-            </AnchorPane>
-         </children>
-      </GridPane>
+		<GridPane BorderPane.alignment="CENTER">
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0"
+					minWidth="300.0" prefWidth="300.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints maxHeight="35.0" minHeight="35.0"
+					prefHeight="35.0" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<AnchorPane>
+					<children>
+						<MenuBar fx:id="mnuBarAplikasi" prefHeight="50.0"
+							prefWidth="874.0" AnchorPane.bottomAnchor="0.0"
+							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+							AnchorPane.topAnchor="0.0">
+							<menus>
+								<Menu fx:id="mnuBarMaster" mnemonicParsing="false" text="Data Master">
+									<items>
+										<MenuItem fx:id="mnuMasterKaryawan" mnemonicParsing="false"
+											onAction="#showDaftarKaryawan" text="Karyawan" />
+										<MenuItem fx:id="mnuMasterJabatan" mnemonicParsing="false"
+											onAction="#showDaftarJabatan" text="Jabatan" />
+									</items>
+								</Menu>
+								<Menu fx:id="mnuBarKepegawaian" mnemonicParsing="false"
+									text="Kepegawaian">
+									<items>
+										<MenuItem fx:id="mniKepegAbsensi" mnemonicParsing="false"
+											onAction="#showFormAbsensi" text="Absensi Karyawan" />
+										<Menu fx:id="mnuBarKepegKasbon" mnemonicParsing="false"
+											text="Kasbon Karyawan">
+											<items>
+												<MenuItem fx:id="mniKepegKasbonPengajuan"
+													mnemonicParsing="false" onAction="#showPengajuanKasbon"
+													text="Pengajuan" />
+												<MenuItem fx:id="mniKepegKasbonPersetujuan"
+													mnemonicParsing="false" onAction="#showPersetujuanKasbon"
+													text="Persetujuan oleh Direktur" />
+												<MenuItem fx:id="mniKepegKasbonPencairan"
+													mnemonicParsing="false" onAction="#showPencairanDanaKasbon"
+													text="Pencairan Dana" />
+												<SeparatorMenuItem mnemonicParsing="false" />
+												<MenuItem fx:id="mniKepegKasbonPembayaran"
+													mnemonicParsing="false" onAction="#showPembayaranKasbon"
+													text="Pembayaran" />
+											</items>
+										</Menu>
+										<Menu fx:id="mnuBarKepegAngsuran" mnemonicParsing="false"
+											text="Angsuran Prestasi">
+											<items>
+												<MenuItem fx:id="mniKepegAngsuranPengajuan"
+													mnemonicParsing="false" onAction="#showPengajuanCicilan"
+													text="Pengajuan" />
+												<MenuItem fx:id="mniKepegAngsuranPersetujuan"
+													mnemonicParsing="false" onAction="#showPersetujuanCicilan"
+													text="Persetujuan" />
+											</items>
+										</Menu>
+										<MenuItem fx:id="mniKepegPenggajian" mnemonicParsing="false"
+											onAction="#showFormPencairanDanaGaji" text="Penggajian Karyawan" />
+									</items>
+								</Menu>
+								<Menu fx:id="mnuBarLaporan" mnemonicParsing="false" text="Laporan">
+									<items>
+										<MenuItem fx:id="mniLaporanAbsensi" mnemonicParsing="false"
+											onAction="#showDaftarKehadiranKaryawan" text="Daftar Hadir Karyawan" />
+										<MenuItem fx:id="mniLaporanKasbon" mnemonicParsing="false"
+											onAction="#showDaftarKasbonKaryawan" text="Daftar Kasbon Karyawan" />
+										<MenuItem fx:id="mniLaporanAngsuran" mnemonicParsing="false"
+											onAction="#showDaftarPembayaranCicilanMotor" text="Daftar Pembayaran Cicilan Motor" />
+										<MenuItem fx:id="mniLaporanPenggajian"
+											mnemonicParsing="false" onAction="#showDaftarPenggajianKaryawan"
+											text="Daftar Penggajian Karyawan" />
+									</items>
+								</Menu>
+							</menus>
+						</MenuBar>
+					</children>
+				</AnchorPane>
+				<AnchorPane GridPane.columnIndex="1">
+					<children>
+						<MenuBar fx:id="mnuBarKeamanan" nodeOrientation="RIGHT_TO_LEFT"
+							prefHeight="50.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0"
+							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+							AnchorPane.topAnchor="0.0">
+							<menus>
+								<Menu fx:id="mnuKeamananUser" mnemonicParsing="false" text="Username">
+									<items>
+										<MenuItem mnemonicParsing="false" text="Keluar" />
+										<MenuItem mnemonicParsing="false" onAction="#closed"
+											text="Tutup" />
+									</items>
+								</Menu>
+							</menus>
+						</MenuBar>
+					</children>
+				</AnchorPane>
+			</children>
+		</GridPane>
 	</top>
-   <left>
-      <AnchorPane prefHeight="615.0" prefWidth="150.0" BorderPane.alignment="CENTER">
-         <children>
-            <TitledPane alignment="CENTER" animated="false" collapsible="false" prefHeight="621.0" prefWidth="150.0" styleClass="menu-icon" text="Menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" stylesheets="@../stylesheet/home.css">
-                           <children>
-                              <Button maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" prefHeight="50.0" text="Jabatan" />
-                              <Button layoutX="15.0" layoutY="15.0" maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" prefHeight="50.0" text="Karyawan" />
-                              <Separator prefWidth="200.0" />
-                              <Button layoutX="15.0" layoutY="125.0" maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" prefHeight="50.0" text="Absen" />
-                              <MenuButton alignment="CENTER" maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="50.0" text="Kasbon">
-                                <items>
-                                  <MenuItem mnemonicParsing="false" text="Pengajuan Kasbon Karyawan" />
-                                  <MenuItem mnemonicParsing="false" text="Persetujuan oleh direktur" />
-                                    <MenuItem mnemonicParsing="false" text="Pencairan dana kasbon karyawan" />
-                                    <SeparatorMenuItem mnemonicParsing="false" />
-                                    <MenuItem mnemonicParsing="false" text="Pembayaran kasbon karyawan" />
-                                </items>
-                              </MenuButton>
-                              <MenuButton alignment="CENTER" layoutX="15.0" layoutY="188.0" maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="50.0" text="Angsuran Prestasi">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Pengajuan Angsuran Cicilan Kendaraan Bermotor" />
-                                    <MenuItem mnemonicParsing="false" text="Persetujuan &amp; Pengerahan DP cicilan angsuran kendaraan bermotor" />
-                                 </items>
-                              </MenuButton>
-                              <Button layoutX="15.0" layoutY="15.0" maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" prefHeight="50.0" text="Penggajian" />
-                           </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
-               </content>
-            </TitledPane>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </AnchorPane>
-   </left>
-   <bottom>
-      <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="1024.0" spacing="10.0" styleClass="footer" stylesheets="@../stylesheet/home.css" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="footer-label" text="© Copyright 2016, All right reserved" />
-         </children>
-      </HBox>
-   </bottom>
+	<left>
+		<AnchorPane prefHeight="575.0" prefWidth="200.0"
+			BorderPane.alignment="CENTER">
+			<children>
+				<TitledPane alignment="CENTER" animated="false"
+					collapsible="false" focusTraversable="false" prefHeight="621.0"
+					prefWidth="150.0" styleClass="menu-icon" text="Menu"
+					AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+					AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+					<content>
+						<ScrollPane fitToHeight="true" fitToWidth="true"
+							hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+							<content>
+								<VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0"
+									stylesheets="@../stylesheet/home.css">
+									<children>
+										<Button fx:id="mniButtonLogin" layoutX="15.0" layoutY="23.0"
+											maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0"
+											mnemonicParsing="false" prefHeight="50.0" text="Sign in" />
+										<Separator layoutX="15.0" layoutY="125.0" prefWidth="200.0" />
+										<Button fx:id="mniButtonJabatan" maxHeight="50.0"
+											maxWidth="1.7976931348623157E308" minHeight="50.0"
+											mnemonicParsing="false" prefHeight="50.0" text="Jabatan" />
+										<Button fx:id="mniButtonKaryawan" layoutX="15.0"
+											layoutY="15.0" maxHeight="50.0" maxWidth="1.7976931348623157E308"
+											minHeight="50.0" mnemonicParsing="false" prefHeight="50.0"
+											text="Karyawan" />
+										<Separator prefWidth="200.0" />
+										<Button fx:id="mniButtonAbsensi" layoutX="15.0"
+											layoutY="125.0" maxHeight="50.0" maxWidth="1.7976931348623157E308"
+											minHeight="50.0" mnemonicParsing="false" prefHeight="50.0"
+											text="Absen" />
+										<MenuButton fx:id="mnuButtonKasbon" alignment="CENTER"
+											maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0"
+											mnemonicParsing="false" popupSide="RIGHT" prefHeight="50.0"
+											text="Kasbon">
+											<items>
+												<MenuItem fx:id="mniButtonKasbonPengajuan"
+													mnemonicParsing="false" text="Pengajuan Kasbon Karyawan" />
+												<MenuItem fx:id="mniButtonKasbonPersetujuan"
+													mnemonicParsing="false" text="Persetujuan oleh direktur" />
+												<MenuItem fx:id="mniButtonKasbonPencairan"
+													mnemonicParsing="false" text="Pencairan dana kasbon karyawan" />
+												<SeparatorMenuItem mnemonicParsing="false" />
+												<MenuItem fx:id="mniButtonKasbonPembayaran"
+													mnemonicParsing="false" text="Pembayaran kasbon karyawan" />
+											</items>
+										</MenuButton>
+										<MenuButton fx:id="mnuButtonAnggsuran" alignment="CENTER"
+											layoutX="15.0" layoutY="188.0" maxHeight="50.0"
+											maxWidth="1.7976931348623157E308" minHeight="50.0"
+											mnemonicParsing="false" popupSide="RIGHT" prefHeight="50.0"
+											text="Angsuran Prestasi">
+											<items>
+												<MenuItem fx:id="mniButtonAngsuranPengajuan"
+													mnemonicParsing="false"
+													text="Pengajuan Angsuran Cicilan Kendaraan Bermotor" />
+												<MenuItem fx:id="mniButtonAngsuranPersetujuan"
+													mnemonicParsing="false"
+													text="Persetujuan &amp; Pengerahan DP cicilan angsuran kendaraan bermotor" />
+											</items>
+										</MenuButton>
+										<Button fx:id="mniButtonPenggajian" layoutX="15.0"
+											layoutY="15.0" maxHeight="50.0" maxWidth="1.7976931348623157E308"
+											minHeight="50.0" mnemonicParsing="false" prefHeight="50.0"
+											text="Penggajian" />
+										<Separator layoutX="15.0" layoutY="70.0" prefWidth="200.0" />
+										<Button fx:id="mniButtonLogout" layoutX="15.0" layoutY="15.0"
+											maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0"
+											mnemonicParsing="false" prefHeight="50.0" text="Logout" />
+										<Button fx:id="mniButtonExit" layoutX="15.0" layoutY="424.0"
+											maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0"
+											mnemonicParsing="false" onAction="#closed" prefHeight="50.0"
+											text="Exit" />
+									</children>
+									<padding>
+										<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+									</padding>
+								</VBox>
+							</content>
+						</ScrollPane>
+					</content>
+				</TitledPane>
+			</children>
+			<padding>
+				<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+			</padding>
+		</AnchorPane>
+	</left>
+	<bottom>
+		<HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="1024.0"
+			spacing="10.0" styleClass="footer" stylesheets="@../stylesheet/home.css"
+			BorderPane.alignment="CENTER">
+			<padding>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+			</padding>
+			<children>
+				<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="footer-label"
+					text="© Copyright 2016, All right reserved" />
+			</children>
+		</HBox>
+	</bottom>
 </BorderPane>

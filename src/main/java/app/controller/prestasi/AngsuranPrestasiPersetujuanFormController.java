@@ -17,7 +17,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
@@ -197,7 +196,7 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 
 	@Override
 	public void setStage(Stage stage) {
-		
+
 	}
 
 	@Override
@@ -222,13 +221,8 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 	}
 
 	@Override
-	public void setNotificationDialog(DialogsFX notif) {
-		
-	}
-
-	@Override
 	public void initValidator() {
-		
+
 	}
 
 }

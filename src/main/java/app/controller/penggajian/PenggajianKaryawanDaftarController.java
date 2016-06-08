@@ -24,9 +24,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.DialogsFX;
-import app.configs.StringFormatterFactory;
 import app.configs.PrintConfig;
+import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.Penggajian;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryPenggajianKaryawan;
@@ -127,11 +126,6 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 
 	@Override
 	public void initConstuct() {
-
-	}
-
-	@Override
-	public void setNotificationDialog(DialogsFX notif) {
 
 	}
 

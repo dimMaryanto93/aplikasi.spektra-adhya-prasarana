@@ -19,7 +19,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
@@ -81,7 +80,6 @@ public class JabatanFormController implements BootFormInitializable {
 	@Autowired
 	private HomeController homeController;
 	private ValidationSupport validation;
-	private DialogsFX notif;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -192,7 +190,7 @@ public class JabatanFormController implements BootFormInitializable {
 			// log ke console
 			logger.info("Berhasil menyimpan data jabatan");
 
-			homeController.showDepartment();
+			homeController.showDaftarJabatan();
 		} catch (Exception e) {
 			logger.error("Tidak dapat melakukan perubahan data jabatan dengan nama: {}", jabatan.getKodeJabatan());
 
@@ -219,18 +217,12 @@ public class JabatanFormController implements BootFormInitializable {
 
 	@FXML
 	public void doCancel(ActionEvent event) {
-		homeController.showDepartment();
-	}
-
-	@Override
-	@Autowired
-	public void setNotificationDialog(DialogsFX notif) {
-		this.notif = notif;
+		homeController.showDaftarJabatan();
 	}
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
-		
+
 	}
 
 	@Override

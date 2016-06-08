@@ -14,7 +14,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
-import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
@@ -70,7 +69,6 @@ public class JabatanListController implements BootInitializable {
 	private TextArea txtKeterangan;
 	@FXML
 	private TextField txtGapok;
-	private DialogsFX notif;
 
 	public void setFields(DataJabatan j) {
 		if (j != null) {
@@ -172,7 +170,7 @@ public class JabatanListController implements BootInitializable {
 			tableView.getItems().addAll(service.findAll());
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan data jabatan", e);
-			notif.showDefaultErrorLoad("Data Jabatan", e);
+			// TODO message error load data
 		}
 	}
 
@@ -202,11 +200,6 @@ public class JabatanListController implements BootInitializable {
 	@FXML
 	public void doClearSelection(ActionEvent event) {
 		tableView.getSelectionModel().clearSelection();
-	}
-
-	@Override
-	public void setNotificationDialog(DialogsFX notif) {
-
 	}
 
 	@Override

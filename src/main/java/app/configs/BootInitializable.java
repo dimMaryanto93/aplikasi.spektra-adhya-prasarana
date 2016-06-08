@@ -17,7 +17,4 @@ public interface BootInitializable extends Initializable, ApplicationContextAwar
 
 	public void initConstuct();
 
-	@Deprecated
-	public void setNotificationDialog(DialogsFX notif);
-
 }

@@ -14,7 +14,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
-import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
 import app.entities.master.DataJabatan;
@@ -254,11 +253,6 @@ public class KaryawanListController implements BootInitializable {
 			ex.initModality(Modality.APPLICATION_MODAL);
 			ex.show();
 		}
-	}
-
-	@Override
-	public void setNotificationDialog(DialogsFX notif) {
-
 	}
 
 	@Override

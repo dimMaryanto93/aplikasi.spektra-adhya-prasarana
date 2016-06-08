@@ -16,13 +16,13 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.StringFormatterFactory;
-import app.configs.DialogsFX;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryCicilanMotor;
 import app.repositories.RepositoryKaryawan;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -35,7 +35,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.event.ActionEvent;
 
 @Component
 public class AngsuranPrestasiListController implements BootInitializable {
@@ -207,11 +206,6 @@ public class AngsuranPrestasiListController implements BootInitializable {
 			ex.initModality(Modality.APPLICATION_MODAL);
 			ex.show();
 		}
-	}
-
-	@Override
-	public void setNotificationDialog(DialogsFX notif) {
-
 	}
 
 	@FXML

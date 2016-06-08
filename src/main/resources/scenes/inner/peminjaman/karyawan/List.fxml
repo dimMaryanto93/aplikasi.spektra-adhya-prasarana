@@ -19,8 +19,8 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-	prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+	prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<top>
 		<HBox alignment="CENTER_LEFT" spacing="10.0"
 			style="-fx-background-color: GRAY;" BorderPane.alignment="CENTER">
@@ -63,12 +63,12 @@
 	<center>
 		<GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
 			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" />
 				<ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0"
 					minWidth="120.0" prefWidth="120.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
-					minWidth="150.0" prefWidth="150.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308"
-					minWidth="-Infinity" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0"
+					minWidth="200.0" prefWidth="200.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
 			</columnConstraints>
 			<rowConstraints>
 				<RowConstraints maxHeight="30.0" minHeight="30.0"
@@ -131,8 +131,7 @@
 					</children>
 				</AnchorPane>
 				<AnchorPane layoutX="150.0" layoutY="20.0"
-					GridPane.columnIndex="1" GridPane.columnSpan="2147483647"
-					GridPane.rowIndex="1">
+					GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
 					<children>
 						<TextField fx:id="txtJabatan" editable="false"
 							prefHeight="30.0" prefWidth="171.0" promptText="Jabatan"

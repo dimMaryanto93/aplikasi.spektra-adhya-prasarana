@@ -17,7 +17,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
-import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.master.DataKaryawan;
@@ -31,10 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -45,7 +41,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 @Component
 public class AbsensiFormController implements BootInitializable {
@@ -69,9 +64,6 @@ public class AbsensiFormController implements BootInitializable {
 	private TableColumn<KehadiranKaryawan, String> columnNama;
 	@FXML
 	private TableColumn<KehadiranKaryawan, Boolean> columnAbsen;
-
-	@Deprecated
-	private DialogsFX notif;
 
 	private Stage stage;
 
@@ -270,12 +262,6 @@ public class AbsensiFormController implements BootInitializable {
 				setGraphic(null);
 			}
 		}
-	}
-
-	@Override
-	@Autowired
-	public void setNotificationDialog(DialogsFX notif) {
-		this.notif = notif;
 	}
 
 	@Override

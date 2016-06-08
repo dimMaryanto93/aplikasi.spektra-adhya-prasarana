@@ -3,8 +3,6 @@ package app.controller.absensi;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.controlsfx.dialog.ExceptionDialog;
@@ -17,7 +15,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
-import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.master.DataKaryawan;
@@ -26,6 +23,7 @@ import app.repositories.RepositoryAbsensi;
 import app.repositories.RepositoryKaryawan;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -33,14 +31,13 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.event.ActionEvent;
 
 @Component
 public class AbsensiListController implements BootInitializable {
@@ -265,10 +262,7 @@ public class AbsensiListController implements BootInitializable {
 		loadDataKaryawan();
 	}
 
-	@Override
-	@Autowired
-	public void setNotificationDialog(DialogsFX notif) {
-	}
+	
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {

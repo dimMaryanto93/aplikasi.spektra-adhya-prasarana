@@ -20,7 +20,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.DialogsFX;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.kepegawaian.PengajuanKasbon;
@@ -29,26 +28,26 @@ import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryKasbonKaryawan;
 import app.repositories.RepositoryPengajuanKasbonKaryawan;
 import app.service.ServiceKasbonKaryawan;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Control;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Control;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.event.ActionEvent;
 
 @Component
 public class KasbonKaryawanPersetujuanDirekturController implements BootFormInitializable {
@@ -269,11 +268,6 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 	}
 
 	@Override
-	public void setNotificationDialog(DialogsFX notif) {
-
-	}
-
-	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.springContext = applicationContext;
 	}
@@ -310,7 +304,7 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 				try {
 					kasbon.setAccepted(true);
 					repoPengajuanKasbon.save(kasbon);
-					
+
 					StringBuilder saveMessage = new StringBuilder("Persetujuan kasbon karyawan atas nama ");
 					saveMessage.append(karyawan.getNama()).append(" dengan NIP ").append(karyawan.getNip());
 					saveMessage.append(" sebesar ").append(stringFormatter.getCurrencyFormate(kasbon.getNominal()))

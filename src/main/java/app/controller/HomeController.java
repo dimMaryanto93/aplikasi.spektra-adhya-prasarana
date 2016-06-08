@@ -14,7 +14,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
-import app.configs.DialogsFX;
 import app.controller.absensi.AbsensiFormController;
 import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
@@ -38,6 +37,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -94,6 +98,81 @@ public class HomeController implements BootInitializable {
 
 	private ApplicationContext springContext;
 
+	@FXML
+	private MenuBar mnuBarAplikasi;
+	@FXML
+	private Menu mnuBarMaster;
+	@FXML
+	private MenuItem mnuMasterKaryawan;
+	@FXML
+	private MenuItem mnuMasterJabatan;
+	@FXML
+	private Menu mnuBarKepegawaian;
+	@FXML
+	private MenuItem mniKepegAbsensi;
+	@FXML
+	private Menu mnuBarKepegKasbon;
+	@FXML
+	private MenuItem mniKepegKasbonPengajuan;
+	@FXML
+	private MenuItem mniKepegKasbonPersetujuan;
+	@FXML
+	private MenuItem mniKepegKasbonPencairan;
+	@FXML
+	private MenuItem mniKepegKasbonPembayaran;
+	@FXML
+	private Menu mnuBarKepegAngsuran;
+	@FXML
+	private MenuItem mniKepegAngsuranPengajuan;
+	@FXML
+	private MenuItem mniKepegAngsuranPersetujuan;
+	@FXML
+	private MenuItem mniKepegPenggajian;
+	@FXML
+	private Menu mnuBarLaporan;
+	@FXML
+	private MenuItem mniLaporanAbsensi;
+	@FXML
+	private MenuItem mniLaporanKasbon;
+	@FXML
+	private MenuItem mniLaporanAngsuran;
+	@FXML
+	private MenuItem mniLaporanPenggajian;
+	@FXML
+	private MenuBar mnuBarKeamanan;
+	@FXML
+	private Menu mnuKeamananUser;
+	@FXML
+	private Button mniButtonLogin;
+	@FXML
+	private Button mniButtonJabatan;
+	@FXML
+	private Button mniButtonKaryawan;
+	@FXML
+	private Button mniButtonAbsensi;
+	@FXML
+	private MenuButton mnuButtonKasbon;
+	@FXML
+	private MenuItem mniButtonKasbonPengajuan;
+	@FXML
+	private MenuItem mniButtonKasbonPersetujuan;
+	@FXML
+	private MenuItem mniButtonKasbonPencairan;
+	@FXML
+	private MenuItem mniButtonKasbonPembayaran;
+	@FXML
+	private MenuButton mnuButtonAnggsuran;
+	@FXML
+	private MenuItem mniButtonAngsuranPengajuan;
+	@FXML
+	private MenuItem mniButtonAngsuranPersetujuan;
+	@FXML
+	private Button mniButtonPenggajian;
+	@FXML
+	private Button mniButtonLogout;
+	@FXML
+	private Button mniButtonExit;
+
 	public void setLayout(Node anNode) {
 		DoubleProperty opacity = anNode.opacityProperty();
 		anNode.setOpacity(0.0);
@@ -134,7 +213,7 @@ public class HomeController implements BootInitializable {
 	}
 
 	@FXML
-	public void showEmployee() {
+	public void showDaftarKaryawan() {
 		try {
 			setLayout(listKaryawan.initView());
 			listKaryawan.initConstuct();
@@ -150,7 +229,7 @@ public class HomeController implements BootInitializable {
 	}
 
 	@FXML
-	public void showDepartment() {
+	public void showDaftarJabatan() {
 		try {
 			setLayout(listJabatan.initView());
 			listJabatan.initConstuct();
@@ -167,11 +246,6 @@ public class HomeController implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
-	}
-
-	@Override
-	public void setNotificationDialog(DialogsFX notif) {
-
 	}
 
 	@Override

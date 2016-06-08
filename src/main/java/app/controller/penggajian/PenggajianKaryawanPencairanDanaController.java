@@ -24,9 +24,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
-import app.configs.DialogsFX;
-import app.configs.StringFormatterFactory;
 import app.configs.PrintConfig;
+import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.kepegawaian.Penggajian;
 import app.entities.kepegawaian.uang.prestasi.Motor;
@@ -321,11 +320,6 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			ex.initModality(Modality.APPLICATION_MODAL);
 			ex.show();
 		}
-	}
-
-	@Override
-	public void setNotificationDialog(DialogsFX notif) {
-
 	}
 
 	@Override
