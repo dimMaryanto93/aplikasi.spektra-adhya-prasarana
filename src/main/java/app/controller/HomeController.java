@@ -58,43 +58,30 @@ public class HomeController implements BootInitializable {
 
 	@Autowired
 	private KaryawanListController listKaryawan;
-
 	@Autowired
 	private JabatanListController listJabatan;
-
 	@Autowired
 	private AbsensiListController listAbsen;
-
 	@Autowired
 	private KasbonKaryawanListController listKasbon;
-
 	@Autowired
 	private KasbonKaryawanPengajuanController formKasbonPengajuan;
-
 	@Autowired
 	private KasbonKaryawanPersetujuanDirekturController formKasbonPersetujuan;
-
 	@Autowired
 	private KasbonKaryawanPencairanDanaController formKasbonPencairan;
-
 	@Autowired
 	private KasbonKaryawanPembayaranController formKasbonPembayaran;
-
 	@Autowired
 	private AngsuranPrestasiPengajuanFormController formPengajuanCicilan;
-
 	@Autowired
 	private AbsensiFormController formAbsensi;
-
 	@Autowired
 	private AngsuranPrestasiPersetujuanFormController formPersetujuanCicilanMotor;
-
 	@Autowired
 	private PenggajianKaryawanPencairanDanaController formPencairanDanaGaji;
-
 	@Autowired
 	private AngsuranPrestasiListController listCicilanMotor;
-
 	@Autowired
 	private PenggajianKaryawanDaftarController listPenggajian;
 
@@ -174,6 +161,12 @@ public class HomeController implements BootInitializable {
 	private Button mniButtonLogout;
 	@FXML
 	private Button mniButtonExit;
+	@FXML
+	private MenuItem mniBarKeamananProfile;
+	@FXML
+	private MenuItem mniBarKeamananLogout;
+	@FXML
+	private MenuItem mniBarKeamananExit;
 
 	private ApplicationContext springContext;
 
@@ -182,7 +175,7 @@ public class HomeController implements BootInitializable {
 		anNode.setOpacity(0.0);
 		mainLayout.setCenter(anNode);
 		Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-				new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
+				new KeyFrame(new Duration(3000), new KeyValue(opacity, 1.0)));
 		fadeIn.play();
 		mainLayout.getCenter().autosize();
 
@@ -198,12 +191,14 @@ public class HomeController implements BootInitializable {
 		icon.createFontAwesomeIcon32px(mniButtonAbsensi, FontAwesomeIcon.BOOK);
 
 		icon.createFontAwesomeIcon32px(mnuButtonKasbon, FontAwesomeIcon.GOOGLE_WALLET);
+		// menu item kasbon
 		icon.createFontAwesomeIcon24px(mniButtonKasbonPengajuan, FontAwesomeIcon.ENVELOPE);
 		icon.createFontAwesomeIcon24px(mniButtonKasbonPersetujuan, FontAwesomeIcon.LEGAL);
 		icon.createFontAwesomeIcon24px(mniButtonKasbonPencairan, FontAwesomeIcon.MAIL_FORWARD);
 		icon.createFontAwesomeIcon24px(mniButtonKasbonPembayaran, FontAwesomeIcon.MAIL_REPLY);
 
 		icon.createFontAwesomeIcon32px(mnuButtonAnggsuran, FontAwesomeIcon.CC_VISA);
+		// menu item angsuran
 		icon.createFontAwesomeIcon24px(mniButtonAngsuranPersetujuan, FontAwesomeIcon.LEGAL);
 		icon.createFontAwesomeIcon24px(mniButtonAngsuranPengajuan, FontAwesomeIcon.ENVELOPE);
 
@@ -211,25 +206,34 @@ public class HomeController implements BootInitializable {
 		icon.createFontAwesomeIcon32px(mniButtonLogout, FontAwesomeIcon.SIGN_OUT);
 		icon.createFontAwesomeIcon32px(mniButtonExit, FontAwesomeIcon.POWER_OFF);
 
-		// top-side navigation
+		// top-side navigation left
 		icon.createFontAwesomeIcon18px(mnuBarMaster, FontAwesomeIcon.DATABASE);
+		// menu item data master
 		icon.createFontAwesomeIcon18px(mnuMasterKaryawan, FontAwesomeIcon.MALE);
 		icon.createFontAwesomeIcon18px(mnuMasterJabatan, FontAwesomeIcon.BUILDING_ALT);
 
 		icon.createFontAwesomeIcon18px(mnuBarKepegawaian, FontAwesomeIcon.UNIVERSITY);
 		icon.createFontAwesomeIcon18px(mniKepegAbsensi, FontAwesomeIcon.BOOK);
-
 		icon.createFontAwesomeIcon18px(mnuBarKepegKasbon, FontAwesomeIcon.GOOGLE_WALLET);
+		// menu item kepegawaian kasbon
 		icon.createFontAwesomeIcon18px(mniKepegKasbonPengajuan, FontAwesomeIcon.ENVELOPE);
 		icon.createFontAwesomeIcon18px(mniKepegKasbonPersetujuan, FontAwesomeIcon.LEGAL);
 		icon.createFontAwesomeIcon18px(mniKepegKasbonPencairan, FontAwesomeIcon.MAIL_FORWARD);
 		icon.createFontAwesomeIcon18px(mniKepegKasbonPembayaran, FontAwesomeIcon.MAIL_REPLY);
-
+		// menu item kepegawaian angsuran
 		icon.createFontAwesomeIcon18px(mnuBarKepegAngsuran, FontAwesomeIcon.CC_VISA);
 		icon.createFontAwesomeIcon18px(mniKepegAngsuranPersetujuan, FontAwesomeIcon.LEGAL);
 		icon.createFontAwesomeIcon18px(mniKepegAngsuranPengajuan, FontAwesomeIcon.ENVELOPE);
 
 		icon.createFontAwesomeIcon18px(mniKepegPenggajian, FontAwesomeIcon.DOLLAR);
+		icon.createFontAwesomeIcon18px(mnuBarLaporan, FontAwesomeIcon.PRINT);
+		// menu item laporan
+
+		// top-side navigation right
+		icon.createFontAwesomeIcon18px(mnuKeamananUser, FontAwesomeIcon.USER);
+		icon.createFontAwesomeIcon18px(mniBarKeamananProfile, FontAwesomeIcon.COGS);
+		icon.createFontAwesomeIcon18px(mniBarKeamananExit, FontAwesomeIcon.POWER_OFF);
+		icon.createFontAwesomeIcon18px(mniBarKeamananLogout, FontAwesomeIcon.SIGN_OUT);
 	}
 
 	@Override

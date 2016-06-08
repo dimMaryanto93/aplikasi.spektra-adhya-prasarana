@@ -3,6 +3,7 @@ package app;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.controlsfx.control.Notifications;
 import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,8 +79,9 @@ public class MainApplication extends Application {
 					HomeController scene = springContext.getBean(HomeController.class);
 					Stage stage = springContext.getBean(Stage.class);
 
-					Parent parent = (Parent) scene.initView();					
+					Parent parent = (Parent) scene.initView();
 					stage.setScene(new Scene(parent));
+					stage.setResizable(false);
 					stage.show();
 					loger.info("JavaFX started, have nice day sir!");
 				} catch (IOException e) {
