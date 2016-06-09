@@ -22,6 +22,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
+import app.configs.PrintConfig;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataKaryawan;
@@ -101,6 +102,9 @@ public class KasbonKaryawanPembayaranController implements BootFormInitializable
 
 	@Autowired
 	private ServiceKasbonKaryawan serviceKasbon;
+
+	@Autowired
+	private PrintConfig configPrint;
 
 	private KasbonKaryawan kasbon;
 
@@ -374,7 +378,8 @@ public class KasbonKaryawanPembayaranController implements BootFormInitializable
 				kasbon.setPembayaran(txtBayar.getValueFactory().getValue());
 				kasbon.setPinjaman(0D);
 
-				kasbon.setSaldoTerakhir(serviceKasbon.getSaldoTerakhir(dataKaryawan) - kasbon.getPembayaran());
+				Double saldoAkhir = serviceKasbon.getSaldoTerakhir(dataKaryawan);
+				kasbon.setSaldoTerakhir(saldoAkhir - kasbon.getPembayaran());
 
 				dataKaryawan.getDaftarKasbon().add(kasbon);
 				repoKaryawan.save(dataKaryawan);
@@ -386,6 +391,15 @@ public class KasbonKaryawanPembayaranController implements BootFormInitializable
 
 				Notifications.create().title("Data pembayaran kasbon").text(pesanSimpan.toString())
 						.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(3D)).showInformation();
+
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("nip", dataKaryawan.getNip());
+				map.put("nama", dataKaryawan.getNama());
+				map.put("bayar", kasbon.getPembayaran());
+				map.put("saldo", saldoAkhir);
+				configPrint.setValue("/jasper/peminjaman/KasbonPembayaran.jrxml", map);
+				configPrint.doPrinted();
+
 				initConstuct();
 			} catch (Exception e) {
 				logger.error("Tidak dapat menyimpan pembayaran untuk peminjaman karyawan dengan nama {}",

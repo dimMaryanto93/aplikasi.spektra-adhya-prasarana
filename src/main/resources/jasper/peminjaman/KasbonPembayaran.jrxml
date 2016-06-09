@@ -126,7 +126,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{saldo} + $P{bayar}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{saldo} - $P{bayar}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
