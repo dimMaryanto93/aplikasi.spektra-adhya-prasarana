@@ -2,9 +2,15 @@ package app.controller.peminjaman.karyawan;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.controlsfx.dialog.ExceptionDialog;
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -14,6 +20,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import app.configs.PrintConfig;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataKaryawan;
@@ -41,6 +48,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Component
 public class KasbonKaryawanListController implements BootInitializable {
@@ -50,12 +59,13 @@ public class KasbonKaryawanListController implements BootInitializable {
 
 	@Autowired
 	private RepositoryKaryawan serviceKaryawan;
-
 	@Autowired
 	private RepositoryKasbonKaryawan kasbonKaryawanService;
-
 	@Autowired
 	private StringFormatterFactory stringFormater;
+
+	@Autowired
+	private PrintConfig configPrint;
 
 	@FXML
 	private ListView<DataKaryawan> listView;
@@ -79,6 +89,8 @@ public class KasbonKaryawanListController implements BootInitializable {
 	private TextField txtJabatan;
 	@FXML
 	private Button btnCetak;
+
+	private ValidationSupport validation;
 
 	private void setFields(DataKaryawan karyawan) {
 		try {
@@ -109,7 +121,15 @@ public class KasbonKaryawanListController implements BootInitializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		btnCetak.setDisable(true);
 		tableView.setSelectionModel(null);
+
+		this.validation = new ValidationSupport();
+		validation.registerValidator(txtNip, true,
+				Validator.createEmptyValidator("Data karyawan belum dipilih", Severity.ERROR));
+		this.validation.invalidProperty().addListener((b, old, value) -> {
+			btnCetak.setDisable(value);
+		});
 
 		columnTanggal.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<KasbonKaryawan, String>, ObservableValue<String>>() {
@@ -304,6 +324,37 @@ public class KasbonKaryawanListController implements BootInitializable {
 
 	@FXML
 	public void doPrint(ActionEvent event) {
+		try {
+			DataKaryawan dataKaryawan = listView.getSelectionModel().getSelectedItem();
+			List<KasbonKaryawan> listPrinted = new ArrayList<KasbonKaryawan>();
+			for (KasbonKaryawan kasbon : tableView.getItems()) {
+				if (!kasbon.getPrinted()) {
+					kasbon.setPrinted(true);
+					listPrinted.add(kasbon);
+				}
+			}
+			if (listPrinted.size() >= 1) {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("nip", dataKaryawan.getNip());
+				map.put("nama", dataKaryawan.getNama());
+				configPrint.setValue("/jasper/peminjaman/BukuPinjamanKaryawan.jrxml", map,
+						new JRBeanCollectionDataSource(listPrinted));
+				configPrint.doPrinted();
+				for (KasbonKaryawan kasbon : listPrinted) {
+					kasbonKaryawanService.save(kasbon);
+				}
+				initConstuct();
+			} else {
+				// TODO tampilkan notifikasi tidak ada data
+			}
+		} catch (JRException e) {
+			// TODO tampilkan notifikasi error gagal cetak
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO tampilkan notifikasi error lainnya
+			e.printStackTrace();
+		}
+
 	}
 
 }

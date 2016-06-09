@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
-<!-- 2016-06-09T09:59:25 -->
+<!-- 2016-06-09T10:35:25 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BukuPinjamanKaryawan" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7b7b586e-bdc8-44b6-bb18-41671516c0b1">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="nama" class="java.lang.String"/>
@@ -109,21 +109,21 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[pinjaman]]></text>
+				<text><![CDATA[Pinjam]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="300" y="0" width="120" height="30" uuid="dc906a3a-e448-461d-8d0b-95260c825c66"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[pembayaran]]></text>
+				<text><![CDATA[Bayar]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="420" y="0" width="130" height="30" uuid="eabf748d-87a4-4444-b766-1884eadd394b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[saldoTerakhir]]></text>
+				<text><![CDATA[Saldo]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -134,7 +134,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yy">
 				<reportElement x="50" y="0" width="130" height="30" uuid="3822d6a9-25ad-4946-b958-e7f81f8fc5e3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{tanggalPinjam}]]></textFieldExpression>

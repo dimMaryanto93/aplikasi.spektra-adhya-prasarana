@@ -33,7 +33,7 @@ public class PrintConfig {
 		return design;
 	}
 
-	public void setDesign(JasperDesign design) {
+	private void setDesign(JasperDesign design) {
 		this.design = design;
 	}
 
@@ -41,7 +41,7 @@ public class PrintConfig {
 		return report;
 	}
 
-	public void setReport(JasperReport report) {
+	private void setReport(JasperReport report) {
 		this.report = report;
 	}
 
@@ -49,7 +49,7 @@ public class PrintConfig {
 		return print;
 	}
 
-	public void setPrint(JasperPrint print) {
+	private void setPrint(JasperPrint print) {
 		this.print = print;
 	}
 
@@ -57,7 +57,7 @@ public class PrintConfig {
 		return viewer;
 	}
 
-	public void setViewer(JasperViewer viewer) {
+	private void setViewer(JasperViewer viewer) {
 		this.viewer = viewer;
 	}
 
@@ -94,7 +94,7 @@ public class PrintConfig {
 	}
 
 	public void setViewer(String title) {
-		this.viewer = new JasperViewer(this.getPrint(), false);
+		setViewer(new JasperViewer(this.getPrint(), true));
 		this.viewer.setSize(600, 400);
 		this.viewer.setTitle(title);
 		this.viewer.setFitWidthZoomRatio();
