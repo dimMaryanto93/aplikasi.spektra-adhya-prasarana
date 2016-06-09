@@ -33,7 +33,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -42,6 +44,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -80,7 +83,7 @@ public class KasbonKaryawanListController implements BootInitializable {
 	@FXML
 	private TableColumn<KasbonKaryawan, Double> columnSaldo;
 	@FXML
-	private TableColumn<KasbonKaryawan, String> columnWaktu;
+	private TableColumn<KasbonKaryawan, Boolean> columnCetak;
 	@FXML
 	private TextField txtNip;
 	@FXML
@@ -131,6 +134,30 @@ public class KasbonKaryawanListController implements BootInitializable {
 			btnCetak.setDisable(value);
 		});
 
+		columnCetak.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Boolean>("printed"));
+		columnCetak.setCellFactory(
+				new Callback<TableColumn<KasbonKaryawan, Boolean>, TableCell<KasbonKaryawan, Boolean>>() {
+
+					@Override
+					public TableCell<KasbonKaryawan, Boolean> call(TableColumn<KasbonKaryawan, Boolean> param) {
+						return new TableCell<KasbonKaryawan, Boolean>() {
+							@Override
+							protected void updateItem(Boolean item, boolean empty) {
+								setAlignment(Pos.CENTER);
+								super.updateItem(item, empty);
+								if (empty) {
+									setGraphic(null);
+								} else {
+									CheckBox check = new CheckBox();
+									check.setDisable(true);
+									check.setSelected(item);
+									check.setOpacity(0.9);
+									setGraphic(check);
+								}
+							}
+						};
+					}
+				});
 		columnTanggal.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<KasbonKaryawan, String>, ObservableValue<String>>() {
 
@@ -345,14 +372,31 @@ public class KasbonKaryawanListController implements BootInitializable {
 				}
 				initConstuct();
 			} else {
-				// TODO tampilkan notifikasi tidak ada data
+				logger.info("Tidak ada transaksi baru yang dapat dicetak oleh karyawan atas nama {} dengan NIP ",
+						dataKaryawan.getNama(), dataKaryawan.getNip());
+				Alert notif = new Alert(AlertType.WARNING);
+				notif.setTitle("Cetak data kasbon karyawan");
+				notif.setHeaderText("Tidak dapat mencetak daftar gaji kasbon karyawan");
+				notif.setContentText("Tidak ada transaksi yang baru!");
+				notif.initModality(Modality.APPLICATION_MODAL);
+				notif.show();
 			}
 		} catch (JRException e) {
-			// TODO tampilkan notifikasi error gagal cetak
-			e.printStackTrace();
+			logger.error("Tidak dapat mencetak dokument DaftarPeminjaman.jrxml", e);
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Cetak daftar kasbon karyawan");
+			ex.setHeaderText("Tidak dapat mencetak dokument Daftar Kasbn Karyawan");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		} catch (Exception e) {
-			// TODO tampilkan notifikasi error lainnya
-			e.printStackTrace();
+			logger.error("Tidak dapat menyimpan perubahan", e);
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar Kasbon Karyawan");
+			ex.setHeaderText("Tidak dapat menyimpan perubahan data kasbon karyawan");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 
 	}
