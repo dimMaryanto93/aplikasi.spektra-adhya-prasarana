@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
-<!-- 2016-06-09T10:35:25 -->
+<!-- 2016-06-09T12:50:25 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BukuPinjamanKaryawan" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7b7b586e-bdc8-44b6-bb18-41671516c0b1">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="nama" class="java.lang.String"/>
@@ -56,7 +56,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Daftar Gaji Karyawan]]></text>
+				<text><![CDATA[Daftar Kasbon Karyawan]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="40" width="80" height="30" uuid="d3af0950-ddae-477a-88e6-1dd7ef65a5d1"/>

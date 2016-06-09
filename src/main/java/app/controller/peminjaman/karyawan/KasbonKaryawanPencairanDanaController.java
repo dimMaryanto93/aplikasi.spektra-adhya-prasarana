@@ -2,6 +2,7 @@ package app.controller.peminjaman.karyawan;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
@@ -19,6 +20,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
+import app.configs.PrintConfig;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.kepegawaian.PengajuanKasbon;
@@ -82,6 +84,9 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 
 	@Autowired
 	private StringFormatterFactory stringFormatter;
+
+	@Autowired
+	private PrintConfig configPrint;
 
 	private KasbonKaryawan kasbon;
 
@@ -194,7 +199,8 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 				kasbon.setPinjaman(pengajuan.getNominal());
 				kasbon.setPembayaran(0D);
 
-				kasbon.setSaldoTerakhir(serviceKasbonKaryawan.getSaldoTerakhir(dataKaryawan) + kasbon.getPinjaman());
+				Double saldoAkhir = serviceKasbonKaryawan.getSaldoTerakhir(dataKaryawan);
+				kasbon.setSaldoTerakhir(saldoAkhir + kasbon.getPinjaman());
 
 				dataKaryawan.setPengajuanKasbon(null);
 				dataKaryawan.getDaftarKasbon().add(kasbon);
@@ -208,6 +214,14 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 						.append(", Berhasil disimpan");
 				Notifications.create().title("Data pencairan kasbon karyawan").text(saveMessage.toString())
 						.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(4D)).showInformation();
+
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("nip", dataKaryawan.getNip());
+				map.put("nama", dataKaryawan.getNama());
+				map.put("pinjam", kasbon.getPinjaman());
+				map.put("saldo", saldoAkhir);
+				configPrint.setValue("/jasper/peminjaman/KasbonPeminjaman.jrxml", map);
+				configPrint.doPrinted();
 
 				initConstuct();
 			} else {
