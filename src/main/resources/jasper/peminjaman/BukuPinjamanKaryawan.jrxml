@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
+<!-- 2016-06-09T09:59:25 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BukuPinjamanKaryawan" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7b7b586e-bdc8-44b6-bb18-41671516c0b1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="nama" class="java.lang.String"/>
+	<parameter name="nip" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="pembayaran" class="java.lang.Double">
+		<fieldDescription><![CDATA[pembayaran]]></fieldDescription>
+	</field>
+	<field name="saldoTerakhir" class="java.lang.Double">
+		<fieldDescription><![CDATA[saldoTerakhir]]></fieldDescription>
+	</field>
+	<field name="pinjaman" class="java.lang.Double">
+		<fieldDescription><![CDATA[pinjaman]]></fieldDescription>
+	</field>
+	<field name="tanggalPinjam" class="java.sql.Date">
+		<fieldDescription><![CDATA[tanggalPinjam]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="0" width="280" height="30" uuid="e2d228ba-2fa4-4d04-8f01-fef477b1c3ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[PT. Spektra Adhya Prasarana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="30" width="180" height="20" uuid="ced088a2-f881-434b-b3a9-7f32a0b2784f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Engineering Consultant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="50" width="180" height="20" uuid="cf46932c-47e0-48c8-86e7-6c1bf51c86d1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Jl. Sidoluhur No.18-20, Bandung]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="70" width="550" height="1" uuid="bfe58feb-6b50-4108-8663-1019f42891db"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement x="160" y="0" width="240" height="30" uuid="44aea588-22cd-4fb3-90cc-089489af8597"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Daftar Gaji Karyawan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="80" height="30" uuid="d3af0950-ddae-477a-88e6-1dd7ef65a5d1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[NIP]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="40" width="200" height="30" uuid="b5524474-1ef2-4f26-98a2-45c84938d634"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nip}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="70" width="80" height="30" uuid="c15c512c-8846-40d4-a3b4-766ce5d1d81e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="70" width="200" height="30" uuid="abdf88f6-6dce-4a2d-aec0-465e9d5e4353"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nama}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="50" height="30" uuid="af6cbf2a-37b9-43de-adef-b82ac90f4679"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="0" width="130" height="30" uuid="eab573cb-6aa8-4900-8f1f-859c39f4e1ad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tanggal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="120" height="30" uuid="25b10c7d-2ecb-4f4c-8557-90f635ea893a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[pinjaman]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="120" height="30" uuid="dc906a3a-e448-461d-8d0b-95260c825c66"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[pembayaran]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="130" height="30" uuid="eabf748d-87a4-4444-b766-1884eadd394b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[saldoTerakhir]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="50" height="30" uuid="17bbcfba-047a-4e82-8d70-d72b7d1d97d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="0" width="130" height="30" uuid="3822d6a9-25ad-4946-b958-e7f81f8fc5e3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tanggalPinjam}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.##;¤-#,##0.##">
+				<reportElement x="180" y="0" width="120" height="30" uuid="626a8080-f579-4418-851a-92aaef4a9c85"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pinjaman}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.##;¤-#,##0.##">
+				<reportElement x="300" y="0" width="120" height="30" uuid="b8c3f424-15d4-490c-a1ca-e7a46f17289e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pembayaran}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.##;¤-#,##0.##">
+				<reportElement x="420" y="0" width="130" height="30" uuid="b21418f2-a557-4921-b179-4c8ba990cc3f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saldoTerakhir}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -121,9 +121,5 @@ nbdist/
 nbactions.xml
 .nb-gradle/
 
-# jasper report
-
-*.jasper
-
 # loggin 
 *.log
