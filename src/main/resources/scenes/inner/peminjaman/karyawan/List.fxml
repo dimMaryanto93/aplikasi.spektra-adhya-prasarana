@@ -6,9 +6,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -17,6 +19,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
@@ -25,7 +28,7 @@
 		<HBox alignment="CENTER_LEFT" spacing="10.0"
 			style="-fx-background-color: GRAY;" BorderPane.alignment="CENTER">
 			<children>
-				<Label text="Daftar peminjaman karyawan" textFill="WHITE">
+				<Label text="Daftar kasbon karyawan" textFill="WHITE">
 					<font>
 						<Font name="System Bold" size="25.0" />
 					</font>
@@ -37,120 +40,171 @@
 		</HBox>
 	</top>
 	<left>
-		<AnchorPane prefHeight="308.0" prefWidth="300.0"
-			BorderPane.alignment="CENTER">
+		<AnchorPane>
 			<children>
-				<ListView fx:id="listView" prefHeight="308.0" prefWidth="300.0"
+				<TitledPane alignment="CENTER" collapsible="false"
+					prefHeight="308.0" prefWidth="250.0" text="Daftar NIP Karyawan"
 					AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 					AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-					<contextMenu>
-						<ContextMenu>
-							<items>
-								<MenuItem mnemonicParsing="false" onAction="#doClearSelection"
-									text="Clear Selection" />
-								<MenuItem mnemonicParsing="false" onAction="#doRefresh"
-									text="Refresh Data" />
-							</items>
-						</ContextMenu>
-					</contextMenu>
-				</ListView>
+					<content>
+						<ListView fx:id="listView" prefHeight="329.0" prefWidth="321.0">
+							<contextMenu>
+								<ContextMenu>
+									<items>
+										<MenuItem mnemonicParsing="false" onAction="#doClearSelection"
+											text="Clear Selection" />
+										<MenuItem mnemonicParsing="false" onAction="#doRefresh"
+											text="Refresh Data" />
+									</items>
+								</ContextMenu>
+							</contextMenu>
+						</ListView>
+					</content>
+					<padding>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</padding>
+				</TitledPane>
 			</children>
-			<padding>
-				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-			</padding>
 		</AnchorPane>
 	</left>
 	<center>
-		<GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
-			<columnConstraints>
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0"
-					minWidth="120.0" prefWidth="120.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0"
-					minWidth="200.0" prefWidth="200.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-			</columnConstraints>
-			<rowConstraints>
-				<RowConstraints maxHeight="30.0" minHeight="30.0"
-					prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="30.0" minHeight="30.0"
-					prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-			</rowConstraints>
-			<children>
-				<AnchorPane prefHeight="200.0" prefWidth="200.0"
-					GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+		<ScrollPane fitToHeight="true" fitToWidth="true"
+			BorderPane.alignment="CENTER">
+			<content>
+				<GridPane hgap="10.0" vgap="10.0">
+					<columnConstraints>
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity"
+							minWidth="-Infinity" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
+							minWidth="150.0" prefWidth="150.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
+							minWidth="150.0" prefWidth="150.0" />
+						<ColumnConstraints hgrow="SOMETIMES"
+							maxWidth="1.7976931348623157E308" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="250.0" minHeight="250.0"
+							prefHeight="250.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
+					</rowConstraints>
 					<children>
-						<TableView fx:id="tableView" layoutX="90.0" layoutY="68.0"
-							prefHeight="350.0" prefWidth="380.0" tableMenuButtonVisible="true"
-							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-							<columns>
-								<TableColumn fx:id="columnCetak" editable="false"
-									maxWidth="50.0" minWidth="50.0" prefWidth="50.0" sortable="false"
-									text="Cetak" />
-								<TableColumn fx:id="columnTanggal" editable="false"
-									maxWidth="120.0" minWidth="120.0" prefWidth="120.0" sortable="false"
-									text="Tanggal" />
-								<TableColumn fx:id="columnPeminjaman" editable="false"
-									maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
-									text="Peminjaman" />
-								<TableColumn fx:id="columnPembayaran" editable="false"
-									maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
-									text="Pembayaran" />
-								<TableColumn fx:id="columnSaldo" editable="false"
-									maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
-									text="Saldo Terakhir" />
-							</columns>
-							<columnResizePolicy>
-								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-							</columnResizePolicy>
-						</TableView>
+						<AnchorPane prefHeight="200.0" prefWidth="200.0"
+							GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+							<children>
+								<TableView fx:id="tableView" layoutX="90.0" layoutY="68.0"
+									prefHeight="350.0" prefWidth="380.0" AnchorPane.bottomAnchor="0.0"
+									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+									AnchorPane.topAnchor="0.0">
+									<columns>
+										<TableColumn fx:id="columnCetak" editable="false"
+											maxWidth="75.0" minWidth="75.0" prefWidth="75.0" sortable="false"
+											text="Status" />
+										<TableColumn fx:id="columnTanggal" editable="false"
+											maxWidth="120.0" minWidth="120.0" prefWidth="120.0" sortable="false"
+											text="Tanggal" />
+										<TableColumn fx:id="columnPeminjaman" editable="false"
+											maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
+											text="Peminjaman" />
+										<TableColumn fx:id="columnPembayaran" editable="false"
+											maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
+											text="Pembayaran" />
+										<TableColumn fx:id="columnSaldo" editable="false"
+											maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
+											text="Saldo" />
+									</columns>
+									<columnResizePolicy>
+										<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+									</columnResizePolicy>
+								</TableView>
+							</children>
+						</AnchorPane>
+						<Label text="NIP">
+							<font>
+								<Font size="14.0" />
+							</font>
+						</Label>
+						<AnchorPane GridPane.columnIndex="1">
+							<children>
+								<TextField fx:id="txtNip" editable="false" prefHeight="30.0"
+									prefWidth="171.0" promptText="No Induk Pegawai"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane layoutX="150.0" layoutY="20.0"
+							GridPane.columnIndex="1" GridPane.columnSpan="2"
+							GridPane.rowIndex="1">
+							<children>
+								<TextField fx:id="txtNama" editable="false"
+									prefHeight="30.0" prefWidth="171.0" promptText="Nama lengkap karyawan"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane layoutX="150.0" layoutY="20.0"
+							GridPane.columnIndex="1" GridPane.columnSpan="2"
+							GridPane.rowIndex="2">
+							<children>
+								<TextField fx:id="txtJabatan" editable="false"
+									prefHeight="30.0" prefWidth="171.0" promptText="Jabatan"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<Label layoutX="20.0" layoutY="26.0" text="Nama"
+							GridPane.rowIndex="1">
+							<font>
+								<Font size="14.0" />
+							</font>
+						</Label>
+						<Label layoutX="20.0" layoutY="66.0" text="Jabatan"
+							GridPane.rowIndex="2">
+							<font>
+								<Font size="14.0" />
+							</font>
+						</Label>
+						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Saldo Akhir"
+							GridPane.rowIndex="4" />
+						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+							<children>
+								<TextField fx:id="txtTanggal" alignment="CENTER_RIGHT"
+									editable="false" prefHeight="30.0" prefWidth="171.0"
+									promptText="Tanggal" AnchorPane.bottomAnchor="0.0"
+									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+									AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane GridPane.columnIndex="2"
+							GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+							<children>
+								<TextField fx:id="txtSaldoAkhir" alignment="CENTER_RIGHT"
+									editable="false" prefHeight="30.0" prefWidth="171.0"
+									promptText="Jumlah Saldo" AnchorPane.bottomAnchor="0.0"
+									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+									AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
 					</children>
-				</AnchorPane>
-				<Label text="Karyawan">
-					<font>
-						<Font size="14.0" />
-					</font>
-				</Label>
-				<AnchorPane GridPane.columnIndex="1">
-					<children>
-						<TextField fx:id="txtNip" editable="false" prefHeight="30.0"
-							prefWidth="171.0" promptText="No Induk Pegawai"
-							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-					</children>
-				</AnchorPane>
-				<AnchorPane layoutX="150.0" layoutY="20.0"
-					GridPane.columnIndex="2">
-					<children>
-						<TextField fx:id="txtNama" editable="false" prefHeight="30.0"
-							prefWidth="171.0" promptText="Nama lengkap karyawan"
-							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-					</children>
-				</AnchorPane>
-				<AnchorPane layoutX="150.0" layoutY="20.0"
-					GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
-					<children>
-						<TextField fx:id="txtJabatan" editable="false"
-							prefHeight="30.0" prefWidth="171.0" promptText="Jabatan"
-							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-					</children>
-				</AnchorPane>
-			</children>
-			<padding>
-				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-			</padding>
-		</GridPane>
+					<padding>
+						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+					</padding>
+				</GridPane>
+			</content>
+		</ScrollPane>
 	</center>
 	<bottom>
 		<ToolBar prefHeight="40.0" prefWidth="200.0"
 			BorderPane.alignment="CENTER">
 			<items>
-				<Button fx:id="btnCetak" mnemonicParsing="false" onAction="#doPrint"
-					prefHeight="30.0" prefWidth="100.0" text="Cetak" />
+				<Button fx:id="btnCetak" disable="true" mnemonicParsing="false"
+					onAction="#doPrint" prefHeight="30.0" prefWidth="100.0" text="Cetak" />
 			</items>
 		</ToolBar>
 	</bottom>

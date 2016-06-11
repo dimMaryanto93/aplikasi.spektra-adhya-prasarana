@@ -65,8 +65,6 @@ public class AbsensiFormController implements BootInitializable {
 	@FXML
 	private TableColumn<KehadiranKaryawan, Boolean> columnAbsen;
 
-	private Stage stage;
-
 	@Autowired
 	private StringFormatterFactory stringFormat;
 
@@ -111,7 +109,6 @@ public class AbsensiFormController implements BootInitializable {
 
 	@Override
 	public void setStage(Stage stage) {
-		this.stage = stage;
 
 	}
 
@@ -266,7 +263,6 @@ public class AbsensiFormController implements BootInitializable {
 
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
-		// TODO Auto-generated method stub
 
 	}
 

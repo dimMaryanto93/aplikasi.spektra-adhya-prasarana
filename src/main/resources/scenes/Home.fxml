@@ -212,7 +212,7 @@
 											layoutX="15.0" layoutY="188.0" maxHeight="50.0"
 											maxWidth="1.7976931348623157E308" minHeight="50.0"
 											mnemonicParsing="false" popupSide="RIGHT" prefHeight="50.0"
-											text="Angsuran Prestasi">
+											text="Credit Motor">
 											<items>
 												<MenuItem fx:id="mniButtonAngsuranPengajuan"
 													disable="true" mnemonicParsing="false" onAction="#showPengajuanCicilan"

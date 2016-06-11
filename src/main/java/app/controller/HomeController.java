@@ -53,9 +53,6 @@ public class HomeController implements BootInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@FXML
-	private BorderPane mainLayout;
-
 	@Autowired
 	private KaryawanListController listKaryawan;
 	@Autowired
@@ -89,6 +86,8 @@ public class HomeController implements BootInitializable {
 	@Autowired
 	private WellcomeController wellcomeForm;
 
+	@FXML
+	private BorderPane mainLayout;
 	@FXML
 	private MenuBar mnuBarAplikasi;
 	@FXML
@@ -181,7 +180,7 @@ public class HomeController implements BootInitializable {
 		anNode.setOpacity(0.0);
 		mainLayout.setCenter(anNode);
 		Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-				new KeyFrame(new Duration(3000), new KeyValue(opacity, 1.0)));
+				new KeyFrame(new Duration(1000), new KeyValue(opacity, 1.0)));
 		fadeIn.play();
 		mainLayout.getCenter().autosize();
 
@@ -196,7 +195,7 @@ public class HomeController implements BootInitializable {
 		icon.createFontAwesomeIcon32px(mniButtonKaryawan, FontAwesomeIcon.MALE);
 		icon.createFontAwesomeIcon32px(mniButtonAbsensi, FontAwesomeIcon.BOOK);
 
-		icon.createFontAwesomeIcon32px(mnuButtonKasbon, FontAwesomeIcon.GOOGLE_WALLET);
+		icon.createFontAwesomeIcon32px(mnuButtonKasbon, FontAwesomeIcon.BRIEFCASE);
 		// menu item kasbon
 		icon.createFontAwesomeIcon24px(mniButtonKasbonPengajuan, FontAwesomeIcon.ENVELOPE);
 		icon.createFontAwesomeIcon24px(mniButtonKasbonPersetujuan, FontAwesomeIcon.LEGAL);

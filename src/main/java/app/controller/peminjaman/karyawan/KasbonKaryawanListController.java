@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import org.controlsfx.dialog.ExceptionDialog;
-import org.controlsfx.validation.Severity;
-import org.controlsfx.validation.ValidationSupport;
-import org.controlsfx.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -20,12 +17,14 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
+import app.configs.FontIconFactory;
 import app.configs.PrintConfig;
 import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryKasbonKaryawan;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -34,8 +33,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -44,9 +43,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -66,7 +64,8 @@ public class KasbonKaryawanListController implements BootInitializable {
 	private RepositoryKasbonKaryawan kasbonKaryawanService;
 	@Autowired
 	private StringFormatterFactory stringFormater;
-
+	@Autowired
+	private FontIconFactory iconFactory;
 	@Autowired
 	private PrintConfig configPrint;
 
@@ -91,9 +90,11 @@ public class KasbonKaryawanListController implements BootInitializable {
 	@FXML
 	private TextField txtJabatan;
 	@FXML
+	private TextField txtTanggal;
+	@FXML
+	private TextField txtSaldoAkhir;
+	@FXML
 	private Button btnCetak;
-
-	private ValidationSupport validation;
 
 	private void setFields(DataKaryawan karyawan) {
 		try {
@@ -101,6 +102,10 @@ public class KasbonKaryawanListController implements BootInitializable {
 			txtNama.setText(karyawan.getNama());
 			txtJabatan.setText(karyawan.getJabatan().getNama());
 			tableView.getItems().addAll(kasbonKaryawanService.findByKaryawanOrderByCreatedDateAsc(karyawan));
+			KasbonKaryawan kasbon = tableView.getItems().get(tableView.getItems().size() - 1);
+			txtTanggal.setText(stringFormater
+					.getDateTimeFormatterWithDayAndDateMonthYear(kasbon.getTanggalPinjam().toLocalDate()));
+			txtSaldoAkhir.setText(stringFormater.getCurrencyFormate(kasbon.getSaldoTerakhir()));
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data kasbon untuk karyawan atas nama {}" + karyawan.getNama(), e);
 
@@ -120,19 +125,13 @@ public class KasbonKaryawanListController implements BootInitializable {
 		txtNip.clear();
 		txtNama.clear();
 		txtJabatan.clear();
+		txtTanggal.clear();
+		txtSaldoAkhir.clear();
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		btnCetak.setDisable(true);
 		tableView.setSelectionModel(null);
-
-		this.validation = new ValidationSupport();
-		validation.registerValidator(txtNip, true,
-				Validator.createEmptyValidator("Data karyawan belum dipilih", Severity.ERROR));
-		this.validation.invalidProperty().addListener((b, old, value) -> {
-			btnCetak.setDisable(value);
-		});
 
 		columnCetak.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Boolean>("printed"));
 		columnCetak.setCellFactory(
@@ -148,11 +147,18 @@ public class KasbonKaryawanListController implements BootInitializable {
 								if (empty) {
 									setGraphic(null);
 								} else {
-									CheckBox check = new CheckBox();
-									check.setDisable(true);
-									check.setSelected(item);
-									check.setOpacity(0.9);
-									setGraphic(check);
+									Label label = new Label();
+									Tooltip tip = new Tooltip();
+									if (item) {
+										label.setTextFill(Color.GREEN);
+										iconFactory.createFontAwesomeIcon18px(label, FontAwesomeIcon.CHECK);
+										tip.setText("Transaksi ini sudah dicetak");
+									} else {
+										iconFactory.createFontAwesomeIcon18px(label, FontAwesomeIcon.PRINT);
+										tip.setText("Transaksi ini akan dicetak!");
+									}
+									label.setTooltip(tip);
+									setGraphic(label);
 								}
 							}
 						};
@@ -250,10 +256,11 @@ public class KasbonKaryawanListController implements BootInitializable {
 								} else {
 									if (item == 0D) {
 										setTextFill(Color.GREEN);
+										setText("LUNAS");
 									} else {
 										setTextFill(Color.RED);
+										setText(stringFormater.getCurrencyFormate(item));
 									}
-									setText(stringFormater.getCurrencyFormate(item));
 								}
 							}
 						};
@@ -265,22 +272,14 @@ public class KasbonKaryawanListController implements BootInitializable {
 			@Override
 			public ListCell<DataKaryawan> call(ListView<DataKaryawan> param) {
 				return new ListCell<DataKaryawan>() {
-					HBox box;
-					Label nip;
-					Label nama;
 
 					@Override
 					protected void updateItem(DataKaryawan item, boolean empty) {
 						super.updateItem(item, empty);
 						if (empty) {
-							setGraphic(null);
+							setText(null);
 						} else {
-							box = new HBox(10);
-							nip = new Label(item.getNip());
-							nama = new Label(item.getNama());
-							box.getChildren().add(nip);
-							box.getChildren().add(nama);
-							setGraphic(box);
+							setText(item.getNip());
 						}
 					}
 				};
@@ -289,6 +288,7 @@ public class KasbonKaryawanListController implements BootInitializable {
 		listView.getSelectionModel().selectedItemProperty().addListener(
 				(ObservableValue<? extends DataKaryawan> observable, DataKaryawan oldValue, DataKaryawan newValue) -> {
 					tableView.getItems().clear();
+					btnCetak.setDisable(newValue == null);
 					if (newValue != null) {
 						setFields(newValue);
 					} else {
@@ -351,8 +351,9 @@ public class KasbonKaryawanListController implements BootInitializable {
 
 	@FXML
 	public void doPrint(ActionEvent event) {
+		DataKaryawan dataKaryawan = listView.getSelectionModel().getSelectedItem();
+
 		try {
-			DataKaryawan dataKaryawan = listView.getSelectionModel().getSelectedItem();
 			List<KasbonKaryawan> listPrinted = new ArrayList<KasbonKaryawan>();
 			for (KasbonKaryawan kasbon : tableView.getItems()) {
 				if (!kasbon.getPrinted()) {

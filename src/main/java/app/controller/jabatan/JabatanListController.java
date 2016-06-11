@@ -37,7 +37,6 @@ public class JabatanListController implements BootInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ApplicationContext springContext;
-	private Stage primaryStage;
 
 	@Autowired
 	private RepositoryJabatan service;
@@ -159,7 +158,6 @@ public class JabatanListController implements BootInitializable {
 
 	@Override
 	public void setStage(Stage stage) {
-		this.primaryStage = stage;
 
 	}
 
@@ -170,7 +168,12 @@ public class JabatanListController implements BootInitializable {
 			tableView.getItems().addAll(service.findAll());
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan data jabatan", e);
-			// TODO message error load data
+			ExceptionDialog ex = new ExceptionDialog(e);
+			ex.setTitle("Daftar data jabatan");
+			ex.setHeaderText("Tidak dapat mendapatkan data jabatan");
+			ex.setContentText(e.getMessage());
+			ex.initModality(Modality.APPLICATION_MODAL);
+			ex.show();
 		}
 	}
 
