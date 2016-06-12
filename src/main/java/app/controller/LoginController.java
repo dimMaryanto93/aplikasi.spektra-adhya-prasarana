@@ -54,6 +54,12 @@ public class LoginController implements BootFormInitializable {
 
 	private ValidationSupport validation;
 
+	private DataAkun akun;
+
+	public DataAkun getAkun() {
+		return akun;
+	}
+
 	@Override
 	public Node initView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
@@ -91,6 +97,7 @@ public class LoginController implements BootFormInitializable {
 
 	@Override
 	public void initValidator() {
+		this.labelSuccess.setOpacity(0);
 		this.validation = new ValidationSupport();
 		this.validation.registerValidator(txtUsername,
 				Validator.createEmptyValidator("Username tidak boleh kosong!", Severity.ERROR));
@@ -107,13 +114,19 @@ public class LoginController implements BootFormInitializable {
 		DataAkun akun = akunRepository.findByUsernameAndPasswordAndEnabledIsTrue(txtUsername.getText(),
 				txtPassword.getText());
 		if (akun != null) {
+			this.akun = akun;
 			homeController.enabledMenu(false);
 			homeController.setMniButtonHome(false);
 			homeController.setMniButtonLogout(false);
 			homeController.setMniButtonLogin(true);
 			homeController.showWellcome();
 		} else {
+			this.akun = null;
+			
 			labelSuccess.setText("Username atau password salah!");
+			txtUsername.clear();
+			txtPassword.clear();
+			txtUsername.requestFocus();
 		}
 	}
 
