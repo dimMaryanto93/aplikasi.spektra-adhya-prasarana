@@ -2,11 +2,16 @@ package app.entities.master;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -45,6 +50,16 @@ public class DataAkun extends BasicEntity {
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "jenis_keamanan", nullable = false)
 	private DataJenisAkun security;
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "data_history")
+	@Column(name = "kode_history", nullable = false)
+	private List<Timestamp> daftarHistoryLogin = new ArrayList<Timestamp>();
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "data_aktifitas")
+	@Column(name = "kode_aktifitas", nullable = false)
+	private List<DataAktifitasAkun> daftarAktifitas = new ArrayList<>();
 
 	public String getId() {
 		return id;
@@ -92,6 +107,14 @@ public class DataAkun extends BasicEntity {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public List<Timestamp> getDaftarHistoryLogin() {
+		return daftarHistoryLogin;
+	}
+
+	public void setDaftarHistoryLogin(List<Timestamp> daftarHistoryLogin) {
+		this.daftarHistoryLogin = daftarHistoryLogin;
 	}
 
 }

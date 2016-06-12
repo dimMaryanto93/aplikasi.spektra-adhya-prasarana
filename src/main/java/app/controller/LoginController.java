@@ -2,6 +2,8 @@ package app.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import org.controlsfx.validation.Severity;
@@ -127,10 +129,14 @@ public class LoginController implements BootFormInitializable {
 			} else if (akun.getSecurity() == DataJenisAkun.DIREKTUR) {
 
 			}
+			akun.getDaftarHistoryLogin().add(Timestamp.valueOf(LocalDateTime.now()));
+			akunRepository.save(akun);
+
 			homeController.setMniButtonHome(false);
 			homeController.setMniButtonLogout(false);
 			homeController.setMniButtonLogin(true);
 			homeController.showWellcome();
+
 		} else {
 			this.akun = null;
 
