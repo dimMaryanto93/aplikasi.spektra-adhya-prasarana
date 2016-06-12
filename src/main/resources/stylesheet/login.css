@@ -20,3 +20,19 @@
 .header{
 	-fx-background-color: GRAY;
 }
+
+.label-content{
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-fill: BLACK;
+}
+
+.status-error{
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-fill: RED;
+}
+
+.status-success{
+	
+}

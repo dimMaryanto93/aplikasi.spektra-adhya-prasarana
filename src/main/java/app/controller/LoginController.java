@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -11,22 +14,45 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
+import app.configs.FontIconFactory;
+import app.entities.master.DataAkun;
+import app.repositories.RepositoryAkun;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Label;
 
 @Component
 public class LoginController implements BootFormInitializable {
 
 	private ApplicationContext springContext;
-	@FXML
-	Button btnLogin;
 
 	@Autowired
+	private FontIconFactory iconFactory;
+	@Autowired
 	private HomeController homeController;
+	@Autowired
+	private RepositoryAkun akunRepository;
+
+	@FXML
+	Button btnLogin;
+	@FXML
+	TextField txtUsername;
+	@FXML
+	PasswordField txtPassword;
+	@FXML
+	Label labelSuccess;
+	@FXML
+	Button btnExit;
+
+	private ValidationSupport validation;
 
 	@Override
 	public Node initView() throws IOException {
@@ -43,11 +69,13 @@ public class LoginController implements BootFormInitializable {
 
 	@Override
 	public void initConstuct() {
-
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		initValidator();
+		iconFactory.createFontAwesomeIcon18px(btnLogin, FontAwesomeIcon.SIGN_IN);
+		iconFactory.createFontAwesomeIcon18px(btnExit, FontAwesomeIcon.POWER_OFF);
 
 	}
 
@@ -63,16 +91,35 @@ public class LoginController implements BootFormInitializable {
 
 	@Override
 	public void initValidator() {
+		this.validation = new ValidationSupport();
+		this.validation.registerValidator(txtUsername,
+				Validator.createEmptyValidator("Username tidak boleh kosong!", Severity.ERROR));
+		this.validation.registerValidator(txtPassword,
+				Validator.createEmptyValidator("Password tidak boleh kosong!", Severity.ERROR));
+		this.validation.invalidProperty().addListener((v, old, value) -> {
+			btnLogin.setDisable(value);
+		});
 
 	}
 
 	@FXML
 	public void doSignIn(ActionEvent event) {
-		homeController.enabledMenu(false);
-		homeController.setMniButtonHome(false);
-		homeController.setMniButtonLogout(false);
-		homeController.setMniButtonLogin(true);
-		homeController.showWellcome();
+		DataAkun akun = akunRepository.findByUsernameAndPasswordAndEnabledIsTrue(txtUsername.getText(),
+				txtPassword.getText());
+		if (akun != null) {
+			homeController.enabledMenu(false);
+			homeController.setMniButtonHome(false);
+			homeController.setMniButtonLogout(false);
+			homeController.setMniButtonLogin(true);
+			homeController.showWellcome();
+		} else {
+			labelSuccess.setText("Username atau password salah!");
+		}
+	}
+
+	@FXML
+	public void doExit(ActionEvent event) {
+		Platform.exit();
 	}
 
 }

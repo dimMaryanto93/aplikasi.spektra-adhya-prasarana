@@ -12,6 +12,13 @@ import javafx.scene.control.MenuItem;
 
 @Component
 public class FontIconFactory {
+	
+	public void createFontAwesomeIcon18px(Button c, FontAwesomeIcon fontAwesomeIcon){
+		FontAwesomeIconView icon = new FontAwesomeIconView();
+		icon.setIcon(fontAwesomeIcon);
+		icon.setSize("18px");
+		c.setGraphic(icon);
+	}
 
 	public void createFontAwesomeIcon32px(Button c, FontAwesomeIcon fontAwesomeIcon) {
 		FontAwesomeIconView icon = new FontAwesomeIconView();
