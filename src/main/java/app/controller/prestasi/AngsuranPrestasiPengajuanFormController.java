@@ -359,4 +359,10 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 		initConstuct();
 	}
 
+	@Override
+	public void initIcons() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

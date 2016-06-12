@@ -16,5 +16,7 @@ public interface BootInitializable extends Initializable, ApplicationContextAwar
 	public void setStage(Stage stage);
 
 	public void initConstuct();
+	
+	public void initIcons();
 
 }

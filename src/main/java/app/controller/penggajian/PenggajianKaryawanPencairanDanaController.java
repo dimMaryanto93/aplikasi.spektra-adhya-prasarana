@@ -431,4 +431,10 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	public void doBack(ActionEvent event) {
 	}
 
+	@Override
+	public void initIcons() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

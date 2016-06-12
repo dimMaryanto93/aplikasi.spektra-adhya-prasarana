@@ -299,4 +299,10 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 		}
 	}
 
+	@Override
+	public void initIcons() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

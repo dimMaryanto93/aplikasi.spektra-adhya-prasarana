@@ -189,7 +189,8 @@ public class HomeController implements BootInitializable {
 
 	}
 
-	private void initIcons() {
+	@Override
+	public void initIcons() {
 		FontIconFactory icon = springContext.getBean(FontIconFactory.class);
 		// left side navigation
 		icon.createFontAwesomeIcon32px(mniButtonHome, FontAwesomeIcon.HOME);

@@ -225,4 +225,10 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 
 	}
 
+	@Override
+	public void initIcons() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

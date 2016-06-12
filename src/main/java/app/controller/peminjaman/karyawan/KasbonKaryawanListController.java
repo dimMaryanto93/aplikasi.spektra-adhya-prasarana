@@ -402,4 +402,10 @@ public class KasbonKaryawanListController implements BootInitializable {
 
 	}
 
+	@Override
+	public void initIcons() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

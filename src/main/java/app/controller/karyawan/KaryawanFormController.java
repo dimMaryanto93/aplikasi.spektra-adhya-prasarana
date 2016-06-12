@@ -43,6 +43,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -51,12 +53,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 @Component
 public class KaryawanFormController implements BootFormInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private ApplicationContext springContext;
+	private Boolean update;
+	private DataKaryawan anEmployee;
+	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerValueFactory;
+	private HashMap<String, DataJabatan> mapJabatan = new HashMap<>();
 
 	@FXML
 	private TextField txtNik;
@@ -89,12 +97,20 @@ public class KaryawanFormController implements BootFormInitializable {
 	@FXML
 	private Label txtNominal;
 
-	private ApplicationContext springContext;
-	private Boolean update;
-	private DataKaryawan anEmployee;
-	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerValueFactory;
-
-	private HashMap<String, DataJabatan> mapJabatan = new HashMap<>();
+	private void clearFields() {
+		txtNik.clear();
+		txtNama.clear();
+		txtTempatLahir.clear();
+		txaAlamat.clear();
+		txtHireDate.setValue(LocalDate.now());
+		datePicker.setValue(LocalDate.now());
+		cbkAgama.getSelectionModel().clearSelection();
+		cbkPendidikan.getSelectionModel().clearSelection();
+		cbkJabatan.getSelectionModel().clearSelection();
+		male.setSelected(true);
+		spinGapok.getValueFactory().setValue(0D);
+		txtNominal.setText("Rp0,00");
+	}
 
 	public Boolean isUpdate() {
 		return update;
@@ -106,13 +122,10 @@ public class KaryawanFormController implements BootFormInitializable {
 
 	@Autowired
 	private RepositoryKaryawan service;
-
 	@Autowired
 	private RepositoryJabatan jabatanService;
-
 	@Autowired
 	private HomeController homeController;
-
 	@Autowired
 	private StringFormatterFactory stringFormater;
 
@@ -120,14 +133,39 @@ public class KaryawanFormController implements BootFormInitializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		this.cbkJabatan.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+
+			@Override
+			public ListCell<String> call(ListView<String> param) {
+				return new ListCell<String>() {
+					@Override
+					protected void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+
+						if (empty) {
+							setText(null);
+						} else {
+							DataJabatan j = mapJabatan.get(item);
+							StringBuilder sb = new StringBuilder(item).append(" (").append(j.getNama()).append(")");
+							setText(sb.toString());
+						}
+					}
+				};
+			}
+		});
+
 		this.spinnerValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0D, 0D, 0D, 0D);
 		this.spinGapok.setValueFactory(this.spinnerValueFactory);
 		this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
-		this.txtHireDate.setValue(LocalDate.now());
 		this.spinGapok.setDisable(true);
 		this.spinGapok.getValueFactory().valueProperty().addListener((d, old, newValue) -> {
 			this.txtNominal.setText(this.stringFormater.getCurrencyFormate(newValue));
 		});
+
+		this.txtHireDate.setValue(LocalDate.now());
+		this.datePicker.setValue(LocalDate.now());
+
 		this.cbkJabatan.getSelectionModel().selectedItemProperty()
 				.addListener((ObservableValue<? extends String> value, String oldValue, String newValue) -> {
 					spinGapok.setDisable(newValue == null);
@@ -136,7 +174,8 @@ public class KaryawanFormController implements BootFormInitializable {
 						this.spinnerValueFactory.setAmountToStepBy(5000);
 						this.spinnerValueFactory.setMax(Double.MAX_VALUE);
 						this.spinnerValueFactory.setMin(0D);
-						this.spinnerValueFactory.setValue(mapJabatan.get(newValue).getGapok());
+						DataJabatan jab = mapJabatan.get(newValue);
+						this.spinnerValueFactory.setValue(jab.getGapok());
 					} else {
 						this.spinnerValueFactory.setAmountToStepBy(0D);
 						this.spinnerValueFactory.setMax(0D);
@@ -170,11 +209,12 @@ public class KaryawanFormController implements BootFormInitializable {
 		try {
 			this.setUpdate(false);
 			this.anEmployee = new DataKaryawan();
+
+			this.mapJabatan.clear();
 			this.cbkJabatan.getItems().clear();
 			for (DataJabatan j : jabatanService.findAll()) {
-				String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
-				mapJabatan.put(key, j);
-				this.cbkJabatan.getItems().add(key);
+				mapJabatan.put(j.getKodeJabatan(), j);
+				this.cbkJabatan.getItems().add(j.getKodeJabatan());
 			}
 			cbkAgama.getItems().addAll(DataAgama.values());
 			cbkPendidikan.getItems().addAll(DataPendidikan.values());
@@ -205,19 +245,15 @@ public class KaryawanFormController implements BootFormInitializable {
 			this.datePicker.setValue(anEmployee.getTanggalLahir().toLocalDate());
 
 			// add item to combobox jabatan
+			this.mapJabatan.clear();
 			this.cbkJabatan.getItems().clear();
 			for (DataJabatan j : jabatanService.findAll()) {
-				String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
-				mapJabatan.put(key, j);
-				this.cbkJabatan.getItems().add(key);
+				mapJabatan.put(j.getKodeJabatan(), j);
+				this.cbkJabatan.getItems().add(j.getKodeJabatan());
 			}
 
-			// set value
-			DataJabatan j = anEmployee.getJabatan();
-			String key = new StringBuilder(j.getKodeJabatan()).append(" ").append(j.getNama()).toString();
-
 			// select value to combobox
-			this.cbkJabatan.getSelectionModel().select(key);
+			this.cbkJabatan.getSelectionModel().select(anEmployee.getJabatan().getKodeJabatan());
 			this.cbkAgama.setValue(anEmployee.getAgama());
 			this.cbkPendidikan.setValue(anEmployee.getPendidikan());
 			this.datePicker.setValue(anEmployee.getTanggalLahir().toLocalDate());
@@ -281,6 +317,7 @@ public class KaryawanFormController implements BootFormInitializable {
 					.position(Pos.BOTTOM_RIGHT).showInformation();
 
 			initConstuct();
+			clearFields();
 		} catch (Exception e) {
 			logger.error("Tidak dapat menambahkan data baru karyawan", e);
 
@@ -359,6 +396,10 @@ public class KaryawanFormController implements BootFormInitializable {
 				Validator.createEmptyValidator("Alamat karyawan masih kosong", Severity.WARNING));
 		this.validation.registerValidator(txtTempatLahir,
 				Validator.createEmptyValidator("Tempat lahir karyawan masih kosong!", Severity.ERROR));
+		this.validation.registerValidator(datePicker,
+				(Control c, LocalDate value) -> ValidationResult.fromErrorIf(c,
+						"Minimal karyawan berumur 17 tahun dari sekarang ",
+						value.isAfter(LocalDate.now().minusYears(17))));
 
 		this.validation.invalidProperty()
 				.addListener((ObservableValue<? extends Boolean> values, Boolean oldValue, Boolean newValue) -> {
@@ -378,6 +419,12 @@ public class KaryawanFormController implements BootFormInitializable {
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 
+	}
+
+	@Override
+	public void initIcons() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

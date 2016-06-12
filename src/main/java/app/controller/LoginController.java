@@ -152,4 +152,10 @@ public class LoginController implements BootFormInitializable {
 		Platform.exit();
 	}
 
+	@Override
+	public void initIcons() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

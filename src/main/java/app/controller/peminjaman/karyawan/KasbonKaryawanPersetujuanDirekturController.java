@@ -357,4 +357,10 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 	public void doBack(ActionEvent event) {
 	}
 
+	@Override
+	public void initIcons() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

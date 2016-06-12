@@ -218,4 +218,10 @@ public class AngsuranPrestasiListController implements BootInitializable {
 		initConstuct();
 	}
 
+	@Override
+	public void initIcons() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
