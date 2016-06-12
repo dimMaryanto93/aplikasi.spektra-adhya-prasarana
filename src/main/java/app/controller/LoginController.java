@@ -15,7 +15,9 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.FontIconFactory;
+import app.configs.SecurityConfig;
 import app.entities.master.DataAkun;
+import app.entities.master.DataJenisAkun;
 import app.repositories.RepositoryAkun;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXMLLoader;
@@ -40,6 +42,8 @@ public class LoginController implements BootFormInitializable {
 	private HomeController homeController;
 	@Autowired
 	private RepositoryAkun akunRepository;
+	@Autowired
+	private SecurityConfig securityConfig;
 
 	@FXML
 	Button btnLogin;
@@ -82,7 +86,6 @@ public class LoginController implements BootFormInitializable {
 		initValidator();
 		iconFactory.createFontAwesomeIcon18px(btnLogin, FontAwesomeIcon.SIGN_IN);
 		iconFactory.createFontAwesomeIcon18px(btnExit, FontAwesomeIcon.POWER_OFF);
-
 	}
 
 	@Override
@@ -115,14 +118,22 @@ public class LoginController implements BootFormInitializable {
 				txtPassword.getText());
 		if (akun != null) {
 			this.akun = akun;
-			homeController.enabledMenu(false);
+			if (akun.getSecurity() == DataJenisAkun.ADMINISTRATOR) {
+				securityConfig.enabledMenuHome(false);
+			} else if (akun.getSecurity() == DataJenisAkun.KEUANGAN) {
+
+			} else if (akun.getSecurity() == DataJenisAkun.HRD) {
+
+			} else if (akun.getSecurity() == DataJenisAkun.DIREKTUR) {
+
+			}
 			homeController.setMniButtonHome(false);
 			homeController.setMniButtonLogout(false);
 			homeController.setMniButtonLogin(true);
 			homeController.showWellcome();
 		} else {
 			this.akun = null;
-			
+
 			labelSuccess.setText("Username atau password salah!");
 			txtUsername.clear();
 			txtPassword.clear();

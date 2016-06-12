@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.FontIconFactory;
+import app.configs.SecurityConfig;
 import app.controller.absensi.AbsensiFormController;
 import app.controller.absensi.AbsensiListController;
 import app.controller.jabatan.JabatanListController;
@@ -85,6 +86,8 @@ public class HomeController implements BootInitializable {
 	private LoginController loginForm;
 	@Autowired
 	private WellcomeController wellcomeForm;
+	@Autowired
+	private SecurityConfig securityConfig;
 
 	@FXML
 	private BorderPane mainLayout;
@@ -421,50 +424,6 @@ public class HomeController implements BootInitializable {
 		this.mnuKeamananNotifikasi.setDisable(disable);
 	}
 
-	public void enabledMenu(Boolean disable) {
-		setMnuBarAplikasi(disable);
-		setMnuBarMaster(disable);
-		setMnuMasterKaryawan(disable);
-		setMnuMasterJabatan(disable);
-		setMnuBarKepegawaian(disable);
-		setMniKepegAbsensi(disable);
-		setMnuBarKepegKasbon(disable);
-		setMniKepegKasbonPengajuan(disable);
-		setMniKepegKasbonPersetujuan(disable);
-		setMniKepegKasbonPencairan(disable);
-		setMniKepegKasbonPembayaran(disable);
-		setMnuBarKepegAngsuran(disable);
-		setMniKepegAngsuranPengajuan(disable);
-		setMniKepegAngsuranPersetujuan(disable);
-		setMniKepegPenggajian(disable);
-		setMnuBarLaporan(disable);
-		setMniLaporanAbsensi(disable);
-		setMniLaporanKasbon(disable);
-		setMniLaporanAngsuran(disable);
-		setMniLaporanPenggajian(disable);
-		setMnuBarKeamanan(disable);
-		setMnuKeamananUser(disable);
-		setMniButtonHome(disable);
-		setMniButtonLogin(disable);
-		setMniButtonJabatan(disable);
-		setMniButtonKaryawan(disable);
-		setMniButtonAbsensi(disable);
-		setMnuButtonKasbon(disable);
-		setMniButtonKasbonPengajuan(disable);
-		setMniButtonKasbonPersetujuan(disable);
-		setMniButtonKasbonPencairan(disable);
-		setMniButtonKasbonPembayaran(disable);
-		setMnuButtonAnggsuran(disable);
-		setMniButtonAngsuranPengajuan(disable);
-		setMniButtonAngsuranPersetujuan(disable);
-		setMniButtonPenggajian(disable);
-		setMniButtonLogout(disable);
-		setMniBarKeamananProfile(disable);
-		setMniBarKeamananLogout(disable);
-		setMnuKeamananNotifikasi(disable);
-
-	}
-
 	@Override
 	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
 		this.springContext = arg0;
@@ -488,7 +447,7 @@ public class HomeController implements BootInitializable {
 	}
 
 	public void doLogout() {
-		enabledMenu(true);
+		securityConfig.enabledMenuHome(true);
 		showLoginForm();
 		setMniButtonLogout(true);
 	}
