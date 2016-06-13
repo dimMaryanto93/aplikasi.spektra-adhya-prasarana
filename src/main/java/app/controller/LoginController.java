@@ -127,7 +127,7 @@ public class LoginController implements BootFormInitializable {
 			} else if (akun.getSecurity() == DataJenisAkun.HRD) {
 				securityConfig.isHRD(false);
 			} else if (akun.getSecurity() == DataJenisAkun.DIREKTUR) {
-
+				securityConfig.isDirektur(false);
 			}
 			akun.getDaftarHistoryLogin().add(Timestamp.valueOf(LocalDateTime.now()));
 			akunRepository.save(akun);

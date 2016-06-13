@@ -22,7 +22,7 @@ public class SecurityConfig {
 
 	@Autowired
 	private RepositoryAkun akunRepo;
-	
+
 	@Autowired
 	private HomeController ui;
 
@@ -55,7 +55,7 @@ public class SecurityConfig {
 			akunRepo.save(akun);
 			logger.info("Inisialisasi akun {} dengan password {}", akun.getSecurity(), akun.getPassword());
 		}
-		
+
 		if (akunRepo.findBySecurity(DataJenisAkun.HRD) == null) {
 			akun = new DataAkun();
 			akun.setUsername("hrd");
@@ -68,7 +68,7 @@ public class SecurityConfig {
 			akunRepo.save(akun);
 			logger.info("Inisialisasi akun {} dengan password {}", akun.getSecurity(), akun.getPassword());
 		}
-		
+
 		if (akunRepo.findBySecurity(DataJenisAkun.DIREKTUR) == null) {
 			akun = new DataAkun();
 			akun.setUsername("direktur");
@@ -82,108 +82,132 @@ public class SecurityConfig {
 			logger.info("Inisialisasi akun {} dengan password {}", akun.getSecurity(), akun.getPassword());
 		}
 	}
-	
+
 	public void enabledMenuHome(Boolean disable) {
 		ui.setMnuBarAplikasi(disable);
-		
+
 		ui.setMnuBarMaster(disable);
 		ui.setMnuMasterKaryawan(disable);
 		ui.setMnuMasterJabatan(disable);
-		
+
 		ui.setMnuBarKepegawaian(disable);
 		ui.setMniKepegAbsensi(disable);
-		
+
 		ui.setMnuBarKepegKasbon(disable);
 		ui.setMniKepegKasbonPengajuan(disable);
 		ui.setMniKepegKasbonPersetujuan(disable);
 		ui.setMniKepegKasbonPencairan(disable);
 		ui.setMniKepegKasbonPembayaran(disable);
-		
+
 		ui.setMnuBarKepegAngsuran(disable);
 		ui.setMniKepegAngsuranPengajuan(disable);
 		ui.setMniKepegAngsuranPersetujuan(disable);
-		
+
 		ui.setMniKepegPenggajian(disable);
-		
+
 		ui.setMnuBarLaporan(disable);
 		ui.setMniLaporanAbsensi(disable);
 		ui.setMniLaporanKasbon(disable);
 		ui.setMniLaporanAngsuran(disable);
 		ui.setMniLaporanPenggajian(disable);
-		
+
 		ui.setMnuBarKeamanan(disable);
-		
+
 		ui.setMnuKeamananUser(disable);
-		
+
 		ui.setMniButtonHome(disable);
 		ui.setMniButtonLogin(disable);
 		ui.setMniButtonJabatan(disable);
 		ui.setMniButtonKaryawan(disable);
 		ui.setMniButtonAbsensi(disable);
-		
+
 		ui.setMnuButtonKasbon(disable);
 		ui.setMniButtonKasbonPengajuan(disable);
 		ui.setMniButtonKasbonPersetujuan(disable);
 		ui.setMniButtonKasbonPencairan(disable);
 		ui.setMniButtonKasbonPembayaran(disable);
-		
+
 		ui.setMnuButtonAnggsuran(disable);
 		ui.setMniButtonAngsuranPengajuan(disable);
 		ui.setMniButtonAngsuranPersetujuan(disable);
-		
+
 		ui.setMniButtonPenggajian(disable);
-		
+
 		ui.setMniButtonLogout(disable);
 		ui.setMniBarKeamananProfile(disable);
 		ui.setMniBarKeamananLogout(disable);
 		ui.setMnuKeamananNotifikasi(disable);
 	}
-	
-	public void isHRD(Boolean disable){
+
+	public void isHRD(Boolean disable) {
 		enabledMenuHome(true);
 		ui.setMnuBarAplikasi(disable);
-		
+
 		ui.setMnuBarMaster(disable);
 		ui.setMnuMasterKaryawan(disable);
 		ui.setMnuMasterJabatan(disable);
-		
+
 		ui.setMnuBarKepegawaian(disable);
 		ui.setMniKepegAbsensi(disable);
-		
+
 		ui.setMniButtonJabatan(disable);
 		ui.setMniButtonKaryawan(disable);
 		ui.setMniButtonAbsensi(disable);
 	}
-	
-	public void isKeuangan(Boolean disable){
+
+	public void isKeuangan(Boolean disable) {
 		enabledMenuHome(true);
 		ui.setMnuBarAplikasi(disable);
 		ui.setMnuBarKepegawaian(disable);
-		
+
 		ui.setMnuButtonKasbon(disable);
 		ui.setMniButtonKasbonPengajuan(disable);
 		ui.setMniButtonKasbonPencairan(disable);
 		ui.setMniButtonKasbonPembayaran(disable);
-		
+
 		ui.setMnuButtonAnggsuran(disable);
 		ui.setMniButtonAngsuranPengajuan(disable);
-		
+
 		ui.setMniButtonPenggajian(disable);
-		
+
 		ui.setMnuBarKepegKasbon(disable);
 		ui.setMniKepegKasbonPengajuan(disable);
 		ui.setMniKepegKasbonPencairan(disable);
 		ui.setMniKepegKasbonPembayaran(disable);
-		
+
 		ui.setMnuBarKepegAngsuran(disable);
 		ui.setMniKepegAngsuranPengajuan(disable);
-		
+
 		ui.setMniKepegPenggajian(disable);
-		
+
 		ui.setMnuBarLaporan(disable);
 		ui.setMniLaporanKasbon(disable);
 		ui.setMniLaporanAngsuran(disable);
 		ui.setMniLaporanPenggajian(disable);
+	}
+
+	public void isDirektur(Boolean disable) {
+		enabledMenuHome(true);
+		ui.setMnuBarAplikasi(disable);
+
+		ui.setMnuBarKepegKasbon(disable);
+		ui.setMniKepegKasbonPersetujuan(disable);
+
+		ui.setMnuBarKepegAngsuran(disable);
+		ui.setMniKepegAngsuranPersetujuan(disable);
+
+		ui.setMnuBarLaporan(disable);
+		ui.setMniLaporanAbsensi(disable);
+		ui.setMniLaporanKasbon(disable);
+		ui.setMniLaporanAngsuran(disable);
+		ui.setMniLaporanPenggajian(disable);
+
+		ui.setMnuButtonKasbon(disable);
+		ui.setMniButtonKasbonPersetujuan(disable);
+
+		ui.setMnuButtonAnggsuran(disable);
+		ui.setMniButtonAngsuranPersetujuan(disable);
+
 	}
 
 }
