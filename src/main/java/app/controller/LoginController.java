@@ -123,9 +123,8 @@ public class LoginController implements BootFormInitializable {
 			if (akun.getSecurity() == DataJenisAkun.ADMINISTRATOR) {
 				securityConfig.enabledMenuHome(false);
 			} else if (akun.getSecurity() == DataJenisAkun.KEUANGAN) {
-
 			} else if (akun.getSecurity() == DataJenisAkun.HRD) {
-
+				securityConfig.isHRD(false);
 			} else if (akun.getSecurity() == DataJenisAkun.DIREKTUR) {
 
 			}

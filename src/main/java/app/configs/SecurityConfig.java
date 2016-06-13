@@ -85,46 +85,74 @@ public class SecurityConfig {
 	
 	public void enabledMenuHome(Boolean disable) {
 		ui.setMnuBarAplikasi(disable);
+		
 		ui.setMnuBarMaster(disable);
 		ui.setMnuMasterKaryawan(disable);
 		ui.setMnuMasterJabatan(disable);
+		
 		ui.setMnuBarKepegawaian(disable);
 		ui.setMniKepegAbsensi(disable);
+		
 		ui.setMnuBarKepegKasbon(disable);
 		ui.setMniKepegKasbonPengajuan(disable);
 		ui.setMniKepegKasbonPersetujuan(disable);
 		ui.setMniKepegKasbonPencairan(disable);
 		ui.setMniKepegKasbonPembayaran(disable);
+		
 		ui.setMnuBarKepegAngsuran(disable);
 		ui.setMniKepegAngsuranPengajuan(disable);
 		ui.setMniKepegAngsuranPersetujuan(disable);
+		
 		ui.setMniKepegPenggajian(disable);
+		
 		ui.setMnuBarLaporan(disable);
 		ui.setMniLaporanAbsensi(disable);
 		ui.setMniLaporanKasbon(disable);
 		ui.setMniLaporanAngsuran(disable);
 		ui.setMniLaporanPenggajian(disable);
+		
 		ui.setMnuBarKeamanan(disable);
+		
 		ui.setMnuKeamananUser(disable);
+		
 		ui.setMniButtonHome(disable);
 		ui.setMniButtonLogin(disable);
 		ui.setMniButtonJabatan(disable);
 		ui.setMniButtonKaryawan(disable);
 		ui.setMniButtonAbsensi(disable);
+		
 		ui.setMnuButtonKasbon(disable);
 		ui.setMniButtonKasbonPengajuan(disable);
 		ui.setMniButtonKasbonPersetujuan(disable);
 		ui.setMniButtonKasbonPencairan(disable);
 		ui.setMniButtonKasbonPembayaran(disable);
+		
 		ui.setMnuButtonAnggsuran(disable);
 		ui.setMniButtonAngsuranPengajuan(disable);
 		ui.setMniButtonAngsuranPersetujuan(disable);
+		
 		ui.setMniButtonPenggajian(disable);
+		
 		ui.setMniButtonLogout(disable);
 		ui.setMniBarKeamananProfile(disable);
 		ui.setMniBarKeamananLogout(disable);
 		ui.setMnuKeamananNotifikasi(disable);
-
+	}
+	
+	public void isHRD(Boolean disable){
+		enabledMenuHome(true);
+		ui.setMnuBarAplikasi(disable);
+		
+		ui.setMnuBarMaster(disable);
+		ui.setMnuMasterKaryawan(disable);
+		ui.setMnuMasterJabatan(disable);
+		
+		ui.setMnuBarKepegawaian(disable);
+		ui.setMniKepegAbsensi(disable);
+		
+		ui.setMniButtonJabatan(disable);
+		ui.setMniButtonKaryawan(disable);
+		ui.setMniButtonAbsensi(disable);
 	}
 
 }
