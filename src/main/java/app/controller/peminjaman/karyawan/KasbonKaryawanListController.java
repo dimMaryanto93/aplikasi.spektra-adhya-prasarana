@@ -102,10 +102,18 @@ public class KasbonKaryawanListController implements BootInitializable {
 			txtNama.setText(karyawan.getNama());
 			txtJabatan.setText(karyawan.getJabatan().getNama());
 			tableView.getItems().addAll(kasbonKaryawanService.findByKaryawanOrderByCreatedDateAsc(karyawan));
-			KasbonKaryawan kasbon = tableView.getItems().get(tableView.getItems().size() - 1);
-			txtTanggal.setText(stringFormater
-					.getDateTimeFormatterWithDayAndDateMonthYear(kasbon.getTanggalPinjam().toLocalDate()));
-			txtSaldoAkhir.setText(stringFormater.getCurrencyFormate(kasbon.getSaldoTerakhir()));
+			
+			Integer lastIndex = tableView.getItems().size();
+			if (lastIndex >= 1) {
+				KasbonKaryawan kasbon = tableView.getItems().get(lastIndex -1);
+				txtTanggal.setText(stringFormater
+						.getDateTimeFormatterWithDayAndDateMonthYear(kasbon.getTanggalPinjam().toLocalDate()));
+				txtSaldoAkhir.setText(stringFormater.getCurrencyFormate(kasbon.getSaldoTerakhir()));				
+			}else{
+				txtTanggal.clear();
+				txtSaldoAkhir.clear();
+			}
+			
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data kasbon untuk karyawan atas nama {}" + karyawan.getNama(), e);
 

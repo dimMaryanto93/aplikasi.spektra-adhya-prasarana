@@ -154,5 +154,36 @@ public class SecurityConfig {
 		ui.setMniButtonKaryawan(disable);
 		ui.setMniButtonAbsensi(disable);
 	}
+	
+	public void isKeuangan(Boolean disable){
+		enabledMenuHome(true);
+		ui.setMnuBarAplikasi(disable);
+		ui.setMnuBarKepegawaian(disable);
+		
+		ui.setMnuButtonKasbon(disable);
+		ui.setMniButtonKasbonPengajuan(disable);
+		ui.setMniButtonKasbonPencairan(disable);
+		ui.setMniButtonKasbonPembayaran(disable);
+		
+		ui.setMnuButtonAnggsuran(disable);
+		ui.setMniButtonAngsuranPengajuan(disable);
+		
+		ui.setMniButtonPenggajian(disable);
+		
+		ui.setMnuBarKepegKasbon(disable);
+		ui.setMniKepegKasbonPengajuan(disable);
+		ui.setMniKepegKasbonPencairan(disable);
+		ui.setMniKepegKasbonPembayaran(disable);
+		
+		ui.setMnuBarKepegAngsuran(disable);
+		ui.setMniKepegAngsuranPengajuan(disable);
+		
+		ui.setMniKepegPenggajian(disable);
+		
+		ui.setMnuBarLaporan(disable);
+		ui.setMniLaporanKasbon(disable);
+		ui.setMniLaporanAngsuran(disable);
+		ui.setMniLaporanPenggajian(disable);
+	}
 
 }
