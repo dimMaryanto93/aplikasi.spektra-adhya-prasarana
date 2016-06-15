@@ -250,6 +250,8 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 		this.cicilanMotor = karyawan.getNgicilMotor();
 		Double bayarCicilanMotor;
 		if (cicilanMotor != null && cicilanMotor.isSetuju()) {
+			// TODO update sistem penggajian kalo cicilan lebih dari 500rb potong gaji klo kurang dari 500rb tetap dikasihkan 500rb
+			
 			this.pembayaranCicilanMotor = new PembayaranCicilanMotor();
 			this.pembayaranCicilanMotor.setTanggalBayar(Date.valueOf(LocalDate.now()));
 			this.pembayaranCicilanMotor.setAngsuranKe(serviceCicilanMotor.findByMotor(cicilanMotor).size() + 1);
