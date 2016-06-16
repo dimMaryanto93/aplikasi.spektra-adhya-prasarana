@@ -89,6 +89,8 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	@FXML
 	private TextField txtTotal;
 	@FXML
+	private TextField txtPotonganGajiPokok;
+	@FXML
 	private CheckBox checkValid;
 
 	@Autowired
@@ -250,22 +252,26 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 		this.cicilanMotor = karyawan.getNgicilMotor();
 		Double bayarCicilanMotor;
 		if (cicilanMotor != null && cicilanMotor.isSetuju()) {
-			// TODO update sistem penggajian kalo cicilan lebih dari 500rb potong gaji klo kurang dari 500rb tetap dikasihkan 500rb
-			
 			this.pembayaranCicilanMotor = new PembayaranCicilanMotor();
 			this.pembayaranCicilanMotor.setTanggalBayar(Date.valueOf(LocalDate.now()));
 			this.pembayaranCicilanMotor.setAngsuranKe(serviceCicilanMotor.findByMotor(cicilanMotor).size() + 1);
-			this.pembayaranCicilanMotor.setBayar(cicilanMotor.getPembayaran());
+			Double cicilan = 500000D;
+			Double kelebihanCicilan = cicilanMotor.getPembayaran() - cicilan;
+			this.penggajian.setGajiPokok(karyawan.getGajiPokok() - kelebihanCicilan);
+			this.pembayaranCicilanMotor.setBayar(cicilan);
 			this.pembayaranCicilanMotor.setMotor(cicilanMotor);
 			bayarCicilanMotor = this.pembayaranCicilanMotor.getBayar();
 
+			txtGajiPokok.setText(stringFormatter.getCurrencyFormate(karyawan.getGajiPokok()));
 			txtCicilanKe.setText(
 					stringFormatter.getNumberIntegerOnlyFormate(this.pembayaranCicilanMotor.getAngsuranKe()) + "x");
 			txtMerekMotor.setText(cicilanMotor.getMerkMotor());
-			txtUangPrestasi.setText(stringFormatter.getCurrencyFormate(pembayaranCicilanMotor.getBayar()));
+			txtPotonganGajiPokok.setText(stringFormatter.getCurrencyFormate(-kelebihanCicilan));
+			txtUangPrestasi.setText(stringFormatter.getCurrencyFormate(cicilanMotor.getPembayaran()));
 		} else {
 			bayarCicilanMotor = 0D;
 
+			txtPotonganGajiPokok.clear();
 			txtCicilanKe.clear();
 			txtMerekMotor.clear();
 			txtUangPrestasi.clear();
@@ -436,7 +442,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

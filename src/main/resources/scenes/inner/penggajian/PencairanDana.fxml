@@ -51,8 +51,8 @@
 		<GridPane hgap="10.0" prefHeight="408.0" prefWidth="300.0"
 			vgap="10.0" BorderPane.alignment="CENTER">
 			<columnConstraints>
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
-					minWidth="150.0" prefWidth="150.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0"
+					minWidth="170.0" prefWidth="170.0" />
 				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
 					prefWidth="100.0" />
 			</columnConstraints>
@@ -143,19 +143,23 @@
 							minWidth="150.0" prefWidth="150.0" />
 					</columnConstraints>
 					<rowConstraints>
-						<RowConstraints maxHeight="-Infinity" minHeight="30.0"
+						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity"
 							vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="-Infinity" minHeight="30.0"
+						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity"
 							vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="-Infinity" minHeight="30.0"
+						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity"
 							vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="-Infinity" minHeight="30.0"
+						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity"
+							vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity"
 							vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
@@ -179,12 +183,6 @@
 									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
-						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gaji Pokok"
-							GridPane.columnIndex="5">
-							<font>
-								<Font name="System Bold" size="13.0" />
-							</font>
-						</Text>
 						<AnchorPane layoutX="475.0" layoutY="60.0" prefHeight="200.0"
 							prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
 							<children>
@@ -195,13 +193,6 @@
 									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
-						<Text layoutX="475.0" layoutY="39.0" strokeType="OUTSIDE"
-							strokeWidth="0.0" text="Uang Transport" GridPane.columnIndex="5"
-							GridPane.rowIndex="2">
-							<font>
-								<Font name="System Bold" size="13.0" />
-							</font>
-						</Text>
 						<HBox alignment="CENTER" GridPane.columnIndex="4"
 							GridPane.rowIndex="3">
 							<children>
@@ -242,11 +233,6 @@
 								</Text>
 							</children>
 						</HBox>
-						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jumlah Kehadiran"
-							GridPane.columnIndex="1" GridPane.rowIndex="2" />
-						<Text layoutX="170.0" layoutY="120.0" strokeType="OUTSIDE"
-							strokeWidth="0.0" text="Jumlah Lembur" GridPane.columnIndex="1"
-							GridPane.rowIndex="4" />
 						<AnchorPane layoutX="52.0" layoutY="140.0" prefHeight="200.0"
 							prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
 							<children>
@@ -287,13 +273,6 @@
 								</Text>
 							</children>
 						</HBox>
-						<Text layoutX="332.0" layoutY="119.0" strokeType="OUTSIDE"
-							strokeWidth="0.0" text="Uang Bonus" GridPane.columnIndex="5"
-							GridPane.rowIndex="4">
-							<font>
-								<Font name="System Bold" size="13.0" />
-							</font>
-						</Text>
 						<AnchorPane layoutX="332.0" layoutY="140.0" prefHeight="200.0"
 							prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
 							<children>
@@ -304,9 +283,6 @@
 									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
-						<Text layoutX="47.0" layoutY="200.0" strokeType="OUTSIDE"
-							strokeWidth="0.0" text="Cicilan motor" GridPane.columnIndex="1"
-							GridPane.rowIndex="6" />
 						<AnchorPane layoutX="47.0" layoutY="220.0" prefHeight="200.0"
 							prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
 							<children>
@@ -338,13 +314,6 @@
 								</Text>
 							</children>
 						</HBox>
-						<Text layoutX="332.0" layoutY="199.0" strokeType="OUTSIDE"
-							strokeWidth="0.0" text="Uang Prestasi" GridPane.columnIndex="5"
-							GridPane.rowIndex="6">
-							<font>
-								<Font name="System Bold" size="13.0" />
-							</font>
-						</Text>
 						<AnchorPane layoutX="332.0" layoutY="220.0" prefHeight="200.0"
 							prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="7">
 							<children>
@@ -356,9 +325,9 @@
 							</children>
 						</AnchorPane>
 						<Separator prefWidth="200.0" GridPane.columnSpan="2147483647"
-							GridPane.rowIndex="8" />
+							GridPane.rowIndex="10" />
 						<HBox alignment="CENTER_RIGHT" GridPane.columnIndex="3"
-							GridPane.columnSpan="2" GridPane.rowIndex="9">
+							GridPane.columnSpan="2" GridPane.rowIndex="11">
 							<children>
 								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jumlah">
 									<font>
@@ -368,7 +337,7 @@
 							</children>
 						</HBox>
 						<AnchorPane layoutX="332.0" layoutY="300.0" prefHeight="200.0"
-							prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="9">
+							prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="11">
 							<children>
 								<TextField fx:id="txtTotal" alignment="CENTER_RIGHT"
 									editable="false" focusTraversable="false" layoutX="-20.0"
@@ -378,7 +347,7 @@
 							</children>
 						</AnchorPane>
 						<AnchorPane GridPane.columnSpan="2147483647"
-							GridPane.rowIndex="10">
+							GridPane.rowIndex="12">
 							<children>
 								<CheckBox fx:id="checkValid" disable="true"
 									mnemonicParsing="false" opacity="0.0" AnchorPane.bottomAnchor="0.0"
@@ -390,6 +359,58 @@
 								</CheckBox>
 							</children>
 						</AnchorPane>
+						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gaji Pokok"
+							GridPane.columnIndex="5">
+							<font>
+								<Font name="System Bold" size="13.0" />
+							</font>
+						</Text>
+						<Text layoutX="475.0" layoutY="39.0" strokeType="OUTSIDE"
+							strokeWidth="0.0" text="Uang Transport" GridPane.columnIndex="5"
+							GridPane.rowIndex="2">
+							<font>
+								<Font name="System Bold" size="13.0" />
+							</font>
+						</Text>
+						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jumlah Kehadiran"
+							GridPane.columnIndex="1" GridPane.rowIndex="2" />
+						<Text layoutX="170.0" layoutY="120.0" strokeType="OUTSIDE"
+							strokeWidth="0.0" text="Jumlah Lembur" GridPane.columnIndex="1"
+							GridPane.rowIndex="4" />
+						<Text layoutX="332.0" layoutY="119.0" strokeType="OUTSIDE"
+							strokeWidth="0.0" text="Uang Bonus" GridPane.columnIndex="5"
+							GridPane.rowIndex="4">
+							<font>
+								<Font name="System Bold" size="13.0" />
+							</font>
+						</Text>
+						<Text layoutX="47.0" layoutY="200.0" strokeType="OUTSIDE"
+							strokeWidth="0.0" text="Cicilan motor" GridPane.columnIndex="1"
+							GridPane.rowIndex="6" />
+						<Text layoutX="332.0" layoutY="199.0" strokeType="OUTSIDE"
+							strokeWidth="0.0" text="Uang Prestasi" GridPane.columnIndex="5"
+							GridPane.rowIndex="6">
+							<font>
+								<Font name="System Bold" size="13.0" />
+							</font>
+						</Text>
+						<AnchorPane layoutX="332.0" layoutY="244.0" prefHeight="200.0"
+							prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="9">
+							<children>
+								<TextField fx:id="txtPotonganGajiPokok" alignment="CENTER_RIGHT"
+									editable="false" focusTraversable="false" layoutX="-20.0"
+									layoutY="1.0" prefHeight="30.0" prefWidth="175.0" promptText="Rp.0,00"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<Text layoutX="332.0" layoutY="230.0" strokeType="OUTSIDE"
+							strokeWidth="0.0" text="Potongan Gaji Pokok"
+							GridPane.columnIndex="5" GridPane.rowIndex="8">
+							<font>
+								<Font name="System Bold" size="13.0" />
+							</font>
+						</Text>
 					</children>
 				</GridPane>
 			</content>

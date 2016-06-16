@@ -29,7 +29,6 @@ import app.configs.StringFormatterFactory;
 import app.entities.kepegawaian.Penggajian;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryPenggajianKaryawan;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -231,19 +230,7 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 				};
 			}
 		});
-		columnGajiPokok.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<Penggajian, Double>, ObservableValue<Double>>() {
-
-					@Override
-					public ObservableValue<Double> call(CellDataFeatures<Penggajian, Double> param) {
-						DataKaryawan karyawan = param.getValue().getKaryawan();
-						if (karyawan != null) {
-							return new SimpleObjectProperty<Double>(karyawan.getGajiPokok());
-						} else {
-							return new SimpleObjectProperty<Double>(0D);
-						}
-					}
-				});
+		columnGajiPokok.setCellValueFactory(new PropertyValueFactory<Penggajian, Double>("gajiPokok"));
 		columnGajiPokok.setCellFactory(new Callback<TableColumn<Penggajian, Double>, TableCell<Penggajian, Double>>() {
 
 			@Override
@@ -339,7 +326,7 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

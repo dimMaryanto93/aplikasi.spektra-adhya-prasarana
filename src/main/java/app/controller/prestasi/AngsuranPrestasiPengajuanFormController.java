@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.StringFormatterFactory;
+import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
@@ -173,10 +174,10 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 					if (newValue != null) {
 						txtKarywan.setText(newValue.getNama());
 						txtNik.setText(newValue.getNik().toString());
-						this.spinnerCicilanValueFactory.setMax(Double.MAX_VALUE);
+						this.spinnerCicilanValueFactory.setMax(newValue.getGajiPokok() + 500000);
 						this.spinnerCicilanValueFactory.setMin(0D);
 						this.spinnerCicilanValueFactory.setAmountToStepBy(50000);
-						this.spinnerCicilanValueFactory.setValue(Double.valueOf(500000));
+						this.spinnerCicilanValueFactory.setValue(0D);
 
 						this.spinnerJumlahCicilanValueFactory.setMax(100);
 						this.spinnerJumlahCicilanValueFactory.setMin(0);
@@ -336,8 +337,8 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 						Double.valueOf(value) < 100));
 		this.validation.registerValidator(txtCicilan.getEditor(),
 				(Control c, String value) -> ValidationResult.fromErrorIf(c,
-						"Cicilam motor minimal harus lebih dari " + stringFormater.getCurrencyFormate(100),
-						Double.valueOf(value) < 100));
+						"Cicilam motor minimal harus lebih dari " + stringFormater.getCurrencyFormate(500000),
+						Double.valueOf(value) < 500000));
 		this.validation.registerValidator(txtJumlahCicilan.getEditor(),
 				(Control c, String value) -> ValidationResult.fromErrorIf(c,
 						"Jumlah cicilan minamal harus lebih dari " + stringFormater.getNumberIntegerOnlyFormate(5),
@@ -362,7 +363,7 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
