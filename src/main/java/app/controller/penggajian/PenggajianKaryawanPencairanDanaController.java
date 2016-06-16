@@ -258,7 +258,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 			Double cicilan = 500000D;
 			Double kelebihanCicilan = cicilanMotor.getPembayaran() - cicilan;
 			this.penggajian.setGajiPokok(karyawan.getGajiPokok() - kelebihanCicilan);
-			this.pembayaranCicilanMotor.setBayar(cicilan);
+			this.pembayaranCicilanMotor.setBayar(cicilanMotor.getPembayaran());
 			this.pembayaranCicilanMotor.setMotor(cicilanMotor);
 			bayarCicilanMotor = this.pembayaranCicilanMotor.getBayar();
 
@@ -267,7 +267,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 					stringFormatter.getNumberIntegerOnlyFormate(this.pembayaranCicilanMotor.getAngsuranKe()) + "x");
 			txtMerekMotor.setText(cicilanMotor.getMerkMotor());
 			txtPotonganGajiPokok.setText(stringFormatter.getCurrencyFormate(-kelebihanCicilan));
-			txtUangPrestasi.setText(stringFormatter.getCurrencyFormate(cicilanMotor.getPembayaran()));
+			txtUangPrestasi.setText(stringFormatter.getCurrencyFormate(this.pembayaranCicilanMotor.getBayar()));
 		} else {
 			bayarCicilanMotor = 0D;
 
