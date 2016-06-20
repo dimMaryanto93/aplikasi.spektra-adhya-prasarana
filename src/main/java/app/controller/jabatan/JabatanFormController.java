@@ -30,8 +30,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Control;
-import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
@@ -43,6 +43,9 @@ import javafx.util.Duration;
 @Component
 public class JabatanFormController implements BootFormInitializable {
 
+	private DataJabatan jabatan;
+	private Boolean update;
+	private ValidationSupport validation;
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private ApplicationContext springContext;
@@ -57,17 +60,18 @@ public class JabatanFormController implements BootFormInitializable {
 	@FXML
 	private Button btnSave;
 	@FXML
-	private Label txtNominal;
-
-	@Autowired
-	private StringFormatterFactory stringFormater;
-
-	private DataJabatan jabatan;
-
-	private Boolean update;
+	private Button btnCancel;
+	@FXML
+	private TextArea txtPernyataan;
+	@FXML
+	private CheckBox txtValid;
 
 	@Autowired
 	private RepositoryJabatan repo;
+	@Autowired
+	private HomeController homeController;
+	@Autowired
+	private StringFormatterFactory stringFormater;
 
 	public Boolean isUpdate() {
 		return update;
@@ -77,22 +81,26 @@ public class JabatanFormController implements BootFormInitializable {
 		this.update = update;
 	}
 
-	@Autowired
-	private HomeController homeController;
-	private ValidationSupport validation;
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.btnSave.setDisable(true);
-		txtNominal.setText(stringFormater.getCurrencyFormate(0));
+
 		this.spinGapok.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.valueOf(0),
 				Double.MAX_VALUE, Double.valueOf(0), 500000));
-		this.spinGapok.getValueFactory().valueProperty()
-				.addListener((ObservableValue<? extends Double> values, Double oldValue, Double newValue) -> {
-					this.txtNominal.setText(this.stringFormater.getCurrencyFormate(newValue));
-				});
 		this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
 		this.spinGapok.setEditable(true);
+		this.spinGapok.valueProperty().addListener((d, old, newValue) -> {
+			this.txtValid.setSelected(false);
+
+			StringBuilder sb = new StringBuilder();
+			sb.append("Gaji pokok");
+			sb.append(" sebesar ");
+			sb.append(stringFormater.getCurrencyFormate(spinGapok.getValueFactory().getValue()));
+			sb.append(" untuk nama jabatan ");
+			sb.append(txtNama.getText());
+			txtPernyataan.setText(sb.toString());
+		});
+
 		initValidator();
 	}
 
@@ -130,7 +138,6 @@ public class JabatanFormController implements BootFormInitializable {
 		txtNama.setText(j.getNama());
 		txtKeterangan.setText(j.getKeterangan());
 		spinGapok.getValueFactory().setValue(j.getGapok());
-
 	}
 
 	private void newDataJabatan() {
@@ -153,7 +160,7 @@ public class JabatanFormController implements BootFormInitializable {
 			// log ke console
 			logger.info("Berhasil menyimpan data jabatan");
 
-			initConstuct();
+			homeController.showDaftarJabatan();
 		} catch (Exception e) {
 			logger.error("Tidak dapat menyimpan data jabatan dengan nama: {}", jabatan.getNama());
 
@@ -234,8 +241,12 @@ public class JabatanFormController implements BootFormInitializable {
 				Validator.createEmptyValidator("Nama jabatan tidak boleh kosong!", Severity.ERROR));
 		this.validation.registerValidator(txtKeterangan, (Control c, String value) -> ValidationResult.fromMessageIf(c,
 				"Keterangan masih kosong!", Severity.WARNING, value.isEmpty()));
-		this.validation.registerValidator(spinGapok.getEditor(), (Control c, String value) -> ValidationResult
-				.fromErrorIf(c, "Nominal minimum Rp.100,-", Double.valueOf(value) < 100));
+		this.validation.registerValidator(spinGapok.getEditor(),
+				(Control c, String value) -> ValidationResult.fromErrorIf(c,
+						"Nominal minimal " + stringFormater.getCurrencyFormate(500000),
+						Double.valueOf(value) < 500000));
+		this.validation.registerValidator(txtValid, (Control c, Boolean value) -> ValidationResult.fromErrorIf(c,
+				"Anda belum menyetujui data diatas", !value));
 		this.validation.invalidProperty()
 				.addListener((ObservableValue<? extends Boolean> values, Boolean oldValue, Boolean newValue) -> {
 					this.btnSave.setDisable(newValue);
@@ -244,8 +255,7 @@ public class JabatanFormController implements BootFormInitializable {
 
 	@Override
 	public void initIcons() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

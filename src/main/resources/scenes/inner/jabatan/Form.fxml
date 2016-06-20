@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
@@ -41,9 +42,9 @@
 				<Button fx:id="btnSave" cancelButton="true" defaultButton="true"
 					mnemonicParsing="false" onAction="#doSave" prefHeight="30.0"
 					prefWidth="100.0" text="Simpan" />
-				<Button cancelButton="true" layoutX="10.0" layoutY="10.0"
-					mnemonicParsing="false" onAction="#doCancel" prefHeight="30.0"
-					prefWidth="100.0" text="Batal" />
+				<Button fx:id="btnCancel" cancelButton="true" layoutX="10.0"
+					layoutY="10.0" mnemonicParsing="false" onAction="#doCancel"
+					prefHeight="30.0" prefWidth="100.0" text="Batal" />
 			</items>
 		</ToolBar>
 	</bottom>
@@ -61,10 +62,16 @@
 							minWidth="100.0" prefWidth="100.0" />
 						<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0"
 							minWidth="100.0" prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES"
+							maxWidth="1.7976931348623157E308" />
 					</columnConstraints>
 					<rowConstraints>
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0"
+							prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
 							prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0"
@@ -109,8 +116,8 @@
 							</children>
 						</AnchorPane>
 						<AnchorPane prefHeight="200.0" prefWidth="200.0"
-							GridPane.columnIndex="1" GridPane.columnSpan="2147483647"
-							GridPane.rowIndex="4" GridPane.rowSpan="2">
+							GridPane.columnIndex="1" GridPane.columnSpan="3"
+							GridPane.rowIndex="3" GridPane.rowSpan="2">
 							<children>
 								<TextArea fx:id="txtKeterangan" layoutX="22.0" layoutY="-65.0"
 									prefHeight="135.0" prefWidth="310.0" promptText="Keterangan"
@@ -120,14 +127,27 @@
 							</children>
 						</AnchorPane>
 						<Label text="Nama" GridPane.rowIndex="1" />
-						<Label text="Keterangan" GridPane.rowIndex="4" />
+						<Label text="Keterangan" GridPane.rowIndex="3" />
 						<Label text="Kode" />
 						<Label text="Gaji Pokok" GridPane.rowIndex="2" />
-						<AnchorPane GridPane.columnIndex="1"
-							GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+						<AnchorPane prefHeight="200.0" prefWidth="200.0"
+							GridPane.columnIndex="1" GridPane.columnSpan="2147483647"
+							GridPane.rowIndex="5" GridPane.rowSpan="2">
 							<children>
-								<Label fx:id="txtNominal" prefHeight="30.0" prefWidth="100.0"
-									text="Rp" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+								<TextArea fx:id="txtPernyataan" disable="true"
+									editable="false" layoutX="-29.0" layoutY="-79.0" opacity="0.8"
+									prefHeight="121.0" prefWidth="432.0" promptText="Pernyataan"
+									wrapText="true" AnchorPane.bottomAnchor="0.0"
+									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+									AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane GridPane.columnIndex="1"
+							GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+							<children>
+								<CheckBox fx:id="txtValid" mnemonicParsing="false"
+									prefHeight="30.0" prefWidth="432.0" text="Data diatas adalah valid"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
