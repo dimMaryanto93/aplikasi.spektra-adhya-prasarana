@@ -22,11 +22,12 @@
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
 	prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<top>
-		<HBox spacing="10.0" style="-fx-background-color: GRAY;"
+		<HBox spacing="10.0" styleClass="header"
+			stylesheets="@../../../../stylesheet/dafault-layout.css"
 			BorderPane.alignment="CENTER">
 			<children>
 				<Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
-					text="Daftar permohonan kasbon yang telah di setujui">
+					styleClass="label-header" text="Daftar permohonan kasbon yang telah di setujui">
 					<font>
 						<Font name="System Bold" size="25.0" />
 					</font>

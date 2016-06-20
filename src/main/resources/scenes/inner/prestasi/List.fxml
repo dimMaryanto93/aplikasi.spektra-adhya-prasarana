@@ -23,10 +23,12 @@
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
 	prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<top>
-		<HBox alignment="CENTER_LEFT" spacing="10.0"
-			style="-fx-background-color: GRAY;" BorderPane.alignment="CENTER">
+		<HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="header"
+			stylesheets="@../../../stylesheet/dafault-layout.css"
+			BorderPane.alignment="CENTER">
 			<children>
-				<Label text="Data Pembayaran Cicilan Motor" textFill="WHITE">
+				<Label styleClass="label-header" text="Data Pembayaran Cicilan Motor"
+					textFill="WHITE">
 					<font>
 						<Font name="System Bold" size="25.0" />
 					</font>
