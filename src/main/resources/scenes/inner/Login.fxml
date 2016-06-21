@@ -39,11 +39,11 @@
 			<rowConstraints>
 				<RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
 				<RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
 				<RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
 				<RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
@@ -66,12 +66,12 @@
 				</Label>
 				<AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="6">
 					<children>
-						<Button fx:id="btnLogin" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#doSignIn" prefHeight="30.0" prefWidth="100.0" style="-fx-min-width: 150;" text="Login" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+						<Button fx:id="btnLogin" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#doSignIn" prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Login" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 					</children>
 				</AnchorPane>
 				<AnchorPane layoutX="260.0" layoutY="147.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
 					<children>
-						<Button fx:id="btnExit" mnemonicParsing="false" onAction="#doExit" prefHeight="30.0" prefWidth="100.0" text="Exit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+						<Button fx:id="btnExit" mnemonicParsing="false" onAction="#doExit" prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Exit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 					</children>
 				</AnchorPane>
 			</children>

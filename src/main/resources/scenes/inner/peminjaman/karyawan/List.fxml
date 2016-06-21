@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" stylesheets="@../../../../stylesheet/JMetroLightTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<left>
 		<AnchorPane>
 			<children>
@@ -55,9 +55,9 @@
 						<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
 					</columnConstraints>
 					<rowConstraints>
-						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="250.0" minHeight="250.0" prefHeight="250.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
 					</rowConstraints>
@@ -130,7 +130,7 @@
 	<bottom>
 		<ToolBar prefHeight="40.0" prefWidth="200.0" stylesheets="@../../../../stylesheet/JMetroLightTheme.css" BorderPane.alignment="CENTER">
 			<items>
-				<Button fx:id="btnCetak" disable="true" mnemonicParsing="false" onAction="#doPrint" prefHeight="30.0" prefWidth="100.0" text="Cetak" />
+				<Button fx:id="btnCetak" disable="true" mnemonicParsing="false" onAction="#doPrint" prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Cetak" />
 			</items>
 		</ToolBar>
 	</bottom>

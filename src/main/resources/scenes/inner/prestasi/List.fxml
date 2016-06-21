@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -55,11 +56,11 @@
 						<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
 					</columnConstraints>
 					<rowConstraints>
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="200.0" minHeight="200.0" prefHeight="200.0" vgrow="SOMETIMES" />
 					</rowConstraints>
 					<padding>
@@ -123,8 +124,10 @@
 	<bottom>
 		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 			<items>
-				<Button defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#doRefresh" prefHeight="30.0" prefWidth="120.0" text="Refresh Data" />
-				<Button mnemonicParsing="false" onAction="#doClear" prefHeight="30.0" prefWidth="120.0" text="Clear Seleksi" />
+            <Button mnemonicParsing="false" styleClass="action" text="Kembali" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+				<Button defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#doRefresh" prefHeight="30.0" prefWidth="120.0" styleClass="action" text="Refresh" />
+				<Button mnemonicParsing="false" onAction="#doClear" prefHeight="30.0" prefWidth="120.0" styleClass="action" text="Clear" />
 			</items>
 		</ToolBar>
 	</bottom>

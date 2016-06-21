@@ -19,8 +19,8 @@
 	<bottom>
 		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 			<items>
-				<Button fx:id="btnSave" cancelButton="true" defaultButton="true" mnemonicParsing="false" onAction="#doSave" prefHeight="30.0" prefWidth="100.0" text="Simpan" />
-				<Button fx:id="btnCancel" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#doCancel" prefHeight="30.0" prefWidth="100.0" text="Batal" />
+				<Button fx:id="btnSave" cancelButton="true" defaultButton="true" mnemonicParsing="false" onAction="#doSave" prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Simpan" />
+				<Button fx:id="btnCancel" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#doCancel" prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Batal" />
 			</items>
 		</ToolBar>
 	</bottom>
@@ -36,9 +36,9 @@
 						<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
 					</columnConstraints>
 					<rowConstraints>
-						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
-						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
 						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />

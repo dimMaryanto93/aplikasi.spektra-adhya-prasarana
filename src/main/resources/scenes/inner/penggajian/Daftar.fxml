@@ -30,7 +30,7 @@
 				<ChoiceBox fx:id="txtMonth" prefHeight="30.0" prefWidth="150.0" />
 				<Spinner fx:id="txtYear" prefHeight="30.0" prefWidth="100.0" />
 				<Separator layoutX="133.0" layoutY="10.0" orientation="VERTICAL" />
-				<Button fx:id="btnProccessed" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#doProceess" prefHeight="30.0" prefWidth="100.0" text="Proses" />
+				<Button fx:id="btnProccessed" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#doProceess" prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Proses" />
 			</items>
 		</ToolBar>
 	</bottom>

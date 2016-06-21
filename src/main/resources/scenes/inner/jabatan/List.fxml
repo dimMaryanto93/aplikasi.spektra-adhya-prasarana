@@ -47,9 +47,9 @@
 	<bottom>
 		<ToolBar prefHeight="40.0" prefWidth="707.0" BorderPane.alignment="CENTER">
 			<items>
-				<Button defaultButton="true" mnemonicParsing="false" onAction="#doAdd" prefHeight="30.0" prefWidth="100.0" text="Tambah" />
-				<Button fx:id="btnUpdate" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Ubah" />
-				<Button fx:id="btnDelete" disable="true" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Hapus" />
+				<Button defaultButton="true" mnemonicParsing="false" onAction="#doAdd" prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Tambah" />
+				<Button fx:id="btnUpdate" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Ubah" />
+				<Button fx:id="btnDelete" disable="true" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Hapus" />
 			</items>
 		</ToolBar>
 	</bottom>
@@ -62,9 +62,9 @@
 				<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
 			</columnConstraints>
 			<rowConstraints>
-				<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
 				<RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
 			</rowConstraints>
 			<padding>
