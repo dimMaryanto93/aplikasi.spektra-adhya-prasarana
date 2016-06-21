@@ -73,6 +73,11 @@
 			<version>6.0.0</version>
 		</dependency>
 		<dependency>
+			<groupId>org.jfxtras</groupId>
+			<artifactId>jfxtras-all</artifactId>
+			<version>8.0-r5</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j</artifactId>
 		</dependency>

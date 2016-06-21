@@ -82,7 +82,7 @@ public class MainApplication extends Application {
 					stage.setScene(new Scene(parent));
 					stage.setResizable(false);
 					stage.show();
-					
+
 					scene.showLoginForm();
 					loger.info("JavaFX started, have nice day sir!");
 				} catch (IOException e) {

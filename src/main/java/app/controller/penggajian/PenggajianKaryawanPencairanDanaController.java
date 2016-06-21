@@ -132,6 +132,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 		txtCicilanKe.clear();
 		txtMerekMotor.clear();
 		txtUangPrestasi.clear();
+		txtPotonganGajiPokok.clear();
 		txtTotal.clear();
 	}
 

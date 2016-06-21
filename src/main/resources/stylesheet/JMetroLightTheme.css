@@ -630,7 +630,7 @@
 
 /*******************************************************************************
  *                                                                             *
- * Textfields                                                     *
+ * Textfields                                                     			   *
  *                                                                             *
  ******************************************************************************/
 
@@ -639,11 +639,6 @@
 	-fx-background-color: transparent, #bababa, transparent, white;
     -fx-background-radius: 0, 0, 0, 0;
     -fx-padding: 0.166667em; /* 2 */
-}
-
-.text-input:hover {
-    -fx-background-color: transparent, #909090, transparent, white;
-    
 }
 
 

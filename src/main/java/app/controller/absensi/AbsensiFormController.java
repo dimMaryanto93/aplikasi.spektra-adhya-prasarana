@@ -164,8 +164,7 @@ public class AbsensiFormController implements BootInitializable {
 					.text("Daftar absensi karyawan pada tanggal " + LocalDate.now().toString() + ", Berhasil disimpan!")
 					.showInformation();
 
-			// kemabalikan atau refresh data setelah disimpan
-			initConstuct();
+			homeController.showWellcome();
 		} catch (Exception e) {
 			logger.error("Tidak dapat mengimpan dan perubahan data absensi karyawan", e);
 
