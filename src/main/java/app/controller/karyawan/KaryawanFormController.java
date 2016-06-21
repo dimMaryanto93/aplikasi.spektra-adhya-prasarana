@@ -39,6 +39,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
@@ -96,6 +97,8 @@ public class KaryawanFormController implements BootFormInitializable {
 	private Button btnSimpan;
 	@FXML
 	private Label txtNominal;
+	@FXML
+	private CheckBox txtValid;
 
 	private void clearFields() {
 		txtNik.clear();
@@ -210,7 +213,7 @@ public class KaryawanFormController implements BootFormInitializable {
 			this.setUpdate(false);
 			this.cbkJabatan.setDisable(false);
 			this.spinGapok.setDisable(false);
-			this.txtHireDate.setDisable(false);			
+			this.txtHireDate.setDisable(false);
 			this.anEmployee = new DataKaryawan();
 
 			this.mapJabatan.clear();
@@ -243,7 +246,7 @@ public class KaryawanFormController implements BootFormInitializable {
 			this.spinGapok.setDisable(true);
 			this.txtHireDate.setDisable(true);
 			this.anEmployee = anEmployee;
-			
+
 			cbkAgama.getItems().addAll(DataAgama.values());
 			cbkPendidikan.getItems().addAll(DataPendidikan.values());
 			this.txtNik.setText(String.valueOf(anEmployee.getNik()));
@@ -410,6 +413,8 @@ public class KaryawanFormController implements BootFormInitializable {
 				(Control c, LocalDate value) -> ValidationResult.fromErrorIf(c,
 						"Minimal karyawan berumur 17 tahun dari sekarang ",
 						value.isAfter(LocalDate.now().minusYears(17))));
+		this.validation.registerValidator(txtValid,
+				(Control c, Boolean value) -> ValidationResult.fromErrorIf(c, "Anda belum menyetujui", !value));
 
 		this.validation.invalidProperty()
 				.addListener((ObservableValue<? extends Boolean> values, Boolean oldValue, Boolean newValue) -> {
