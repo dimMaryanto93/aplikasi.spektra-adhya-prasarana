@@ -19,7 +19,7 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" stylesheets="@../../../stylesheet/JMetroLightTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<bottom>
-		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+		<ToolBar BorderPane.alignment="CENTER">
 			<items>
 				<Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" onAction="#doSave" prefHeight="30.0" prefWidth="100.0" text="Simpan" />
 				<Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#doBack" prefHeight="30.0" prefWidth="100.0" text="Batal" />

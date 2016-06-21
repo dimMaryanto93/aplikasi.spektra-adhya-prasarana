@@ -60,7 +60,7 @@
 		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 			<items>
 				<Button fx:id="btnTambah" cancelButton="true" defaultButton="true" mnemonicParsing="false" onAction="#doSave" prefHeight="30.0" prefWidth="100.0" text="Simpan" />
-				<Button cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#doCancel" prefHeight="30.0" prefWidth="100.0" text="Batal" />
+				<Button cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#doCancel" prefHeight="30.0" prefWidth="100.0" text="Kembali" />
 			</items>
 		</ToolBar>
 	</bottom>

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.StringFormatterFactory;
+import app.controller.HomeController;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.master.DataKaryawan;
 import app.entities.master.DataTidakHadir;
@@ -38,25 +39,29 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.scene.control.Button;
 
 @Component
 public class AbsensiListController implements BootInitializable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private ApplicationContext springContainer;
 
 	@Autowired
 	private RepositoryAbsensi absenService;
 	@Autowired
 	private RepositoryKaryawan karyawan;
+	@Autowired
+	private StringFormatterFactory stringFormatter;
+	@Autowired
+	private HomeController homeController;
 
-	private ApplicationContext springContainer;
 	@FXML
 	private TableView<DataKaryawan> tableKaryawan;
 	@FXML
 	private TableColumn<DataKaryawan, String> columnkaryawanNik;
 	@FXML
 	private TableColumn<DataKaryawan, String> columnKaryawanNama;
-
 	@FXML
 	private TableView<KehadiranKaryawan> tabelKehadiran;
 	@FXML
@@ -77,9 +82,12 @@ public class AbsensiListController implements BootInitializable {
 	private TextField txtHadir;
 	@FXML
 	private TextField txtLembur;
-
-	@Autowired
-	private StringFormatterFactory stringFormatter;
+	@FXML
+	private Button btnBack;
+	@FXML
+	private Button btnRefresh;
+	@FXML
+	private Button btnClear;
 
 	private void setFields(DataKaryawan karyawan) {
 		txtNoInduk.setText(karyawan.getNik().toString());
@@ -262,8 +270,6 @@ public class AbsensiListController implements BootInitializable {
 		loadDataKaryawan();
 	}
 
-	
-
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 
@@ -279,10 +285,15 @@ public class AbsensiListController implements BootInitializable {
 		initConstuct();
 	}
 
+	@FXML
+	public void doBack(ActionEvent event) {
+		this.homeController.showWellcome();
+	}
+
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -40,6 +40,13 @@
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: black;
+    
+    -fx-min-height: 35;
+    -fx-min-width: 130;    
+    -fx-pref-height: 35;
+    -fx-pref-width: 130;    
+    -fx-max-height: 35;
+    -fx-max-width: 130;
 }
 
 .button:hover{
@@ -641,6 +648,16 @@
     -fx-padding: 0.166667em; /* 2 */
 }
 
+/*******************************************************************************
+ *                                                                             *
+ * Toolbar                                                 			   *
+ *                                                                             *
+ ******************************************************************************/
+.tool-bar{
+	-fx-min-height: 60;    
+    -fx-pref-height: 60;    
+    -fx-max-height: 60;
+}
 
 
 
