@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.StringFormatterFactory;
+import app.controller.HomeController;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
@@ -52,9 +53,14 @@ import javafx.util.Duration;
 @Component
 public class AngsuranPrestasiPengajuanFormController implements BootFormInitializable {
 
+	private Motor motor;
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerCicilanValueFactory;
+	private SpinnerValueFactory.IntegerSpinnerValueFactory spinnerJumlahCicilanValueFactory;
+	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerUangMukaValueFactory;
+	private ValidationSupport validation;
 	private ApplicationContext springContext;
+
 	@FXML
 	private TableView<DataKaryawan> tableView;
 	@FXML
@@ -94,21 +100,13 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 
 	@Autowired
 	private RepositoryPengajuanAngsuranPrestasi serviceMotor;
-
 	@Autowired
 	private RepositoryKaryawan serviceKaryawan;
-
 	@Autowired
 	private StringFormatterFactory stringFormater;
+	@Autowired
+	private HomeController homeController;
 
-	private Motor motor;
-
-	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerCicilanValueFactory;
-
-	private SpinnerValueFactory.IntegerSpinnerValueFactory spinnerJumlahCicilanValueFactory;
-
-	private SpinnerValueFactory.DoubleSpinnerValueFactory spinnerUangMukaValueFactory;
-	private ValidationSupport validation;
 
 	private void clearFields() {
 		txtKarywan.clear();
@@ -321,6 +319,7 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 
 	@FXML
 	public void doCancel(ActionEvent event) {
+		homeController.showWellcome();
 	}
 
 	@Override

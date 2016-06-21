@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.StringFormatterFactory;
+import app.controller.HomeController;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 import app.entities.master.DataKaryawan;
@@ -72,13 +73,13 @@ public class AngsuranPrestasiListController implements BootInitializable {
 
 	@Autowired
 	private RepositoryKaryawan serviceKaryawan;
-
 	@Autowired
 	private RepositoryCicilanMotor serviceCicilanMotor;
-
 	@Autowired
 	private StringFormatterFactory formater;
-
+	@Autowired
+	private HomeController homeController;
+	
 	private void setFields(DataKaryawan karyawan) {
 		txtNik.setText(karyawan.getNik().toString());
 		txtNama.setText(karyawan.getNama());

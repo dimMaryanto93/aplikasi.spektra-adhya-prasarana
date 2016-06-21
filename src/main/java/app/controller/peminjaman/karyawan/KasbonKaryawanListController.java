@@ -20,6 +20,7 @@ import app.configs.BootInitializable;
 import app.configs.FontIconFactory;
 import app.configs.PrintConfig;
 import app.configs.StringFormatterFactory;
+import app.controller.HomeController;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
@@ -68,6 +69,8 @@ public class KasbonKaryawanListController implements BootInitializable {
 	private FontIconFactory iconFactory;
 	@Autowired
 	private PrintConfig configPrint;
+	@Autowired
+	private HomeController homeController;
 
 	@FXML
 	private ListView<DataKaryawan> listView;
@@ -102,18 +105,18 @@ public class KasbonKaryawanListController implements BootInitializable {
 			txtNama.setText(karyawan.getNama());
 			txtJabatan.setText(karyawan.getJabatan().getNama());
 			tableView.getItems().addAll(kasbonKaryawanService.findByKaryawanOrderByCreatedDateAsc(karyawan));
-			
+
 			Integer lastIndex = tableView.getItems().size();
 			if (lastIndex >= 1) {
-				KasbonKaryawan kasbon = tableView.getItems().get(lastIndex -1);
+				KasbonKaryawan kasbon = tableView.getItems().get(lastIndex - 1);
 				txtTanggal.setText(stringFormater
 						.getDateTimeFormatterWithDayAndDateMonthYear(kasbon.getTanggalPinjam().toLocalDate()));
-				txtSaldoAkhir.setText(stringFormater.getCurrencyFormate(kasbon.getSaldoTerakhir()));				
-			}else{
+				txtSaldoAkhir.setText(stringFormater.getCurrencyFormate(kasbon.getSaldoTerakhir()));
+			} else {
 				txtTanggal.clear();
 				txtSaldoAkhir.clear();
 			}
-			
+
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data kasbon untuk karyawan atas nama {}" + karyawan.getNama(), e);
 
@@ -413,7 +416,7 @@ public class KasbonKaryawanListController implements BootInitializable {
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

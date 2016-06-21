@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 import app.configs.BootFormInitializable;
 import app.configs.PrintConfig;
 import app.configs.StringFormatterFactory;
+import app.controller.HomeController;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.kepegawaian.Penggajian;
 import app.entities.kepegawaian.uang.prestasi.Motor;
@@ -95,21 +96,18 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 	@Autowired
 	private RepositoryPenggajianKaryawan servicePenggajian;
-
 	@Autowired
 	private RepositoryKaryawan serviceKaryawan;
-
 	@Autowired
 	private RepositoryCicilanMotor serviceCicilanMotor;
-
 	@Autowired
 	private StringFormatterFactory stringFormatter;
-
 	@Autowired
 	private RepositoryAbsensi serviceAbsen;
-
 	@Autowired
 	private PrintConfig print;
+	@Autowired
+	private HomeController homeController;
 
 	private HashMap<String, DataKaryawan> mapKaryawan;
 	private Penggajian penggajian;
@@ -437,6 +435,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 	@FXML
 	public void doBack(ActionEvent event) {
+		homeController.showWellcome();
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.StringFormatterFactory;
+import app.controller.HomeController;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 import app.entities.master.DataKaryawan;
@@ -80,10 +81,11 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 	private RepositoryKaryawan serviceKaryawan;
 	@Autowired
 	private StringFormatterFactory formater;
-
 	@Autowired
 	private RepositoryPengajuanAngsuranPrestasi serviceMotor;
-
+	@Autowired
+	private HomeController homeController;
+	
 	private void clearFields() {
 		txtNik.clear();
 		txtNama.clear();

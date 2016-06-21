@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.StringFormatterFactory;
+import app.controller.HomeController;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.kepegawaian.PengajuanKasbon;
 import app.entities.master.DataKaryawan;
@@ -88,18 +89,16 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 
 	@Autowired
 	private StringFormatterFactory stringFormatter;
-
 	@Autowired
 	private RepositoryKaryawan repoKaryawan;
-
 	@Autowired
 	private RepositoryKasbonKaryawan repoKasbon;
-
 	@Autowired
 	private RepositoryPengajuanKasbonKaryawan repoPengajuanKasbon;
-
 	@Autowired
 	private ServiceKasbonKaryawan serviceKasbon;
+	@Autowired
+	private HomeController homeController;
 
 	private void setFields(DataKaryawan karyawan) {
 		txtNip.setText(karyawan.getNip());
@@ -355,6 +354,7 @@ public class KasbonKaryawanPersetujuanDirekturController implements BootFormInit
 
 	@FXML
 	public void doBack(ActionEvent event) {
+		homeController.showWellcome();
 	}
 
 	@Override

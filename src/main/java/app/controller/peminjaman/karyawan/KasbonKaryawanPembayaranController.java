@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 import app.configs.BootFormInitializable;
 import app.configs.PrintConfig;
 import app.configs.StringFormatterFactory;
+import app.controller.HomeController;
 import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
@@ -93,18 +94,16 @@ public class KasbonKaryawanPembayaranController implements BootFormInitializable
 
 	@Autowired
 	private StringFormatterFactory stringFormatter;
-
 	@Autowired
 	private RepositoryKaryawan repoKaryawan;
-
 	@Autowired
 	private RepositoryKasbonKaryawan repoKasbon;
-
 	@Autowired
 	private ServiceKasbonKaryawan serviceKasbon;
-
 	@Autowired
 	private PrintConfig configPrint;
+	@Autowired
+	private HomeController homeController;
 
 	private KasbonKaryawan kasbon;
 
@@ -363,6 +362,7 @@ public class KasbonKaryawanPembayaranController implements BootFormInitializable
 
 	@FXML
 	public void doBack(ActionEvent event) {
+		homeController.showWellcome();
 	}
 
 	@FXML
@@ -431,7 +431,7 @@ public class KasbonKaryawanPembayaranController implements BootFormInitializable
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

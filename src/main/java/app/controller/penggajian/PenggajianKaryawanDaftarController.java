@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 import app.configs.BootFormInitializable;
 import app.configs.PrintConfig;
 import app.configs.StringFormatterFactory;
+import app.controller.HomeController;
 import app.entities.kepegawaian.Penggajian;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryPenggajianKaryawan;
@@ -101,12 +102,12 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 
 	@Autowired
 	private RepositoryPenggajianKaryawan servicePenggajian;
-
 	@Autowired
 	private StringFormatterFactory stringFormatter;
-
 	@Autowired
 	private PrintConfig print;
+	@Autowired
+	private HomeController homeController;
 
 	private IntegerSpinnerValueFactory yearValueFactory;
 

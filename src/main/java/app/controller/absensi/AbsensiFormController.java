@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
 import app.configs.StringFormatterFactory;
+import app.controller.HomeController;
 import app.entities.kepegawaian.KehadiranKaryawan;
 import app.entities.master.DataKaryawan;
 import app.entities.master.DataTidakHadir;
@@ -51,6 +52,8 @@ public class AbsensiFormController implements BootInitializable {
 	private RepositoryKaryawan karyawanRepository;
 	@Autowired
 	private RepositoryAbsensi absensiRepository;
+	@Autowired
+	private HomeController homeController;
 
 	private ApplicationContext springContext;
 
@@ -180,7 +183,7 @@ public class AbsensiFormController implements BootInitializable {
 
 	@FXML
 	public void doCancel(ActionEvent event) {
-		initConstuct();
+		this.homeController.showWellcome();
 	}
 
 	public class CheckboxInTableView extends TableCell<KehadiranKaryawan, Boolean> {
@@ -269,7 +272,7 @@ public class AbsensiFormController implements BootInitializable {
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

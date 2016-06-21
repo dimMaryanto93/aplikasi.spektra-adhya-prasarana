@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.StringFormatterFactory;
+import app.controller.HomeController;
 import app.entities.kepegawaian.PengajuanKasbon;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
@@ -58,12 +59,12 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 
 	@Autowired
 	private StringFormatterFactory stringFormater;
-
 	@Autowired
 	private RepositoryKaryawan repoKaryawan;
-
 	@Autowired
 	private RepositoryPengajuanKasbonKaryawan repoPengajuanKasbon;
+	@Autowired
+	private HomeController homeController;
 
 	@FXML
 	private DatePicker txtTanggal;
@@ -254,6 +255,7 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 
 	@FXML
 	public void doBack(ActionEvent event) {
+		homeController.showWellcome();
 	}
 
 	@FXML
@@ -302,7 +304,7 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
