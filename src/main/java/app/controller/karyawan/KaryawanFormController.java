@@ -208,6 +208,9 @@ public class KaryawanFormController implements BootFormInitializable {
 	public void initConstuct() {
 		try {
 			this.setUpdate(false);
+			this.cbkJabatan.setDisable(false);
+			this.spinGapok.setDisable(false);
+			this.txtHireDate.setDisable(false);			
 			this.anEmployee = new DataKaryawan();
 
 			this.mapJabatan.clear();
@@ -236,7 +239,11 @@ public class KaryawanFormController implements BootFormInitializable {
 	public void initConstuct(DataKaryawan anEmployee) {
 		try {
 			this.setUpdate(true);
+			this.cbkJabatan.setDisable(true);
+			this.spinGapok.setDisable(true);
+			this.txtHireDate.setDisable(true);
 			this.anEmployee = anEmployee;
+			
 			cbkAgama.getItems().addAll(DataAgama.values());
 			cbkPendidikan.getItems().addAll(DataPendidikan.values());
 			this.txtNik.setText(String.valueOf(anEmployee.getNik()));
