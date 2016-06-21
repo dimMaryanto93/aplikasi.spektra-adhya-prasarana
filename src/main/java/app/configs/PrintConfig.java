@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import javax.sql.DataSource;
+import javax.swing.SwingUtilities;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -94,12 +95,18 @@ public class PrintConfig {
 	}
 
 	public void setViewer(String title) {
-		setViewer(new JasperViewer(this.getPrint(), true));
-		this.viewer.setSize(600, 400);
-		this.viewer.setTitle(title);
-		this.viewer.setFitWidthZoomRatio();
-		this.viewer.setVisible(true);
-		this.viewer.requestFocus();
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				viewer = new JasperViewer(getPrint());
+				viewer.setSize(600, 400);
+				viewer.setTitle(title);
+				viewer.setFitWidthZoomRatio();
+				viewer.setVisible(true);
+				viewer.requestFocus();
+			}
+		});
+
 	}
 
 	public void doPrinted() throws JRException {

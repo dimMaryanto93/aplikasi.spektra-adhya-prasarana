@@ -257,7 +257,7 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
