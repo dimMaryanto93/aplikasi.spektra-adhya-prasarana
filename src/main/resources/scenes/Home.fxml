@@ -22,8 +22,8 @@
 
 <BorderPane fx:id="mainLayout" maxHeight="1.7976931348623157E308"
 	maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-	prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65"
-	xmlns:fx="http://javafx.com/fxml/1">
+	prefHeight="600.0" prefWidth="1200.0" stylesheets="@../stylesheet/home.css"
+	xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<top>
 		<GridPane BorderPane.alignment="CENTER">
 			<columnConstraints>
@@ -154,8 +154,7 @@
 						<ScrollPane fitToHeight="true" fitToWidth="true"
 							hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
 							<content>
-								<VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0"
-									stylesheets="@../stylesheet/home.css">
+								<VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
 									<children>
 										<Button fx:id="mniButtonHome" alignment="BASELINE_LEFT"
 											disable="true" layoutX="15.0" layoutY="15.0" maxHeight="50.0"
@@ -264,4 +263,24 @@
 			</children>
 		</HBox>
 	</bottom>
+	<center>
+		<AnchorPane styleClass="panel-content"
+			BorderPane.alignment="CENTER">
+			<children>
+				<TitledPane fx:id="titleContent" animated="false" collapsible="false"
+					prefHeight="525.0" prefWidth="950.0" styleClass="menu-content"
+					stylesheets="@../stylesheet/dafault-layout.css" text="Content"
+					AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+					AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+					<content>
+						<BorderPane fx:id="contentLayout" prefHeight="200.0"
+							prefWidth="200.0" />
+					</content>
+				</TitledPane>
+			</children>
+			<padding>
+				<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+			</padding>
+		</AnchorPane>
+	</center>
 </BorderPane>

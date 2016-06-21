@@ -45,6 +45,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -91,6 +92,10 @@ public class HomeController implements BootInitializable {
 
 	@FXML
 	private BorderPane mainLayout;
+	@FXML
+	private BorderPane contentLayout;
+	@FXML
+	private TitledPane titleContent;
 	@FXML
 	private MenuBar mnuBarAplikasi;
 	@FXML
@@ -181,12 +186,15 @@ public class HomeController implements BootInitializable {
 	public void setLayout(Node anNode) {
 		DoubleProperty opacity = anNode.opacityProperty();
 		anNode.setOpacity(0.0);
-		mainLayout.setCenter(anNode);
+		contentLayout.setCenter(anNode);
 		Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
 				new KeyFrame(new Duration(1000), new KeyValue(opacity, 1.0)));
 		fadeIn.play();
-		mainLayout.getCenter().autosize();
+		contentLayout.getCenter().autosize();
+	}
 
+	public void setTitleContent(String title) {
+		this.titleContent.setText(title);
 	}
 
 	@Override
@@ -460,6 +468,7 @@ public class HomeController implements BootInitializable {
 			setMniButtonHome(true);
 			setMniButtonLogin(false);
 			loginForm.initConstuct();
+			setTitleContent("Login aplikasi");
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan form login", e);
 
@@ -476,6 +485,7 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(wellcomeForm.initView());
 			wellcomeForm.initConstuct();
+			this.setTitleContent("Home aplikasi");
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan form login", e);
 
@@ -492,6 +502,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(listKaryawan.initView());
 			listKaryawan.initConstuct();
+
+			this.setTitleContent("Daftar data karyawan");
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan daftar karyawan", e);
 
@@ -508,6 +520,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(listJabatan.initView());
 			listJabatan.initConstuct();
+
+			this.setTitleContent("Daftar data jabatan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan daftar jabatan", e);
 
@@ -533,6 +547,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(formPengajuanCicilan.initView());
 			formPengajuanCicilan.initConstuct();
+
+			this.setTitleContent("Form pengajuan angsuran prestasi");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan form pengajuan angsuran prestasi", e);
 
@@ -549,6 +565,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(formPersetujuanCicilanMotor.initView());
 			formPersetujuanCicilanMotor.initConstuct();
+
+			this.setTitleContent("Form persetujuan angsuran prestasi");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan form persetujuan angsuran prestasi ", e);
 
@@ -565,6 +583,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(formAbsensi.initView());
 			formAbsensi.initConstuct();
+
+			this.setTitleContent("Form absensi karyawan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan daftar absensi karyawan", e);
 
@@ -581,6 +601,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(formKasbonPengajuan.initView());
 			formKasbonPengajuan.initConstuct();
+
+			this.setTitleContent("Form pengajuan kasbon karyawan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan form pengajuan kasbon karyawan", e);
 
@@ -597,6 +619,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(formKasbonPersetujuan.initView());
 			formKasbonPersetujuan.initConstuct();
+
+			this.setTitleContent("Form persetujuan kasbon karyawan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan form persetujuan kasbon karyawan", e);
 
@@ -613,6 +637,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(formKasbonPencairan.initView());
 			formKasbonPencairan.initConstuct();
+
+			this.setTitleContent("Form pencairan dana kasbon karyawan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan form pencairan dana kasbon karyawan", e);
 
@@ -629,6 +655,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(formKasbonPembayaran.initView());
 			formKasbonPembayaran.initConstuct();
+
+			this.setTitleContent("Form pembayaran kasbon karyawan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan form pembayaran kasbon karyawan", e);
 
@@ -645,6 +673,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(listAbsen.initView());
 			listAbsen.initConstuct();
+
+			this.setTitleContent("Daftar data kehadiran karyawan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan daftar hadir karyawan", e);
 
@@ -661,6 +691,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(listKasbon.initView());
 			listKasbon.initConstuct();
+
+			this.setTitleContent("Daftar data kasbon per karyawan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan daftar kasbon karyawan", e);
 
@@ -677,6 +709,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(listCicilanMotor.initView());
 			listCicilanMotor.initConstuct();
+
+			this.setTitleContent("Daftar data pembayaran angsuran prestasi per karyawan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan daftar pembayaran angsuran prestasi", e);
 
@@ -693,6 +727,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(formPencairanDanaGaji.initView());
 			formPencairanDanaGaji.initConstuct();
+
+			this.setTitleContent("Form pencairan dana gaji karyawan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan form pencairan dana gaji karyawan", e);
 
@@ -708,6 +744,8 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(listPenggajian.initView());
 			listPenggajian.initConstuct();
+
+			this.setTitleContent("Daftar data gaji karyawan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan daftar penggajian karyawan", e);
 

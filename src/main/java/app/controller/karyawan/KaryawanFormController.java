@@ -219,6 +219,7 @@ public class KaryawanFormController implements BootFormInitializable {
 			cbkAgama.getItems().addAll(DataAgama.values());
 			cbkPendidikan.getItems().addAll(DataPendidikan.values());
 			this.datePicker.setValue(LocalDate.now());
+			this.homeController.setTitleContent("Form tambah data karyawan");
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan data jabatan pada form karyawan", e.getMessage());
 
@@ -261,6 +262,8 @@ public class KaryawanFormController implements BootFormInitializable {
 
 			this.male.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Laki_Laki);
 			this.female.setSelected(anEmployee.getJenisKelamin() == DataJenisKelamin.Perempuan);
+
+			this.homeController.setTitleContent("Form ubah data karyawan dengan nip " + anEmployee.getNip());
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan data jabatan", e.getMessage());
 
@@ -424,7 +427,7 @@ public class KaryawanFormController implements BootFormInitializable {
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

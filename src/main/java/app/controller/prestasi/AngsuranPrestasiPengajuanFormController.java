@@ -22,7 +22,6 @@ import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
 import app.configs.StringFormatterFactory;
-import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;

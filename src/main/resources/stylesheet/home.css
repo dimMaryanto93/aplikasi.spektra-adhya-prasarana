@@ -1,24 +1,24 @@
-.button { 
+.menu-icon:expanded .button { 
 	-fx-background-color: transparent;
 	-fx-font-size: 12px;
 }
 
-.button:hover{
+.menu-icon:expanded .button:hover{
 	-fx-font-size: 14px;
 	-fx-font-weight: bold;
 }
 
-.menu-button { 
+.menu-icon:expanded .menu-button { 
 	-fx-font-size: 12px;
 	-fx-background-color: transparent;
 }
 
-.menu-button:hover { 
+.menu-icon:expanded .menu-button:hover { 
 	-fx-font-size: 14px;
 	-fx-font-weight: bold;
 }
 
-.menu-item { 
+.menu-icon:expanded .menu-item { 
 	-fx-fill: BLACK;
 	-fx-font-size: 12px;
 	-fx-font-weight: normal;
@@ -31,6 +31,26 @@
 .footer-label{
 	-fx-fill: #f0ffff;
 	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+}
+
+.panel-content > .titled-pane:expanded .title .text{
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+}
+
+.menu-content:expanded .title{
+	-fx-background-color: GRAY;
+}
+
+.menu-content:expanded .title .text{
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-fill: WHITE;
+}
+
+.menu-icon:expanded .title .text{
+	-fx-font-size: 18px;
 	-fx-font-weight: bold;
 }
 
