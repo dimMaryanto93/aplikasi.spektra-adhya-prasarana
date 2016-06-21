@@ -130,6 +130,8 @@ public class JabatanListController implements BootInitializable {
 		try {
 			homeController.setLayout(formController.initView());
 			formController.initConstuct(jabatan);
+
+			this.homeController.setTitleContent("Form ubah data jabatan dengan kode " + jabatan.getKodeJabatan());
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan form jabatan", e);
 
@@ -182,6 +184,8 @@ public class JabatanListController implements BootInitializable {
 		try {
 			homeController.setLayout(formController.initView());
 			formController.initConstuct();
+
+			this.homeController.setTitleContent("Form tambah data jabatan");
 		} catch (IOException e) {
 			logger.error("Tidak dapat menampilkan form jabatan", e);
 
@@ -213,7 +217,7 @@ public class JabatanListController implements BootInitializable {
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

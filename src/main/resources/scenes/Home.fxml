@@ -267,10 +267,10 @@
 		<AnchorPane styleClass="panel-content"
 			BorderPane.alignment="CENTER">
 			<children>
-				<TitledPane fx:id="titleContent" animated="false" collapsible="false"
-					prefHeight="525.0" prefWidth="950.0" styleClass="menu-content"
-					stylesheets="@../stylesheet/dafault-layout.css" text="Content"
-					AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+				<TitledPane fx:id="titleContent" animated="false"
+					collapsible="false" prefHeight="525.0" prefWidth="950.0"
+					styleClass="menu-content" stylesheets="@../stylesheet/dafault-layout.css"
+					text="Content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 					AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 					<content>
 						<BorderPane fx:id="contentLayout" prefHeight="200.0"

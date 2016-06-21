@@ -485,7 +485,7 @@ public class HomeController implements BootInitializable {
 		try {
 			setLayout(wellcomeForm.initView());
 			wellcomeForm.initConstuct();
-			this.setTitleContent("Home aplikasi");
+			this.setTitleContent("Halaman utama aplikasi");
 		} catch (Exception e) {
 			logger.error("Tidak dapat menampilkan form login", e);
 
