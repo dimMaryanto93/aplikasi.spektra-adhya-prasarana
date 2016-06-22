@@ -11,13 +11,13 @@
 }
 
 .header{
-    -fx-font-size: 32pt;
+    -fx-font-size: 32.0pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: black;
 }
 
 .item-title{
-    -fx-font-size: 11pt;
+    -fx-font-size: 11.0pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: black;
     -fx-opacity: 0.6;
@@ -31,24 +31,24 @@
  ******************************************************************************/
 
 .button {
-    -fx-padding: 5 22 5 22;   
+    -fx-padding: 5.0 22.0 5.0 22.0;   
     -fx-border-style: null; 
-    -fx-background-radius: 0;
+    -fx-background-radius: 0.0;
 
     -fx-background-color: #cccccc;
   
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
+    -fx-font-size: 11.0pt;
     -fx-text-fill: black;    
 }
 
 .action{
-	-fx-min-height: 35;
-    -fx-min-width: 130;    
-    -fx-pref-height: 35;
-    -fx-pref-width: 130;    
-    -fx-max-height: 35;
-    -fx-max-width: 130;
+	-fx-min-height: 35.0;
+    -fx-min-width: 130.0;    
+    -fx-pref-height: 35.0;
+    -fx-pref-width: 130.0;    
+    -fx-max-height: 35.0;
+    -fx-max-width: 130.0;
 }
 
 .button:hover{
@@ -64,9 +64,9 @@
 .button:focused
 {
     -fx-border-color: black;
-    -fx-border-width: 1;
-    -fx-border-style: segments(1, 1);
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;   
+    -fx-border-width: 1.0;
+    -fx-border-style: segments(1.0, 1.0);
+    -fx-background-insets: 0.0 0.0 0.0 0.0, 0.0, 1.0, 2.0;   
 }
 
 .button:disabled, .button:default:disabled
@@ -94,22 +94,22 @@
  ******************************************************************************/
 
 .toggle-button {
-    -fx-padding: 5 22 5 22;   
+    -fx-padding: 5.0 22.0 5.0 22.0;   
     -fx-border-style: null; 
-    -fx-background-radius: 0;
+    -fx-background-radius: 0.0;
 
     -fx-background-color: #cccccc;
   
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
+    -fx-font-size: 11.0pt;
     -fx-text-fill: black;
 }
 
 .toggle-button:focused {
     -fx-border-color: black;
-    -fx-border-width: 1;
-    -fx-border-style: segments(1, 1);
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;   
+    -fx-border-width: 1.0;
+    -fx-border-style: segments(1.0, 1.0);
+    -fx-background-insets: 0.0 0.0 0.0 0.0, 0.0, 1.0, 2.0;   
 }
 
 .toggle-button:hover {
@@ -144,30 +144,30 @@
 
 .check-box .box {
     -fx-background-color: white;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 0.0;
     -fx-border-color: #bababa;
-    -fx-border-width: 2px;
+    -fx-border-width: 2.0px;
     -fx-border-style: solid;
-    -fx-padding: 1;
+    -fx-padding: 1.0;
 }
 
 .check-box .mark {
     -fx-background-color: transparent;
-    -fx-background-insets: 0;
+    -fx-background-insets: 0.0;
     
-    -fx-padding:7px;
+    -fx-padding:7.0px;
     -fx-shape: "M1,10L3,8L7,12L14,5L16,7L7,16Z"
 }
 
 .check-box:focused .box{
     -fx-background-color: white;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 0.0;
     -fx-border-color: black, #bababa;
-    -fx-border-width: 1, 2;
-    -fx-border-style: segments(1, 1), solid;
-    -fx-border-insets: -3, 0;
+    -fx-border-width: 1.0, 2.0;
+    -fx-border-style: segments(1.0, 1.0), solid;
+    -fx-border-insets: -3.0, 0.0;
 }
 
 .check-box:selected .mark {
@@ -177,7 +177,7 @@
 .check-box:indeterminate .mark {
    -fx-background-color: black; 
    -fx-background-insets: 2.8; 
-   -fx-padding:7px;
+   -fx-padding:7.0px;
    -fx-shape: null;
 }
 
@@ -196,8 +196,8 @@
 .check-box:armed .box
 {
     -fx-background-color: white, black;
-    -fx-background-insets: -1, 2;
-    -fx-background-radius: 0, 0;
+    -fx-background-insets: -1.0, 2.0;
+    -fx-background-radius: 0.0, 0.0;
 }
 
 .check-box:armed .box .mark
@@ -218,12 +218,12 @@
 .radio-button .radio  {
    -fx-background-color: white;
    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
-   -fx-background-insets: 0;
+   -fx-background-insets: 0.0;
    
    -fx-border-radius: 1.0em;
    -fx-border-color: #bababa;
     
-   -fx-padding: 4px; /* 4 -- padding from outside edge to the inner black dot */
+   -fx-padding: 4.0px; /* 4 -- padding from outside edge to the inner black dot */
 }
 
 .radio-button:hover .radio {
@@ -233,9 +233,9 @@
 
 .radio-button .dot {
    -fx-background-color: transparent;
-   -fx-background-insets: 0;
+   -fx-background-insets: 0.0;
    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
-   -fx-padding: 6px; /* 3 -- radius of the inner black dot when selected */
+   -fx-padding: 6.0px; /* 3 -- radius of the inner black dot when selected */
 }
 
 .radio-button:selected .dot {
@@ -257,15 +257,15 @@
 {
    -fx-background-color: white;
    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
-   -fx-background-insets: 0;
+   -fx-background-insets: 0.0;
    
-   -fx-border-style: solid, segments(1, 1);
-   -fx-border-radius: 1.0em, 0;
+   -fx-border-style: solid, segments(1.0, 1.0);
+   -fx-border-radius: 1.0em, 0.0;
    -fx-border-color: #bababa, black;
-   -fx-border-insets: 0px, -2px;
-   -fx-border-width: 1px, 1px;
+   -fx-border-insets: 0.0px, -2.0px;
+   -fx-border-width: 1.0px, 1.0px;
     
-   -fx-padding: 4px; /* 4 -- padding from outside edge to the inner black dot */   
+   -fx-padding: 4.0px; /* 4 -- padding from outside edge to the inner black dot */   
 }
 
 .radio-button:armed .radio {
@@ -293,15 +293,15 @@
 {
    -fx-background-color: #212121;
    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
-   -fx-background-insets: 0;
+   -fx-background-insets: 0.0;
    
-   -fx-border-style: solid, segments(1, 1);
-   -fx-border-radius: 1.0em, 0;
+   -fx-border-style: solid, segments(1.0, 1.0);
+   -fx-border-radius: 1.0em, 0.0;
    -fx-border-color: #212121, #212121;
-   -fx-border-insets: 0px, -2px;
-   -fx-border-width: 1px, 1px;
+   -fx-border-insets: 0.0px, -2.0px;
+   -fx-border-width: 1.0px, 1.0px;
     
-   -fx-padding: 4px; /* 4 -- padding from outside edge to the inner black dot */   
+   -fx-padding: 4.0px; /* 4 -- padding from outside edge to the inner black dot */   
 }
 
 /*******************************************************************************
@@ -336,9 +336,9 @@
 
 .context-menu {
     -fx-background-color: white;
-    -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 0 0 0 0, 0 0 0 0, 0 0 0 0;
-    -fx-padding: 0.333333em 0em 0.333333em 0em; /* 4 1 4 1 */
+    -fx-background-insets: 0.0, 1.0, 2.0;
+    -fx-background-radius: 0.0 0.0 0.0 0.0, 0.0 0.0 0.0 0.0, 0.0 0.0 0.0 0.0;
+    -fx-padding: 0.333333em 0.0em 0.333333em 0.0em; /* 4 1 4 1 */
     
     /* TODO: the border color below is not being respected - it appears as gray instead of black*/
     -fx-border-color: #212121;
@@ -359,10 +359,10 @@
 }
 
 .menu-item .label {
-    -fx-padding: 0em 0.5em 0em 0em;
+    -fx-padding: 0.0em 0.5em 0.0em 0.0em;
     -fx-text-fill: #212121;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
+    -fx-font-size: 11.0pt;
 }
 
 
@@ -390,8 +390,8 @@
 
 .scroll-bar .thumb{
     -fx-background-color: #cdcdcd;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 0.0;
 }
 
 .scroll-bar .thumb:hover {
@@ -406,18 +406,18 @@
 
 .scroll-bar .track {
     -fx-background-color: #f0f0f0;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 0.0;
 }
 .scroll-bar .track-background {
      -fx-background-color: #f0f0f0;
-    -fx-background-insets: 0;
+    -fx-background-insets: 0.0;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
     -fx-background-color: #f0f0f0;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 0.0;
     
     -fx-padding: 0.25em; /* 3 */
 }
@@ -432,14 +432,14 @@
 
 .scroll-bar:horizontal .increment-arrow {
     -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-background-insets: 1.0 0.0 -1.0 0.0, 0.0;
     -fx-padding: 0.5em 0.333333em 0.0em 0.0em; /* 6 4 0 0 */
     -fx-shape: "M7.626,12.876L4.251,8.751H7.14L11,12.876L7.14,17H4.251L7.626,12.876z";
 }
 
 .scroll-bar:vertical .increment-arrow {
     -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-background-insets: 1.0 0.0 -1.0 0.0, 0.0;
     -fx-padding: 0.333333em 0.5em 0.0em 0.0em; /* 4 6 0 0 */
     -fx-shape: "M8.124,13.625l4.125-3.375v2.889l-4.125,3.86L4,13.139V10.25L8.124,13.625z";
 }
@@ -450,14 +450,14 @@
 
 .scroll-bar:horizontal .decrement-arrow {
     -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-background-insets: 1.0 0.0 -1.0 0.0, 0.0;
     -fx-padding: 0.5em 0.333333em 0.0em 0.0em; /* 6 4 0 0 */
     -fx-shape: "M11,17H8.111l-3.86-4.124l3.86-4.125H11l-3.375,4.125L11,17z";
 }
 
 .scroll-bar:vertical .decrement-arrow {
     -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-background-insets: 1.0 0.0 -1.0 0.0, 0.0;
     -fx-padding: 0.333333em 0.5em 0.0em 0.0em; /* 4 6 0 0 */
     -fx-shape: "M4,17v-2.889l4.124-3.86l4.125,3.86V17l-4.125-3.375L4,17z";
 }
@@ -493,7 +493,7 @@
 
 .combo-box-base  {
     -fx-background-color: transparent, #bababa, transparent, white;
-    -fx-background-radius: 0, 0, 0, 0;
+    -fx-background-radius: 0.0, 0.0, 0.0, 0.0;
     -fx-padding: 0.166667em; /* 2 */
 }
 
@@ -509,7 +509,7 @@
 }*/
 
 .combo-box-base:disabled {
-    -fx-opacity: .4;
+    -fx-opacity: 0.4;
 }
 
 /* ------- OPEN BUTTON ------- */
@@ -525,7 +525,7 @@
 
 .combo-box-popup .list-view {
     -fx-background-color: #909090, -fx-control-inner-background;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 8, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.0) , 8.0, 0.0 , 0.0 , 0.0 );
 }
 
 .combo-box-popup .list-view .list-cell:hover{
@@ -557,9 +557,9 @@
 .list-spinner { 
     -fx-skin: "jfxtras.labs.internal.scene.control.skin.ListSpinnerCaspianSkin";
     -fx-background-color: #f0f0f0;
-    -fx-background-insets: 0 0 0 0;
-    -fx-background-radius: 0;
-    -fx-padding: 0em 0em 0em 0em;
+    -fx-background-insets: 0.0 0.0 0.0 0.0;
+    -fx-background-radius: 0.0;
+    -fx-padding: 0.0em 0.0em 0.0em 0.0em;
     -fx-text-fill: #212121;
 }
 
@@ -581,7 +581,7 @@
 .list-spinner .decrement-button, .list-spinner .increment-button
 {
     -fx-background-color: #f0f0f0;
-    -fx-padding: 1.2500em 0.5000em 1.2500em 0.5000em; /* 15 6 15 6*/
+    -fx-padding: 1.25em 0.5em 1.25em 0.5em; /* 15 6 15 6*/
 }
 
 .list-spinner .left-arrow { 
@@ -633,7 +633,7 @@
 }
 
 .list-spinner:disabled {
-    -fx-opacity: .4;
+    -fx-opacity: 0.4;
 }
 
 
@@ -646,17 +646,17 @@
 
 .text-input { /* FX theme stylesheet */
 	-fx-background-color: transparent, #bababa, transparent, white;
-    -fx-background-radius: 0, 0, 0, 0;
+    -fx-background-radius: 0.0, 0.0, 0.0, 0.0;
     -fx-padding: 0.166667em; /* 2 */
     
     -fx-border-color: gray;
-    -fx-border-width: 1;
-    -fx-border-style: segments(1, 1);
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-border-width: 1.0;
+    -fx-border-style: segments(1.0, 1.0);
+    -fx-background-insets: 0.0 0.0 0.0 0.0, 0.0, 1.0, 2.0;
 }
 
 .text-input:disabled {
-	-fx-opacity: .8;
+	-fx-opacity: 0.8;
 }
 
 /*******************************************************************************
@@ -665,10 +665,53 @@
  *                                                                             *
  ******************************************************************************/
 .tool-bar{
-	-fx-min-height: 60;    
-    -fx-pref-height: 60;    
-    -fx-max-height: 60;
+	-fx-min-height: 60.0;    
+    -fx-pref-height: 60.0;    
+    -fx-max-height: 60.0;
 }
+
+/*******************************************************************************
+ *                                                                             *
+ * TableView                                                			   *
+ *                                                                             *
+ ******************************************************************************/
+
+.table-view {
+    -fx-base: #1d1d1d;
+    -fx-control-inner-background: WHITE;
+    -fx-background-color: GRAY;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5.0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35.0;
+    -fx-border-width: 0.0 0.0 1.0 0.0;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80.0%) 
+        transparent;
+    -fx-border-insets: 0.0 10.0 1.0 0.0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-opacity: 1.0;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
+
 
 
 

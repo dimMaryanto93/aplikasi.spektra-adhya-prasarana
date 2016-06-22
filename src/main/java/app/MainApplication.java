@@ -3,6 +3,7 @@ package app;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.controlsfx.control.Notifications;
 import org.controlsfx.validation.ValidationSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,10 +19,12 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 @SpringBootApplication
 public class MainApplication extends Application {
@@ -64,6 +67,7 @@ public class MainApplication extends Application {
 
 			@Override
 			protected Object call() throws Exception {
+
 				springContext = SpringApplication.run(MainApplication.class, MainApplication.args);
 				return null;
 			}
@@ -75,6 +79,7 @@ public class MainApplication extends Application {
 			public void handle(WorkerStateEvent event) {
 				try {
 					loger.info("JavaFX loading...");
+
 					HomeController scene = springContext.getBean(HomeController.class);
 					Stage stage = springContext.getBean(Stage.class);
 
@@ -85,6 +90,10 @@ public class MainApplication extends Application {
 
 					scene.showLoginForm();
 					loger.info("JavaFX started, have nice day sir!");
+
+					Notifications.create().title("Spektra Adhya Prasarana")
+					.text("SIPeg, Sistem Informasi Penggajian pada PT. Spektra Adhya Prasarana...")
+					.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(5)).showInformation();
 				} catch (IOException e) {
 					loger.error("Gagal load JavaFX Application", e);
 				}
