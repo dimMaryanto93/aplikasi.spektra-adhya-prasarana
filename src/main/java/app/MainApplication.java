@@ -22,6 +22,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogEvent;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -67,11 +70,11 @@ public class MainApplication extends Application {
 
 			@Override
 			protected Object call() throws Exception {
-
 				springContext = SpringApplication.run(MainApplication.class, MainApplication.args);
 				return null;
 			}
 		};
+		worker.run();
 
 		worker.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 
@@ -92,8 +95,8 @@ public class MainApplication extends Application {
 					loger.info("JavaFX started, have nice day sir!");
 
 					Notifications.create().title("Spektra Adhya Prasarana")
-					.text("SIPeg, Sistem Informasi Penggajian pada PT. Spektra Adhya Prasarana...")
-					.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(5)).showInformation();
+							.text("SIPeg, Sistem Informasi Penggajian pada PT. Spektra Adhya Prasarana...")
+							.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(5)).showInformation();
 				} catch (IOException e) {
 					loger.error("Gagal load JavaFX Application", e);
 				}
@@ -102,12 +105,15 @@ public class MainApplication extends Application {
 		worker.setOnFailed(e -> {
 			try {
 				this.loger.info("Application force stoped!");
-				this.stop();
+				Alert ex = new Alert(AlertType.ERROR);
+				ex.setTitle("PT.Spektra Adhya Prasarana");
+				ex.setHeaderText("Tidak dapat menjalankan aplikasi");
+				ex.setContentText("Aplikasi akan dihetikan otomatis!, silahkan hubungi developer");
+				ex.show();
 			} catch (Exception e1) {
 				this.loger.error("Gagal menghentikan aplikasi secara paksa!", e1);
 			}
 		});
-		worker.run();
 	}
 
 }

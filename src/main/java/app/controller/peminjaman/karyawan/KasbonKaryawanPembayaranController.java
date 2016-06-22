@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
 import org.controlsfx.dialog.ExceptionDialog;
+import org.controlsfx.dialog.ProgressDialog;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -30,7 +31,10 @@ import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryKasbonKaryawan;
 import app.service.ServiceKasbonKaryawan;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -371,6 +375,7 @@ public class KasbonKaryawanPembayaranController implements BootFormInitializable
 		if (dataKaryawan != null) {
 
 			try {
+
 				this.kasbon = new KasbonKaryawan();
 
 				kasbon.setKaryawan(dataKaryawan);
@@ -382,25 +387,74 @@ public class KasbonKaryawanPembayaranController implements BootFormInitializable
 				kasbon.setSaldoTerakhir(saldoAkhir - kasbon.getPembayaran());
 
 				dataKaryawan.getDaftarKasbon().add(kasbon);
-				repoKaryawan.save(dataKaryawan);
 
-				StringBuilder pesanSimpan = new StringBuilder("Karyawan atas nama ");
-				pesanSimpan.append(dataKaryawan.getNama()).append(" dengan nip ").append(dataKaryawan.getNip());
-				pesanSimpan.append(" Melakukan pembayaran kasbon sebesar ")
-						.append(stringFormatter.getCurrencyFormate(kasbon.getPembayaran()));
+				Task<Object> task = new Task<Object>() {
 
-				Notifications.create().title("Data pembayaran kasbon").text(pesanSimpan.toString())
-						.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(3D)).showInformation();
+					@Override
+					protected Object call() throws Exception {
+						for (int i = 0; i < 100; i++) {
+							Thread.sleep(10);
+							updateProgress(i, 99);
+							updateMessage("Menyiapkan data untuk menyimpan...");
+						}
+						repoKaryawan.save(dataKaryawan);
 
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("nip", dataKaryawan.getNip());
-				map.put("nama", dataKaryawan.getNama());
-				map.put("bayar", kasbon.getPembayaran());
-				map.put("saldo", saldoAkhir);
-				configPrint.setValue("/jasper/peminjaman/KasbonPembayaran.jrxml", map);
-				configPrint.doPrinted();
+						for (int i = 0; i < 100; i++) {
+							Thread.sleep(10);
+							updateProgress(i, 99);
+							updateMessage("Memproses untuk mencetak...");
+						}
+						HashMap<String, Object> map = new HashMap<String, Object>();
+						map.put("nip", dataKaryawan.getNip());
+						map.put("nama", dataKaryawan.getNama());
+						map.put("bayar", kasbon.getPembayaran());
+						map.put("saldo", saldoAkhir);
+						configPrint.setValue("/jasper/peminjaman/KasbonPembayaran.jrxml", map);
+						configPrint.doPrinted();
+						succeeded();
+						return null;
+					}
 
-				initConstuct();
+					@Override
+					protected void succeeded() {
+						try {
+							for (int i = 0; i < 100; i++) {
+								Thread.sleep(10);
+								updateProgress(i, 99);
+								updateMessage("Menyelesaikan proses...");
+							}
+							super.succeeded();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+
+				};
+				task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+
+					@Override
+					public void handle(WorkerStateEvent event) {
+						StringBuilder pesanSimpan = new StringBuilder("Karyawan atas nama ");
+						pesanSimpan.append(dataKaryawan.getNama()).append(" dengan nip ").append(dataKaryawan.getNip());
+						pesanSimpan.append(" Melakukan pembayaran kasbon sebesar ")
+								.append(stringFormatter.getCurrencyFormate(kasbon.getPembayaran()));
+
+						Notifications.create().title("Data pembayaran kasbon").text(pesanSimpan.toString())
+								.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(3D)).showInformation();
+
+						initConstuct();
+					}
+				});
+				ProgressDialog progres = new ProgressDialog(task);
+				progres.setTitle("Form pembayaran kasbon karyawan");
+				progres.setHeaderText("Menyimpan dan mencetak data pembayaran kasbon karyawan");
+				progres.initModality(Modality.APPLICATION_MODAL);
+				progres.show();
+
+				Thread th = new Thread(task);
+				th.setDaemon(true);
+				th.start();
+
 			} catch (Exception e) {
 				logger.error("Tidak dapat menyimpan pembayaran untuk peminjaman karyawan dengan nama {}",
 						kasbon.getKaryawan().getNama(), e);
