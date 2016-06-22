@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
 import org.controlsfx.dialog.ExceptionDialog;
+import org.controlsfx.dialog.ProgressDialog;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -29,7 +30,10 @@ import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryPengajuanKasbonKaryawan;
 import app.service.ServiceKasbonKaryawan;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -189,9 +193,7 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 		try {
 			if (dataKaryawan != null) {
 				this.kasbon = new KasbonKaryawan();
-
 				kasbon.setKaryawan(dataKaryawan);
-
 				PengajuanKasbon pengajuan = dataKaryawan.getPengajuanKasbon();
 
 				kasbon.setTanggalPinjam(pengajuan.getTanggal());
@@ -204,25 +206,74 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 				dataKaryawan.setPengajuanKasbon(null);
 				dataKaryawan.getDaftarKasbon().add(kasbon);
 
-				repoKaryawan.save(dataKaryawan);
-				repoPengajuanKaryawan.delete(pengajuan);
+				Task<Object> task = new Task<Object>() {
 
-				StringBuilder saveMessage = new StringBuilder("Pencairan dana kasbon karyawan atas nama ");
-				saveMessage.append(dataKaryawan.getNama()).append(" dengan NIP ").append(dataKaryawan.getNip());
-				saveMessage.append(" sebesar ").append(stringFormatter.getCurrencyFormate(kasbon.getPinjaman()))
-						.append(", Berhasil disimpan");
-				Notifications.create().title("Data pencairan kasbon karyawan").text(saveMessage.toString())
-						.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(4D)).showInformation();
+					@Override
+					protected void succeeded() {
+						try {
+							for (int i = 0; i < 100; i++) {
+								Thread.sleep(10);
+								updateProgress(i, 99);
+								updateMessage("Menyelesaikan proses...");
+							}
+							super.succeeded();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
 
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("nip", dataKaryawan.getNip());
-				map.put("nama", dataKaryawan.getNama());
-				map.put("pinjam", kasbon.getPinjaman());
-				map.put("saldo", saldoAkhir);
-				configPrint.setValue("/jasper/peminjaman/KasbonPeminjaman.jrxml", map);
-				configPrint.doPrinted();
+					@Override
+					protected Object call() throws Exception {
+						for (int i = 0; i < 100; i++) {
+							Thread.sleep(10);
+							updateProgress(i, 99);
+							updateMessage("Menyiapkan data untuk menyimpan...");
+						}
 
-				initConstuct();
+						repoKaryawan.save(dataKaryawan);
+						repoPengajuanKaryawan.delete(pengajuan);
+
+						for (int i = 0; i < 100; i++) {
+							Thread.sleep(10);
+							updateProgress(i, 99);
+							updateMessage("Memproses untuk mencetak...");
+						}
+						HashMap<String, Object> map = new HashMap<String, Object>();
+						map.put("nip", dataKaryawan.getNip());
+						map.put("nama", dataKaryawan.getNama());
+						map.put("pinjam", kasbon.getPinjaman());
+						map.put("saldo", saldoAkhir);
+						configPrint.setValue("/jasper/peminjaman/KasbonPeminjaman.jrxml", map);
+						configPrint.doPrinted();
+						succeeded();
+						return null;
+					}
+
+				};
+				task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+
+					@Override
+					public void handle(WorkerStateEvent event) {
+						StringBuilder saveMessage = new StringBuilder("Pencairan dana kasbon karyawan atas nama ");
+						saveMessage.append(dataKaryawan.getNama()).append(" dengan NIP ").append(dataKaryawan.getNip());
+						saveMessage.append(" sebesar ").append(stringFormatter.getCurrencyFormate(kasbon.getPinjaman()))
+								.append(", Berhasil disimpan");
+						Notifications.create().title("Data pencairan kasbon karyawan").text(saveMessage.toString())
+								.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(4D)).showInformation();
+
+						initConstuct();
+					}
+				});
+
+				ProgressDialog dlg = new ProgressDialog(task);
+				dlg.setTitle("Pencairan dana kasbon");
+				dlg.setHeaderText("Menyimpan dan mencetak data pencairan dana kasbon");
+				dlg.initModality(Modality.APPLICATION_MODAL);
+				dlg.show();
+				Thread th = new Thread(task);
+				th.setDaemon(true);
+				th.start();
+
 			} else {
 				logger.warn("Data karyawan belum diseleksi pada tabel view");
 
