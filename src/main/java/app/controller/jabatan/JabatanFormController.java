@@ -85,7 +85,7 @@ public class JabatanFormController implements BootFormInitializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		this.btnSave.setDisable(true);
 		this.txtPernyataan.setDisable(false);
-		this.txtKeterangan.setEditable(false);
+		this.txtPernyataan.setEditable(false);
 
 		this.spinGapok.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.valueOf(0),
 				Double.MAX_VALUE, Double.valueOf(0), 500000));

@@ -31,6 +31,8 @@ public class DataJabatan extends BasicEntity {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")
 	private String id;
+
+	@Column(name = "kode_jabatan", nullable = false, unique = true)
 	private String kodeJabatan;
 
 	@Column(name = "name", nullable = false, unique = true)
