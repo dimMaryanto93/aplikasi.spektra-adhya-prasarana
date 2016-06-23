@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
 import org.controlsfx.dialog.ExceptionDialog;
+import org.controlsfx.dialog.ProgressDialog;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -33,7 +34,10 @@ import app.repositories.RepositoryPenggajianKaryawan;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -282,10 +286,68 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 				.append(bulan.getDisplayName(TextStyle.FULL, Locale.getDefault()));
 		txtPeriode.setText(sb.toString());
 		try {
-			tableView.getItems().clear();
-			tableView.getItems().addAll(servicePenggajian.findByTahunBulan(sb.toString()));
 
-			printed(chenkPrinted.isSelected(), tableView.getItems());
+			Task<Object> task = new Task<Object>() {
+
+				@Override
+				protected Object call() throws Exception {
+					for (int i = 0; i < 100; i++) {
+						Thread.sleep(10);
+						updateProgress(i, 99);
+						updateMessage("Mendapatkan data...");
+					}
+					tableView.getItems().clear();
+					tableView.getItems().addAll(servicePenggajian.findByTahunBulan(sb.toString()));
+
+					if (chenkPrinted.isSelected()) {
+						for (int i = 0; i < 100; i++) {
+							Thread.sleep(10);
+							updateProgress(i, 99);
+							updateMessage("Mencetak data penggajian pada " + sb.toString());
+						}
+						print.setValue("/jasper/penggajian/DaftarGajiKaryawan.jrxml", null,
+								new JRBeanCollectionDataSource(tableView.getItems()));
+						print.doPrinted();
+					}
+					succeeded();
+					return null;
+				}
+
+				@Override
+				protected void succeeded() {
+					try {
+						for (int i = 0; i < 100; i++) {
+							Thread.sleep(10);
+							updateProgress(i, 99);
+							updateMessage("Menyelesaikan proses...");
+						}
+						super.succeeded();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+
+			};
+			task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+
+				@Override
+				public void handle(WorkerStateEvent event) {
+					Notifications.create().title("Data penggajian karyawan")
+							.text("Penggajian karyawan pada " + txtPeriode.getText() + " berhasil ditampilkan")
+							.hideAfter(Duration.seconds(5D)).hideCloseButton().position(Pos.BOTTOM_RIGHT)
+							.showInformation();
+				}
+			});
+			ProgressDialog dlg = new ProgressDialog(task);
+			dlg.setTitle("Daftar data gaji karyawan");
+			dlg.setHeaderText("Mendapatkan dan mencatak laporan gaji karyawan pada periode " + txtPeriode.getText());
+			dlg.initModality(Modality.APPLICATION_MODAL);
+			dlg.show();
+
+			Thread th = new Thread(task);
+			th.setDaemon(true);
+			th.start();
+
 		} catch (Exception e) {
 			logger.error("Tidak dapat mendapatkan data penggajian pada bulan {}", sb.toString(), e);
 
@@ -299,29 +361,7 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 	}
 
 	private void printed(Boolean cetak, List<Penggajian> daftarPenggajian) {
-		if (cetak) {
-			try {
-				this.print.setValue("/jasper/penggajian/DaftarGajiKaryawan.jrxml", null,
-						new JRBeanCollectionDataSource(daftarPenggajian));
-				this.print.doPrinted();
 
-				Notifications.create().title("Cetak Laporan daftar gaji karyawan")
-						.text("Silahkan hubungkan dengan device printer, Untuk mencetak daftar gaji karyawan")
-						.hideAfter(Duration.seconds(4D)).position(Pos.CENTER_RIGHT).showWarning();
-
-			} catch (JRException e) {
-				logger.error("Tidak dapat mencetak dokument daftar gaji karyawan pada bulan {}", txtPeriode.getText(),
-						e);
-
-				ExceptionDialog ex = new ExceptionDialog(e);
-				ex.setTitle("Cetak laporan daftar gaji karyawan");
-				ex.setHeaderText(
-						"Tidak dapat mencetak dokument daftar gaji karyawan pada bulan " + txtPeriode.getText());
-				ex.setContentText(e.getMessage());
-				ex.initModality(Modality.APPLICATION_MODAL);
-				ex.show();
-			}
-		}
 	}
 
 	@Override
