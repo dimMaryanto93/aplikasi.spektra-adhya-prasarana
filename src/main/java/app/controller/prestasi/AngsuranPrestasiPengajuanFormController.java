@@ -27,7 +27,6 @@ import app.entities.kepegawaian.uang.prestasi.Motor;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryPengajuanAngsuranPrestasi;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,13 +40,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.util.Duration;
 
 @Component
@@ -67,12 +64,6 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 	private TableColumn<DataKaryawan, String> columnNik;
 	@FXML
 	private TableColumn<DataKaryawan, String> columnNama;
-	@FXML
-	private TableColumn<DataKaryawan, String> columnHireDate;
-	@FXML
-	private TableColumn<DataKaryawan, String> columnJabatan;
-	@FXML
-	private TableColumn<DataKaryawan, String> columnJenisKelamin;
 	@FXML
 	private TextField txtMerek;
 	@FXML
@@ -97,6 +88,14 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 	private Label totalUangMuka;
 	@FXML
 	private CheckBox checkValid;
+	@FXML
+	private TextField txtGajiPokok;
+	@FXML
+	private TextField txtHireDate;
+	@FXML
+	private TextField txtHireLongDate;
+	@FXML
+	private TextField txtJabatan;
 
 	@Autowired
 	private RepositoryPengajuanAngsuranPrestasi serviceMotor;
@@ -107,17 +106,20 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 	@Autowired
 	private HomeController homeController;
 
-
 	private void clearFields() {
 		txtKarywan.clear();
 		txtNik.clear();
 		txtMerek.clear();
+		txtHireDate.clear();
+		txtGajiPokok.setText(stringFormater.getCurrencyFormate(0));
+		txtJabatan.clear();
+		txtHireLongDate.clear();
 		this.checkValid.setSelected(false);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		this.txtGajiPokok.setText(stringFormater.getCurrencyFormate(0));
 		this.totalUangMuka.setText(this.stringFormater.getCurrencyFormate(0));
 		this.nominalCicilan.setText(this.stringFormater.getCurrencyFormate(0));
 		this.jumlahCicilan.setText(this.stringFormater.getNumberIntegerOnlyFormate(0));
@@ -171,6 +173,13 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 					if (newValue != null) {
 						txtKarywan.setText(newValue.getNama());
 						txtNik.setText(newValue.getNik().toString());
+						txtGajiPokok.setText(stringFormater.getCurrencyFormate(newValue.getGajiPokok()));
+						txtJabatan.setText(newValue.getJabatan().getNama());
+						txtHireDate.setText(stringFormater
+								.getDateIndonesianFormatter(newValue.getTanggalMulaiKerja().toLocalDate()));
+						txtHireLongDate.setText(stringFormater
+								.getLongDateBetween(newValue.getTanggalMulaiKerja().toLocalDate(), LocalDate.now()));
+
 						this.spinnerCicilanValueFactory.setMax(newValue.getGajiPokok() + 500000);
 						this.spinnerCicilanValueFactory.setMin(0D);
 						this.spinnerCicilanValueFactory.setAmountToStepBy(50000);
@@ -207,30 +216,6 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
 
 		this.columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nip"));
 		this.columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
-		this.columnHireDate.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<DataKaryawan, String>, ObservableValue<String>>() {
-
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<DataKaryawan, String> param) {
-						return new SimpleStringProperty(param.getValue().getTanggalLahir().toString());
-					}
-				});
-		this.columnJabatan.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<DataKaryawan, String>, ObservableValue<String>>() {
-
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<DataKaryawan, String> param) {
-						return new SimpleStringProperty(param.getValue().getJabatan().getNama());
-					}
-				});
-		this.columnJenisKelamin.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<DataKaryawan, String>, ObservableValue<String>>() {
-
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<DataKaryawan, String> param) {
-						return new SimpleStringProperty(param.getValue().getJenisKelamin().toString());
-					}
-				});
 		this.initValidator();
 	}
 

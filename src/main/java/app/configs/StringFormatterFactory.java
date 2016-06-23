@@ -3,6 +3,7 @@ package app.configs;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
 import org.springframework.stereotype.Component;
@@ -34,6 +35,16 @@ public class StringFormatterFactory {
 	public String getDateIndonesionFormatterOnlyYearAndMonth(LocalDate date) {
 		DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MMMM").withLocale(Locale.getDefault());
 		return formater.format(date);
+	}
+
+	public String getLongDateBetween(LocalDate awal, LocalDate akhir) {
+		Long jmlYear = ChronoUnit.YEARS.between(awal, akhir);
+		Long jmlBulan = ChronoUnit.MONTHS.between(awal, akhir);
+		Long bulanDalamTahun = jmlBulan - (jmlYear * 12);
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(jmlYear).append(" tahun ").append(bulanDalamTahun).append(" bulan ");
+		return sb.toString();
 	}
 
 }
