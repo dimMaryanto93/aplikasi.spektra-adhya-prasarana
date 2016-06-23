@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
 import org.controlsfx.dialog.ExceptionDialog;
+import org.controlsfx.dialog.ProgressDialog;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -37,7 +38,10 @@ import app.repositories.RepositoryAbsensi;
 import app.repositories.RepositoryCicilanMotor;
 import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryPenggajianKaryawan;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -355,34 +359,76 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 	@FXML
 	public void doSave(ActionEvent event) {
 		try {
-			servicePenggajian.save(this.penggajian);
-			DataKaryawan karyawan = this.penggajian.getKaryawan();
+			DataKaryawan karyawan = penggajian.getKaryawan();
+			Task<Object> task = new Task<Object>() {
 
-			logger.info("Penggajian karyawan atas nama {} sebesar {} berhasil disimpan",
-					this.penggajian.getKaryawan().getNama(), txtTotal.getText());
+				@Override
+				protected Object call() throws Exception {
+					for (int i = 0; i < 100; i++) {
+						Thread.sleep(10);
+						updateProgress(i, 99);
+						updateMessage("Menyiapkan data untuk menyimpan data penggajian...");
+					}
+					servicePenggajian.save(penggajian);
 
-			StringBuilder saveMessage = new StringBuilder("Penggajian karyawan atas nama ");
-			saveMessage.append(karyawan.getNama()).append(" dengan NIP ").append(karyawan.getNip()).append(" sebesar ")
-					.append(txtTotal.getText());
-			Notifications.create().title("Pencairan gaji karyawan").text(saveMessage.toString())
-					.hideAfter(Duration.seconds(3D)).position(Pos.BOTTOM_RIGHT).showInformation();
+					if (cicilanMotor != null) {
+						for (int i = 0; i < 100; i++) {
+							Thread.sleep(10);
+							updateProgress(i, 99);
+							updateMessage("Menyiapkan data untuk menyimpan data cicilan angsuran motor...");
+						}
 
-			if (this.cicilanMotor != null) {
-				serviceCicilanMotor.save(this.pembayaranCicilanMotor);
-				logger.info("Penyerahan uang prestasi kepada karyawan atas nama {} sebesar {} untuk cicilan ke {}",
-						this.penggajian.getKaryawan().getNama(), txtUangPrestasi.getText(), txtCicilanKe.getText());
+						serviceCicilanMotor.save(pembayaranCicilanMotor);
+					}
 
-				StringBuilder saveCicilanMessage = new StringBuilder(
-						"Pembayaran angsuran prestasi karyawan atas nama ");
-				saveMessage.append(karyawan.getNama()).append(" dengan NIP ").append(karyawan.getNip())
-						.append(" sebesar ").append(txtUangPrestasi.getText()).append(" angsuran ke ")
-						.append(txtCicilanKe.getText());
-				Notifications.create().title("Pencairan gaji karyawan").text(saveCicilanMessage.toString())
-						.hideAfter(Duration.seconds(3D)).position(Pos.BOTTOM_RIGHT).showInformation();
-			}
+					for (int i = 0; i < 100; i++) {
+						Thread.sleep(10);
+						updateProgress(i, 99);
+						updateMessage("Menyiapkan data untuk mencetak kwitansi penggajian...");
+					}
+					printed(penggajian, pembayaranCicilanMotor);
 
-			printed(this.penggajian, this.pembayaranCicilanMotor);
-			initConstuct();
+					succeeded();
+					return null;
+				}
+
+				@Override
+				protected void succeeded() {
+					try {
+						for (int i = 0; i < 100; i++) {
+							Thread.sleep(10);
+							updateProgress(i, 99);
+							updateMessage("Menyelesaikan proses...");
+						}
+						super.succeeded();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+
+			};
+
+			task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+
+				@Override
+				public void handle(WorkerStateEvent event) {
+
+					initConstuct();
+					Notifications.create().title("Pencairan gaji karyawan")
+							.text("Gaji karyawan berhasil disimpan dan dicetak!").hideAfter(Duration.seconds(4D))
+							.hideCloseButton().position(Pos.BOTTOM_RIGHT).showInformation();
+				}
+			});
+
+			ProgressDialog progres = new ProgressDialog(task);
+			progres.setTitle("Penggajian karyawan");
+			progres.setHeaderText("Proses pencairan dana penggajian karyawan atas nama " + karyawan.getNama());
+			progres.initModality(Modality.APPLICATION_MODAL);
+			progres.show();
+			Thread th = new Thread(task);
+			th.setDaemon(true);
+			th.start();
+
 		} catch (Exception e) {
 			logger.error("Tidak dapat menyimpan penggajian karyawan atas nama {} sebesar {}",
 					this.penggajian.getKaryawan().getNama(), txtTotal.getText());
@@ -403,8 +449,6 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 
 	private void printed(Penggajian gaji, PembayaranCicilanMotor cicilan) {
 
-		Notifications.create().title("Pencairan gaji karyawan").text("Mencetak dokument penggajian karyawan!")
-				.hideAfter(Duration.seconds(3D)).position(Pos.BOTTOM_RIGHT).showInformation();
 		try {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			DataKaryawan karyawan = gaji.getKaryawan();

@@ -76,7 +76,7 @@
 						<Label text="Gaji Pokok" GridPane.rowIndex="2" />
 						<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" GridPane.rowSpan="2">
 							<children>
-								<TextArea fx:id="txtPernyataan" disable="true" editable="false" layoutX="-29.0" layoutY="-79.0" opacity="0.8" prefHeight="121.0" prefWidth="432.0" promptText="Pernyataan" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+								<TextArea fx:id="txtPernyataan" editable="false" layoutX="-29.0" layoutY="-79.0" opacity="0.8" prefHeight="121.0" prefWidth="432.0" promptText="Pernyataan" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
