@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
 import org.controlsfx.dialog.ExceptionDialog;
+import org.controlsfx.dialog.ProgressDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -28,7 +30,10 @@ import app.repositories.RepositoryKasbonKaryawan;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -372,17 +377,79 @@ public class KasbonKaryawanListController implements BootInitializable {
 					listPrinted.add(kasbon);
 				}
 			}
+
 			if (listPrinted.size() >= 1) {
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("nip", dataKaryawan.getNip());
-				map.put("nama", dataKaryawan.getNama());
-				configPrint.setValue("/jasper/peminjaman/BukuPinjamanKaryawan.jrxml", map,
-						new JRBeanCollectionDataSource(listPrinted));
-				configPrint.doPrinted();
-				for (KasbonKaryawan kasbon : listPrinted) {
-					kasbonKaryawanService.save(kasbon);
-				}
-				initConstuct();
+				Task<Object> task = new Task<Object>() {
+
+					@Override
+					protected Object call() throws Exception {
+
+						for (int i = 0; i < 100; i++) {
+							Thread.sleep(10);
+							updateProgress(i, 99);
+							updateMessage("Mencetak daftar kasbon karyawan...");
+						}
+						try {
+							HashMap<String, Object> map = new HashMap<String, Object>();
+							map.put("nip", dataKaryawan.getNip());
+							map.put("nama", dataKaryawan.getNama());
+
+							configPrint.setValue("/jasper/peminjaman/BukuPinjamanKaryawan.jrxml", map,
+									new JRBeanCollectionDataSource(listPrinted));
+							configPrint.doPrinted();
+
+							for (int i = 0; i < 100; i++) {
+								Thread.sleep(10);
+								updateProgress(i, 99);
+								updateMessage("Menyimpan perubahan data kasbon...");
+							}
+							for (KasbonKaryawan kasbon : listPrinted) {
+								kasbonKaryawanService.save(kasbon);
+							}
+
+						} catch (JRException e) {
+							logger.error("Tidak dapat mencetak dokument DaftarPeminjaman.jrxml", e);
+							ExceptionDialog ex = new ExceptionDialog(e);
+							ex.setTitle("Cetak daftar kasbon karyawan");
+							ex.setHeaderText("Tidak dapat mencetak dokument Daftar Kasbn Karyawan");
+							ex.setContentText(e.getMessage());
+							ex.initModality(Modality.APPLICATION_MODAL);
+							ex.show();
+						}
+
+						succeeded();
+						return null;
+					}
+
+					@Override
+					protected void succeeded() {
+						try {
+							for (int i = 0; i < 100; i++) {
+								Thread.sleep(10);
+								updateProgress(i, 99);
+								updateMessage("Menyelesaikan proses...");
+							}
+							super.succeeded();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+
+				};
+				task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+
+					@Override
+					public void handle(WorkerStateEvent event) {
+						initConstuct();
+					}
+				});
+				ProgressDialog dlg = new ProgressDialog(task);
+				dlg.setTitle("Daftar kasbon karyawan");
+				dlg.setHeaderText("Mencetak daftar kasbon karyawan atas nama " + dataKaryawan.getNama());
+				dlg.show();
+				Thread th = new Thread(task);
+				th.setDaemon(true);
+				th.start();
 			} else {
 				logger.info("Tidak ada transaksi baru yang dapat dicetak oleh karyawan atas nama {} dengan NIP ",
 						dataKaryawan.getNama(), dataKaryawan.getNip());
@@ -393,14 +460,7 @@ public class KasbonKaryawanListController implements BootInitializable {
 				notif.initModality(Modality.APPLICATION_MODAL);
 				notif.show();
 			}
-		} catch (JRException e) {
-			logger.error("Tidak dapat mencetak dokument DaftarPeminjaman.jrxml", e);
-			ExceptionDialog ex = new ExceptionDialog(e);
-			ex.setTitle("Cetak daftar kasbon karyawan");
-			ex.setHeaderText("Tidak dapat mencetak dokument Daftar Kasbn Karyawan");
-			ex.setContentText(e.getMessage());
-			ex.initModality(Modality.APPLICATION_MODAL);
-			ex.show();
+
 		} catch (Exception e) {
 			logger.error("Tidak dapat menyimpan perubahan", e);
 			ExceptionDialog ex = new ExceptionDialog(e);
