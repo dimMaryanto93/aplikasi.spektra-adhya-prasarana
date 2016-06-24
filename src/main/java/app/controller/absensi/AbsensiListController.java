@@ -90,7 +90,7 @@ public class AbsensiListController implements BootInitializable {
 	private Button btnClear;
 
 	private void setFields(DataKaryawan karyawan) {
-		txtNoInduk.setText(karyawan.getNik().toString());
+		txtNoInduk.setText(karyawan.getNip());
 		txtNama.setText(karyawan.getNama());
 		txtJabatan.setText(karyawan.getJabatan().getNama());
 		Integer hadir = 0;
@@ -136,7 +136,7 @@ public class AbsensiListController implements BootInitializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tabelKehadiran.setSelectionModel(null);
-		columnkaryawanNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nik"));
+		columnkaryawanNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nip"));
 		columnKaryawanNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
 		tableKaryawan.getSelectionModel().selectedItemProperty().addListener(
 				(ObservableValue<? extends DataKaryawan> values, DataKaryawan oldValue, DataKaryawan newValue) -> {

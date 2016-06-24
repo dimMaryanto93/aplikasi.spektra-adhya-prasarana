@@ -81,7 +81,7 @@ public class AngsuranPrestasiListController implements BootInitializable {
 	private HomeController homeController;
 
 	private void setFields(DataKaryawan karyawan) {
-		txtNik.setText(karyawan.getNik().toString());
+		txtNik.setText(karyawan.getNip());
 		txtNama.setText(karyawan.getNama());
 
 		Motor motor = karyawan.getNgicilMotor();
@@ -120,7 +120,7 @@ public class AngsuranPrestasiListController implements BootInitializable {
 						clearFields();
 					}
 				});
-		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, Integer>("nik"));
+		columnNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, Integer>("nip"));
 		columnNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
 
 		columnResi.setCellValueFactory(new PropertyValueFactory<PembayaranCicilanMotor, String>("id"));
