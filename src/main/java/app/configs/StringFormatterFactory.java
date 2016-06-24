@@ -2,6 +2,7 @@ package app.configs;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
@@ -45,6 +46,12 @@ public class StringFormatterFactory {
 		StringBuilder sb = new StringBuilder();
 		sb.append(jmlYear).append(" tahun ").append(bulanDalamTahun).append(" bulan ");
 		return sb.toString();
+	}
+
+	public String getDateIndonesiaFormater(LocalDateTime date) {
+		DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd MMMM yyyy 'pukul' hh:mm a")
+				.withLocale(Locale.getDefault());
+		return formater.format(date);
 	}
 
 }

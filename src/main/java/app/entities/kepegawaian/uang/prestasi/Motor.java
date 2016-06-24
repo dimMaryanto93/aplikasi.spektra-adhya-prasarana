@@ -51,6 +51,19 @@ public class Motor extends BasicEntity {
 	@Column(name = "pembayaran", nullable = false)
 	private Double pembayaran;
 
+	@Column(name = "sudah_diterima", nullable = false)
+	private Boolean sudahDiterima;
+
+	@Column(name = "disetujui", nullable = false)
+	private Boolean setuju;
+
+	@Column(name = "waktu_disetujui")
+	private Timestamp acceptTime;
+
+	@Deprecated
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "motor", orphanRemoval = true)
+	private List<PembayaranCicilanMotor> daftarCicilan = new ArrayList<>();
+
 	public Double getPembayaran() {
 		return pembayaran;
 	}
@@ -58,16 +71,6 @@ public class Motor extends BasicEntity {
 	public void setPembayaran(Double pembayaran) {
 		this.pembayaran = pembayaran;
 	}
-
-	@Column(name = "sudah_diterima", nullable = false)
-	private Boolean sudahDiterima;
-
-	@Column(name = "disetujui", nullable = false)
-	private Boolean setuju;
-
-	@Deprecated
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "motor", orphanRemoval = true)
-	private List<PembayaranCicilanMotor> daftarCicilan = new ArrayList<>();
 
 	public String getId() {
 		return id;
@@ -139,6 +142,14 @@ public class Motor extends BasicEntity {
 
 	public void setDaftarCicilan(List<PembayaranCicilanMotor> daftarCicilan) {
 		this.daftarCicilan = daftarCicilan;
+	}
+
+	public Timestamp getAcceptTime() {
+		return acceptTime;
+	}
+
+	public void setAcceptTime(Timestamp acceptTime) {
+		this.acceptTime = acceptTime;
 	}
 
 }

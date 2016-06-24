@@ -55,7 +55,7 @@ public class AngsuranPrestasiListController implements BootInitializable {
 	@FXML
 	private TextField txtMerek;
 	@FXML
-	private TextField txtPlat;
+	private TextField txtWaktuDisetujui;
 	@FXML
 	private TextField txtCicilan;
 	@FXML
@@ -79,7 +79,7 @@ public class AngsuranPrestasiListController implements BootInitializable {
 	private StringFormatterFactory formater;
 	@Autowired
 	private HomeController homeController;
-	
+
 	private void setFields(DataKaryawan karyawan) {
 		txtNik.setText(karyawan.getNik().toString());
 		txtNama.setText(karyawan.getNama());
@@ -87,7 +87,11 @@ public class AngsuranPrestasiListController implements BootInitializable {
 		Motor motor = karyawan.getNgicilMotor();
 
 		txtMerek.setText(motor.getMerkMotor());
-		txtPlat.setText(motor.getNoPolisi());
+		if (motor.getAcceptTime() != null) {
+			txtWaktuDisetujui.setText(formater.getDateIndonesiaFormater(motor.getAcceptTime().toLocalDateTime()));
+		} else {
+			txtWaktuDisetujui.setText("Belum disetujui");
+		}
 		txtCicilan.setText(formater.getCurrencyFormate(motor.getPembayaran()));
 		txtAngsuran.setText(formater.getNumberIntegerOnlyFormate(motor.getTotalAngsuran()));
 	}
@@ -97,7 +101,7 @@ public class AngsuranPrestasiListController implements BootInitializable {
 		txtNama.clear();
 
 		txtMerek.clear();
-		txtPlat.clear();
+		txtWaktuDisetujui.clear();
 		txtCicilan.clear();
 		txtAngsuran.clear();
 	}
@@ -222,7 +226,7 @@ public class AngsuranPrestasiListController implements BootInitializable {
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

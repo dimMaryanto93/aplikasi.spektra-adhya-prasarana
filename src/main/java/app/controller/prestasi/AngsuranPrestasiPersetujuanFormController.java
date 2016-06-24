@@ -3,7 +3,9 @@ package app.controller.prestasi;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
@@ -85,7 +87,7 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 	private RepositoryPengajuanAngsuranPrestasi serviceMotor;
 	@Autowired
 	private HomeController homeController;
-	
+
 	private void clearFields() {
 		txtNik.clear();
 		txtNama.clear();
@@ -147,6 +149,7 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 		try {
 			Motor m = newValue.getNgicilMotor();
 			m.setSetuju(true);
+			m.setAcceptTime(Timestamp.valueOf(LocalDateTime.now()));
 			PembayaranCicilanMotor cicilanMotor = new PembayaranCicilanMotor();
 			cicilanMotor.setMotor(m);
 			cicilanMotor.setTanggalBayar(Date.valueOf(LocalDate.now()));
@@ -230,7 +233,7 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 	@Override
 	public void initIcons() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
