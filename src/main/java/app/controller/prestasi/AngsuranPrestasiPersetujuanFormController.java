@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
@@ -19,6 +20,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootFormInitializable;
+import app.configs.PrintConfig;
 import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
 import app.entities.kepegawaian.uang.prestasi.Motor;
@@ -41,6 +43,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.swing.JRViewer;
+import net.sf.jasperreports.view.JasperViewer;
 
 @Component
 public class AngsuranPrestasiPersetujuanFormController implements BootFormInitializable {
@@ -87,6 +94,8 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 	private RepositoryPengajuanAngsuranPrestasi serviceMotor;
 	@Autowired
 	private HomeController homeController;
+	@Autowired
+	private PrintConfig printConfig;
 
 	private void clearFields() {
 		txtNik.clear();
@@ -157,6 +166,15 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 			cicilanMotor.setAngsuranKe(1);
 			m.getDaftarCicilan().add(cicilanMotor);
 			serviceMotor.save(m);
+
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("nip", newValue.getNip());
+			map.put("nama", newValue.getNama());
+			map.put("dp", m.getDp());
+			map.put("bayar", m.getMerkMotor());
+
+			printConfig.setValue("/jasper/prestasi/PersetujuanAngsuranPrestasi.jrxml", map);
+			printConfig.doPrinted();
 
 			StringBuilder saveMessage = new StringBuilder("Penggajuan angsuran prestasi karyawan atas nama ");
 			saveMessage.append(newValue.getNama()).append(" dengan NIP ").append(newValue.getNip())
