@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
 import org.controlsfx.dialog.ExceptionDialog;
+import org.controlsfx.dialog.ProgressDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -29,7 +30,10 @@ import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryPengajuanAngsuranPrestasi;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -157,32 +161,83 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 	private void doSave(ActionEvent event, DataKaryawan newValue) {
 		try {
 			Motor m = newValue.getNgicilMotor();
-			m.setSetuju(true);
-			m.setAcceptTime(Timestamp.valueOf(LocalDateTime.now()));
-			PembayaranCicilanMotor cicilanMotor = new PembayaranCicilanMotor();
-			cicilanMotor.setMotor(m);
-			cicilanMotor.setTanggalBayar(Date.valueOf(LocalDate.now()));
-			cicilanMotor.setBayar(m.getDp());
-			cicilanMotor.setAngsuranKe(1);
-			m.getDaftarCicilan().add(cicilanMotor);
-			serviceMotor.save(m);
+			Task<Object> task = new Task<Object>() {
 
-			HashMap<String, Object> map = new HashMap<>();
-			map.put("nip", newValue.getNip());
-			map.put("nama", newValue.getNama());
-			map.put("dp", m.getDp());
-			map.put("bayar", m.getMerkMotor());
+				@Override
+				protected Object call() throws Exception {
+					for (int i = 0; i < 100; i++) {
+						Thread.sleep(10);
+						updateProgress(i, 99);
+						updateMessage("Menyetujui angsuran prestasi...");
+					}
+					m.setSetuju(true);
+					m.setAcceptTime(Timestamp.valueOf(LocalDateTime.now()));
 
-			printConfig.setValue("/jasper/prestasi/PersetujuanAngsuranPrestasi.jrxml", map);
-			printConfig.doPrinted();
+					for (int i = 0; i < 100; i++) {
+						Thread.sleep(10);
+						updateProgress(i, 99);
+						updateMessage("Melakukan pembayaran angsuran prestasi...");
+					}
+					PembayaranCicilanMotor cicilanMotor = new PembayaranCicilanMotor();
+					cicilanMotor.setMotor(m);
+					cicilanMotor.setTanggalBayar(Date.valueOf(LocalDate.now()));
+					cicilanMotor.setBayar(m.getDp());
+					cicilanMotor.setAngsuranKe(1);
+					m.getDaftarCicilan().add(cicilanMotor);
+					serviceMotor.save(m);
 
-			StringBuilder saveMessage = new StringBuilder("Penggajuan angsuran prestasi karyawan atas nama ");
-			saveMessage.append(newValue.getNama()).append(" dengan NIP ").append(newValue.getNip())
-					.append(", Berhasil disimpan!");
-			Notifications.create().title("Pengajuan angsuran prestasi karyawan").text(saveMessage.toString())
-					.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(3D)).showInformation();
+					for (int i = 0; i < 100; i++) {
+						Thread.sleep(10);
+						updateProgress(i, 99);
+						updateMessage("Mencetak kwitansi pembayaran uang muka angsuran prestasi...");
+					}
+					HashMap<String, Object> map = new HashMap<>();
+					map.put("nip", newValue.getNip());
+					map.put("nama", newValue.getNama());
+					map.put("dp", m.getDp());
+					map.put("bayar", m.getMerkMotor());
 
-			initConstuct();
+					printConfig.setValue("/jasper/prestasi/PersetujuanAngsuranPrestasi.jrxml", map);
+					printConfig.doPrinted();
+					succeeded();
+					return null;
+				}
+
+				@Override
+				protected void succeeded() {
+					try {
+						for (int i = 0; i < 100; i++) {
+							Thread.sleep(10);
+							updateProgress(i, 99);
+							updateMessage("Menyelesaikan proses...");
+						}
+						super.succeeded();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+
+			};
+			task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+
+				@Override
+				public void handle(WorkerStateEvent event) {
+					StringBuilder saveMessage = new StringBuilder("Penggajuan angsuran prestasi karyawan atas nama ");
+					saveMessage.append(newValue.getNama()).append(" dengan NIP ").append(newValue.getNip())
+							.append(", Berhasil disimpan!");
+					Notifications.create().title("Pengajuan angsuran prestasi karyawan").text(saveMessage.toString())
+							.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(3D)).showInformation();
+					initConstuct();
+				}
+			});
+			ProgressDialog dlg = new ProgressDialog(task);
+			dlg.setTitle("Form Persetujuan angsuran prestasi");
+			dlg.setHeaderText("Melakukan persetujuan angsuran prestasi");
+			dlg.show();
+			Thread th = new Thread(task);
+			th.setDaemon(true);
+			th.start();
+
 		} catch (Exception e) {
 			logger.error("Tidak dapat menyimpan data pengajuan uang prestasi untuk karyawan dengan nama {}",
 					newValue.getNama(), e);
