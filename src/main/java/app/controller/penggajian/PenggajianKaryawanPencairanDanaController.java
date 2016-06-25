@@ -463,7 +463,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
 				map.put("prestasi", cicilan.getBayar());
 			}
 
-			print.setValue("/jasper/penggajian/SlipGajiKaryawan.jrxml", map);
+			print.setValue("/jasper/penggajian/SlipGajiKaryawan.jasper", map);
 			print.doPrinted();
 		} catch (JRException e) {
 			logger.error("Tidak dapat print dokument", e);

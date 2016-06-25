@@ -75,22 +75,17 @@ public class PrintConfig {
 	 */
 	public void setValue(String jrxml, HashMap<String, Object> map, JRBeanCollectionDataSource collection)
 			throws JRException {
-		setDesign(JRXmlLoader.load(getClass().getResourceAsStream(jrxml)));
-		setReport(JasperCompileManager.compileReport(getDesign()));
-		setPrint(JasperFillManager.fillReport(report, map, collection));
+		setPrint(JasperFillManager.fillReport(getClass().getResourceAsStream(jrxml), map, collection));
 
 	}
 
 	public void setValue(String jrxml, HashMap<String, Object> map) throws JRException {
-		setDesign(JRXmlLoader.load(getClass().getResourceAsStream(jrxml)));
-		setReport(JasperCompileManager.compileReport(getDesign()));
-		setPrint(JasperFillManager.fillReport(report, map, new JREmptyDataSource()));
+		setPrint(JasperFillManager.fillReport(getClass().getResourceAsStream(jrxml), map, new JREmptyDataSource()));
+
 	}
 
 	public void setValueSQL(String jrxml, HashMap<String, Object> map) throws JRException, SQLException {
-		setDesign(JRXmlLoader.load(getClass().getResourceAsStream(jrxml)));
-		setReport(JasperCompileManager.compileReport(getDesign()));
-		setPrint(JasperFillManager.fillReport(report, map, this.dataSource.getConnection()));
+		setPrint(JasperFillManager.fillReport(getClass().getResourceAsStream(jrxml), map, dataSource.getConnection()));
 
 	}
 

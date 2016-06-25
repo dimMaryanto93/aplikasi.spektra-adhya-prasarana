@@ -197,7 +197,7 @@ public class AngsuranPrestasiPersetujuanFormController implements BootFormInitia
 					map.put("dp", m.getDp());
 					map.put("bayar", m.getMerkMotor());
 
-					printConfig.setValue("/jasper/prestasi/PersetujuanAngsuranPrestasi.jrxml", map);
+					printConfig.setValue("/jasper/prestasi/PersetujuanAngsuranPrestasi.jasper", map);
 					printConfig.doPrinted();
 					succeeded();
 					return null;

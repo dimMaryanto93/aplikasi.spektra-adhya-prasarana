@@ -305,7 +305,7 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
 							updateProgress(i, 99);
 							updateMessage("Mencetak data penggajian pada " + sb.toString());
 						}
-						print.setValue("/jasper/penggajian/DaftarGajiKaryawan.jrxml", null,
+						print.setValue("/jasper/penggajian/DaftarGajiKaryawan.jasper", null,
 								new JRBeanCollectionDataSource(tableView.getItems()));
 						print.doPrinted();
 					}

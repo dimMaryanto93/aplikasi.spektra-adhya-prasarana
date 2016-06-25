@@ -243,7 +243,7 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
 						map.put("nama", dataKaryawan.getNama());
 						map.put("pinjam", kasbon.getPinjaman());
 						map.put("saldo", saldoAkhir);
-						configPrint.setValue("/jasper/peminjaman/KasbonPeminjaman.jrxml", map);
+						configPrint.setValue("/jasper/peminjaman/KasbonPeminjaman.jasper", map);
 						configPrint.doPrinted();
 						succeeded();
 						return null;

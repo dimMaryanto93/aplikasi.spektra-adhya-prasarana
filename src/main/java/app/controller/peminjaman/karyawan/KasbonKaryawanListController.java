@@ -394,7 +394,7 @@ public class KasbonKaryawanListController implements BootInitializable {
 							map.put("nip", dataKaryawan.getNip());
 							map.put("nama", dataKaryawan.getNama());
 
-							configPrint.setValue("/jasper/peminjaman/BukuPinjamanKaryawan.jrxml", map,
+							configPrint.setValue("/jasper/peminjaman/BukuPinjamanKaryawan.jasper", map,
 									new JRBeanCollectionDataSource(listPrinted));
 							configPrint.doPrinted();
 
