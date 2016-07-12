@@ -123,3 +123,4 @@ nbactions.xml
 
 # loggin 
 *.log
+*.log.*

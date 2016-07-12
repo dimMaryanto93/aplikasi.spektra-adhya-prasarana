@@ -8,12 +8,12 @@ import app.entities.master.DataKaryawan;
 
 public interface RepositoryKaryawan extends CrudRepository<app.entities.master.DataKaryawan, String> {
 
-	public List<DataKaryawan> findAll();
+    public List<DataKaryawan> findAll();
 
-	public DataKaryawan findByNama(String name);
+    public DataKaryawan findByNama(String name);
 
-	public List<DataKaryawan> findByPengajuanKasbonIsNotNullAndPengajuanKasbonAccepted(Boolean accepted);
+    public List<DataKaryawan> findByPengajuanKasbonIsNotNullAndPengajuanKasbonAccepted(Boolean accepted);
 
-	public List<DataKaryawan> findByPengajuanKasbonIsNullOrPengajuanKasbonAccepted(Boolean accepted);
+    public List<DataKaryawan> findByPengajuanKasbonIsNullOrPengajuanKasbonAccepted(Boolean accepted);
 
 }

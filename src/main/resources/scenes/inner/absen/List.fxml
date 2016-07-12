@@ -17,176 +17,176 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-	prefWidth="800.0" stylesheets="@../../../stylesheet/JMetroLightTheme.css"
-	xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-	<left>
-		<AnchorPane prefHeight="450.0" prefWidth="300.0"
-			BorderPane.alignment="CENTER">
-			<children>
-				<TableView fx:id="tableKaryawan" prefHeight="364.0"
-					prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
-					AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-					AnchorPane.topAnchor="0.0">
-					<columns>
-						<TableColumn fx:id="columnkaryawanNik" maxWidth="120.0"
-							minWidth="120.0" prefWidth="120.0" text="NIP" />
-						<TableColumn fx:id="columnKaryawanNama" prefWidth="75.0"
-							text="Nama" />
-					</columns>
-					<columnResizePolicy>
-						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-					</columnResizePolicy>
-					<contextMenu>
-						<ContextMenu>
-							<items>
-								<MenuItem mnemonicParsing="false" onAction="#doClear"
-									text="Clear Selection" />
-								<MenuItem mnemonicParsing="false" onAction="#doRefresh"
-									text="Refresh Data" />
-							</items>
-						</ContextMenu>
-					</contextMenu>
-				</TableView>
-			</children>
-			<padding>
-				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-			</padding>
-		</AnchorPane>
-	</left>
-	<center>
-		<GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
-			<columnConstraints>
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0"
-					minWidth="120.0" prefWidth="120.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0"
-					minWidth="60.0" prefWidth="60.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0"
-					minWidth="60.0" prefWidth="60.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0"
-					minWidth="50.0" prefWidth="100.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308"
-					minWidth="-Infinity" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0"
-					minWidth="50.0" prefWidth="50.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0"
-					minWidth="50.0" prefWidth="100.0" />
-			</columnConstraints>
-			<rowConstraints>
-				<RowConstraints maxHeight="35.0" minHeight="35.0"
-					prefHeight="35.0" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="35.0" minHeight="35.0"
-					prefHeight="35.0" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="35.0" minHeight="35.0"
-					prefHeight="35.0" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="1.7976931348623157E308"
-					vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="35.0" minHeight="35.0"
-					prefHeight="35.0" vgrow="SOMETIMES" />
-			</rowConstraints>
-			<children>
-				<AnchorPane GridPane.columnSpan="2147483647"
-					GridPane.rowIndex="3">
-					<children>
-						<TableView fx:id="tabelKehadiran" prefHeight="420.0"
-							prefWidth="602.0" AnchorPane.bottomAnchor="0.0"
-							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-							AnchorPane.topAnchor="0.0">
-							<columns>
-								<TableColumn fx:id="columnTanggal" editable="false"
-									maxWidth="250.0" minWidth="250.0" prefWidth="250.0" sortable="false"
-									text="Hari, Tanggal-Bulan-Tahun" />
-								<TableColumn fx:id="columnHadir" editable="false"
-									maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false"
-									text="Hadir" />
-								<TableColumn fx:id="columnLembur" editable="false"
-									maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false"
-									text="Lembur" />
-								<TableColumn fx:id="columnKeterangan" editable="false"
-									maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
-									text="Keterangan" />
-							</columns>
-						</TableView>
-					</children>
-				</AnchorPane>
-				<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nama"
-					GridPane.rowIndex="1" />
-				<AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="3">
-					<children>
-						<TextField fx:id="txtNoInduk" editable="false"
-							focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
-							promptText="No Induk Pegawai" AnchorPane.bottomAnchor="0.0"
-							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-							AnchorPane.topAnchor="0.0" />
-					</children>
-				</AnchorPane>
-				<AnchorPane layoutX="150.0" layoutY="20.0"
-					GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
-					<children>
-						<TextField fx:id="txtNama" editable="false"
-							focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
-							promptText="Nama Karyawan" AnchorPane.bottomAnchor="0.0"
-							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-							AnchorPane.topAnchor="0.0" />
-					</children>
-				</AnchorPane>
-				<Text layoutX="20.0" layoutY="80.0" strokeType="OUTSIDE"
-					strokeWidth="0.0" text="Jabatan" GridPane.rowIndex="2" />
-				<AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="5"
-					GridPane.rowIndex="2">
-					<children>
-						<TextField fx:id="txtJabatan" editable="false"
-							focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
-							promptText="Jabatan" AnchorPane.bottomAnchor="0.0"
-							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-							AnchorPane.topAnchor="0.0" />
-					</children>
-				</AnchorPane>
-				<Text layoutX="20.0" layoutY="120.0" strokeType="OUTSIDE"
-					strokeWidth="0.0" text="Jumlah Hadir/ Lembur" GridPane.columnSpan="2147483647"
-					GridPane.rowIndex="4" />
-				<AnchorPane layoutX="150.0" layoutY="60.0"
-					GridPane.columnIndex="5" GridPane.rowIndex="4">
-					<children>
-						<TextField fx:id="txtHadir" alignment="CENTER_RIGHT"
-							editable="false" focusTraversable="false" prefHeight="30.0"
-							prefWidth="171.0" AnchorPane.bottomAnchor="0.0"
-							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-							AnchorPane.topAnchor="0.0" />
-					</children>
-				</AnchorPane>
-				<AnchorPane layoutX="150.0" layoutY="140.0"
-					GridPane.columnIndex="6" GridPane.rowIndex="4">
-					<children>
-						<TextField fx:id="txtLembur" alignment="CENTER_RIGHT"
-							editable="false" focusTraversable="false" prefHeight="30.0"
-							prefWidth="171.0" AnchorPane.bottomAnchor="0.0"
-							AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-							AnchorPane.topAnchor="0.0" />
-					</children>
-				</AnchorPane>
-				<Text layoutX="20.0" layoutY="80.0" strokeType="OUTSIDE"
-					strokeWidth="0.0" text="No Induk Pegawai" />
-			</children>
-			<padding>
-				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-			</padding>
-		</GridPane>
-	</center>
-	<bottom>
-		<ToolBar prefHeight="40.0" prefWidth="200.0"
-			BorderPane.alignment="CENTER">
-			<items>
-				<Button fx:id="btnBack" mnemonicParsing="false" onAction="#doBack"
-					styleClass="action" text="Kembali" />
-				<Separator orientation="VERTICAL" prefHeight="200.0" />
-				<Button fx:id="btnRefresh" defaultButton="true"
-					mnemonicParsing="false" onAction="#doRefresh" prefHeight="30.0"
-					prefWidth="120.0" styleClass="action" text="Refresh" />
-				<Button fx:id="btnClear" layoutX="10.0" layoutY="10.0"
-					mnemonicParsing="false" onAction="#doClear" prefHeight="30.0"
-					prefWidth="120.0" styleClass="action" text="Clear" />
-			</items>
-		</ToolBar>
-	</bottom>
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="800.0" stylesheets="@../../../stylesheet/JMetroLightTheme.css"
+            xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+    <left>
+        <AnchorPane prefHeight="450.0" prefWidth="300.0"
+                    BorderPane.alignment="CENTER">
+            <children>
+                <TableView fx:id="tableKaryawan" prefHeight="364.0"
+                           prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
+                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                           AnchorPane.topAnchor="0.0">
+                    <columns>
+                        <TableColumn fx:id="columnkaryawanNik" maxWidth="120.0"
+                                     minWidth="120.0" prefWidth="120.0" text="NIP" />
+                        <TableColumn fx:id="columnKaryawanNama" prefWidth="75.0"
+                                     text="Nama" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                    <contextMenu>
+                        <ContextMenu>
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#doClear"
+                                          text="Clear Selection" />
+                                <MenuItem mnemonicParsing="false" onAction="#doRefresh"
+                                          text="Refresh Data" />
+                            </items>
+                        </ContextMenu>
+                    </contextMenu>
+                </TableView>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </AnchorPane>
+    </left>
+    <center>
+        <GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0"
+                                   minWidth="120.0" prefWidth="120.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0"
+                                   minWidth="60.0" prefWidth="60.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0"
+                                   minWidth="60.0" prefWidth="60.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0"
+                                   minWidth="50.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308"
+                                   minWidth="-Infinity" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0"
+                                   minWidth="50.0" prefWidth="50.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0"
+                                   minWidth="50.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="35.0" minHeight="35.0"
+                                prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="35.0" minHeight="35.0"
+                                prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="35.0" minHeight="35.0"
+                                prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308"
+                                vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="35.0" minHeight="35.0"
+                                prefHeight="35.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <AnchorPane GridPane.columnSpan="2147483647"
+                            GridPane.rowIndex="3">
+                    <children>
+                        <TableView fx:id="tabelKehadiran" prefHeight="420.0"
+                                   prefWidth="602.0" AnchorPane.bottomAnchor="0.0"
+                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                   AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn fx:id="columnTanggal" editable="false"
+                                             maxWidth="250.0" minWidth="250.0" prefWidth="250.0" sortable="false"
+                                             text="Hari, Tanggal-Bulan-Tahun" />
+                                <TableColumn fx:id="columnHadir" editable="false"
+                                             maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false"
+                                             text="Hadir" />
+                                <TableColumn fx:id="columnLembur" editable="false"
+                                             maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false"
+                                             text="Lembur" />
+                                <TableColumn fx:id="columnKeterangan" editable="false"
+                                             maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false"
+                                             text="Keterangan" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nama"
+                      GridPane.rowIndex="1" />
+                <AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="3">
+                    <children>
+                        <TextField fx:id="txtNoInduk" editable="false"
+                                   focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
+                                   promptText="No Induk Pegawai" AnchorPane.bottomAnchor="0.0"
+                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                   AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="150.0" layoutY="20.0"
+                            GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                    <children>
+                        <TextField fx:id="txtNama" editable="false"
+                                   focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
+                                   promptText="Nama Karyawan" AnchorPane.bottomAnchor="0.0"
+                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                   AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <Text layoutX="20.0" layoutY="80.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0" text="Jabatan" GridPane.rowIndex="2" />
+                <AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="5"
+                            GridPane.rowIndex="2">
+                    <children>
+                        <TextField fx:id="txtJabatan" editable="false"
+                                   focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
+                                   promptText="Jabatan" AnchorPane.bottomAnchor="0.0"
+                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                   AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <Text layoutX="20.0" layoutY="120.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0" text="Jumlah Hadir/ Lembur" GridPane.columnSpan="2147483647"
+                      GridPane.rowIndex="4" />
+                <AnchorPane layoutX="150.0" layoutY="60.0"
+                            GridPane.columnIndex="5" GridPane.rowIndex="4">
+                    <children>
+                        <TextField fx:id="txtHadir" alignment="CENTER_RIGHT"
+                                   editable="false" focusTraversable="false" prefHeight="30.0"
+                                   prefWidth="171.0" AnchorPane.bottomAnchor="0.0"
+                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                   AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="150.0" layoutY="140.0"
+                            GridPane.columnIndex="6" GridPane.rowIndex="4">
+                    <children>
+                        <TextField fx:id="txtLembur" alignment="CENTER_RIGHT"
+                                   editable="false" focusTraversable="false" prefHeight="30.0"
+                                   prefWidth="171.0" AnchorPane.bottomAnchor="0.0"
+                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                   AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <Text layoutX="20.0" layoutY="80.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0" text="No Induk Pegawai" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </GridPane>
+    </center>
+    <bottom>
+        <ToolBar prefHeight="40.0" prefWidth="200.0"
+                 BorderPane.alignment="CENTER">
+            <items>
+                <Button fx:id="btnBack" mnemonicParsing="false" onAction="#doBack"
+                        styleClass="action" text="Kembali" />
+                <Separator orientation="VERTICAL" prefHeight="200.0" />
+                <Button fx:id="btnRefresh" defaultButton="true"
+                        mnemonicParsing="false" onAction="#doRefresh" prefHeight="30.0"
+                        prefWidth="120.0" styleClass="action" text="Refresh" />
+                <Button fx:id="btnClear" layoutX="10.0" layoutY="10.0"
+                        mnemonicParsing="false" onAction="#doClear" prefHeight="30.0"
+                        prefWidth="120.0" styleClass="action" text="Clear" />
+            </items>
+        </ToolBar>
+    </bottom>
 </BorderPane>

@@ -9,8 +9,8 @@ import app.entities.master.DataNotifikasiAkun;
 
 public interface RepositoryNotifikasiAkun extends CrudRepository<DataNotifikasiAkun, String> {
 
-	public List<DataNotifikasiAkun> findAll();
+    public List<DataNotifikasiAkun> findAll();
 
-	public List<DataNotifikasiAkun> findByResponseAndReadableIsFalse(DataAkun response);
+    public List<DataNotifikasiAkun> findByResponseAndReadableIsFalse(DataAkun response);
 
 }

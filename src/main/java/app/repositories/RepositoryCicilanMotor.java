@@ -9,5 +9,5 @@ import app.entities.kepegawaian.uang.prestasi.PembayaranCicilanMotor;
 
 public interface RepositoryCicilanMotor extends CrudRepository<PembayaranCicilanMotor, String> {
 
-	public List<PembayaranCicilanMotor> findByMotor(Motor motor);
+    public List<PembayaranCicilanMotor> findByMotor(Motor motor);
 }

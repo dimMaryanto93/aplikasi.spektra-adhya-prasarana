@@ -23,91 +23,91 @@ import app.entities.master.DataKaryawan;
 @Table(name = "kasbon_karyawan")
 public class KasbonKaryawan extends BasicEntity {
 
-	public KasbonKaryawan() {
-		this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
-		this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
-		setTanggalPinjam(Date.valueOf(LocalDate.now()));
-		setPrinted(false);
-	}
+    public KasbonKaryawan() {
+        this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+        this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+        setTanggalPinjam(Date.valueOf(LocalDate.now()));
+        setPrinted(false);
+    }
 
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@GeneratedValue(generator = "uuid")
-	private String id;
+    @Id
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid")
+    private String id;
 
-	@JoinColumn(name = "id_karyawan", nullable = false)
-	@ManyToOne(cascade = CascadeType.ALL, optional = true)
-	private DataKaryawan karyawan;
+    @JoinColumn(name = "id_karyawan", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL, optional = true)
+    private DataKaryawan karyawan;
 
-	@Column(nullable = false, name = "tanggal_pinjam")
-	private Date tanggalPinjam;
+    @Column(nullable = false, name = "tanggal_pinjam")
+    private Date tanggalPinjam;
 
-	@Column(nullable = false)
-	private Double pinjaman;
+    @Column(nullable = false)
+    private Double pinjaman;
 
-	@Column(nullable = false)
-	private Double pembayaran;
+    @Column(nullable = false)
+    private Double pembayaran;
 
-	@Column(nullable = false)
-	private Double saldoTerakhir;
+    @Column(nullable = false)
+    private Double saldoTerakhir;
 
-	@Column(name = "dicetak", nullable = false)
-	private Boolean printed;
+    @Column(name = "dicetak", nullable = false)
+    private Boolean printed;
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public DataKaryawan getKaryawan() {
-		return karyawan;
-	}
+    public DataKaryawan getKaryawan() {
+        return karyawan;
+    }
 
-	public void setKaryawan(DataKaryawan karyawan) {
-		this.karyawan = karyawan;
-	}
+    public void setKaryawan(DataKaryawan karyawan) {
+        this.karyawan = karyawan;
+    }
 
-	public Date getTanggalPinjam() {
-		return tanggalPinjam;
-	}
+    public Date getTanggalPinjam() {
+        return tanggalPinjam;
+    }
 
-	public void setTanggalPinjam(Date tanggalPinjam) {
-		this.tanggalPinjam = tanggalPinjam;
-	}
+    public void setTanggalPinjam(Date tanggalPinjam) {
+        this.tanggalPinjam = tanggalPinjam;
+    }
 
-	public Double getPinjaman() {
-		return pinjaman;
-	}
+    public Double getPinjaman() {
+        return pinjaman;
+    }
 
-	public void setPinjaman(Double pinjaman) {
-		this.pinjaman = pinjaman;
-	}
+    public void setPinjaman(Double pinjaman) {
+        this.pinjaman = pinjaman;
+    }
 
-	public Double getPembayaran() {
-		return pembayaran;
-	}
+    public Double getPembayaran() {
+        return pembayaran;
+    }
 
-	public void setPembayaran(Double pembayaran) {
-		this.pembayaran = pembayaran;
-	}
+    public void setPembayaran(Double pembayaran) {
+        this.pembayaran = pembayaran;
+    }
 
-	public Double getSaldoTerakhir() {
-		return saldoTerakhir;
-	}
+    public Double getSaldoTerakhir() {
+        return saldoTerakhir;
+    }
 
-	public void setSaldoTerakhir(Double saldoTerakhir) {
-		this.saldoTerakhir = saldoTerakhir;
-	}
+    public void setSaldoTerakhir(Double saldoTerakhir) {
+        this.saldoTerakhir = saldoTerakhir;
+    }
 
-	public Boolean getPrinted() {
-		return printed;
-	}
+    public Boolean getPrinted() {
+        return printed;
+    }
 
-	public void setPrinted(Boolean printed) {
-		this.printed = printed;
-	}
+    public void setPrinted(Boolean printed) {
+        this.printed = printed;
+    }
 
 }

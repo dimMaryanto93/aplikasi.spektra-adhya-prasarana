@@ -60,423 +60,422 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Component
 public class KasbonKaryawanListController implements BootInitializable {
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private ApplicationContext springContext;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	private RepositoryKaryawan serviceKaryawan;
-	@Autowired
-	private RepositoryKasbonKaryawan kasbonKaryawanService;
-	@Autowired
-	private StringFormatterFactory stringFormater;
-	@Autowired
-	private FontIconFactory iconFactory;
-	@Autowired
-	private PrintConfig configPrint;
-	@Autowired
-	private HomeController homeController;
+    private ApplicationContext springContext;
 
-	@FXML
-	private ListView<DataKaryawan> listView;
-	@FXML
-	private TableView<KasbonKaryawan> tableView;
-	@FXML
-	private TableColumn<KasbonKaryawan, String> columnTanggal;
-	@FXML
-	private TableColumn<KasbonKaryawan, Double> columnPeminjaman;
-	@FXML
-	private TableColumn<KasbonKaryawan, Double> columnPembayaran;
-	@FXML
-	private TableColumn<KasbonKaryawan, Double> columnSaldo;
-	@FXML
-	private TableColumn<KasbonKaryawan, Boolean> columnCetak;
-	@FXML
-	private TextField txtNip;
-	@FXML
-	private TextField txtNama;
-	@FXML
-	private TextField txtJabatan;
-	@FXML
-	private TextField txtTanggal;
-	@FXML
-	private TextField txtSaldoAkhir;
-	@FXML
-	private Button btnCetak;
+    @Autowired
+    private RepositoryKaryawan serviceKaryawan;
+    @Autowired
+    private RepositoryKasbonKaryawan kasbonKaryawanService;
+    @Autowired
+    private StringFormatterFactory stringFormater;
+    @Autowired
+    private FontIconFactory iconFactory;
+    @Autowired
+    private PrintConfig configPrint;
+    @Autowired
+    private HomeController homeController;
 
-	private void setFields(DataKaryawan karyawan) {
-		try {
-			txtNip.setText(karyawan.getNip());
-			txtNama.setText(karyawan.getNama());
-			txtJabatan.setText(karyawan.getJabatan().getNama());
-			tableView.getItems().addAll(kasbonKaryawanService.findByKaryawanOrderByCreatedDateAsc(karyawan));
+    @FXML
+    private ListView<DataKaryawan> listView;
+    @FXML
+    private TableView<KasbonKaryawan> tableView;
+    @FXML
+    private TableColumn<KasbonKaryawan, String> columnTanggal;
+    @FXML
+    private TableColumn<KasbonKaryawan, Double> columnPeminjaman;
+    @FXML
+    private TableColumn<KasbonKaryawan, Double> columnPembayaran;
+    @FXML
+    private TableColumn<KasbonKaryawan, Double> columnSaldo;
+    @FXML
+    private TableColumn<KasbonKaryawan, Boolean> columnCetak;
+    @FXML
+    private TextField txtNip;
+    @FXML
+    private TextField txtNama;
+    @FXML
+    private TextField txtJabatan;
+    @FXML
+    private TextField txtTanggal;
+    @FXML
+    private TextField txtSaldoAkhir;
+    @FXML
+    private Button btnCetak;
 
-			Integer lastIndex = tableView.getItems().size();
-			if (lastIndex >= 1) {
-				KasbonKaryawan kasbon = tableView.getItems().get(lastIndex - 1);
-				txtTanggal.setText(stringFormater
-						.getDateTimeFormatterWithDayAndDateMonthYear(kasbon.getTanggalPinjam().toLocalDate()));
-				txtSaldoAkhir.setText(stringFormater.getCurrencyFormate(kasbon.getSaldoTerakhir()));
-			} else {
-				txtTanggal.clear();
-				txtSaldoAkhir.clear();
-			}
+    private void setFields(DataKaryawan karyawan) {
+        try {
+            txtNip.setText(karyawan.getNip());
+            txtNama.setText(karyawan.getNama());
+            txtJabatan.setText(karyawan.getJabatan().getNama());
+            tableView.getItems().addAll(kasbonKaryawanService.findByKaryawanOrderByCreatedDateAsc(karyawan));
 
-		} catch (Exception e) {
-			logger.error("Tidak dapat mendapatkan data kasbon untuk karyawan atas nama {}" + karyawan.getNama(), e);
+            Integer lastIndex = tableView.getItems().size();
+            if (lastIndex >= 1) {
+                KasbonKaryawan kasbon = tableView.getItems().get(lastIndex - 1);
+                txtTanggal.setText(stringFormater
+                        .getDateTimeFormatterWithDayAndDateMonthYear(kasbon.getTanggalPinjam().toLocalDate()));
+                txtSaldoAkhir.setText(stringFormater.getCurrencyFormate(kasbon.getSaldoTerakhir()));
+            } else {
+                txtTanggal.clear();
+                txtSaldoAkhir.clear();
+            }
 
-			StringBuilder sb = new StringBuilder("Tidak dapat mendapatkan informasi kasbon karyawan atas nama ");
-			sb.append(karyawan.getNama()).append(" dengan nip ").append(karyawan.getNip());
+        } catch (Exception e) {
+            logger.error("Tidak dapat mendapatkan data kasbon untuk karyawan atas nama {}" + karyawan.getNama(), e);
 
-			ExceptionDialog ex = new ExceptionDialog(e);
-			ex.setTitle("Daftar kasbon karyawan");
-			ex.setHeaderText(sb.toString());
-			ex.setContentText(e.getMessage());
-			ex.initModality(Modality.APPLICATION_MODAL);
-			ex.show();
-		}
-	}
+            StringBuilder sb = new StringBuilder("Tidak dapat mendapatkan informasi kasbon karyawan atas nama ");
+            sb.append(karyawan.getNama()).append(" dengan nip ").append(karyawan.getNip());
 
-	private void clearFields() {
-		txtNip.clear();
-		txtNama.clear();
-		txtJabatan.clear();
-		txtTanggal.clear();
-		txtSaldoAkhir.clear();
-	}
+            ExceptionDialog ex = new ExceptionDialog(e);
+            ex.setTitle("Daftar kasbon karyawan");
+            ex.setHeaderText(sb.toString());
+            ex.setContentText(e.getMessage());
+            ex.initModality(Modality.APPLICATION_MODAL);
+            ex.show();
+        }
+    }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		tableView.setSelectionModel(null);
+    private void clearFields() {
+        txtNip.clear();
+        txtNama.clear();
+        txtJabatan.clear();
+        txtTanggal.clear();
+        txtSaldoAkhir.clear();
+    }
 
-		columnCetak.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Boolean>("printed"));
-		columnCetak.setCellFactory(
-				new Callback<TableColumn<KasbonKaryawan, Boolean>, TableCell<KasbonKaryawan, Boolean>>() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        tableView.setSelectionModel(null);
 
-					@Override
-					public TableCell<KasbonKaryawan, Boolean> call(TableColumn<KasbonKaryawan, Boolean> param) {
-						return new TableCell<KasbonKaryawan, Boolean>() {
-							@Override
-							protected void updateItem(Boolean item, boolean empty) {
-								setAlignment(Pos.CENTER);
-								super.updateItem(item, empty);
-								if (empty) {
-									setGraphic(null);
-								} else {
-									Label label = new Label();
-									Tooltip tip = new Tooltip();
-									if (item) {
-										label.setTextFill(Color.GREEN);
-										iconFactory.createFontAwesomeIcon18px(label, FontAwesomeIcon.CHECK);
-										tip.setText("Transaksi ini sudah dicetak");
-									} else {
-										iconFactory.createFontAwesomeIcon18px(label, FontAwesomeIcon.PRINT);
-										tip.setText("Transaksi ini akan dicetak!");
-									}
-									label.setTooltip(tip);
-									setGraphic(label);
-								}
-							}
-						};
-					}
-				});
-		columnTanggal.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<KasbonKaryawan, String>, ObservableValue<String>>() {
+        columnCetak.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Boolean>("printed"));
+        columnCetak.setCellFactory(
+                new Callback<TableColumn<KasbonKaryawan, Boolean>, TableCell<KasbonKaryawan, Boolean>>() {
 
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<KasbonKaryawan, String> param) {
-						KasbonKaryawan kasbon = param.getValue();
-						if (kasbon != null) {
-							return new SimpleStringProperty(
-									stringFormater.getDateIndonesianFormatter(kasbon.getTanggalPinjam().toLocalDate()));
-						} else {
-							return null;
-						}
-					}
-				});
-		columnTanggal
-				.setCellFactory(new Callback<TableColumn<KasbonKaryawan, String>, TableCell<KasbonKaryawan, String>>() {
+            @Override
+            public TableCell<KasbonKaryawan, Boolean> call(TableColumn<KasbonKaryawan, Boolean> param) {
+                return new TableCell<KasbonKaryawan, Boolean>() {
+                    @Override
+                    protected void updateItem(Boolean item, boolean empty) {
+                        setAlignment(Pos.CENTER);
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            Label label = new Label();
+                            Tooltip tip = new Tooltip();
+                            if (item) {
+                                label.setTextFill(Color.GREEN);
+                                iconFactory.createFontAwesomeIcon18px(label, FontAwesomeIcon.CHECK);
+                                tip.setText("Transaksi ini sudah dicetak");
+                            } else {
+                                iconFactory.createFontAwesomeIcon18px(label, FontAwesomeIcon.PRINT);
+                                tip.setText("Transaksi ini akan dicetak!");
+                            }
+                            label.setTooltip(tip);
+                            setGraphic(label);
+                        }
+                    }
+                };
+            }
+        });
+        columnTanggal.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<KasbonKaryawan, String>, ObservableValue<String>>() {
 
-					@Override
-					public TableCell<KasbonKaryawan, String> call(TableColumn<KasbonKaryawan, String> param) {
-						return new TableCell<KasbonKaryawan, String>() {
-							@Override
-							protected void updateItem(String item, boolean empty) {
-								setAlignment(Pos.CENTER);
-								super.updateItem(item, empty);
-								if (empty) {
-									setText(null);
-								} else {
-									setText(item);
-								}
-							}
-						};
-					}
-				});
+            @Override
+            public ObservableValue<String> call(CellDataFeatures<KasbonKaryawan, String> param) {
+                KasbonKaryawan kasbon = param.getValue();
+                if (kasbon != null) {
+                    return new SimpleStringProperty(
+                            stringFormater.getDateIndonesianFormatter(kasbon.getTanggalPinjam().toLocalDate()));
+                } else {
+                    return null;
+                }
+            }
+        });
+        columnTanggal
+                .setCellFactory(new Callback<TableColumn<KasbonKaryawan, String>, TableCell<KasbonKaryawan, String>>() {
 
-		columnPembayaran.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("pembayaran"));
-		columnPembayaran
-				.setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
+                    @Override
+                    public TableCell<KasbonKaryawan, String> call(TableColumn<KasbonKaryawan, String> param) {
+                        return new TableCell<KasbonKaryawan, String>() {
+                            @Override
+                            protected void updateItem(String item, boolean empty) {
+                                setAlignment(Pos.CENTER);
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setText(null);
+                                } else {
+                                    setText(item);
+                                }
+                            }
+                        };
+                    }
+                });
 
-					@Override
-					public TableCell<KasbonKaryawan, Double> call(TableColumn<KasbonKaryawan, Double> param) {
-						return new TableCell<KasbonKaryawan, Double>() {
-							@Override
-							protected void updateItem(Double item, boolean empty) {
-								super.updateItem(item, empty);
-								setAlignment(Pos.CENTER_RIGHT);
-								if (empty) {
-									setText(null);
-								} else {
-									setText(stringFormater.getCurrencyFormate(item));
-								}
-							}
-						};
-					}
-				});
+        columnPembayaran.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("pembayaran"));
+        columnPembayaran
+                .setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
 
-		columnPeminjaman.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("pinjaman"));
-		columnPeminjaman
-				.setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
+                    @Override
+                    public TableCell<KasbonKaryawan, Double> call(TableColumn<KasbonKaryawan, Double> param) {
+                        return new TableCell<KasbonKaryawan, Double>() {
+                            @Override
+                            protected void updateItem(Double item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setAlignment(Pos.CENTER_RIGHT);
+                                if (empty) {
+                                    setText(null);
+                                } else {
+                                    setText(stringFormater.getCurrencyFormate(item));
+                                }
+                            }
+                        };
+                    }
+                });
 
-					@Override
-					public TableCell<KasbonKaryawan, Double> call(TableColumn<KasbonKaryawan, Double> param) {
-						return new TableCell<KasbonKaryawan, Double>() {
-							@Override
-							protected void updateItem(Double item, boolean empty) {
-								super.updateItem(item, empty);
-								setAlignment(Pos.CENTER_RIGHT);
-								if (empty) {
-									setText(null);
-								} else {
-									setText(stringFormater.getCurrencyFormate(item));
-								}
-							}
-						};
-					}
-				});
+        columnPeminjaman.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("pinjaman"));
+        columnPeminjaman
+                .setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
 
-		columnSaldo.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("saldoTerakhir"));
-		columnSaldo
-				.setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
+                    @Override
+                    public TableCell<KasbonKaryawan, Double> call(TableColumn<KasbonKaryawan, Double> param) {
+                        return new TableCell<KasbonKaryawan, Double>() {
+                            @Override
+                            protected void updateItem(Double item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setAlignment(Pos.CENTER_RIGHT);
+                                if (empty) {
+                                    setText(null);
+                                } else {
+                                    setText(stringFormater.getCurrencyFormate(item));
+                                }
+                            }
+                        };
+                    }
+                });
 
-					@Override
-					public TableCell<KasbonKaryawan, Double> call(TableColumn<KasbonKaryawan, Double> param) {
-						return new TableCell<KasbonKaryawan, Double>() {
-							@Override
-							protected void updateItem(Double item, boolean empty) {
-								super.updateItem(item, empty);
-								setAlignment(Pos.CENTER_RIGHT);
-								if (empty) {
-									setText(null);
-								} else {
-									if (item == 0D) {
-										setTextFill(Color.GREEN);
-										setText("LUNAS");
-									} else {
-										setTextFill(Color.RED);
-										setText(stringFormater.getCurrencyFormate(item));
-									}
-								}
-							}
-						};
-					}
-				});
+        columnSaldo.setCellValueFactory(new PropertyValueFactory<KasbonKaryawan, Double>("saldoTerakhir"));
+        columnSaldo
+                .setCellFactory(new Callback<TableColumn<KasbonKaryawan, Double>, TableCell<KasbonKaryawan, Double>>() {
 
-		listView.setCellFactory(new Callback<ListView<DataKaryawan>, ListCell<DataKaryawan>>() {
+                    @Override
+                    public TableCell<KasbonKaryawan, Double> call(TableColumn<KasbonKaryawan, Double> param) {
+                        return new TableCell<KasbonKaryawan, Double>() {
+                            @Override
+                            protected void updateItem(Double item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setAlignment(Pos.CENTER_RIGHT);
+                                if (empty) {
+                                    setText(null);
+                                } else if (item == 0D) {
+                                    setTextFill(Color.GREEN);
+                                    setText("LUNAS");
+                                } else {
+                                    setTextFill(Color.RED);
+                                    setText(stringFormater.getCurrencyFormate(item));
+                                }
+                            }
+                        };
+                    }
+                });
 
-			@Override
-			public ListCell<DataKaryawan> call(ListView<DataKaryawan> param) {
-				return new ListCell<DataKaryawan>() {
+        listView.setCellFactory(new Callback<ListView<DataKaryawan>, ListCell<DataKaryawan>>() {
 
-					@Override
-					protected void updateItem(DataKaryawan item, boolean empty) {
-						super.updateItem(item, empty);
-						if (empty) {
-							setText(null);
-						} else {
-							setText(item.getNip());
-						}
-					}
-				};
-			}
-		});
-		listView.getSelectionModel().selectedItemProperty().addListener(
-				(ObservableValue<? extends DataKaryawan> observable, DataKaryawan oldValue, DataKaryawan newValue) -> {
-					tableView.getItems().clear();
-					btnCetak.setDisable(newValue == null);
-					if (newValue != null) {
-						setFields(newValue);
-					} else {
-						clearFields();
-					}
-				});
+            @Override
+            public ListCell<DataKaryawan> call(ListView<DataKaryawan> param) {
+                return new ListCell<DataKaryawan>() {
 
-	}
+                    @Override
+                    protected void updateItem(DataKaryawan item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setText(null);
+                        } else {
+                            setText(item.getNip());
+                        }
+                    }
+                };
+            }
+        });
+        listView.getSelectionModel().selectedItemProperty().addListener(
+                (ObservableValue<? extends DataKaryawan> observable, DataKaryawan oldValue, DataKaryawan newValue) -> {
+                    tableView.getItems().clear();
+                    btnCetak.setDisable(newValue == null);
+                    if (newValue != null) {
+                        setFields(newValue);
+                    } else {
+                        clearFields();
+                    }
+                });
 
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.springContext = applicationContext;
-	}
+    }
 
-	@Override
-	public void setMessageSource(MessageSource messageSource) {
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.springContext = applicationContext;
+    }
 
-	}
+    @Override
+    public void setMessageSource(MessageSource messageSource) {
 
-	@Override
-	public Node initView() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/peminjaman/karyawan/List.fxml"));
-		loader.setController(springContext.getBean(this.getClass()));
-		return loader.load();
-	}
+    }
 
-	@Override
-	public void setStage(Stage stage) {
+    @Override
+    public Node initView() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/scenes/inner/peminjaman/karyawan/List.fxml"));
+        loader.setController(springContext.getBean(this.getClass()));
+        return loader.load();
+    }
 
-	}
+    @Override
+    public void setStage(Stage stage) {
 
-	@Override
-	public void initConstuct() {
-		try {
-			listView.getItems().clear();
-			listView.getItems().addAll(this.serviceKaryawan.findAll());
-		} catch (Exception e) {
-			logger.error("Tidak dapat memuat data karyawan", e);
+    }
 
-			ExceptionDialog ex = new ExceptionDialog(e);
-			ex.setTitle("Daftar kasbon karyawan");
-			ex.setHeaderText("Tidak dapat memuat daftar data karyawan");
-			ex.setContentText(e.getMessage());
-			ex.initModality(Modality.APPLICATION_MODAL);
-			ex.show();
-		}
+    @Override
+    public void initConstuct() {
+        try {
+            listView.getItems().clear();
+            listView.getItems().addAll(this.serviceKaryawan.findAll());
+        } catch (Exception e) {
+            logger.error("Tidak dapat memuat data karyawan", e);
 
-	}
+            ExceptionDialog ex = new ExceptionDialog(e);
+            ex.setTitle("Daftar kasbon karyawan");
+            ex.setHeaderText("Tidak dapat memuat daftar data karyawan");
+            ex.setContentText(e.getMessage());
+            ex.initModality(Modality.APPLICATION_MODAL);
+            ex.show();
+        }
 
-	@FXML
-	public void doClearSelection(ActionEvent event) {
-		this.listView.getSelectionModel().clearSelection();
-	}
+    }
 
-	@FXML
-	public void doRefresh(ActionEvent event) {
-		initConstuct();
-	}
+    @FXML
+    public void doClearSelection(ActionEvent event) {
+        this.listView.getSelectionModel().clearSelection();
+    }
 
-	@FXML
-	public void doPrint(ActionEvent event) {
-		DataKaryawan dataKaryawan = listView.getSelectionModel().getSelectedItem();
+    @FXML
+    public void doRefresh(ActionEvent event) {
+        initConstuct();
+    }
 
-		try {
-			List<KasbonKaryawan> listPrinted = new ArrayList<KasbonKaryawan>();
-			for (KasbonKaryawan kasbon : tableView.getItems()) {
-				if (!kasbon.getPrinted()) {
-					kasbon.setPrinted(true);
-					listPrinted.add(kasbon);
-				}
-			}
+    @FXML
+    public void doPrint(ActionEvent event) {
+        DataKaryawan dataKaryawan = listView.getSelectionModel().getSelectedItem();
 
-			if (listPrinted.size() >= 1) {
-				Task<Object> task = new Task<Object>() {
+        try {
+            List<KasbonKaryawan> listPrinted = new ArrayList<KasbonKaryawan>();
+            for (KasbonKaryawan kasbon : tableView.getItems()) {
+                if (!kasbon.getPrinted()) {
+                    kasbon.setPrinted(true);
+                    listPrinted.add(kasbon);
+                }
+            }
 
-					@Override
-					protected Object call() throws Exception {
+            if (listPrinted.size() >= 1) {
+                Task<Object> task = new Task<Object>() {
 
-						for (int i = 0; i < 100; i++) {
-							Thread.sleep(10);
-							updateProgress(i, 99);
-							updateMessage("Mencetak daftar kasbon karyawan...");
-						}
-						try {
-							HashMap<String, Object> map = new HashMap<String, Object>();
-							map.put("nip", dataKaryawan.getNip());
-							map.put("nama", dataKaryawan.getNama());
+                    @Override
+                    protected Object call() throws Exception {
 
-							configPrint.setValue("/jasper/peminjaman/BukuPinjamanKaryawan.jasper", map,
-									new JRBeanCollectionDataSource(listPrinted));
-							configPrint.doPrinted();
+                        for (int i = 0; i < 100; i++) {
+                            Thread.sleep(10);
+                            updateProgress(i, 99);
+                            updateMessage("Mencetak daftar kasbon karyawan...");
+                        }
+                        try {
+                            HashMap<String, Object> map = new HashMap<String, Object>();
+                            map.put("nip", dataKaryawan.getNip());
+                            map.put("nama", dataKaryawan.getNama());
 
-							for (int i = 0; i < 100; i++) {
-								Thread.sleep(10);
-								updateProgress(i, 99);
-								updateMessage("Menyimpan perubahan data kasbon...");
-							}
-							for (KasbonKaryawan kasbon : listPrinted) {
-								kasbonKaryawanService.save(kasbon);
-							}
+                            configPrint.setValue("/jasper/peminjaman/BukuPinjamanKaryawan.jasper", map,
+                                    new JRBeanCollectionDataSource(listPrinted));
+                            configPrint.doPrinted();
 
-						} catch (JRException e) {
-							logger.error("Tidak dapat mencetak dokument DaftarPeminjaman.jrxml", e);
-							ExceptionDialog ex = new ExceptionDialog(e);
-							ex.setTitle("Cetak daftar kasbon karyawan");
-							ex.setHeaderText("Tidak dapat mencetak dokument Daftar Kasbn Karyawan");
-							ex.setContentText(e.getMessage());
-							ex.initModality(Modality.APPLICATION_MODAL);
-							ex.show();
-						}
+                            for (int i = 0; i < 100; i++) {
+                                Thread.sleep(10);
+                                updateProgress(i, 99);
+                                updateMessage("Menyimpan perubahan data kasbon...");
+                            }
+                            for (KasbonKaryawan kasbon : listPrinted) {
+                                kasbonKaryawanService.save(kasbon);
+                            }
 
-						succeeded();
-						return null;
-					}
+                        } catch (JRException e) {
+                            logger.error("Tidak dapat mencetak dokument DaftarPeminjaman.jrxml", e);
+                            ExceptionDialog ex = new ExceptionDialog(e);
+                            ex.setTitle("Cetak daftar kasbon karyawan");
+                            ex.setHeaderText("Tidak dapat mencetak dokument Daftar Kasbn Karyawan");
+                            ex.setContentText(e.getMessage());
+                            ex.initModality(Modality.APPLICATION_MODAL);
+                            ex.show();
+                        }
 
-					@Override
-					protected void succeeded() {
-						try {
-							for (int i = 0; i < 100; i++) {
-								Thread.sleep(10);
-								updateProgress(i, 99);
-								updateMessage("Menyelesaikan proses...");
-							}
-							super.succeeded();
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
+                        succeeded();
+                        return null;
+                    }
 
-				};
-				task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                    @Override
+                    protected void succeeded() {
+                        try {
+                            for (int i = 0; i < 100; i++) {
+                                Thread.sleep(10);
+                                updateProgress(i, 99);
+                                updateMessage("Menyelesaikan proses...");
+                            }
+                            super.succeeded();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-					@Override
-					public void handle(WorkerStateEvent event) {
-						initConstuct();
-					}
-				});
-				ProgressDialog dlg = new ProgressDialog(task);
-				dlg.setTitle("Daftar kasbon karyawan");
-				dlg.setHeaderText("Mencetak daftar kasbon karyawan atas nama " + dataKaryawan.getNama());
-				dlg.show();
-				Thread th = new Thread(task);
-				th.setDaemon(true);
-				th.start();
-			} else {
-				logger.info("Tidak ada transaksi baru yang dapat dicetak oleh karyawan atas nama {} dengan NIP ",
-						dataKaryawan.getNama(), dataKaryawan.getNip());
-				Alert notif = new Alert(AlertType.WARNING);
-				notif.setTitle("Cetak data kasbon karyawan");
-				notif.setHeaderText("Tidak dapat mencetak daftar gaji kasbon karyawan");
-				notif.setContentText("Tidak ada transaksi yang baru!");
-				notif.initModality(Modality.APPLICATION_MODAL);
-				notif.show();
-			}
+                };
+                task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 
-		} catch (Exception e) {
-			logger.error("Tidak dapat menyimpan perubahan", e);
-			ExceptionDialog ex = new ExceptionDialog(e);
-			ex.setTitle("Daftar Kasbon Karyawan");
-			ex.setHeaderText("Tidak dapat menyimpan perubahan data kasbon karyawan");
-			ex.setContentText(e.getMessage());
-			ex.initModality(Modality.APPLICATION_MODAL);
-			ex.show();
-		}
+                    @Override
+                    public void handle(WorkerStateEvent event) {
+                        initConstuct();
+                    }
+                });
+                ProgressDialog dlg = new ProgressDialog(task);
+                dlg.setTitle("Daftar kasbon karyawan");
+                dlg.setHeaderText("Mencetak daftar kasbon karyawan atas nama " + dataKaryawan.getNama());
+                dlg.show();
+                Thread th = new Thread(task);
+                th.setDaemon(true);
+                th.start();
+            } else {
+                logger.info("Tidak ada transaksi baru yang dapat dicetak oleh karyawan atas nama {} dengan NIP ",
+                        dataKaryawan.getNama(), dataKaryawan.getNip());
+                Alert notif = new Alert(AlertType.WARNING);
+                notif.setTitle("Cetak data kasbon karyawan");
+                notif.setHeaderText("Tidak dapat mencetak daftar gaji kasbon karyawan");
+                notif.setContentText("Tidak ada transaksi yang baru!");
+                notif.initModality(Modality.APPLICATION_MODAL);
+                notif.show();
+            }
 
-	}
+        } catch (Exception e) {
+            logger.error("Tidak dapat menyimpan perubahan", e);
+            ExceptionDialog ex = new ExceptionDialog(e);
+            ex.setTitle("Daftar Kasbon Karyawan");
+            ex.setHeaderText("Tidak dapat menyimpan perubahan data kasbon karyawan");
+            ex.setContentText(e.getMessage());
+            ex.initModality(Modality.APPLICATION_MODAL);
+            ex.show();
+        }
 
-	@Override
-	public void initIcons() {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    public void initIcons() {
+        // TODO Auto-generated method stub
+
+    }
 
 }

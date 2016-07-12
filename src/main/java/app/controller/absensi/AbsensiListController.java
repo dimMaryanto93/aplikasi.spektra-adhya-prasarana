@@ -44,256 +44,254 @@ import javafx.scene.control.Button;
 @Component
 public class AbsensiListController implements BootInitializable {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	private ApplicationContext springContainer;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private ApplicationContext springContainer;
 
-	@Autowired
-	private RepositoryAbsensi absenService;
-	@Autowired
-	private RepositoryKaryawan karyawan;
-	@Autowired
-	private StringFormatterFactory stringFormatter;
-	@Autowired
-	private HomeController homeController;
+    @Autowired
+    private RepositoryAbsensi absenService;
+    @Autowired
+    private RepositoryKaryawan karyawan;
+    @Autowired
+    private StringFormatterFactory stringFormatter;
+    @Autowired
+    private HomeController homeController;
 
-	@FXML
-	private TableView<DataKaryawan> tableKaryawan;
-	@FXML
-	private TableColumn<DataKaryawan, String> columnkaryawanNik;
-	@FXML
-	private TableColumn<DataKaryawan, String> columnKaryawanNama;
-	@FXML
-	private TableView<KehadiranKaryawan> tabelKehadiran;
-	@FXML
-	private TableColumn<KehadiranKaryawan, String> columnTanggal;
-	@FXML
-	private TableColumn<KehadiranKaryawan, Boolean> columnHadir;
-	@FXML
-	private TableColumn<KehadiranKaryawan, Boolean> columnLembur;
-	@FXML
-	private TableColumn<KehadiranKaryawan, String> columnKeterangan;
-	@FXML
-	private TextField txtNoInduk;
-	@FXML
-	private TextField txtNama;
-	@FXML
-	private TextField txtJabatan;
-	@FXML
-	private TextField txtHadir;
-	@FXML
-	private TextField txtLembur;
-	@FXML
-	private Button btnBack;
-	@FXML
-	private Button btnRefresh;
-	@FXML
-	private Button btnClear;
+    @FXML
+    private TableView<DataKaryawan> tableKaryawan;
+    @FXML
+    private TableColumn<DataKaryawan, String> columnkaryawanNik;
+    @FXML
+    private TableColumn<DataKaryawan, String> columnKaryawanNama;
+    @FXML
+    private TableView<KehadiranKaryawan> tabelKehadiran;
+    @FXML
+    private TableColumn<KehadiranKaryawan, String> columnTanggal;
+    @FXML
+    private TableColumn<KehadiranKaryawan, Boolean> columnHadir;
+    @FXML
+    private TableColumn<KehadiranKaryawan, Boolean> columnLembur;
+    @FXML
+    private TableColumn<KehadiranKaryawan, String> columnKeterangan;
+    @FXML
+    private TextField txtNoInduk;
+    @FXML
+    private TextField txtNama;
+    @FXML
+    private TextField txtJabatan;
+    @FXML
+    private TextField txtHadir;
+    @FXML
+    private TextField txtLembur;
+    @FXML
+    private Button btnBack;
+    @FXML
+    private Button btnRefresh;
+    @FXML
+    private Button btnClear;
 
-	private void setFields(DataKaryawan karyawan) {
-		txtNoInduk.setText(karyawan.getNip());
-		txtNama.setText(karyawan.getNama());
-		txtJabatan.setText(karyawan.getJabatan().getNama());
-		Integer hadir = 0;
-		Integer lembur = 0;
-		try {
-			for (KehadiranKaryawan absen : absenService.findByKaryawan(karyawan)) {
-				tabelKehadiran.getItems().add(absen);
-				if (absen.getHadir()) {
-					hadir += 1;
-				}
-				if (absen.getLembur()) {
-					lembur += 1;
-				}
-			}
-		} catch (Exception e) {
-			logger.error("Tidak dapat memuat data absensi karyawan", e);
+    private void setFields(DataKaryawan karyawan) {
+        txtNoInduk.setText(karyawan.getNip());
+        txtNama.setText(karyawan.getNama());
+        txtJabatan.setText(karyawan.getJabatan().getNama());
+        Integer hadir = 0;
+        Integer lembur = 0;
+        try {
+            for (KehadiranKaryawan absen : absenService.findByKaryawan(karyawan)) {
+                tabelKehadiran.getItems().add(absen);
+                if (absen.getHadir()) {
+                    hadir += 1;
+                }
+                if (absen.getLembur()) {
+                    lembur += 1;
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Tidak dapat memuat data absensi karyawan", e);
 
-			StringBuilder sb = new StringBuilder("Tidak dapat mendapatkan data absensi karyawan atas nama ");
-			sb.append(karyawan.getNama());
-			sb.append(" dengan NIP ");
-			sb.append(karyawan.getNip());
+            StringBuilder sb = new StringBuilder("Tidak dapat mendapatkan data absensi karyawan atas nama ");
+            sb.append(karyawan.getNama());
+            sb.append(" dengan NIP ");
+            sb.append(karyawan.getNip());
 
-			ExceptionDialog ex = new ExceptionDialog(e);
-			ex.setTitle("Data absensi karyawan");
-			ex.setHeaderText(sb.toString());
-			ex.setContentText(e.getMessage());
-			ex.initModality(Modality.APPLICATION_MODAL);
-			ex.show();
-		}
+            ExceptionDialog ex = new ExceptionDialog(e);
+            ex.setTitle("Data absensi karyawan");
+            ex.setHeaderText(sb.toString());
+            ex.setContentText(e.getMessage());
+            ex.initModality(Modality.APPLICATION_MODAL);
+            ex.show();
+        }
 
-		txtHadir.setText(hadir.toString());
-		txtLembur.setText(lembur.toString());
-	}
+        txtHadir.setText(hadir.toString());
+        txtLembur.setText(lembur.toString());
+    }
 
-	private void clearFields() {
-		txtNoInduk.clear();
-		txtNama.clear();
-		txtJabatan.clear();
-		txtHadir.clear();
-		txtLembur.clear();
-	}
+    private void clearFields() {
+        txtNoInduk.clear();
+        txtNama.clear();
+        txtJabatan.clear();
+        txtHadir.clear();
+        txtLembur.clear();
+    }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		tabelKehadiran.setSelectionModel(null);
-		columnkaryawanNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nip"));
-		columnKaryawanNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
-		tableKaryawan.getSelectionModel().selectedItemProperty().addListener(
-				(ObservableValue<? extends DataKaryawan> values, DataKaryawan oldValue, DataKaryawan newValue) -> {
-					tabelKehadiran.getItems().clear();
-					if (newValue != null) {
-						setFields(newValue);
-					} else {
-						clearFields();
-					}
-				});
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        tabelKehadiran.setSelectionModel(null);
+        columnkaryawanNik.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nip"));
+        columnKaryawanNama.setCellValueFactory(new PropertyValueFactory<DataKaryawan, String>("nama"));
+        tableKaryawan.getSelectionModel().selectedItemProperty().addListener(
+                (ObservableValue<? extends DataKaryawan> values, DataKaryawan oldValue, DataKaryawan newValue) -> {
+                    tabelKehadiran.getItems().clear();
+                    if (newValue != null) {
+                        setFields(newValue);
+                    } else {
+                        clearFields();
+                    }
+                });
 
-		columnTanggal.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<KehadiranKaryawan, String>, ObservableValue<String>>() {
+        columnTanggal.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<KehadiranKaryawan, String>, ObservableValue<String>>() {
 
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<KehadiranKaryawan, String> param) {
-						LocalDate date = param.getValue().getTanggalHadir().toLocalDate();
-						return new SimpleStringProperty(
-								stringFormatter.getDateTimeFormatterWithDayAndDateMonthYear(date));
-					}
-				});
-		columnHadir.setCellValueFactory(new PropertyValueFactory<KehadiranKaryawan, Boolean>("hadir"));
-		columnHadir.setCellFactory(
-				new Callback<TableColumn<KehadiranKaryawan, Boolean>, TableCell<KehadiranKaryawan, Boolean>>() {
+            @Override
+            public ObservableValue<String> call(CellDataFeatures<KehadiranKaryawan, String> param) {
+                LocalDate date = param.getValue().getTanggalHadir().toLocalDate();
+                return new SimpleStringProperty(
+                        stringFormatter.getDateTimeFormatterWithDayAndDateMonthYear(date));
+            }
+        });
+        columnHadir.setCellValueFactory(new PropertyValueFactory<KehadiranKaryawan, Boolean>("hadir"));
+        columnHadir.setCellFactory(
+                new Callback<TableColumn<KehadiranKaryawan, Boolean>, TableCell<KehadiranKaryawan, Boolean>>() {
 
-					@Override
-					public TableCell<KehadiranKaryawan, Boolean> call(TableColumn<KehadiranKaryawan, Boolean> param) {
-						return new TableCell<KehadiranKaryawan, Boolean>() {
-							CheckBox box;
+            @Override
+            public TableCell<KehadiranKaryawan, Boolean> call(TableColumn<KehadiranKaryawan, Boolean> param) {
+                return new TableCell<KehadiranKaryawan, Boolean>() {
+                    CheckBox box;
 
-							@Override
-							protected void updateItem(Boolean item, boolean empty) {
-								setAlignment(Pos.CENTER);
-								super.updateItem(item, empty);
-								if (!empty) {
-									box = new CheckBox();
-									box.setDisable(true);
-									box.setOpacity(1.0);
-									box.setSelected(item);
-									setGraphic(box);
-								} else {
-									setGraphic(null);
-								}
-							}
-						};
-					}
-				});
-		columnLembur.setCellValueFactory(new PropertyValueFactory<KehadiranKaryawan, Boolean>("lembur"));
-		columnLembur.setCellFactory(
-				new Callback<TableColumn<KehadiranKaryawan, Boolean>, TableCell<KehadiranKaryawan, Boolean>>() {
+                    @Override
+                    protected void updateItem(Boolean item, boolean empty) {
+                        setAlignment(Pos.CENTER);
+                        super.updateItem(item, empty);
+                        if (!empty) {
+                            box = new CheckBox();
+                            box.setDisable(true);
+                            box.setOpacity(1.0);
+                            box.setSelected(item);
+                            setGraphic(box);
+                        } else {
+                            setGraphic(null);
+                        }
+                    }
+                };
+            }
+        });
+        columnLembur.setCellValueFactory(new PropertyValueFactory<KehadiranKaryawan, Boolean>("lembur"));
+        columnLembur.setCellFactory(
+                new Callback<TableColumn<KehadiranKaryawan, Boolean>, TableCell<KehadiranKaryawan, Boolean>>() {
 
-					@Override
-					public TableCell<KehadiranKaryawan, Boolean> call(TableColumn<KehadiranKaryawan, Boolean> param) {
-						return new TableCell<KehadiranKaryawan, Boolean>() {
-							CheckBox box;
+            @Override
+            public TableCell<KehadiranKaryawan, Boolean> call(TableColumn<KehadiranKaryawan, Boolean> param) {
+                return new TableCell<KehadiranKaryawan, Boolean>() {
+                    CheckBox box;
 
-							@Override
-							protected void updateItem(Boolean item, boolean empty) {
-								setAlignment(Pos.CENTER);
-								super.updateItem(item, empty);
-								if (!empty) {
-									box = new CheckBox();
-									box.setDisable(true);
-									box.setOpacity(1.0);
-									box.setSelected(item);
-									setGraphic(box);
-								} else {
-									setGraphic(null);
-								}
-							}
-						};
-					}
-				});
+                    @Override
+                    protected void updateItem(Boolean item, boolean empty) {
+                        setAlignment(Pos.CENTER);
+                        super.updateItem(item, empty);
+                        if (!empty) {
+                            box = new CheckBox();
+                            box.setDisable(true);
+                            box.setOpacity(1.0);
+                            box.setSelected(item);
+                            setGraphic(box);
+                        } else {
+                            setGraphic(null);
+                        }
+                    }
+                };
+            }
+        });
 
-		columnKeterangan.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<KehadiranKaryawan, String>, ObservableValue<String>>() {
+        columnKeterangan.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<KehadiranKaryawan, String>, ObservableValue<String>>() {
 
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<KehadiranKaryawan, String> param) {
-						DataTidakHadir gakHadir = param.getValue().getKet();
-						if (gakHadir != null) {
-							return new SimpleStringProperty(gakHadir.toString());
-						} else {
-							if (param.getValue().getHadir()) {
-								return new SimpleStringProperty("-");
-							} else {
-								return new SimpleStringProperty("Tanpa Keterangan!");
-							}
-						}
-					}
-				});
-	}
+            @Override
+            public ObservableValue<String> call(CellDataFeatures<KehadiranKaryawan, String> param) {
+                DataTidakHadir gakHadir = param.getValue().getKet();
+                if (gakHadir != null) {
+                    return new SimpleStringProperty(gakHadir.toString());
+                } else if (param.getValue().getHadir()) {
+                    return new SimpleStringProperty("-");
+                } else {
+                    return new SimpleStringProperty("Tanpa Keterangan!");
+                }
+            }
+        });
+    }
 
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.springContainer = applicationContext;
-	}
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.springContainer = applicationContext;
+    }
 
-	@Override
-	public Node initView() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/absen/List.fxml"));
-		loader.setController(springContainer.getBean(this.getClass()));
-		return loader.load();
-	}
+    @Override
+    public Node initView() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/scenes/inner/absen/List.fxml"));
+        loader.setController(springContainer.getBean(this.getClass()));
+        return loader.load();
+    }
 
-	@Override
-	public void setStage(Stage stage) {
-	}
+    @Override
+    public void setStage(Stage stage) {
+    }
 
-	private void loadDataKaryawan() {
-		try {
-			tableKaryawan.getItems().clear();
-			tableKaryawan.getItems().addAll(karyawan.findAll());
-		} catch (Exception e) {
-			logger.error("Tidak dapat memuat data karyawan", e);
+    private void loadDataKaryawan() {
+        try {
+            tableKaryawan.getItems().clear();
+            tableKaryawan.getItems().addAll(karyawan.findAll());
+        } catch (Exception e) {
+            logger.error("Tidak dapat memuat data karyawan", e);
 
-			StringBuilder sb = new StringBuilder("Tidak dapat mendapatkan daftar data karyawan!");
+            StringBuilder sb = new StringBuilder("Tidak dapat mendapatkan daftar data karyawan!");
 
-			ExceptionDialog ex = new ExceptionDialog(e);
-			ex.setTitle("Data Karyawan");
-			ex.setHeaderText(sb.toString());
-			ex.setContentText(e.getMessage());
-			ex.initModality(Modality.APPLICATION_MODAL);
-			ex.show();
-		}
-	}
+            ExceptionDialog ex = new ExceptionDialog(e);
+            ex.setTitle("Data Karyawan");
+            ex.setHeaderText(sb.toString());
+            ex.setContentText(e.getMessage());
+            ex.initModality(Modality.APPLICATION_MODAL);
+            ex.show();
+        }
+    }
 
-	@Override
-	public void initConstuct() {
-		loadDataKaryawan();
-	}
+    @Override
+    public void initConstuct() {
+        loadDataKaryawan();
+    }
 
-	@Override
-	public void setMessageSource(MessageSource messageSource) {
+    @Override
+    public void setMessageSource(MessageSource messageSource) {
 
-	}
+    }
 
-	@FXML
-	public void doClear(ActionEvent event) {
-		tableKaryawan.getSelectionModel().clearSelection();
-	}
+    @FXML
+    public void doClear(ActionEvent event) {
+        tableKaryawan.getSelectionModel().clearSelection();
+    }
 
-	@FXML
-	public void doRefresh(ActionEvent event) {
-		initConstuct();
-	}
+    @FXML
+    public void doRefresh(ActionEvent event) {
+        initConstuct();
+    }
 
-	@FXML
-	public void doBack(ActionEvent event) {
-		this.homeController.showWellcome();
-	}
+    @FXML
+    public void doBack(ActionEvent event) {
+        this.homeController.showWellcome();
+    }
 
-	@Override
-	public void initIcons() {
-		// TODO Auto-generated method stub
+    @Override
+    public void initIcons() {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
 }

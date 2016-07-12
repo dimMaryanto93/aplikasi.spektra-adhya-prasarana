@@ -23,133 +23,133 @@ import app.entities.BasicEntity;
 @Table(name = "data_motor")
 public class Motor extends BasicEntity {
 
-	public Motor() {
-		this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
-		this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
-	}
+    public Motor() {
+        this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+        this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+    }
 
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@GeneratedValue(generator = "uuid")
-	private String id;
+    @Id
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid")
+    private String id;
 
-	@Column(name = "no_polisi", length = 20)
-	private String noPolisi;
+    @Column(name = "no_polisi", length = 20)
+    private String noPolisi;
 
-	@Column(name = "merek_motor", nullable = false, length = 50)
-	private String merkMotor;
+    @Column(name = "merek_motor", nullable = false, length = 50)
+    private String merkMotor;
 
-	@Column(name = "tanggal_pesan", nullable = false)
-	private Date tanggalPesan;
+    @Column(name = "tanggal_pesan", nullable = false)
+    private Date tanggalPesan;
 
-	@Column(name = "total_angsuran")
-	private Integer totalAngsuran;
+    @Column(name = "total_angsuran")
+    private Integer totalAngsuran;
 
-	@Column(name = "downpayment", nullable = false)
-	private Double dp;
+    @Column(name = "downpayment", nullable = false)
+    private Double dp;
 
-	@Column(name = "pembayaran", nullable = false)
-	private Double pembayaran;
+    @Column(name = "pembayaran", nullable = false)
+    private Double pembayaran;
 
-	@Column(name = "sudah_diterima", nullable = false)
-	private Boolean sudahDiterima;
+    @Column(name = "sudah_diterima", nullable = false)
+    private Boolean sudahDiterima;
 
-	@Column(name = "disetujui", nullable = false)
-	private Boolean setuju;
+    @Column(name = "disetujui", nullable = false)
+    private Boolean setuju;
 
-	@Column(name = "waktu_disetujui")
-	private Timestamp acceptTime;
+    @Column(name = "waktu_disetujui")
+    private Timestamp acceptTime;
 
-	@Deprecated
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "motor", orphanRemoval = true)
-	private List<PembayaranCicilanMotor> daftarCicilan = new ArrayList<>();
+    @Deprecated
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "motor", orphanRemoval = true)
+    private List<PembayaranCicilanMotor> daftarCicilan = new ArrayList<>();
 
-	public Double getPembayaran() {
-		return pembayaran;
-	}
+    public Double getPembayaran() {
+        return pembayaran;
+    }
 
-	public void setPembayaran(Double pembayaran) {
-		this.pembayaran = pembayaran;
-	}
+    public void setPembayaran(Double pembayaran) {
+        this.pembayaran = pembayaran;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getNoPolisi() {
-		return noPolisi;
-	}
+    public String getNoPolisi() {
+        return noPolisi;
+    }
 
-	public void setNoPolisi(String noPolisi) {
-		this.noPolisi = noPolisi;
-	}
+    public void setNoPolisi(String noPolisi) {
+        this.noPolisi = noPolisi;
+    }
 
-	public Date getTanggalPesan() {
-		return tanggalPesan;
-	}
+    public Date getTanggalPesan() {
+        return tanggalPesan;
+    }
 
-	public void setTanggalPesan(Date tanggalPesan) {
-		this.tanggalPesan = tanggalPesan;
-	}
+    public void setTanggalPesan(Date tanggalPesan) {
+        this.tanggalPesan = tanggalPesan;
+    }
 
-	public Integer getTotalAngsuran() {
-		return totalAngsuran;
-	}
+    public Integer getTotalAngsuran() {
+        return totalAngsuran;
+    }
 
-	public void setTotalAngsuran(Integer totalAngsuran) {
-		this.totalAngsuran = totalAngsuran;
-	}
+    public void setTotalAngsuran(Integer totalAngsuran) {
+        this.totalAngsuran = totalAngsuran;
+    }
 
-	public Double getDp() {
-		return dp;
-	}
+    public Double getDp() {
+        return dp;
+    }
 
-	public void setDp(Double dp) {
-		this.dp = dp;
-	}
+    public void setDp(Double dp) {
+        this.dp = dp;
+    }
 
-	public String getMerkMotor() {
-		return merkMotor;
-	}
+    public String getMerkMotor() {
+        return merkMotor;
+    }
 
-	public void setMerkMotor(String merkMotor) {
-		this.merkMotor = merkMotor;
-	}
+    public void setMerkMotor(String merkMotor) {
+        this.merkMotor = merkMotor;
+    }
 
-	public Boolean isSudahDiterima() {
-		return sudahDiterima;
-	}
+    public Boolean isSudahDiterima() {
+        return sudahDiterima;
+    }
 
-	public void setSudahDiterima(Boolean sudahDiterima) {
-		this.sudahDiterima = sudahDiterima;
-	}
+    public void setSudahDiterima(Boolean sudahDiterima) {
+        this.sudahDiterima = sudahDiterima;
+    }
 
-	public Boolean isSetuju() {
-		return setuju;
-	}
+    public Boolean isSetuju() {
+        return setuju;
+    }
 
-	public void setSetuju(Boolean setuju) {
-		this.setuju = setuju;
-	}
+    public void setSetuju(Boolean setuju) {
+        this.setuju = setuju;
+    }
 
-	public List<PembayaranCicilanMotor> getDaftarCicilan() {
-		return daftarCicilan;
-	}
+    public List<PembayaranCicilanMotor> getDaftarCicilan() {
+        return daftarCicilan;
+    }
 
-	public void setDaftarCicilan(List<PembayaranCicilanMotor> daftarCicilan) {
-		this.daftarCicilan = daftarCicilan;
-	}
+    public void setDaftarCicilan(List<PembayaranCicilanMotor> daftarCicilan) {
+        this.daftarCicilan = daftarCicilan;
+    }
 
-	public Timestamp getAcceptTime() {
-		return acceptTime;
-	}
+    public Timestamp getAcceptTime() {
+        return acceptTime;
+    }
 
-	public void setAcceptTime(Timestamp acceptTime) {
-		this.acceptTime = acceptTime;
-	}
+    public void setAcceptTime(Timestamp acceptTime) {
+        this.acceptTime = acceptTime;
+    }
 
 }

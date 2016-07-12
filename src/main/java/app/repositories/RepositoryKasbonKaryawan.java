@@ -9,10 +9,10 @@ import app.entities.master.DataKaryawan;
 
 public interface RepositoryKasbonKaryawan extends CrudRepository<KasbonKaryawan, String> {
 
-	public List<KasbonKaryawan> findAll();
+    public List<KasbonKaryawan> findAll();
 
-	public List<KasbonKaryawan> findByKaryawanOrderByCreatedDateAsc(DataKaryawan karyawan);
+    public List<KasbonKaryawan> findByKaryawanOrderByCreatedDateAsc(DataKaryawan karyawan);
 
-	public List<KasbonKaryawan> findByKaryawan(DataKaryawan karyawan);
+    public List<KasbonKaryawan> findByKaryawan(DataKaryawan karyawan);
 
 }

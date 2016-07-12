@@ -43,221 +43,221 @@ import javafx.util.Duration;
 @Component
 public class JabatanFormController implements BootFormInitializable {
 
-	private DataJabatan jabatan;
-	private Boolean update;
-	private ValidationSupport validation;
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private DataJabatan jabatan;
+    private Boolean update;
+    private ValidationSupport validation;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private ApplicationContext springContext;
-	@FXML
-	private TextField txtNama;
-	@FXML
-	private TextArea txtKeterangan;
-	@FXML
-	private TextField txtKode;
-	@FXML
-	private Spinner<Double> spinGapok;
-	@FXML
-	private Button btnSave;
-	@FXML
-	private Button btnCancel;
-	@FXML
-	private TextArea txtPernyataan;
-	@FXML
-	private CheckBox txtValid;
+    private ApplicationContext springContext;
+    @FXML
+    private TextField txtNama;
+    @FXML
+    private TextArea txtKeterangan;
+    @FXML
+    private TextField txtKode;
+    @FXML
+    private Spinner<Double> spinGapok;
+    @FXML
+    private Button btnSave;
+    @FXML
+    private Button btnCancel;
+    @FXML
+    private TextArea txtPernyataan;
+    @FXML
+    private CheckBox txtValid;
 
-	@Autowired
-	private RepositoryJabatan repo;
-	@Autowired
-	private HomeController homeController;
-	@Autowired
-	private StringFormatterFactory stringFormater;
+    @Autowired
+    private RepositoryJabatan repo;
+    @Autowired
+    private HomeController homeController;
+    @Autowired
+    private StringFormatterFactory stringFormater;
 
-	public Boolean isUpdate() {
-		return update;
-	}
+    public Boolean isUpdate() {
+        return update;
+    }
 
-	public void setUpdate(Boolean update) {
-		this.update = update;
-	}
+    public void setUpdate(Boolean update) {
+        this.update = update;
+    }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		this.btnSave.setDisable(true);
-		this.txtPernyataan.setDisable(false);
-		this.txtPernyataan.setEditable(false);
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.btnSave.setDisable(true);
+        this.txtPernyataan.setDisable(false);
+        this.txtPernyataan.setEditable(false);
 
-		this.spinGapok.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.valueOf(0),
-				Double.MAX_VALUE, Double.valueOf(0), 500000));
-		this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
-		this.spinGapok.setEditable(true);
-		this.spinGapok.valueProperty().addListener((d, old, newValue) -> {
-			this.txtValid.setSelected(false);
+        this.spinGapok.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.valueOf(0),
+                Double.MAX_VALUE, Double.valueOf(0), 500000));
+        this.spinGapok.getEditor().setAlignment(Pos.CENTER_RIGHT);
+        this.spinGapok.setEditable(true);
+        this.spinGapok.valueProperty().addListener((d, old, newValue) -> {
+            this.txtValid.setSelected(false);
 
-			StringBuilder sb = new StringBuilder();
-			sb.append("Gaji pokok");
-			sb.append(" sebesar ");
-			sb.append(stringFormater.getCurrencyFormate(spinGapok.getValueFactory().getValue()));
-			sb.append(" untuk nama jabatan ");
-			sb.append(txtNama.getText());
-			txtPernyataan.setText(sb.toString());
-		});
+            StringBuilder sb = new StringBuilder();
+            sb.append("Gaji pokok");
+            sb.append(" sebesar ");
+            sb.append(stringFormater.getCurrencyFormate(spinGapok.getValueFactory().getValue()));
+            sb.append(" untuk nama jabatan ");
+            sb.append(txtNama.getText());
+            txtPernyataan.setText(sb.toString());
+        });
 
-		initValidator();
-	}
+        initValidator();
+    }
 
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.springContext = applicationContext;
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.springContext = applicationContext;
 
-	}
+    }
 
-	@Override
-	public Node initView() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/scenes/inner/jabatan/Form.fxml"));
-		loader.setController(springContext.getBean(this.getClass()));
-		return loader.load();
-	}
+    @Override
+    public Node initView() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/scenes/inner/jabatan/Form.fxml"));
+        loader.setController(springContext.getBean(this.getClass()));
+        return loader.load();
+    }
 
-	@Override
-	public void setStage(Stage stage) {
+    @Override
+    public void setStage(Stage stage) {
 
-	}
+    }
 
-	@Override
-	public void initConstuct() {
-		setUpdate(false);
-		this.txtKode.setEditable(true);
-		this.jabatan = new DataJabatan();
-	}
+    @Override
+    public void initConstuct() {
+        setUpdate(false);
+        this.txtKode.setEditable(true);
+        this.jabatan = new DataJabatan();
+    }
 
-	public void initConstuct(DataJabatan j) {
-		setUpdate(true);
-		this.jabatan = j;
-		this.txtKode.setEditable(false);
-		txtKode.setText(j.getKodeJabatan());
-		txtNama.setText(j.getNama());
-		txtKeterangan.setText(j.getKeterangan());
-		spinGapok.getValueFactory().setValue(j.getGapok());
-	}
+    public void initConstuct(DataJabatan j) {
+        setUpdate(true);
+        this.jabatan = j;
+        this.txtKode.setEditable(false);
+        txtKode.setText(j.getKodeJabatan());
+        txtNama.setText(j.getNama());
+        txtKeterangan.setText(j.getKeterangan());
+        spinGapok.getValueFactory().setValue(j.getGapok());
+    }
 
-	private void newDataJabatan() {
-		try {
-			jabatan.setKodeJabatan(txtKode.getText());
-			jabatan.setNama(txtNama.getText());
-			jabatan.setKeterangan(txtKeterangan.getText());
-			jabatan.setGapok(spinGapok.getValueFactory().getValue());
-			repo.save(jabatan);
+    private void newDataJabatan() {
+        try {
+            jabatan.setKodeJabatan(txtKode.getText());
+            jabatan.setNama(txtNama.getText());
+            jabatan.setKeterangan(txtKeterangan.getText());
+            jabatan.setGapok(spinGapok.getValueFactory().getValue());
+            repo.save(jabatan);
 
-			// pesan simpan
-			StringBuilder sb = new StringBuilder("Kode jabatan ");
-			sb.append(jabatan.getKodeJabatan());
-			sb.append(", Berhasil disimpan");
+            // pesan simpan
+            StringBuilder sb = new StringBuilder("Kode jabatan ");
+            sb.append(jabatan.getKodeJabatan());
+            sb.append(", Berhasil disimpan");
 
-			// menampilkan notifikasi
-			Notifications.create().title("Data jabatan").text(sb.toString()).hideAfter(Duration.seconds(3D))
-					.position(Pos.BOTTOM_RIGHT).showInformation();
+            // menampilkan notifikasi
+            Notifications.create().title("Data jabatan").text(sb.toString()).hideAfter(Duration.seconds(3D))
+                    .position(Pos.BOTTOM_RIGHT).showInformation();
 
-			// log ke console
-			logger.info("Berhasil menyimpan data jabatan");
+            // log ke console
+            logger.info("Berhasil menyimpan data jabatan");
 
-			homeController.showDaftarJabatan();
-		} catch (Exception e) {
-			logger.error("Tidak dapat menyimpan data jabatan dengan nama: {}", jabatan.getNama());
+            homeController.showDaftarJabatan();
+        } catch (Exception e) {
+            logger.error("Tidak dapat menyimpan data jabatan dengan nama: {}", jabatan.getNama());
 
-			StringBuilder sb = new StringBuilder("Tidak dapat menyimpan data jabatan dengan kode ");
-			sb.append(jabatan.getKodeJabatan());
+            StringBuilder sb = new StringBuilder("Tidak dapat menyimpan data jabatan dengan kode ");
+            sb.append(jabatan.getKodeJabatan());
 
-			ExceptionDialog ex = new ExceptionDialog(e);
-			ex.setTitle("Data jabatan");
-			ex.setHeaderText(sb.toString());
-			ex.setContentText(e.getMessage());
-			ex.initModality(Modality.APPLICATION_MODAL);
-			ex.show();
-		}
+            ExceptionDialog ex = new ExceptionDialog(e);
+            ex.setTitle("Data jabatan");
+            ex.setHeaderText(sb.toString());
+            ex.setContentText(e.getMessage());
+            ex.initModality(Modality.APPLICATION_MODAL);
+            ex.show();
+        }
 
-	}
+    }
 
-	private void existJabatan() {
-		try {
-			jabatan.setKodeJabatan(txtKode.getText());
-			jabatan.setNama(txtNama.getText());
-			jabatan.setKeterangan(txtKeterangan.getText());
-			jabatan.setGapok(spinGapok.getValueFactory().getValue());
-			repo.save(jabatan);
+    private void existJabatan() {
+        try {
+            jabatan.setKodeJabatan(txtKode.getText());
+            jabatan.setNama(txtNama.getText());
+            jabatan.setKeterangan(txtKeterangan.getText());
+            jabatan.setGapok(spinGapok.getValueFactory().getValue());
+            repo.save(jabatan);
 
-			// pesan simpan
-			StringBuilder sb = new StringBuilder("Kode jabatan ");
-			sb.append(jabatan.getKodeJabatan());
-			sb.append(", Berhasil diperbaharui");
+            // pesan simpan
+            StringBuilder sb = new StringBuilder("Kode jabatan ");
+            sb.append(jabatan.getKodeJabatan());
+            sb.append(", Berhasil diperbaharui");
 
-			// menampilkan notifikasi
-			Notifications.create().title("Data jabatan").text(sb.toString()).hideAfter(Duration.seconds(3D))
-					.position(Pos.BOTTOM_RIGHT).showInformation();
+            // menampilkan notifikasi
+            Notifications.create().title("Data jabatan").text(sb.toString()).hideAfter(Duration.seconds(3D))
+                    .position(Pos.BOTTOM_RIGHT).showInformation();
 
-			// log ke console
-			logger.info("Berhasil menyimpan data jabatan");
+            // log ke console
+            logger.info("Berhasil menyimpan data jabatan");
 
-			homeController.showDaftarJabatan();
-		} catch (Exception e) {
-			logger.error("Tidak dapat melakukan perubahan data jabatan dengan nama: {}", jabatan.getKodeJabatan());
+            homeController.showDaftarJabatan();
+        } catch (Exception e) {
+            logger.error("Tidak dapat melakukan perubahan data jabatan dengan nama: {}", jabatan.getKodeJabatan());
 
-			StringBuilder sb = new StringBuilder("Tidak dapat melakukan perubahan data jabatan dengan kode ");
-			sb.append(jabatan.getKodeJabatan());
+            StringBuilder sb = new StringBuilder("Tidak dapat melakukan perubahan data jabatan dengan kode ");
+            sb.append(jabatan.getKodeJabatan());
 
-			ExceptionDialog ex = new ExceptionDialog(e);
-			ex.setTitle("Data jabatan");
-			ex.setHeaderText(sb.toString());
-			ex.setContentText(e.getMessage());
-			ex.initModality(Modality.APPLICATION_MODAL);
-			ex.show();
-		}
-	}
+            ExceptionDialog ex = new ExceptionDialog(e);
+            ex.setTitle("Data jabatan");
+            ex.setHeaderText(sb.toString());
+            ex.setContentText(e.getMessage());
+            ex.initModality(Modality.APPLICATION_MODAL);
+            ex.show();
+        }
+    }
 
-	@FXML
-	public void doSave(ActionEvent event) {
-		if (isUpdate()) {
-			existJabatan();
-		} else {
-			newDataJabatan();
-		}
-	}
+    @FXML
+    public void doSave(ActionEvent event) {
+        if (isUpdate()) {
+            existJabatan();
+        } else {
+            newDataJabatan();
+        }
+    }
 
-	@FXML
-	public void doCancel(ActionEvent event) {
-		homeController.showDaftarJabatan();
-	}
+    @FXML
+    public void doCancel(ActionEvent event) {
+        homeController.showDaftarJabatan();
+    }
 
-	@Override
-	public void setMessageSource(MessageSource messageSource) {
+    @Override
+    public void setMessageSource(MessageSource messageSource) {
 
-	}
+    }
 
-	@Override
-	public void initValidator() {
-		this.validation = new ValidationSupport();
-		this.validation.registerValidator(txtKode, (Control c, String value) -> ValidationResult.fromErrorIf(c,
-				"Format kode jabatan tidak sesuai, hanya terdiri dari 3 angka", !value.matches("[\\d]{3}")));
-		this.validation.registerValidator(txtNama,
-				Validator.createEmptyValidator("Nama jabatan tidak boleh kosong!", Severity.ERROR));
-		this.validation.registerValidator(txtKeterangan, (Control c, String value) -> ValidationResult.fromMessageIf(c,
-				"Keterangan masih kosong!", Severity.WARNING, value.isEmpty()));
-		this.validation.registerValidator(spinGapok.getEditor(),
-				(Control c, String value) -> ValidationResult.fromErrorIf(c,
-						"Nominal minimal " + stringFormater.getCurrencyFormate(500000),
-						Double.valueOf(value) < 500000));
-		this.validation.registerValidator(txtValid, (Control c, Boolean value) -> ValidationResult.fromErrorIf(c,
-				"Anda belum menyetujui data diatas", !value));
-		this.validation.invalidProperty()
-				.addListener((ObservableValue<? extends Boolean> values, Boolean oldValue, Boolean newValue) -> {
-					this.btnSave.setDisable(newValue);
-				});
-	}
+    @Override
+    public void initValidator() {
+        this.validation = new ValidationSupport();
+        this.validation.registerValidator(txtKode, (Control c, String value) -> ValidationResult.fromErrorIf(c,
+                "Format kode jabatan tidak sesuai, hanya terdiri dari 3 angka", !value.matches("[\\d]{3}")));
+        this.validation.registerValidator(txtNama,
+                Validator.createEmptyValidator("Nama jabatan tidak boleh kosong!", Severity.ERROR));
+        this.validation.registerValidator(txtKeterangan, (Control c, String value) -> ValidationResult.fromMessageIf(c,
+                "Keterangan masih kosong!", Severity.WARNING, value.isEmpty()));
+        this.validation.registerValidator(spinGapok.getEditor(),
+                (Control c, String value) -> ValidationResult.fromErrorIf(c,
+                        "Nominal minimal " + stringFormater.getCurrencyFormate(500000),
+                        Double.valueOf(value) < 500000));
+        this.validation.registerValidator(txtValid, (Control c, Boolean value) -> ValidationResult.fromErrorIf(c,
+                "Anda belum menyetujui data diatas", !value));
+        this.validation.invalidProperty()
+                .addListener((ObservableValue<? extends Boolean> values, Boolean oldValue, Boolean newValue) -> {
+                    this.btnSave.setDisable(newValue);
+                });
+    }
 
-	@Override
-	public void initIcons() {
+    @Override
+    public void initIcons() {
 
-	}
+    }
 
 }

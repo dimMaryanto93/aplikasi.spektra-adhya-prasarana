@@ -1,56 +1,56 @@
 .menu-icon:expanded .button { 
-	-fx-background-color: transparent;
-	-fx-font-size: 12px;
+    -fx-background-color: transparent;
+    -fx-font-size: 12px;
 }
 
 .menu-icon:expanded .button:hover{
-	-fx-font-size: 14px;
-	-fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
 }
 
 .menu-icon:expanded .menu-button { 
-	-fx-font-size: 12px;
-	-fx-background-color: transparent;
+    -fx-font-size: 12px;
+    -fx-background-color: transparent;
 }
 
 .menu-icon:expanded .menu-button:hover { 
-	-fx-font-size: 14px;
-	-fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
 }
 
 .menu-icon:expanded .menu-item { 
-	-fx-fill: BLACK;
-	-fx-font-size: 12px;
-	-fx-font-weight: normal;
+    -fx-fill: BLACK;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
 }
 
 .footer{
-	-fx-background-color: GRAY;
+    -fx-background-color: GRAY;
 }
 
 .footer-label{
-	-fx-fill: #f0ffff;
-	-fx-font-size: 14px;
-	-fx-font-weight: bold;
+    -fx-fill: #f0ffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
 }
 
 .panel-content > .titled-pane:expanded .title .text{
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
 }
 
 .menu-content:expanded .title{
-	-fx-background-color: GRAY;
+    -fx-background-color: GRAY;
 }
 
 .menu-content:expanded .title .text{
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-fill: WHITE;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-fill: WHITE;
 }
 
 .menu-icon:expanded .title .text{
-	-fx-font-size: 18px;
-	-fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
 }
 

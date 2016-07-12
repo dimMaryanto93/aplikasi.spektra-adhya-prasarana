@@ -10,16 +10,16 @@ import app.entities.master.DataKaryawan;
 
 public interface RepositoryAbsensi extends PagingAndSortingRepository<KehadiranKaryawan, String> {
 
-	public List<KehadiranKaryawan> findAll();
+    public List<KehadiranKaryawan> findAll();
 
-	public List<KehadiranKaryawan> findByKaryawan(DataKaryawan karyawan);
+    public List<KehadiranKaryawan> findByKaryawan(DataKaryawan karyawan);
 
-	public KehadiranKaryawan findByKaryawanAndTanggalHadir(DataKaryawan karyawan, Date tanggal);
+    public KehadiranKaryawan findByKaryawanAndTanggalHadir(DataKaryawan karyawan, Date tanggal);
 
-	public List<KehadiranKaryawan> findByKaryawanAndTanggalHadirBetweenAndHadir(DataKaryawan karyawan, Date awal,
-			Date akhir, Boolean hadir);
+    public List<KehadiranKaryawan> findByKaryawanAndTanggalHadirBetweenAndHadir(DataKaryawan karyawan, Date awal,
+            Date akhir, Boolean hadir);
 
-	public List<KehadiranKaryawan> findByKaryawanAndTanggalHadirBetweenAndLembur(DataKaryawan karyawan, Date awal,
-			Date akhir, Boolean lembur);
+    public List<KehadiranKaryawan> findByKaryawanAndTanggalHadirBetweenAndLembur(DataKaryawan karyawan, Date awal,
+            Date akhir, Boolean lembur);
 
 }

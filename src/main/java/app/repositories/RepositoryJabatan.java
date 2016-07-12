@@ -8,5 +8,5 @@ import app.entities.master.DataJabatan;
 
 public interface RepositoryJabatan extends PagingAndSortingRepository<DataJabatan, String> {
 
-	public List<DataJabatan> findAll();
+    public List<DataJabatan> findAll();
 }

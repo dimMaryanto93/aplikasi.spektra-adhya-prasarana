@@ -27,92 +27,97 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
 public class MainApplication extends Application {
 
-	private final Logger loger = LoggerFactory.getLogger(this.getClass());
+    private final Logger loger = LoggerFactory.getLogger(this.getClass());
 
-	private ConfigurableApplicationContext springContext;
+    private ConfigurableApplicationContext springContext;
 
-	private static String[] args;
+    private static String[] args;
 
-	@Bean
-	@Scope(value = "prototype")
-	public ValidationSupport validation() {
-		return new ValidationSupport();
-	}
+    @Bean
+    @Scope(value = "prototype")
+    public ValidationSupport validation() {
+        return new ValidationSupport();
+    }
 
-	@Bean()
-	public Stage getStage() {
-		Stage newStage = new Stage(StageStyle.DECORATED);
-		newStage.setTitle("PT. Spektra Adhya Prasarana");
-		return newStage;
-	}
+    @Bean()
+    public Stage getStage() {
+        Stage newStage = new Stage(StageStyle.DECORATED);
+        newStage.setTitle("PT. Spektra Adhya Prasarana");
+        return newStage;
+    }
 
-	@Override
-	public void stop() throws Exception {
-		super.stop();
-		Platform.exit();
-		springContext.close();
-	}
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        Platform.exit();
+        springContext.close();
+    }
 
-	public static void main(String[] args) {
-		Locale.setDefault(new Locale("in", "ID"));
-		MainApplication.args = args;
-		launch(MainApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplicationBuilder sab = new SpringApplicationBuilder(args);
+        sab.headless(false);
+        sab.web(false);
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		Task<Object> worker = new Task<Object>() {
+        Locale.setDefault(new Locale("in", "ID"));
+        MainApplication.args = args;
+        launch(MainApplication.class, args);
+    }
 
-			@Override
-			protected Object call() throws Exception {
-				springContext = SpringApplication.run(MainApplication.class, MainApplication.args);
-				return null;
-			}
-		};
-		worker.run();
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Task<Object> worker = new Task<Object>() {
 
-		worker.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            protected Object call() throws Exception {
+                springContext = SpringApplication.run(MainApplication.class, MainApplication.args);
+                return null;
+            }
+        };
+        worker.run();
 
-			@Override
-			public void handle(WorkerStateEvent event) {
-				try {
-					loger.info("JavaFX loading...");
+        worker.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 
-					HomeController scene = springContext.getBean(HomeController.class);
-					Stage stage = springContext.getBean(Stage.class);
+            @Override
+            public void handle(WorkerStateEvent event) {
+                try {
+                    loger.info("JavaFX loading...");
 
-					Parent parent = (Parent) scene.initView();
-					stage.setScene(new Scene(parent));
-					stage.setResizable(false);
-					stage.show();
+                    HomeController scene = springContext.getBean(HomeController.class);
+                    Stage stage = springContext.getBean(Stage.class);
 
-					scene.showLoginForm();
-					loger.info("JavaFX started, have nice day sir!");
+                    Parent parent = (Parent) scene.initView();
+                    stage.setScene(new Scene(parent));
+                    stage.setResizable(false);
+                    stage.show();
 
-					Notifications.create().title("Spektra Adhya Prasarana")
-							.text("SIPeg, Sistem Informasi Penggajian pada PT. Spektra Adhya Prasarana...")
-							.position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(5)).showInformation();
-				} catch (IOException e) {
-					loger.error("Gagal load JavaFX Application", e);
-				}
-			}
-		});
-		worker.setOnFailed(e -> {
-			try {
-				this.loger.info("Application force stoped!");
-				Alert ex = new Alert(AlertType.ERROR);
-				ex.setTitle("PT.Spektra Adhya Prasarana");
-				ex.setHeaderText("Tidak dapat menjalankan aplikasi");
-				ex.setContentText("Aplikasi akan dihetikan otomatis!, silahkan hubungi developer");
-				ex.show();
-			} catch (Exception e1) {
-				this.loger.error("Gagal menghentikan aplikasi secara paksa!", e1);
-			}
-		});
-	}
+                    scene.showLoginForm();
+                    loger.info("JavaFX started, have nice day sir!");
+
+                    Notifications.create().title("Spektra Adhya Prasarana")
+                            .text("SIPeg, Sistem Informasi Penggajian pada PT. Spektra Adhya Prasarana...")
+                            .position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(5)).showInformation();
+                } catch (IOException e) {
+                    loger.error("Gagal load JavaFX Application", e);
+                }
+            }
+        });
+        worker.setOnFailed(e -> {
+            try {
+                this.loger.info("Application force stoped!");
+                Alert ex = new Alert(AlertType.ERROR);
+                ex.setTitle("PT.Spektra Adhya Prasarana");
+                ex.setHeaderText("Tidak dapat menjalankan aplikasi");
+                ex.setContentText("Aplikasi akan dihetikan otomatis!, silahkan hubungi developer");
+                ex.show();
+            } catch (Exception e1) {
+                this.loger.error("Gagal menghentikan aplikasi secara paksa!", e1);
+            }
+        });
+    }
 
 }

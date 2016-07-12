@@ -1,38 +1,38 @@
 #corp{
-	-fx-font-size: 24px;
-	-fx-font-weight: bold;
-	-fx-fill: WHITE;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-fill: WHITE;
 }
 
 #profile{
-	-fx-font-size: 18px;
-	-fx-font-weight: bold;
-	-fx-fill: WHITE;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-fill: WHITE;
 }
 
 #address{
-	-fx-font-size: 14px;
-	-fx-font-weight: bold;
-	-fx-font-style: italic;
-	-fx-fill: WHITE;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-fill: WHITE;
 }
 
 .header{
-	-fx-background-color: GRAY;
+    -fx-background-color: GRAY;
 }
 
 .label-content{
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-fill: BLACK;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-fill: BLACK;
 }
 
 .status-error{
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-fill: RED;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-fill: RED;
 }
 
 .status-success{
-	
+
 }

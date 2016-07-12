@@ -11,12 +11,12 @@ import javafx.stage.Stage;
 
 public interface BootInitializable extends Initializable, ApplicationContextAware, MessageSourceAware {
 
-	public Node initView() throws IOException;
+    public Node initView() throws IOException;
 
-	public void setStage(Stage stage);
+    public void setStage(Stage stage);
 
-	public void initConstuct();
-	
-	public void initIcons();
+    public void initConstuct();
+
+    public void initIcons();
 
 }

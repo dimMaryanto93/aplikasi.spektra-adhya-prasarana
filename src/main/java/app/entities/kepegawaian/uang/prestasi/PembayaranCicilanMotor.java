@@ -19,70 +19,70 @@ import app.entities.BasicEntity;
 
 @Entity
 @Table(name = "cicilan_motor", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "kode_motor", "pembayaran_angsuran_ke" }, name = "uq_angsuran") })
+    @UniqueConstraint(columnNames = {"kode_motor", "pembayaran_angsuran_ke"}, name = "uq_angsuran")})
 public class PembayaranCicilanMotor extends BasicEntity {
 
-	public PembayaranCicilanMotor() {
-		this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
-		this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
-	}
+    public PembayaranCicilanMotor() {
+        this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+        this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+    }
 
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@GeneratedValue(generator = "uuid")
-	private String id;
+    @Id
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid")
+    private String id;
 
-	@Column(name = "tanggal_bayar", nullable = false)
-	private Date tanggalBayar;
+    @Column(name = "tanggal_bayar", nullable = false)
+    private Date tanggalBayar;
 
-	@ManyToOne
-	@JoinColumn(name = "kode_motor", nullable = false)
-	private Motor motor;
+    @ManyToOne
+    @JoinColumn(name = "kode_motor", nullable = false)
+    private Motor motor;
 
-	@Column(nullable = false)
-	private Double bayar;
+    @Column(nullable = false)
+    private Double bayar;
 
-	@Column(nullable = false, name = "pembayaran_angsuran_ke")
-	private Integer angsuranKe;
+    @Column(nullable = false, name = "pembayaran_angsuran_ke")
+    private Integer angsuranKe;
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public Date getTanggalBayar() {
-		return tanggalBayar;
-	}
+    public Date getTanggalBayar() {
+        return tanggalBayar;
+    }
 
-	public void setTanggalBayar(Date tanggalBayar) {
-		this.tanggalBayar = tanggalBayar;
-	}
+    public void setTanggalBayar(Date tanggalBayar) {
+        this.tanggalBayar = tanggalBayar;
+    }
 
-	public Motor getMotor() {
-		return motor;
-	}
+    public Motor getMotor() {
+        return motor;
+    }
 
-	public void setMotor(Motor motor) {
-		this.motor = motor;
-	}
+    public void setMotor(Motor motor) {
+        this.motor = motor;
+    }
 
-	public Double getBayar() {
-		return bayar;
-	}
+    public Double getBayar() {
+        return bayar;
+    }
 
-	public void setBayar(Double bayar) {
-		this.bayar = bayar;
-	}
+    public void setBayar(Double bayar) {
+        this.bayar = bayar;
+    }
 
-	public Integer getAngsuranKe() {
-		return angsuranKe;
-	}
+    public Integer getAngsuranKe() {
+        return angsuranKe;
+    }
 
-	public void setAngsuranKe(Integer angsuranKe) {
-		this.angsuranKe = angsuranKe;
-	}
+    public void setAngsuranKe(Integer angsuranKe) {
+        this.angsuranKe = angsuranKe;
+    }
 
 }

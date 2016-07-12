@@ -23,82 +23,82 @@ import app.entities.master.DataTidakHadir;
 
 @Entity
 @Table(name = "absensi_karyawan", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "tanggal_hadir", "id_karyawan" }, name = "uq_hadir_karyawan") })
+    @UniqueConstraint(columnNames = {"tanggal_hadir", "id_karyawan"}, name = "uq_hadir_karyawan")})
 public class KehadiranKaryawan extends BasicEntity {
 
-	public KehadiranKaryawan() {
-		this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
-		this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
-	}
+    public KehadiranKaryawan() {
+        this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+        this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+    }
 
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@GeneratedValue(generator = "uuid")
-	private String id;
+    @Id
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid")
+    private String id;
 
-	@JoinColumn(name = "id_karyawan")
-	@OneToOne
-	private DataKaryawan karyawan;
+    @JoinColumn(name = "id_karyawan")
+    @OneToOne
+    private DataKaryawan karyawan;
 
-	@Column(name = "tanggal_hadir", nullable = false)
-	private Date tanggalHadir;
+    @Column(name = "tanggal_hadir", nullable = false)
+    private Date tanggalHadir;
 
-	@Column(nullable = false)
-	private Boolean hadir;
+    @Column(nullable = false)
+    private Boolean hadir;
 
-	@Column(nullable = false)
-	private Boolean lembur;
+    @Column(nullable = false)
+    private Boolean lembur;
 
-	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "keterangan")
-	private DataTidakHadir ket;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "keterangan")
+    private DataTidakHadir ket;
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public DataKaryawan getKaryawan() {
-		return karyawan;
-	}
+    public DataKaryawan getKaryawan() {
+        return karyawan;
+    }
 
-	public void setKaryawan(DataKaryawan karyawan) {
-		this.karyawan = karyawan;
-	}
+    public void setKaryawan(DataKaryawan karyawan) {
+        this.karyawan = karyawan;
+    }
 
-	public Date getTanggalHadir() {
-		return tanggalHadir;
-	}
+    public Date getTanggalHadir() {
+        return tanggalHadir;
+    }
 
-	public void setTanggalHadir(Date tanggalHadir) {
-		this.tanggalHadir = tanggalHadir;
-	}
+    public void setTanggalHadir(Date tanggalHadir) {
+        this.tanggalHadir = tanggalHadir;
+    }
 
-	public Boolean getLembur() {
-		return lembur;
-	}
+    public Boolean getLembur() {
+        return lembur;
+    }
 
-	public void setLembur(Boolean lembur) {
-		this.lembur = lembur;
-	}
+    public void setLembur(Boolean lembur) {
+        this.lembur = lembur;
+    }
 
-	public Boolean getHadir() {
-		return hadir;
-	}
+    public Boolean getHadir() {
+        return hadir;
+    }
 
-	public void setHadir(Boolean hadir) {
-		this.hadir = hadir;
-	}
+    public void setHadir(Boolean hadir) {
+        this.hadir = hadir;
+    }
 
-	public DataTidakHadir getKet() {
-		return ket;
-	}
+    public DataTidakHadir getKet() {
+        return ket;
+    }
 
-	public void setKet(DataTidakHadir ket) {
-		this.ket = ket;
-	}
+    public void setKet(DataTidakHadir ket) {
+        this.ket = ket;
+    }
 
 }

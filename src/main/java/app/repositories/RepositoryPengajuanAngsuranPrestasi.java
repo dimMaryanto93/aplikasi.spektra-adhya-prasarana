@@ -8,6 +8,6 @@ import app.entities.kepegawaian.uang.prestasi.Motor;
 
 public interface RepositoryPengajuanAngsuranPrestasi extends CrudRepository<Motor, String> {
 
-	public List<Motor> findAll();
+    public List<Motor> findAll();
 
 }

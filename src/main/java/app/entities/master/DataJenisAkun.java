@@ -2,6 +2,6 @@ package app.entities.master;
 
 public enum DataJenisAkun {
 
-	ADMINISTRATOR, KEUANGAN, HRD, DIREKTUR
+    ADMINISTRATOR, KEUANGAN, HRD, DIREKTUR
 
 }

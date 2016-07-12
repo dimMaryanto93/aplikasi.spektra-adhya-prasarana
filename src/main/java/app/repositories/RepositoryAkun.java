@@ -9,12 +9,12 @@ import app.entities.master.DataJenisAkun;
 
 public interface RepositoryAkun extends CrudRepository<DataAkun, String> {
 
-	public List<DataAkun> findAll();
+    public List<DataAkun> findAll();
 
-	public DataAkun findByUsernameAndPasswordAndEnabledIsTrue(String username, String password);
+    public DataAkun findByUsernameAndPasswordAndEnabledIsTrue(String username, String password);
 
-	public List<DataAkun> findByEnabledIsFalse();
+    public List<DataAkun> findByEnabledIsFalse();
 
-	public DataAkun findBySecurity(DataJenisAkun kemanan);
+    public DataAkun findBySecurity(DataJenisAkun kemanan);
 
 }
