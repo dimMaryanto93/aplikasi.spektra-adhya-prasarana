@@ -27,7 +27,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
 public class MainApplication extends Application {
@@ -59,10 +58,6 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) {
-        SpringApplicationBuilder sab = new SpringApplicationBuilder(args);
-        sab.headless(false);
-        sab.web(false);
-
         Locale.setDefault(new Locale("in", "ID"));
         MainApplication.args = args;
         launch(MainApplication.class, args);

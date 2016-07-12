@@ -60,7 +60,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Component
@@ -337,6 +336,12 @@ public class PenggajianKaryawanDaftarController implements BootFormInitializable
                             .hideAfter(Duration.seconds(5D)).hideCloseButton().position(Pos.BOTTOM_RIGHT)
                             .showInformation();
                 }
+            });
+            task.setOnFailed(e -> {
+                Notifications.create().title("Data penggajian karyawan")
+                        .text(e.getSource().getMessage())
+                        .hideAfter(Duration.seconds(5D)).hideCloseButton().position(Pos.BOTTOM_RIGHT)
+                        .showError();
             });
             ProgressDialog dlg = new ProgressDialog(task);
             dlg.setTitle("Daftar data gaji karyawan");

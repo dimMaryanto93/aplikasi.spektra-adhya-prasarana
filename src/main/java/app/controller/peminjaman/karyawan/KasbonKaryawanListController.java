@@ -1,23 +1,5 @@
 package app.controller.peminjaman.karyawan;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import org.controlsfx.control.Notifications;
-import org.controlsfx.dialog.ExceptionDialog;
-import org.controlsfx.dialog.ProgressDialog;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Component;
-
 import app.configs.BootInitializable;
 import app.configs.FontIconFactory;
 import app.configs.PrintConfig;
@@ -28,6 +10,13 @@ import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryKasbonKaryawan;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.UUID;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
@@ -57,6 +46,15 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.controlsfx.dialog.ExceptionDialog;
+import org.controlsfx.dialog.ProgressDialog;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
 
 @Component
 public class KasbonKaryawanListController implements BootInitializable {
@@ -382,7 +380,6 @@ public class KasbonKaryawanListController implements BootInitializable {
 
                     @Override
                     protected Object call() throws Exception {
-
                         for (int i = 0; i < 100; i++) {
                             Thread.sleep(10);
                             updateProgress(i, 99);

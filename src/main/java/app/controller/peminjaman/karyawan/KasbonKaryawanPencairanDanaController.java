@@ -30,6 +30,7 @@ import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryPengajuanKasbonKaryawan;
 import app.service.ServiceKasbonKaryawan;
+import java.util.UUID;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
