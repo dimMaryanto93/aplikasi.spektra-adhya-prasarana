@@ -39,6 +39,24 @@ public class Motor extends BasicEntity {
     @Column(name = "merek_motor", nullable = false, length = 50)
     private String merkMotor;
 
+    @Column(name = "jenis_motor", nullable = false, length = 50)
+    private String typeMotor;
+
+    @Column(name = "warna_motor", nullable = false, length = 25)
+    private String warnaMotor;
+
+    @Column(name = "nomor_rangka_motor", nullable = false, length = 50)
+    private String noRangka;
+
+    @Column(name = "nomor_mesin_motor", nullable = false, length = 50)
+    private String noMesin;
+
+    @Column(name = "nama_dealer", nullable = false, length = 25)
+    private String dealer;
+
+    @Column(name = "alamat_dealer")
+    private String alamatDealer;
+
     @Column(name = "tanggal_pesan", nullable = false)
     private Date tanggalPesan;
 
@@ -150,6 +168,54 @@ public class Motor extends BasicEntity {
 
     public void setAcceptTime(Timestamp acceptTime) {
         this.acceptTime = acceptTime;
+    }
+
+    public String getTypeMotor() {
+        return typeMotor;
+    }
+
+    public void setTypeMotor(String typeMotor) {
+        this.typeMotor = typeMotor;
+    }
+
+    public String getWarnaMotor() {
+        return warnaMotor;
+    }
+
+    public void setWarnaMotor(String warnaMotor) {
+        this.warnaMotor = warnaMotor;
+    }
+
+    public String getNoRangka() {
+        return noRangka;
+    }
+
+    public void setNoRangka(String noRangka) {
+        this.noRangka = noRangka;
+    }
+
+    public String getNoMesin() {
+        return noMesin;
+    }
+
+    public void setNoMesin(String noMesin) {
+        this.noMesin = noMesin;
+    }
+
+    public String getDealer() {
+        return dealer;
+    }
+
+    public void setDealer(String dealer) {
+        this.dealer = dealer;
+    }
+
+    public String getAlamatDealer() {
+        return alamatDealer;
+    }
+
+    public void setAlamatDealer(String alamatDealer) {
+        this.alamatDealer = alamatDealer;
     }
 
 }
