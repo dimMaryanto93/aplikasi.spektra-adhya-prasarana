@@ -28,6 +28,7 @@ import app.entities.kepegawaian.PengajuanKasbon;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryPengajuanKasbonKaryawan;
+import java.time.temporal.ChronoUnit;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -204,8 +205,12 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
             this.txtKaryawan.getItems().clear();
             for (DataKaryawan karyawan : this.repoKaryawan
                     .findByPengajuanKasbonIsNullOrPengajuanKasbonAccepted(false)) {
-                mapDataKaryawan.put(karyawan.getNip(), karyawan);
-                this.txtKaryawan.getItems().add(karyawan.getNip());
+                LocalDate hireDate = karyawan.getTanggalMulaiKerja().toLocalDate();
+                Long tahunKerja = ChronoUnit.YEARS.between(hireDate, LocalDate.now());
+                if(tahunKerja.intValue() >= 1){
+                    mapDataKaryawan.put(karyawan.getNip(), karyawan);
+                    this.txtKaryawan.getItems().add(karyawan.getNip());                    
+                }
             }
             this.pengajuanKasbon = new PengajuanKasbon();
             this.pengajuanKasbon.setTanggal(Date.valueOf(LocalDate.now()));

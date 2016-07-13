@@ -38,6 +38,7 @@ public class DataKaryawan extends BasicEntity {
     public DataKaryawan() {
         this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
         this.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+        this.setAktifBekerja(true);
     }
 
     @Id
@@ -52,7 +53,7 @@ public class DataKaryawan extends BasicEntity {
     @Column(nullable = false, name = "no_kependudukan", unique = true)
     private String nik;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "nama_karyawan")
     private String nama;
 
     @Enumerated(EnumType.ORDINAL)
@@ -60,7 +61,7 @@ public class DataKaryawan extends BasicEntity {
     private DataAgama agama;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "jenis_kelamin")
     private DataJenisKelamin jenisKelamin;
 
     @Column(nullable = false, name = "tanggal_lahir")
@@ -69,6 +70,7 @@ public class DataKaryawan extends BasicEntity {
     @Column(name = "tempat_lahir", nullable = false)
     private String tempatLahir;
 
+    @Column(name = "alamat_lengkap")
     private String alamat;
 
     @Column(name = "gaji_pokok", nullable = false)
@@ -101,6 +103,9 @@ public class DataKaryawan extends BasicEntity {
     @OneToOne
     @JoinColumn(name = "kode_pengajuan_kasbon")
     private PengajuanKasbon pengajuanKasbon;
+
+    @Column(name = "aktif_bekerja", nullable = false)
+    private Boolean aktifBekerja;
 
     public String getNip() {
         return nip;
@@ -280,6 +285,14 @@ public class DataKaryawan extends BasicEntity {
 
     public void setDaftarTerimaGaji(List<Penggajian> daftarTerimaGaji) {
         this.daftarTerimaGaji = daftarTerimaGaji;
+    }
+
+    public Boolean isAktifBekerja() {
+        return aktifBekerja;
+    }
+
+    public void setAktifBekerja(Boolean aktifBekerja) {
+        this.aktifBekerja = aktifBekerja;
     }
 
 }
