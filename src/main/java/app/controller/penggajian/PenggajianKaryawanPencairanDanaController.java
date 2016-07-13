@@ -311,7 +311,7 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
             for (DataKaryawan karyawan : daftarKaryawan) {
                 Penggajian gaji = servicePenggajian.findByKaryawanAndTahunBulan(karyawan,
                         stringFormatter.getDateIndonesionFormatterOnlyYearAndMonth(LocalDate.now()));
-                if (gaji == null) {
+                if (gaji == null && karyawan.isAktifBekerja()) {
                     this.mapKaryawan.put(karyawan.getNip(), karyawan);
                     this.txtNip.getItems().add(karyawan.getNip());
                 }

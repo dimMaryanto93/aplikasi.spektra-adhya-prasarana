@@ -207,7 +207,7 @@ public class KasbonKaryawanPengajuanController implements BootFormInitializable 
                     .findByPengajuanKasbonIsNullOrPengajuanKasbonAccepted(false)) {
                 LocalDate hireDate = karyawan.getTanggalMulaiKerja().toLocalDate();
                 Long tahunKerja = ChronoUnit.YEARS.between(hireDate, LocalDate.now());
-                if(tahunKerja.intValue() >= 1){
+                if(tahunKerja.intValue() >= 1 &&  karyawan.isAktifBekerja()){
                     mapDataKaryawan.put(karyawan.getNip(), karyawan);
                     this.txtKaryawan.getItems().add(karyawan.getNip());                    
                 }

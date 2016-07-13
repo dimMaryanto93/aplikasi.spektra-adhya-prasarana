@@ -16,16 +16,21 @@ import org.springframework.stereotype.Component;
 import app.configs.BootInitializable;
 import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
+import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataJabatan;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
+import app.repositories.RepositoryKasbonKaryawan;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -34,6 +39,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 @Component
 public class KaryawanListController implements BootInitializable {
@@ -43,22 +50,21 @@ public class KaryawanListController implements BootInitializable {
 
     @Autowired
     private RepositoryKaryawan service;
-
+    @Autowired
+    private RepositoryKasbonKaryawan serviceKasbon;
     @Autowired
     private HomeController homeController;
-
     @Autowired
     private KaryawanFormController formController;
-
     @Autowired
     private StringFormatterFactory stringFormater;
 
     @FXML
-    TextField txtNama;
+    private TextField txtNama;
     @FXML
-    TextField txtAgama;
+    private TextField txtAgama;
     @FXML
-    TextField txtTempatLahir;
+    private TextField txtTempatLahir;
     @FXML
     private TextField txtTanggalLahir;
     @FXML
@@ -74,6 +80,8 @@ public class KaryawanListController implements BootInitializable {
     @FXML
     private TextField txtCari;
     @FXML
+    private TextField txtStatusBekerja;
+    @FXML
     private TableView<DataKaryawan> tableView;
     @FXML
     private TableColumn<DataKaryawan, String> columnNik;
@@ -84,13 +92,13 @@ public class KaryawanListController implements BootInitializable {
     @FXML
     private TableColumn<DataKaryawan, String> columnAksi;
     @FXML
-    private Button btnRemoveEmployee;
-    @FXML
     private TextField txtNip;
     @FXML
     private TextField txtHireDate;
     @FXML
     private Button btnUpdateEmployee;
+    @FXML
+    private Button btnNonAktifKaryawan;
 
     private void setFields(DataKaryawan anEmployee) {
         if (anEmployee != null) {
@@ -101,6 +109,11 @@ public class KaryawanListController implements BootInitializable {
             txtAgama.setText(anEmployee.getAgama().toString());
             txtTempatLahir.setText(anEmployee.getTempatLahir());
             txtTanggalLahir.setText(anEmployee.getTanggalLahir().toString());
+            if (anEmployee.isAktifBekerja()) {
+                txtStatusBekerja.setText("Aktif");
+            } else {
+                txtStatusBekerja.setText("Tidak Aktif!");
+            }
             txaAlamat.setText(anEmployee.getAlamat());
             txtNik.setText(String.valueOf(anEmployee.getNik()));
             txtJabatan.setText(anEmployee.getJabatan().getNama());
@@ -123,6 +136,7 @@ public class KaryawanListController implements BootInitializable {
         txtJabatan.clear();
         txtGapok.clear();
         txtJk.clear();
+        txtStatusBekerja.clear();
     }
 
     @Override
@@ -142,20 +156,19 @@ public class KaryawanListController implements BootInitializable {
         tableView.getSelectionModel().selectedItemProperty()
                 .addListener((ObservableValue<? extends DataKaryawan> ob, DataKaryawan e, DataKaryawan newValue) -> {
                     setFields(newValue);
-                    btnRemoveEmployee.setDisable(newValue == null);
-                    btnRemoveEmployee.setOnAction(new EventHandler<ActionEvent>() {
-
-                        @Override
-                        public void handle(ActionEvent event) {
-                            doDelete(newValue);
-                        }
-                    });
                     btnUpdateEmployee.setDisable(newValue == null);
                     btnUpdateEmployee.setOnAction(new EventHandler<ActionEvent>() {
 
                         @Override
                         public void handle(ActionEvent event) {
                             doUpdate(newValue);
+                        }
+                    });
+                    btnNonAktifKaryawan.setDisable(newValue == null);
+                    btnNonAktifKaryawan.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            doDisableAnEmpleyee(newValue);
                         }
                     });
 
@@ -170,6 +183,56 @@ public class KaryawanListController implements BootInitializable {
                 return new SimpleStringProperty();
             }
         });
+    }
+
+    private void doDisableAnEmpleyee(DataKaryawan dataKaryawan) {
+        if (dataKaryawan.isAktifBekerja()) {
+            List<KasbonKaryawan> daftarKasbon = serviceKasbon.findByKaryawanOrderByCreatedDateAsc(dataKaryawan);
+            if (daftarKasbon.size() >= 1) {
+                KasbonKaryawan kasbon = daftarKasbon.get(daftarKasbon.size() - 1);
+                System.out.println("Saldo terakhir adalah " + kasbon.getSaldoTerakhir());
+                if (kasbon.getSaldoTerakhir() == 0D) {
+                    dataKaryawan.setAktifBekerja(false);
+                    service.save(dataKaryawan);
+
+                    Notifications.create()
+                            .title("Daftar karyawan")
+                            .text("Karyawan tersebut telah di non aktifkan")
+                            .hideAfter(Duration.seconds(5D))
+                            .hideCloseButton()
+                            .position(Pos.BOTTOM_RIGHT)
+                            .showInformation();
+                    initConstuct();
+                } else {
+                    Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+                    dialog.setTitle("Non Aktifkan Karyawan");
+                    dialog.setHeaderText("Tidak dapat menonaktifkan karyawan tersebut");
+                    dialog.setContentText("Karyawan tersebut masih memiliki hutang sebeser "
+                            + stringFormater.getCurrencyFormate(kasbon.getSaldoTerakhir()));
+                    dialog.show();
+                }
+            } else {
+                System.out.println("Anda belum memiliki kasbon!");
+                dataKaryawan.setAktifBekerja(false);
+                service.save(dataKaryawan);
+
+                Notifications.create()
+                        .title("Daftar karyawan")
+                        .text("Karyawan tersebut telah di non aktifkan")
+                        .hideAfter(Duration.seconds(5D))
+                        .hideCloseButton()
+                        .position(Pos.BOTTOM_RIGHT)
+                        .showInformation();
+                initConstuct();
+            }
+        } else {
+            Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+            dialog.setTitle("Non Aktifkan Karyawan");
+            dialog.setHeaderText("Karyawan tersebut telah di Non Aktifkan");
+            dialog.setContentText("");
+            dialog.show();
+        }
+
     }
 
     @Override
@@ -231,25 +294,6 @@ public class KaryawanListController implements BootInitializable {
             ExceptionDialog ex = new ExceptionDialog(e);
             ex.setTitle("Data karyawan");
             ex.setHeaderText("Tidak dapat menampilkan form data karyawan");
-            ex.setContentText(e.getMessage());
-            ex.initModality(Modality.APPLICATION_MODAL);
-            ex.show();
-        }
-    }
-
-    public void doDelete(DataKaryawan employee) {
-        try {
-            service.delete(employee);
-            initConstuct();
-        } catch (Exception e) {
-            logger.error("Tidak dapat menghapus data karyawan", e);
-
-            StringBuilder sb = new StringBuilder("Tidak dapat menghapus data karyawan dengan nip ");
-            sb.append(employee.getNip()).append(" dan nama ").append(employee.getNama());
-
-            ExceptionDialog ex = new ExceptionDialog(e);
-            ex.setTitle("Data karyawan");
-            ex.setHeaderText(sb.toString());
             ex.setContentText(e.getMessage());
             ex.initModality(Modality.APPLICATION_MODAL);
             ex.show();

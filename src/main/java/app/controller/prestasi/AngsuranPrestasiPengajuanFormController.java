@@ -286,7 +286,7 @@ public class AngsuranPrestasiPengajuanFormController implements BootFormInitiali
             this.motor.setSudahDiterima(false);
             tableView.getItems().clear();
             for (DataKaryawan data : serviceKaryawan.findAll()) {
-                if (data.isGettingCicilanMotor()) {
+                if (data.isGettingCicilanMotor() && data.isAktifBekerja()) {
                     tableView.getItems().add(data);
                 }
             }

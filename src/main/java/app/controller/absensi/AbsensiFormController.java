@@ -121,18 +121,19 @@ public class AbsensiFormController implements BootInitializable {
             txtTanggal.setText(LocalDate.now().toString());
             tableView.getItems().clear();
             for (DataKaryawan karyawan : karyawanRepository.findAll()) {
-
-                KehadiranKaryawan absen;
-                absen = absensiRepository.findByKaryawanAndTanggalHadir(karyawan, Date.valueOf(LocalDate.now()));
-                if (absen == null) {
-                    logger.info("karyawan {} belum hadir", karyawan.getNama());
-                    absen = new KehadiranKaryawan();
-                    absen.setHadir(false);
-                    absen.setLembur(false);
-                    absen.setKaryawan(karyawan);
-                    absen.setTanggalHadir(Date.valueOf(LocalDate.now()));
+                if (karyawan.isAktifBekerja()) {
+                    KehadiranKaryawan absen;
+                    absen = absensiRepository.findByKaryawanAndTanggalHadir(karyawan, Date.valueOf(LocalDate.now()));
+                    if (absen == null) {
+                        logger.info("karyawan {} belum hadir", karyawan.getNama());
+                        absen = new KehadiranKaryawan();
+                        absen.setHadir(false);
+                        absen.setLembur(false);
+                        absen.setKaryawan(karyawan);
+                        absen.setTanggalHadir(Date.valueOf(LocalDate.now()));
+                    }
+                    tableView.getItems().add(absen);                    
                 }
-                tableView.getItems().add(absen);
             }
 
         } catch (Exception e) {
