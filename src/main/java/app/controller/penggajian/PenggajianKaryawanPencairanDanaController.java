@@ -96,6 +96,8 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
     @FXML
     private TextField txtPotonganGajiPokok;
     @FXML
+    private TextField txtKelebihanGaji;
+    @FXML
     private CheckBox checkValid;
 
     @Autowired
@@ -260,11 +262,19 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
             this.pembayaranCicilanMotor.setAngsuranKe(serviceCicilanMotor.findByMotor(cicilanMotor).size() + 1);
             Double cicilan = 500000D;
             Double kelebihanCicilan = cicilanMotor.getPembayaran() - cicilan;
-            
-            if (kelebihanCicilan >= 0) {
+
+            if (kelebihanCicilan > 0) {
                 this.penggajian.setGajiPokok(karyawan.getGajiPokok() + kelebihanCicilan);
-            } else {
+                txtPotonganGajiPokok.setText(stringFormatter.getCurrencyFormate(-kelebihanCicilan));
+                txtKelebihanGaji.setText(stringFormatter.getCurrencyFormate(0));
+            } else if (kelebihanCicilan == 0) {
+                txtKelebihanGaji.setText(stringFormatter.getCurrencyFormate(0));
+                txtPotonganGajiPokok.setText(stringFormatter.getCurrencyFormate(0));
                 this.penggajian.setGajiPokok(karyawan.getGajiPokok() - kelebihanCicilan);
+            } else {
+                txtPotonganGajiPokok.setText(stringFormatter.getCurrencyFormate(0));
+                this.penggajian.setGajiPokok(karyawan.getGajiPokok() - kelebihanCicilan);
+                txtKelebihanGaji.setText(stringFormatter.getCurrencyFormate(-kelebihanCicilan));
             }
             this.pembayaranCicilanMotor.setBayar(cicilanMotor.getPembayaran());
             this.pembayaranCicilanMotor.setMotor(cicilanMotor);
@@ -274,7 +284,6 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
             txtCicilanKe.setText(
                     stringFormatter.getNumberIntegerOnlyFormate(this.pembayaranCicilanMotor.getAngsuranKe()) + "x");
             txtMerekMotor.setText(cicilanMotor.getMerkMotor());
-            txtPotonganGajiPokok.setText(stringFormatter.getCurrencyFormate(-kelebihanCicilan));
             txtUangPrestasi.setText(stringFormatter.getCurrencyFormate(this.pembayaranCicilanMotor.getBayar()));
         } else {
             bayarCicilanMotor = 0D;
