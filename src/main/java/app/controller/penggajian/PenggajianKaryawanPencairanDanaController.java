@@ -260,7 +260,12 @@ public class PenggajianKaryawanPencairanDanaController implements BootFormInitia
             this.pembayaranCicilanMotor.setAngsuranKe(serviceCicilanMotor.findByMotor(cicilanMotor).size() + 1);
             Double cicilan = 500000D;
             Double kelebihanCicilan = cicilanMotor.getPembayaran() - cicilan;
-            this.penggajian.setGajiPokok(karyawan.getGajiPokok() - kelebihanCicilan);
+            
+            if (kelebihanCicilan >= 0) {
+                this.penggajian.setGajiPokok(karyawan.getGajiPokok() + kelebihanCicilan);
+            } else {
+                this.penggajian.setGajiPokok(karyawan.getGajiPokok() - kelebihanCicilan);
+            }
             this.pembayaranCicilanMotor.setBayar(cicilanMotor.getPembayaran());
             this.pembayaranCicilanMotor.setMotor(cicilanMotor);
             bayarCicilanMotor = this.pembayaranCicilanMotor.getBayar();
