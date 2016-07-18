@@ -410,6 +410,8 @@ public class KasbonKaryawanPembayaranController implements BootFormInitializable
                         map.put("nama", dataKaryawan.getNama());
                         map.put("bayar", kasbon.getPembayaran());
                         map.put("saldo", saldoAkhir);
+                        map.put("jabatan", dataKaryawan.getJabatan().getNama());
+                        map.put("tanggal", stringFormatter.getDateIndonesianFormatter(kasbon.getTanggalPinjam().toLocalDate()));
                         configPrint.setValue("/jasper/peminjaman/KasbonPembayaran.jasper", map);
                         configPrint.doPrinted();
                         succeeded();

@@ -30,7 +30,6 @@ import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryPengajuanKasbonKaryawan;
 import app.service.ServiceKasbonKaryawan;
-import java.util.UUID;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
@@ -244,6 +243,8 @@ public class KasbonKaryawanPencairanDanaController implements BootFormInitializa
                         map.put("nama", dataKaryawan.getNama());
                         map.put("pinjam", kasbon.getPinjaman());
                         map.put("saldo", saldoAkhir);
+                        map.put("tanggal", stringFormatter.getDateIndonesianFormatter(kasbon.getTanggalPinjam().toLocalDate()));
+                        map.put("jabatan", dataKaryawan.getJabatan().getNama());
                         configPrint.setValue("/jasper/peminjaman/KasbonPeminjaman.jasper", map);
                         configPrint.doPrinted();
                         succeeded();
