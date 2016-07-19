@@ -22,377 +22,225 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0"
-	prefWidth="746.0" stylesheets="@../../../stylesheet/JMetroLightTheme.css"
-	xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="746.0" stylesheets="@../../../stylesheet/JMetroLightTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
 	<center>
-		<ScrollPane fitToHeight="true" fitToWidth="true"
-			vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+		<ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
 			<content>
 				<GridPane hgap="10.0" vgap="10.0">
 					<columnConstraints>
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
-							minWidth="150.0" prefWidth="150.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
-							minWidth="150.0" prefWidth="150.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0"
-							minWidth="20.0" prefWidth="20.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0"
-							minWidth="100.0" prefWidth="100.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0"
-							minWidth="100.0" prefWidth="100.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0"
-							minWidth="20.0" prefWidth="20.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
-							minWidth="150.0" prefWidth="150.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="20.0" prefWidth="20.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="20.0" prefWidth="20.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
 					</columnConstraints>
 					<rowConstraints>
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="30.0" minHeight="30.0"
-							prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity"
-							vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity"
-							vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="30.0" minHeight="30.0"
-							prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="35.0" minHeight="35.0"
-							prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
 					</rowConstraints>
 					<padding>
 						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 					</padding>
 					<children>
-						<AnchorPane GridPane.columnIndex="1"
-							GridPane.columnSpan="3" GridPane.rowIndex="7">
-							<children>
-								<TextField fx:id="txtMerek" prefHeight="30.0"
-									prefWidth="171.0" promptText="Merek Kendaraan bermotor"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
 						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="17">
 							<children>
-								<Spinner fx:id="txtCicilan" prefHeight="30.0" prefWidth="171.0"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+								<Spinner fx:id="txtCicilan" prefHeight="30.0" prefWidth="171.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
-						<HBox alignment="CENTER" GridPane.columnIndex="2"
-							GridPane.rowIndex="17">
+						<HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="17">
 							<children>
 								<Label text="X" />
 							</children>
 						</HBox>
 						<AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="17">
 							<children>
-								<Spinner fx:id="txtJumlahCicilan" prefHeight="30.0"
-									prefWidth="171.0" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+								<Spinner fx:id="txtJumlahCicilan" prefHeight="30.0" prefWidth="171.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="21">
 							<children>
-								<Spinner fx:id="txtUangMuka" prefHeight="30.0"
-									prefWidth="171.0" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+								<Spinner fx:id="txtUangMuka" prefHeight="30.0" prefWidth="171.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
-						<AnchorPane GridPane.columnIndex="2"
-							GridPane.columnSpan="3" GridPane.rowIndex="1">
+						<AnchorPane GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
 							<children>
-								<TextField fx:id="txtKarywan" editable="false"
-									focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
-									promptText="Nama Karyawan" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+								<TextField fx:id="txtKarywan" editable="false" focusTraversable="false" prefHeight="30.0" prefWidth="171.0" promptText="Nama Karyawan" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
 							<children>
-								<TextField fx:id="txtNik" editable="false"
-									focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
-									promptText="NIP" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
+								<TextField fx:id="txtNik" editable="false" focusTraversable="false" prefHeight="30.0" prefWidth="171.0" promptText="NIP" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
 						<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="18">
 							<children>
-								<Label fx:id="nominalCicilan" prefHeight="30.0" prefWidth="150.0"
-									text="Rp." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+								<Label fx:id="nominalCicilan" prefHeight="30.0" prefWidth="150.0" text="Rp." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
-						<HBox alignment="CENTER" layoutX="304.0" layoutY="300.0"
-							GridPane.columnIndex="2" GridPane.rowIndex="18">
+						<HBox alignment="CENTER" layoutX="304.0" layoutY="300.0" GridPane.columnIndex="2" GridPane.rowIndex="18">
 							<children>
 								<Label text="X" />
 							</children>
 						</HBox>
-						<AnchorPane layoutX="144.0" layoutY="340.0"
-							GridPane.columnIndex="3" GridPane.rowIndex="18">
+						<AnchorPane layoutX="144.0" layoutY="340.0" GridPane.columnIndex="3" GridPane.rowIndex="18">
 							<children>
-								<Label fx:id="jumlahCicilan" alignment="CENTER"
-									prefHeight="30.0" prefWidth="150.0" text="0"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+								<Label fx:id="jumlahCicilan" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" text="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
-						<AnchorPane layoutX="144.0" layoutY="340.0"
-							GridPane.columnIndex="3" GridPane.columnSpan="2"
-							GridPane.rowIndex="21">
+						<AnchorPane layoutX="144.0" layoutY="340.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="21">
 							<children>
-								<Label fx:id="totalUangMuka" prefHeight="30.0" prefWidth="150.0"
-									text="Rp." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+								<Label fx:id="totalUangMuka" prefHeight="30.0" prefWidth="150.0" text="Rp." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 							</children>
 						</AnchorPane>
-						<HBox alignment="CENTER" GridPane.columnIndex="5"
-							GridPane.rowIndex="18">
+						<CheckBox fx:id="checkValid" mnemonicParsing="false" text="Data diatas adalah valid" GridPane.columnSpan="2147483647" GridPane.rowIndex="24" />
+						<AnchorPane layoutX="180.0" layoutY="65.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+							<children>
+								<TextField fx:id="txtJabatan" editable="false" focusTraversable="false" prefHeight="30.0" prefWidth="171.0" promptText="Nama jabatan" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane layoutX="180.0" layoutY="110.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2">
+							<children>
+								<TextField fx:id="txtGajiPokok" alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="30.0" prefWidth="171.0" promptText="Rp0,00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane layoutX="180.0" layoutY="110.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+							<children>
+								<TextField fx:id="txtHireDate" editable="false" focusTraversable="false" prefHeight="30.0" prefWidth="171.0" promptText="Tanggal mulai kerja" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane layoutX="370.0" layoutY="110.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3">
+							<children>
+								<TextField fx:id="txtHireLongDate" alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="30.0" prefWidth="171.0" promptText="Lama kerja" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane layoutX="180.0" layoutY="330.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+							<children>
+								<TextField fx:id="txtPlatNo" prefHeight="30.0" prefWidth="171.0" promptText="Plat Nomor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7">
+							<children>
+								<TextField fx:id="txtMerek" prefHeight="30.0" prefWidth="171.0" promptText="Merek Kendaraan bermotor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane layoutX="180.0" layoutY="330.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8">
+							<children>
+								<TextField fx:id="txtJenisMotor" prefHeight="30.0" prefWidth="171.0" promptText="Jenis / Type Kendaraan Bermotor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane layoutX="180.0" layoutY="375.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="9">
+							<children>
+								<TextField fx:id="txtWarna" prefHeight="30.0" prefWidth="171.0" promptText="Warna Kendaraan Bermotor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane layoutX="180.0" layoutY="420.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="10">
+							<children>
+								<TextField fx:id="txtNoRangka" prefHeight="30.0" prefWidth="171.0" promptText="Nomor Rangka Kendaraan Bermotor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane layoutX="180.0" layoutY="465.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="11">
+							<children>
+								<TextField fx:id="txtNoMesin" prefHeight="30.0" prefWidth="171.0" promptText="Nomor Mesin Kendaraan Bermotor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane layoutX="180.0" layoutY="510.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="14">
+							<children>
+								<TextField fx:id="txtNamaDealer" prefHeight="30.0" prefWidth="171.0" promptText="Nama Dealer / Show Room" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="15" GridPane.rowSpan="2">
+							<children>
+								<TextArea fx:id="txtAlamatDealer" layoutX="79.0" layoutY="-74.0" prefHeight="126.0" prefWidth="400.0" promptText="Alamat Dealer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+						<Label layoutX="20.0" layoutY="293.0" text="Identitas Kendaraan" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+							<font>
+								<Font name="System Bold" size="15.0" />
+							</font>
+						</Label>
+						<Label layoutX="20.0" layoutY="340.0" text="Plat Nomor" GridPane.rowIndex="6" />
+						<Label layoutX="20.0" layoutY="340.0" text="Jenis" GridPane.rowIndex="8" />
+						<Label layoutX="20.0" layoutY="385.0" text="Warna" GridPane.rowIndex="9" />
+						<Label layoutX="20.0" layoutY="430.0" text="No Rangka" GridPane.rowIndex="10" />
+						<Label layoutX="20.0" layoutY="475.0" text="No Mesin" GridPane.rowIndex="11" />
+						<Label layoutX="20.0" layoutY="520.0" text="Dealer" GridPane.rowIndex="14" />
+						<Label layoutX="20.0" layoutY="655.0" text="Alamat Dealer" GridPane.rowIndex="15" />
+						<Label text="* Cililan jika lebih dari Rp500.000,00 maka akan dipotong dari gaji pokok" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="19" />
+						<Label text="Merek" GridPane.rowIndex="7" />
+						<Label layoutX="20.0" layoutY="227.0" text="Jumlah Cicilan" GridPane.rowIndex="17" />
+						<Label text="/ Bulan" GridPane.columnIndex="4" GridPane.rowIndex="17" />
+						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Uang muka" GridPane.rowIndex="21" />
+						<Label layoutX="20.0" layoutY="227.0" text="Data Karyawan" GridPane.columnSpan="2147483647">
+							<font>
+								<Font name="System Bold" size="15.0" />
+							</font>
+						</Label>
+						<Label layoutX="444.0" layoutY="307.0" text="/ Bulan" GridPane.columnIndex="4" GridPane.rowIndex="18" />
+						<Label fx:id="totalPengeluaran" layoutX="444.0" layoutY="347.0" text="Rp.0" GridPane.columnIndex="6" GridPane.rowIndex="18" />
+						<Label layoutX="20.0" layoutY="205.0" text="Pengajuan angsuran prestasi" GridPane.columnSpan="2147483647" GridPane.rowIndex="13">
+							<font>
+								<Font name="System Bold" size="15.0" />
+							</font>
+						</Label>
+						<Label layoutX="20.0" layoutY="205.0" text="NIP / Nama" GridPane.rowIndex="1" />
+						<Label layoutX="20.0" layoutY="75.0" text="Jabatan / Gaji" GridPane.rowIndex="2" />
+						<Label layoutX="20.0" layoutY="120.0" text="Tanggal / Lama kerja" GridPane.rowIndex="3" />
+						<HBox alignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="18">
 							<children>
 								<Label text="=" />
 							</children>
 						</HBox>
-						<CheckBox fx:id="checkValid" mnemonicParsing="false"
-							text="Data diatas adalah valid" GridPane.columnSpan="2147483647"
-							GridPane.rowIndex="22" />
-						<Label
-							text="* Cililan jika lebih dari Rp500.000,00 maka akan dipotong dari gaji pokok"
-							GridPane.columnIndex="1" GridPane.columnSpan="2147483647"
-							GridPane.rowIndex="19" />
-						<Label text="Merek" GridPane.rowIndex="7" />
-						<Label layoutX="20.0" layoutY="227.0" text="Jumlah Cicilan"
-							GridPane.rowIndex="17" />
-						<Label text="/ Bulan" GridPane.columnIndex="4"
-							GridPane.rowIndex="17" />
-						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Uang muka"
-							GridPane.rowIndex="21" />
-						<Label layoutX="20.0" layoutY="227.0" text="Data Karyawan"
-							GridPane.columnSpan="2147483647">
-							<font>
-								<Font name="System Bold" size="15.0" />
-							</font>
-						</Label>
-						<Label layoutX="444.0" layoutY="307.0" text="/ Bulan"
-							GridPane.columnIndex="4" GridPane.rowIndex="18" />
-						<Label fx:id="totalPengeluaran" layoutX="444.0" layoutY="347.0"
-							text="Rp.0" GridPane.columnIndex="6" GridPane.rowIndex="18" />
-						<Label layoutX="20.0" layoutY="205.0" text="Pengajuan angsuran prestasi"
-							GridPane.columnSpan="2147483647" GridPane.rowIndex="13">
-							<font>
-								<Font name="System Bold" size="15.0" />
-							</font>
-						</Label>
-						<Label layoutX="20.0" layoutY="205.0" text="NIP / Nama"
-							GridPane.rowIndex="1" />
-						<Label layoutX="20.0" layoutY="75.0" text="Jabatan / Gaji"
-							GridPane.rowIndex="2" />
-						<Label layoutX="20.0" layoutY="120.0" text="Tanggal / Lama kerja"
-							GridPane.rowIndex="3" />
-						<AnchorPane layoutX="180.0" layoutY="65.0"
-							GridPane.columnIndex="1" GridPane.columnSpan="2"
-							GridPane.rowIndex="2">
-							<children>
-								<TextField fx:id="txtJabatan" editable="false"
-									focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
-									promptText="Nama jabatan" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
-						<AnchorPane layoutX="180.0" layoutY="110.0"
-							GridPane.columnIndex="3" GridPane.columnSpan="2"
-							GridPane.rowIndex="2">
-							<children>
-								<TextField fx:id="txtGajiPokok" alignment="CENTER_RIGHT"
-									editable="false" focusTraversable="false" prefHeight="30.0"
-									prefWidth="171.0" promptText="Rp0,00" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
-						<AnchorPane layoutX="180.0" layoutY="110.0"
-							GridPane.columnIndex="1" GridPane.columnSpan="2"
-							GridPane.rowIndex="3">
-							<children>
-								<TextField fx:id="txtHireDate" editable="false"
-									focusTraversable="false" prefHeight="30.0" prefWidth="171.0"
-									promptText="Tanggal mulai kerja" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
-						<AnchorPane layoutX="370.0" layoutY="110.0"
-							GridPane.columnIndex="3" GridPane.columnSpan="2"
-							GridPane.rowIndex="3">
-							<children>
-								<TextField fx:id="txtHireLongDate" alignment="CENTER_RIGHT"
-									editable="false" focusTraversable="false" prefHeight="30.0"
-									prefWidth="171.0" promptText="Lama kerja"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
-						<Label layoutX="20.0" layoutY="293.0" text="Identitas Kendaraan"
-							GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
-							<font>
-								<Font name="System Bold" size="15.0" />
-							</font>
-						</Label>
-						<Label layoutX="20.0" layoutY="340.0" text="Plat Nomor"
-							GridPane.rowIndex="6" />
-						<AnchorPane layoutX="180.0" layoutY="330.0"
-							GridPane.columnIndex="1" GridPane.rowIndex="6">
-							<children>
-								<TextField fx:id="txtPlatNo" prefHeight="30.0"
-									prefWidth="171.0" promptText="Plat Nomor"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
-						<Label layoutX="20.0" layoutY="340.0" text="Jenis"
-							GridPane.rowIndex="8" />
-						<AnchorPane layoutX="180.0" layoutY="330.0"
-							GridPane.columnIndex="1" GridPane.columnSpan="3"
-							GridPane.rowIndex="8">
-							<children>
-								<TextField fx:id="txtJenisMotor" prefHeight="30.0"
-									prefWidth="171.0" promptText="Jenis / Type Kendaraan Bermotor"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
-						<Label layoutX="20.0" layoutY="385.0" text="Warna"
-							GridPane.rowIndex="9" />
-						<AnchorPane layoutX="180.0" layoutY="375.0"
-							GridPane.columnIndex="1" GridPane.columnSpan="3"
-							GridPane.rowIndex="9">
-							<children>
-								<TextField fx:id="txtWarna" prefHeight="30.0"
-									prefWidth="171.0" promptText="Warna Kendaraan Bermotor"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
-						<Label layoutX="20.0" layoutY="430.0" text="No Rangka"
-							GridPane.rowIndex="10" />
-						<AnchorPane layoutX="180.0" layoutY="420.0"
-							GridPane.columnIndex="1" GridPane.columnSpan="3"
-							GridPane.rowIndex="10">
-							<children>
-								<TextField fx:id="txtNoRangka" prefHeight="30.0"
-									prefWidth="171.0" promptText="Nomor Rangka Kendaraan Bermotor"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
-						<Label layoutX="20.0" layoutY="475.0" text="No Mesin"
-							GridPane.rowIndex="11" />
-						<AnchorPane layoutX="180.0" layoutY="465.0"
-							GridPane.columnIndex="1" GridPane.columnSpan="3"
-							GridPane.rowIndex="11">
-							<children>
-								<TextField fx:id="txtNoMesin" prefHeight="30.0"
-									prefWidth="171.0" promptText="Nomor Mesin Kendaraan Bermotor"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
-						<Label layoutX="20.0" layoutY="520.0" text="Dealer"
-							GridPane.rowIndex="14" />
-						<AnchorPane layoutX="180.0" layoutY="510.0"
-							GridPane.columnIndex="1" GridPane.columnSpan="3"
-							GridPane.rowIndex="14">
-							<children>
-								<TextField fx:id="txtNamaDealer" prefHeight="30.0"
-									prefWidth="171.0" promptText="Nama Dealer / Show Room"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
-						<Label layoutX="20.0" layoutY="655.0" text="Alamat Dealer"
-							GridPane.rowIndex="15" />
-						<AnchorPane prefHeight="200.0" prefWidth="200.0"
-							GridPane.columnIndex="1" GridPane.columnSpan="4"
-							GridPane.rowIndex="15" GridPane.rowSpan="2">
-							<children>
-								<TextArea fx:id="txtAlamatDealer" layoutX="79.0"
-									layoutY="-74.0" prefHeight="126.0" prefWidth="400.0"
-									promptText="Alamat Dealer" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
+                  <Label layoutX="180.0" layoutY="865.0" text="* Uang Muka jika lebih dari Rp3.000.000,00 maka" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="22" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" menjadi tanggung jawab karywawan yg bersangkutan" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="23">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Text>
 					</children>
 				</GridPane>
 			</content>
 		</ScrollPane>
 	</center>
 	<bottom>
-		<ToolBar prefHeight="40.0" prefWidth="1123.0"
-			BorderPane.alignment="CENTER">
+		<ToolBar prefHeight="40.0" prefWidth="1123.0" BorderPane.alignment="CENTER">
 			<items>
-				<Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false"
-					prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Simpan" />
-				<Button cancelButton="true" layoutX="10.0" layoutY="10.0"
-					mnemonicParsing="false" onAction="#doCancel" prefHeight="30.0"
-					prefWidth="100.0" styleClass="action" text="Batal" />
+				<Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Simpan" />
+				<Button cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#doCancel" prefHeight="30.0" prefWidth="100.0" styleClass="action" text="Batal" />
 			</items>
 		</ToolBar>
 	</bottom>
 	<left>
-		<AnchorPane prefHeight="340.0" prefWidth="300.0"
-			BorderPane.alignment="CENTER">
+		<AnchorPane prefHeight="340.0" prefWidth="300.0" BorderPane.alignment="CENTER">
 			<children>
-				<TableView fx:id="tableView" layoutX="-142.0" layoutY="74.0"
-					prefHeight="340.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0"
-					AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-					AnchorPane.topAnchor="0.0">
+				<TableView fx:id="tableView" layoutX="-142.0" layoutY="74.0" prefHeight="340.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 					<columns>
-						<TableColumn fx:id="columnNik" maxWidth="120.0"
-							minWidth="120.0" prefWidth="120.0" text="NIP" />
-						<TableColumn fx:id="columnNama" maxWidth="300.0"
-							minWidth="150.0" prefWidth="150.0" text="Nama" />
+						<TableColumn fx:id="columnNik" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" text="NIP" />
+						<TableColumn fx:id="columnNama" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" text="Nama" />
 					</columns>
 					<columnResizePolicy>
 						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -400,10 +248,8 @@
 					<contextMenu>
 						<ContextMenu>
 							<items>
-								<MenuItem mnemonicParsing="false" onAction="#doClear"
-									text="Clear Selection" />
-								<MenuItem mnemonicParsing="false" onAction="#doRefresh"
-									text="Refresh Data" />
+								<MenuItem mnemonicParsing="false" onAction="#doClear" text="Clear Selection" />
+								<MenuItem mnemonicParsing="false" onAction="#doRefresh" text="Refresh Data" />
 							</items>
 						</ContextMenu>
 					</contextMenu>

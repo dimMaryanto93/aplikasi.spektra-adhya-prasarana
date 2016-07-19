@@ -18,7 +18,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,9 +31,7 @@ import javafx.util.Duration;
 public class MainApplication extends Application {
 
     private final Logger loger = LoggerFactory.getLogger(this.getClass());
-
     private ConfigurableApplicationContext springContext;
-
     private static String[] args;
 
     @Bean
@@ -75,30 +72,26 @@ public class MainApplication extends Application {
         };
         worker.run();
 
-        worker.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+        worker.setOnSucceeded((WorkerStateEvent event) -> {
+            try {
+                loger.info("JavaFX loading...");
 
-            @Override
-            public void handle(WorkerStateEvent event) {
-                try {
-                    loger.info("JavaFX loading...");
+                HomeController scene = springContext.getBean(HomeController.class);
+                Stage stage = springContext.getBean(Stage.class);
 
-                    HomeController scene = springContext.getBean(HomeController.class);
-                    Stage stage = springContext.getBean(Stage.class);
+                Parent parent = (Parent) scene.initView();
+                stage.setScene(new Scene(parent));
+                stage.setResizable(false);
+                stage.show();
 
-                    Parent parent = (Parent) scene.initView();
-                    stage.setScene(new Scene(parent));
-                    stage.setResizable(false);
-                    stage.show();
+                scene.showLoginForm();
+                loger.info("JavaFX started, have nice day sir!");
 
-                    scene.showLoginForm();
-                    loger.info("JavaFX started, have nice day sir!");
-
-                    Notifications.create().title("Spektra Adhya Prasarana")
-                            .text("SIPeg, Sistem Informasi Penggajian pada PT. Spektra Adhya Prasarana...")
-                            .position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(5)).showInformation();
-                } catch (IOException e) {
-                    loger.error("Gagal load JavaFX Application", e);
-                }
+                Notifications.create().title("Spektra Adhya Prasarana")
+                        .text("SIPeg, Sistem Informasi Penggajian pada PT. Spektra Adhya Prasarana...")
+                        .position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(5)).showInformation();
+            } catch (IOException e) {
+                loger.error("Gagal load JavaFX Application", e);
             }
         });
         worker.setOnFailed(e -> {
