@@ -1,18 +1,21 @@
 # PT Spektra Adhya Prasaran
 
+![spektra_adhya_prasarana](/imgs/spektra-adhya-prasaran-home.png)
+
 Berikut ini adalah beberapa hal yang harus dikonfigurasi diantaranya
 
-* Instal database postgresql
-* Membuat account / role pada database postgresql
-* Download binary aplikasi ```spektra-adhya-prasarana-1.0.jar```
+* Instal Java Runtime Environment (JRE)
+* Instal database PostgreSQL
+* Membuat role atau user schema pada DBMS postgresql
+* Membuat database
+* [Download binary aplikasi ```spektra-adhya-prasarana-x.x.jar```](https://github.com/elkahanna/spektra-adhya-prasarana/releases)
 * Menjalankan aplikasi
 
 ## Install PostgreSQL
 
 * [Download disini](https://www.postgresql.org/download/)
-* Install sesuai dengan platform
-* Konfigurasi root password, dan port
-* Membuat user spektra_adhya_prasarana dengan password admin
+* Install sesuai dengan platform (Windows, Linux, Mac)
+* Konfigurasi password root dan default port
 
 ## Membuat keneksi database
 
@@ -68,7 +71,7 @@ CREATE DATABASE spektra_adhya_prasarana WITH OWNER spektra_adhya_prasarana;
 
 ## Membuat launcher aplikasi
 
-* Download jar archive
+* [Download jar archive](https://github.com/elkahanna/spektra-adhya-prasarana/releases)
 * Pindahkan lokasi file jar (Bebas dimana saja) rekomendasi
   * Windows (```C:\Program Files\spektra-adhya-prasaran```
   * Linux (```/opt/spektra-adhya-prasarana/```)
