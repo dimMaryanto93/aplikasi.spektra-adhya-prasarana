@@ -1,19 +1,5 @@
 <?xml version="1.0"?>
-<Document xmlns="http://www.evolus.vn/Namespace/Pencil">
-    <Properties/>
-    <Pages>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-MainMenu</Property>
-                <Property name="id">1462684016885_2958</Property>
-                <Property name="width">749</Property>
-                <Property name="height">468</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422mainmenu</Property>
-            </Properties>
-            <Content>
+<Document xmlns="http://www.evolus.vn/Namespace/Pencil"><Properties/><Pages><Page><Properties><Property name="name">4-2-2-MainMenu</Property><Property name="id">1462684016885_2958</Property><Property name="width">749</Property><Property name="height">468</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422mainmenu</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Group" xmlns:p="http://www.evolus.vn/Namespace/Pencil" transform="translate(10,10)" id="dda6bcf120344c62b258410d621b61bb" p:sizing-gow="728.5" p:sizing-goh="448.25">
                     <g xmlns="http://www.w3.org/2000/svg" p:type="Group" xmlns:p="http://www.evolus.vn/Namespace/Pencil" transform="matrix(1,0,0,1,0,0)" id="d61ac4d375f37044890e8f23b65d10c0" p:sizing-gow="728.5" p:sizing-goh="338.5" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="728.5" p:sizing-oh="338.5">
                         <g p:type="Shape" p:def="Evolus.Sketchy.GUI:winframe" id="6ef2729d197e9547aa70e18a8b6b8ecf" transform="matrix(1,0,0,1,0,0.75)" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="728" p:sizing-oh="337">
@@ -172,20 +158,7 @@
                         <text xml:space="preserve" p:name="text" id="c4de9c7ac696b8419a3a43a78a006b95" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">Laporan &gt; Pengeluaran Gaji, Pengeluaran Uang Makan dan Transport, Pengeluaran Pinjaman</tspan></text>
                     </g>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-ListKaryawan</Property>
-                <Property name="id">1462684600247_1835</Property>
-                <Property name="width">608</Property>
-                <Property name="height">238</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422listkaryawan</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-ListKaryawan</Property><Property name="id">1462684600247_1835</Property><Property name="width">608</Property><Property name="height">238</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422listkaryawan</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Group" xmlns:p="http://www.evolus.vn/Namespace/Pencil" transform="matrix(1,0,0,1,10,10)" id="bb1852e4e505431f96a49f0e0d5b6eca" p:sizing-gow="587.75" p:sizing-goh="218">
                     <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="b1f4f5879611f943add6c2bb574d6650" transform="matrix(1,0,0,1,0,0)" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="587" p:sizing-oh="218">
                         <p:metadata>
@@ -438,20 +411,7 @@
                         <text p:name="text" id="bf8752d02f34254da0ed9562c6131946" style="font-family: Comic Sans MS; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(6,18)">1 : Direktur</text>
                     </g>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-FormKaryawan</Property>
-                <Property name="id">1463988819966_4229</Property>
-                <Property name="width">317</Property>
-                <Property name="height">230</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422formkaryawan</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-FormKaryawan</Property><Property name="id">1463988819966_4229</Property><Property name="width">317</Property><Property name="height">230</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422formkaryawan</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="a2eadf5657f042b1bfe1cf1888fbf0e5" transform="matrix(1,0,0,1,10,10)" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="296" p:sizing-oh="209">
                     <p:metadata>
                         <p:property name="box"><![CDATA[296,209]]></p:property>
@@ -604,20 +564,7 @@
                     </g>
                     <text p:name="text" id="31fd334cf68c4656afda52e56969c9d2" style="font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(31,17)">Batal</text>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-ListJabatan</Property>
-                <Property name="id">1462685169370_9331</Property>
-                <Property name="width">592</Property>
-                <Property name="height">222</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422listjabatan</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-ListJabatan</Property><Property name="id">1462685169370_9331</Property><Property name="width">592</Property><Property name="height">222</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422listjabatan</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="041db8d38256cd4297c00bf821a06e59" transform="matrix(1,0,0,1,10,11.5)">
                     <p:metadata>
                         <p:property name="box"><![CDATA[571,200]]></p:property>
@@ -864,20 +811,7 @@
                     </g>
                     <text p:name="text" id="ede4206626040c40aeb18e510b2dbfba" style="font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(6,18)">5.000.000</text>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-FormJabatan</Property>
-                <Property name="id">1463988912574_8806</Property>
-                <Property name="width">347</Property>
-                <Property name="height">221</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422formjabatan</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-FormJabatan</Property><Property name="id">1463988912574_8806</Property><Property name="width">347</Property><Property name="height">221</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422formjabatan</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="60b288d6780a4e8bae7bb944a6682df9" transform="matrix(1,0,0,1,10,10)" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="255" p:sizing-oh="200">
                     <p:metadata>
                         <p:property name="box"><![CDATA[327,200]]></p:property>
@@ -1026,20 +960,7 @@
                     </g>
                     <text p:name="text" id="2a055529808342b989673fe10a6ea917" style="font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(31,17)">Batal</text>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-ListAbsensi</Property>
-                <Property name="id">1462685785481_4618</Property>
-                <Property name="width">524</Property>
-                <Property name="height">307</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422listabsensi</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-ListAbsensi</Property><Property name="id">1462685785481_4618</Property><Property name="width">524</Property><Property name="height">307</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422listabsensi</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Group" xmlns:p="http://www.evolus.vn/Namespace/Pencil" transform="matrix(1,0,0,1,10,10)" id="732bc127382e41169584bcb1581692ff" p:sizing-gow="504" p:sizing-goh="286.75">
                     <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="25f9a01157a4dd4fb598f775f4c25c31" transform="matrix(1,0,0,1,0,0)" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="504" p:sizing-oh="286">
                         <p:metadata>
@@ -1230,20 +1151,7 @@
                         <text p:name="text" id="3649f96bac77465296b0c28efec65662" style="font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(8,17)">Tambah Data</text>
                     </g>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-FormAbsensi</Property>
-                <Property name="id">1463989534045_8241</Property>
-                <Property name="width">469</Property>
-                <Property name="height">276</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422formabsensi</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-FormAbsensi</Property><Property name="id">1463989534045_8241</Property><Property name="width">469</Property><Property name="height">276</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422formabsensi</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="9b0cd022144c44369f4d6de3753fcb6b" transform="matrix(1,0,0,1,10,10.75)">
                     <p:metadata>
                         <p:property name="box"><![CDATA[449,255]]></p:property>
@@ -1482,20 +1390,7 @@
                     </g>
                     <text p:name="text" id="73bcfab3443c410fb60948c1383420b0" style="font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(31,17)">Batal</text>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-FormPengajuanPeminjamanKaryawan</Property>
-                <Property name="id">1463069366553_5555</Property>
-                <Property name="width">397</Property>
-                <Property name="height">217.75</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422formpengajuanpeminjamankaryawan</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-FormPengajuanPeminjamanKaryawan</Property><Property name="id">1463069366553_5555</Property><Property name="width">397</Property><Property name="height">217.75</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422formpengajuanpeminjamankaryawan</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="dea234f64eff8949853c86f2169482be" transform="matrix(1,0,0,1,10,10)">
                     <p:metadata>
                         <p:property name="box"><![CDATA[377,197]]></p:property>
@@ -1648,21 +1543,7 @@
                     <path d="M 210.15 10 C 213 10 216 10 218.85 10 C 217 13 216 15 214.5 17.5 C 213 15 212 13 210.15 10 z" style="fill:black;stroke-linejoin: round;" p:name="triangle" id="d2c430b2e1224e5594a6b63c62ed725b"/>
                     <text p:name="text" id="9b64221663554672a8323e59a938256b" style="font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(5,17)">103.160531.001 | Dimas Maryanto</text>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-FormPersetujuanPeminjamanKaryawan</Property>
-                <Property name="id">1463070646173_6940</Property>
-                <Property name="width">637.75</Property>
-                <Property name="height">402</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="background">transparent</Property>
-                <Property name="fid">422formpersetujuanpeminjamankaryawan</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-FormPersetujuanPeminjamanKaryawan</Property><Property name="id">1463070646173_6940</Property><Property name="width">637.75</Property><Property name="height">402</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="background">transparent</Property><Property name="fid">422formpersetujuanpeminjamankaryawan</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="b72f21d3c5f48245aa0b1bf45ab6f42a" transform="matrix(1,0,0,1,10,10)">
                     <p:metadata>
                         <p:property name="box"><![CDATA[617,382]]></p:property>
@@ -1988,21 +1869,7 @@ Elka Hanna]]></p:property>
                     </g>
                     <text p:name="text" id="a4dd413f0eef466da808e574687a21c1" style="font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(5,17)">Rp.1.500.000,00</text>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-FormPembayaranPeminjamanKaryawan</Property>
-                <Property name="id">1464711596923_6965</Property>
-                <Property name="width">397</Property>
-                <Property name="height">218</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="background">transparent</Property>
-                <Property name="fid">422formpembayaranpeminjamankaryawan</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-FormPembayaranPeminjamanKaryawan</Property><Property name="id">1464711596923_6965</Property><Property name="width">397</Property><Property name="height">218</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="background">transparent</Property><Property name="fid">422formpembayaranpeminjamankaryawan</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Group" xmlns:p="http://www.evolus.vn/Namespace/Pencil" transform="translate(10,10)" id="0797d5c05f8a472ea36a25cd662a53c7" p:sizing-gow="377" p:sizing-goh="197.75">
                     <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="dea234f64eff8949853c86f2169482be" transform="matrix(1,0,0,1,0,0)" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="377" p:sizing-oh="197">
                         <p:metadata>
@@ -2157,21 +2024,7 @@ Elka Hanna]]></p:property>
                         <text p:name="text" id="24e57f3217b14761b4ce86f89a21ef24" style="font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(5,17)">103.160531.001 | Dimas Maryanto</text>
                     </g>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-ListPeminjamanKaryawan</Property>
-                <Property name="id">1464711688446_8964</Property>
-                <Property name="width">637</Property>
-                <Property name="height">269</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="background">transparent</Property>
-                <Property name="fid">422listpeminjamankaryawan</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-ListPeminjamanKaryawan</Property><Property name="id">1464711688446_8964</Property><Property name="width">637</Property><Property name="height">269</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="background">transparent</Property><Property name="fid">422listpeminjamankaryawan</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="b72f21d3c5f48245aa0b1bf45ab6f42a" transform="matrix(1,0,0,1,10,10)">
                     <p:metadata>
                         <p:property name="box"><![CDATA[617,249]]></p:property>
@@ -2388,20 +2241,7 @@ Elka Hanna]]></p:property>
                     <rect x="0" y="0" style="fill: none; stroke: none; visibility: hidden; display: none;" p:name="bgRect" id="d054ae76e0f94f1da5160a4b9822e0bb" width="0" height="0"/>
                     <text xml:space="preserve" p:name="text" id="210b357c51ec428e8bc0db7de5d851b7" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 18px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">Daftar Saldo Terakhir</tspan></text>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-FormPengajuanKreditMotor</Property>
-                <Property name="id">1463990975577_6341</Property>
-                <Property name="width">401.5</Property>
-                <Property name="height">272.5</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422formpengajuankreditmotor</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-FormPengajuanKreditMotor</Property><Property name="id">1463990975577_6341</Property><Property name="width">401.5</Property><Property name="height">272.5</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422formpengajuankreditmotor</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Group" xmlns:p="http://www.evolus.vn/Namespace/Pencil" transform="translate(10,10)" id="16b2cb6c4a50424294d1b177de9399e4" p:sizing-gow="381.5" p:sizing-goh="252.5">
                     <g p:type="Shape" p:def="Evolus.Sketchy.GUI:winframe" id="863bdca631784eedbf79cf4f59a95492" transform="matrix(1,0,0,1,0,1.5)" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="380" p:sizing-oh="251">
                         <p:metadata>
@@ -2629,20 +2469,7 @@ Elka Hanna]]></p:property>
                         <text p:name="text" id="aa9725f4e84d45c784740a46abf8ffec" style="font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(31,17)">Batal</text>
                     </g>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-FormPersetujuanKreditMotor</Property>
-                <Property name="id">1463991596951_6589</Property>
-                <Property name="width">568.75</Property>
-                <Property name="height">318</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422formpersetujuankreditmotor</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-FormPersetujuanKreditMotor</Property><Property name="id">1463991596951_6589</Property><Property name="width">568.75</Property><Property name="height">318</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422formpersetujuankreditmotor</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Group" xmlns:p="http://www.evolus.vn/Namespace/Pencil" transform="translate(10,10)" id="4461d1395bfe498ba774da2d6bb7469b" p:sizing-gow="548.75" p:sizing-goh="298">
                     <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="51d7cf6b3ec449f2b243db327ed9e4ce" transform="matrix(1,0,0,1,0,0)" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="548" p:sizing-oh="298">
                         <p:metadata>
@@ -2913,20 +2740,7 @@ Elka Hanna]]></p:property>
                         <text p:name="text" id="06d564b2f5024fca88efd39d0ea4c3f8" style="font-family: Comic Sans MS; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(5,18)">Maaf, Kemahalan!</text>
                     </g>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-ListPembayaranCicilanKreditMotor</Property>
-                <Property name="id">1464193240391_5790</Property>
-                <Property name="width">797</Property>
-                <Property name="height">391</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422listpembayarancicilankreditmotor</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-ListPembayaranCicilanKreditMotor</Property><Property name="id">1464193240391_5790</Property><Property name="width">797</Property><Property name="height">391</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422listpembayarancicilankreditmotor</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="450ab86771964b9fa13f41259cb6f94b" transform="matrix(1,0,0,1,10,10)" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="548" p:sizing-oh="298">
                     <p:metadata>
                         <p:property name="box"><![CDATA[777,371]]></p:property>
@@ -3293,20 +3107,7 @@ laksurt | 7 | 2016-07-06 | Rp.500.000,-]]></p:property>
                     </g>
                     <text p:name="text" id="3e369354a2d9430b961fbb270b8c0544" style="font-family: Comic Sans MS; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(43,17)">D 1234 VAW</text>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-2-FormPenggajian</Property>
-                <Property name="id">1462685813946_6926</Property>
-                <Property name="width">543</Property>
-                <Property name="height">489</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="fid">422formpenggajian</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-2-FormPenggajian</Property><Property name="id">1462685813946_6926</Property><Property name="width">543</Property><Property name="height">489</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="fid">422formpenggajian</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:winframe" id="769d68b90ee5f54a9a0171898fd2c46f" transform="matrix(1,0,0,1,10,10)">
                     <p:metadata>
                         <p:property name="box"><![CDATA[523,469]]></p:property>
@@ -3802,21 +3603,7 @@ laksurt | 7 | 2016-07-06 | Rp.500.000,-]]></p:property>
                     <rect x="0" y="0" style="fill: none; stroke: none; visibility: hidden; display: none;" p:name="bgRect" id="176d5f5157f94fa38c33e4d12c4ff620" width="0" height="0"/>
                     <text xml:space="preserve" p:name="text" id="70c2375ac8d440b6915786b40f431aea" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: &quot;Comic Sans MS&quot;; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">Cicilan motor</tspan></text>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-3-outputPeminjamanKasbon</Property>
-                <Property name="id">1465137544426_7487</Property>
-                <Property name="width">535</Property>
-                <Property name="height">446</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="background">transparent</Property>
-                <Property name="fid">423outputpeminjamankasbon</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-3-outputPeminjamanKasbon</Property><Property name="id">1465137544426_7487</Property><Property name="width">535</Property><Property name="height">446</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="background">transparent</Property><Property name="fid">423outputpeminjamankasbon</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Group" xmlns:p="http://www.evolus.vn/Namespace/Pencil" transform="translate(10,10)" id="ee014e3c0f4c4eccb2898a9169684ac4" p:sizing-gow="514.75" p:sizing-goh="426">
                     <g p:type="Shape" p:def="Evolus.Sketchy.GUI:box" id="2e43770d6e58443ab391a0c976f48070" transform="matrix(1,0,0,1,-0.5,-0.5)" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="514" p:sizing-oh="426">
                         <p:metadata>
@@ -4133,21 +3920,7 @@ laksurt | 7 | 2016-07-06 | Rp.500.000,-]]></p:property>
                         <text xml:space="preserve" p:name="text" id="289f8bd3d8c4448fa33e3b531a41e7b3" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">(Tuti Mulanti, SE)</tspan></text>
                     </g>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-3-outputPembayaranKabon</Property>
-                <Property name="id">1465138937821_899</Property>
-                <Property name="width">534.75</Property>
-                <Property name="height">446</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="background">transparent</Property>
-                <Property name="fid">423outputpembayarankabon</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-3-outputPembayaranKabon</Property><Property name="id">1465138937821_899</Property><Property name="width">534.75</Property><Property name="height">446</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="background">transparent</Property><Property name="fid">423outputpembayarankabon</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Group" xmlns:p="http://www.evolus.vn/Namespace/Pencil" transform="translate(10,10)" id="a3582b8f354f4551abf23a39cdc707e2" p:sizing-gow="514.75" p:sizing-goh="426">
                     <g p:type="Shape" p:def="Evolus.Sketchy.GUI:box" id="435c1e533a0c409fb510d73faae2eaa8" transform="matrix(1,0,0,1,-0.5,-0.5)" p:sizing-ox="0" p:sizing-oy="0" p:sizing-ow="514" p:sizing-oh="426">
                         <p:metadata>
@@ -4464,20 +4237,7 @@ laksurt | 7 | 2016-07-06 | Rp.500.000,-]]></p:property>
                         <text xml:space="preserve" p:name="text" id="83200132a42a487589e890aba5cfd744" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">(Tuti Mulanti, SE)</tspan></text>
                     </g>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-3-OutputKasbonKaryawan</Property>
-                <Property name="id">1465139316232_7254</Property>
-                <Property name="width">533.75</Property>
-                <Property name="height">401.5</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="background">transparent</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-3-OutputKasbonKaryawan</Property><Property name="id">1465139316232_7254</Property><Property name="width">533.75</Property><Property name="height">401.5</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="background">transparent</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:box" id="e36caec960d14010846f69161ee45245" transform="matrix(1,0,0,1,10.25,9.5)">
                     <p:metadata>
                         <p:property name="box"><![CDATA[513,380]]></p:property>
@@ -4780,20 +4540,7 @@ laksurt | 7 | 2016-07-06 | Rp.500.000,-]]></p:property>
                         <div xmlns="http://www.w3.org/1999/xhtml" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
                     </foreignObject>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-3-outputDaftarGajiKaryawanPerbulan</Property>
-                <Property name="id">1465140342558_4414</Property>
-                <Property name="width">531.5</Property>
-                <Property name="height">452.5</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="background">transparent</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-3-outputDaftarGajiKaryawanPerbulan</Property><Property name="id">1465140342558_4414</Property><Property name="width">531.5</Property><Property name="height">452.5</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="background">transparent</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:box" id="1fad3633e79744a2bc6b22d48b64c4a2" transform="matrix(1,0,0,1,10,11)" p:sizing-ox="0.5" p:sizing-oy="0" p:sizing-ow="511" p:sizing-oh="431">
                     <p:metadata>
                         <p:property name="box"><![CDATA[511,431]]></p:property>
@@ -5160,20 +4907,7 @@ laksurt | 7 | 2016-07-06 | Rp.500.000,-]]></p:property>
                     <rect x="0" y="0" style="fill: none; stroke: none; visibility: hidden; display: none;" p:name="bgRect" id="5fdaf5719ef44c56a94a5fc337382809" width="0" height="0"/>
                     <text xml:space="preserve" p:name="text" id="3661212dd3954dd7b931a41a2adc81ab" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">Rp.8.090.000,00</tspan></text>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-3-outputGajiPerKaryawan</Property>
-                <Property name="id">1465143756557_7879</Property>
-                <Property name="width">614.25</Property>
-                <Property name="height">544.75</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="background">transparent</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-3-outputGajiPerKaryawan</Property><Property name="id">1465143756557_7879</Property><Property name="width">614.25</Property><Property name="height">544.75</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="background">transparent</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:box" id="99765f5b46c14294ab3a6b2fcb50bfac" transform="matrix(1,0,0,1,10,10.25)">
                     <p:metadata>
                         <p:property name="box"><![CDATA[593,524]]></p:property>
@@ -5553,20 +5287,7 @@ laksurt | 7 | 2016-07-06 | Rp.500.000,-]]></p:property>
                     <rect x="0" y="0" style="fill: none; stroke: none; visibility: hidden; display: none;" p:name="bgRect" id="6428c87202c74704bd8706530ca45bbb" width="0" height="0"/>
                     <text xml:space="preserve" p:name="text" id="8bbce55c72ab4f1ea857a6aaee28213c" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">(Tuti Mulyani, SE)</tspan></text>
                 </g>
-            </Content>
-        </Page>
-        <Page>
-            <Properties>
-                <Property name="name">4-2-3-OutputPersetujuanAngsuranPrestasi</Property>
-                <Property name="id">1466777893602_9185</Property>
-                <Property name="width">563.25</Property>
-                <Property name="height">401</Property>
-                <Property name="dimBackground"/>
-                <Property name="transparentBackground">true</Property>
-                <Property name="backgroundColor">#FFFFFFFF</Property>
-                <Property name="background">transparent</Property>
-            </Properties>
-            <Content>
+            </Content></Page><Page><Properties><Property name="name">4-2-3-OutputPersetujuanAngsuranPrestasi</Property><Property name="id">1466777893602_9185</Property><Property name="width">563.25</Property><Property name="height">401</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="background">transparent</Property></Properties><Content>
                 <g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Sketchy.GUI:box" id="8e51a228f02a44598f2b7cf9beb9d2e6" transform="matrix(1,0,0,1,10,9.5)">
                     <p:metadata>
                         <p:property name="box"><![CDATA[542,381]]></p:property>
@@ -5816,7 +5537,39 @@ laksurt | 7 | 2016-07-06 | Rp.500.000,-]]></p:property>
                     <rect x="0" y="0" style="fill: none; stroke: none; visibility: hidden; display: none;" p:name="bgRect" id="f95f54a5b794420ab955e0a8ea141cb9" width="0" height="0"/>
                     <text xml:space="preserve" p:name="text" id="3bf30465a85f4e00bc917d0d8deee23d" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">Honda Vario</tspan></text>
                 </g>
-            </Content>
-        </Page>
-    </Pages>
-</Document>
+            </Content></Page><Page><Properties><Property name="name">4-2-3-outputDaftarkasbonBulan</Property><Property name="id">1470569506710_7630</Property><Property name="width">757.5</Property><Property name="height">438.5</Property><Property name="dimBackground"/><Property name="transparentBackground">true</Property><Property name="backgroundColor">#FFFFFFFF</Property><Property name="background">transparent</Property></Properties><Content><g xmlns="http://www.w3.org/2000/svg" p:type="Group" xmlns:p="http://www.evolus.vn/Namespace/Pencil" transform="matrix(1,0,0,1,10,10)" id="a44d10a694fd4f9bb1254c89258ed30a" p:sizing-gow="737.5" p:sizing-goh="418.5"><g p:type="Shape" p:def="Evolus.Sketchy.GUI:box" id="ab548e0269fc4365ab24448443185048" transform="matrix(1,0,0,1,0,0.25)" p:sizing-ox="0.5" p:sizing-oy="0" p:sizing-ow="737" p:sizing-oh="417"><p:metadata><p:property name="box"><![CDATA[737,417]]></p:property><p:property name="textPadding"><![CDATA[36.85,27.8]]></p:property><p:property name="fillColor"><![CDATA[#FFFFFFFF]]></p:property><p:property name="strokeColor"><![CDATA[#000000FF]]></p:property><p:property name="strokeStyle"><![CDATA[1|]]></p:property><p:property name="textContent"><![CDATA[]]></p:property><p:property name="textFont"><![CDATA['Comic Sans MS'|normal|normal|12px|none]]></p:property><p:property name="textColor"><![CDATA[#000000FF]]></p:property><p:property name="textAlign"><![CDATA[1,1]]></p:property></p:metadata>
+            <path style="stroke-linejoin: round; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1; stroke-width: 1;" p:name="line1" id="dcef43b1983541b7a4473fb98d4d2596" transform="translate(0.5,0.5)" d="M 0 0 C 246 -1 491 -1 737 0 C 736 139 736 278 737 417 C 491 418 246 418 0 417 C 0 278 0 139 0 0 z"/>
+            <text p:name="text" id="9fed1c2f3b1f42e09bd83f45bca8d2a9" style="font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;" transform="translate(369,209)"/>
+        </g><g p:type="Shape" p:def="Evolus.Common:PlainTextV2" p:sc="Label" id="8729c2132268425fab9bf78229773c7e" transform="matrix(1,0,0,1,247,32.25)" p:sizing-ox="246.87890625" p:sizing-oy="12.25" p:sizing-ow="245.5546875" p:sizing-oh="26"><p:metadata><p:property name="disabled"><![CDATA[false]]></p:property><p:property name="width"><![CDATA[100,0]]></p:property><p:property name="fixedWidth"><![CDATA[false]]></p:property><p:property name="label"><![CDATA[PT. Spektra Adhya Prasarana]]></p:property><p:property name="textColor"><![CDATA[#000000FF]]></p:property><p:property name="textFont"><![CDATA['Comic Sans MS'|normal|normal|18px|none]]></p:property><p:property name="textAlign"><![CDATA[0,0]]></p:property></p:metadata>
+            <rect x="0" y="0" style="fill: none; stroke: none; visibility: hidden; display: none;" p:name="bgRect" id="54feb382e1914b51a17aee33e39adf53" width="0" height="0"/>
+            <text xml:space="preserve" p:name="text" id="38adf2024a7341aebc857005c8ac007e" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 18px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">PT. Spektra Adhya Prasarana</tspan></text>
+        </g><g p:type="Shape" p:def="Evolus.Common:PlainTextV2" p:sc="Label" id="cc8dafb2eb3e4e79bf744fc1bd914fe8" transform="matrix(1,0,0,1,355,59.25)" p:sizing-ox="354.55078125" p:sizing-oy="45.25" p:sizing-ow="21.62109375" p:sizing-oh="18"><p:metadata><p:property name="disabled"><![CDATA[false]]></p:property><p:property name="width"><![CDATA[100,0]]></p:property><p:property name="fixedWidth"><![CDATA[false]]></p:property><p:property name="label"><![CDATA[JL. ]]></p:property><p:property name="textColor"><![CDATA[#000000FF]]></p:property><p:property name="textFont"><![CDATA['Comic Sans MS'|normal|normal|12px|none]]></p:property><p:property name="textAlign"><![CDATA[0,0]]></p:property></p:metadata>
+            <rect x="0" y="0" style="fill: none; stroke: none; visibility: hidden; display: none;" p:name="bgRect" id="7b3ebbd7e10b48b3be022353dc2926be" width="0" height="0"/>
+            <text xml:space="preserve" p:name="text" id="f355ff4a58af4ae0b986a242fd89daf5" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">JL. </tspan></text>
+        </g><g p:type="Shape" p:def="Evolus.Sketchy.GUI:line" id="50201a6d364543a4ba645ff675803ae8" transform="matrix(1,0,0,1,-1,73.25)" p:sizing-ox="0" p:sizing-oy="74.25" p:sizing-ow="737" p:sizing-oh="3"><p:metadata><p:property name="a"><![CDATA[0,0]]></p:property><p:property name="b"><![CDATA[737,3]]></p:property><p:property name="mode"><![CDATA[free]]></p:property><p:property name="strokeColor"><![CDATA[#000000FF]]></p:property><p:property name="strokeStyle"><![CDATA[1|]]></p:property></p:metadata>
+            <g p:name="rect" id="d157ffccc6ea45dfb6542e5c1bd3e5d5" transform="translate(0.5,0.5)" style="stroke: rgb(0, 0, 0); stroke-opacity: 1; stroke-width: 1;">
+    			<path style="stroke: #FFFFFF; stroke-opacity: 0; stroke-width: 8px; fill: none;" p:name="bg" id="a68d14e6d74b412db01613f3def2ed9d" transform="translate(0.5,0.5)" d="M 0 0 C 246 0 491 1 737 3"/>
+    			<path style="stroke-linejoin: round; fill: none;" p:name="line1" id="4e417a35edd24902b99836d837553a24" transform="translate(0.5,0.5)" d="M 0 0 C 246 0 491 1 737 3"/>
+    		</g>
+        </g><g p:type="Shape" p:def="Evolus.Common:PlainTextV2" p:sc="Label" id="95c18c94077e414fa4a299b0d0b96eec" transform="matrix(1,0,0,1,251,100.25)" p:sizing-ox="250.83984375" p:sizing-oy="81.25" p:sizing-ow="236.89453125" p:sizing-oh="24"><p:metadata><p:property name="disabled"><![CDATA[false]]></p:property><p:property name="width"><![CDATA[100,0]]></p:property><p:property name="fixedWidth"><![CDATA[false]]></p:property><p:property name="label"><![CDATA[Laporan Peminjaman karyawan]]></p:property><p:property name="textColor"><![CDATA[#000000FF]]></p:property><p:property name="textFont"><![CDATA['Comic Sans MS'|normal|normal|17px|none]]></p:property><p:property name="textAlign"><![CDATA[0,0]]></p:property></p:metadata>
+            <rect x="0" y="0" style="fill: none; stroke: none; visibility: hidden; display: none;" p:name="bgRect" id="754c77f0bfcb4026886c7c3a028839e2" width="0" height="0"/>
+            <text xml:space="preserve" p:name="text" id="f820564bf1494448800b1bce12f1d668" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 17px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">Laporan Peminjaman karyawan</tspan></text>
+        </g><g p:type="Shape" p:def="Evolus.Sketchy.GUI:table" id="8d4b67e446c0484abe4a195fa222edf7" transform="matrix(1,0,0,1,20,117.25)" p:sizing-ox="20" p:sizing-oy="117.25" p:sizing-ow="694" p:sizing-oh="162"><p:metadata><p:property name="box"><![CDATA[694,162]]></p:property><p:property name="useHtmlContent"><![CDATA[false]]></p:property><p:property name="fixedHeaderHeight"><![CDATA[false]]></p:property><p:property name="padding"><![CDATA[0,4]]></p:property><p:property name="headerHeight"><![CDATA[0,20]]></p:property><p:property name="h0"><![CDATA[69.4,0]]></p:property><p:property name="h1"><![CDATA[325,0]]></p:property><p:property name="h2"><![CDATA[449,0]]></p:property><p:property name="h3"><![CDATA[563,0]]></p:property><p:property name="h4"><![CDATA[624.6,0]]></p:property><p:property name="h5"><![CDATA[647.7333333333333,0]]></p:property><p:property name="h6"><![CDATA[670.8666666666667,0]]></p:property><p:property name="h7"><![CDATA[670.8666666666667,0]]></p:property><p:property name="h8"><![CDATA[670.8666666666667,0]]></p:property><p:property name="h9"><![CDATA[670.8666666666667,0]]></p:property><p:property name="h10"><![CDATA[670.8666666666667,0]]></p:property><p:property name="h11"><![CDATA[670.8666666666667,0]]></p:property><p:property name="content"><![CDATA[NIP | Nama | Debit | Kredit | Saldo 
+148  | Dimas Maryanto | Rp.750.000,00 | Rp.1.000.000,00 | Rp.300.000,00 
+150  | Riansyah PP | Rp.0,00 | Rp.1.000.000,00 | Rp.1000.000,00 
+173  | Hanif | Rp.0,00 | Rp.0,00 | Rp.0,00 
+255 | Elka Hanna | Rp.0,00 | Rp.0,00 | Rp.0,00]]></p:property><p:property name="textFont"><![CDATA['Comic Sans MS'|normal|normal|12px|none]]></p:property><p:property name="textAlign"><![CDATA[0,1]]></p:property><p:property name="customStyle"><![CDATA[]]></p:property><p:property name="textColor"><![CDATA['Comic Sans MS'|normal|normal|12px|none]]></p:property><p:property name="fillColor"><![CDATA[#00000000]]></p:property><p:property name="headerTextColor"><![CDATA[#000000FF]]></p:property><p:property name="headerBackground"><![CDATA[#CCCCCCFF]]></p:property><p:property name="strokeColor"><![CDATA[#000000FF]]></p:property><p:property name="strokeStyle"><![CDATA[1|]]></p:property></p:metadata>
+            <path style="stroke-linejoin: round; fill: rgb(204, 204, 204); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1; stroke-width: 1;" p:name="header" id="6341a4dfd01b4f4b9bf27aadb1db6ac8" transform="translate(0.5,0.5)" d="M 0 0 C 231 1 463 1 694 0 C 694 11 694 22 694 32.4 C 463 34 231 34 0 32.4 C 0 22 0 11 0 0 z"/>
+            <path style="fill: none; stroke-linejoin: round; stroke: rgb(0, 0, 0); stroke-opacity: 1; stroke-width: 1;" p:name="horizontal-line" id="79bb6c1aa23148f69a18f541ac3f65bf" transform="translate(0.5,0.5)" d="M 0 32.6 C 231 33 463 33 694 32.6 M 0 65.2 C 231 66 463 66 694 65.2 M 0 97.80000000000001 C 231 97 463 97 694 97.80000000000001 M 0 130.4 C 231 131 463 131 694 130.4 M 0 163 C 231 164 463 164 694 163"/>
+            <path style="fill: none; stroke-linejoin: round; stroke: rgb(0, 0, 0); stroke-opacity: 1; stroke-width: 1;" p:name="vertical-line" id="d1424a7c31804215bc70b111cb47d5f6" transform="translate(0.5,0.5)" d="M 0 0 C 0 54 0 109 0 163 M 69.4 0 C 71 54 71 109 69.4 163 M 325 0 C 325 54 325 109 325 163 M 449 0 C 450 54 450 109 449 163 M 563 0 C 563 54 563 109 563 163 M 694 0 C 694 54 694 109 694 163"/>
+            <foreignObject x="0" y="0" width="695" height="163" p:name="htmlObject" id="41330f3888944334b57757ec451384a3" style="">
+                <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; width: 694px; color: rgb(0, 0, 0); opacity: 1; font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none;" p:name="textDiv" id="f17506cb6fba4ddbb8c5ec5a88307676"><table style="border-collapse: collapse; background-color: rgba(0, 0, 0, 0); width: 693px; height: 161px; margin-left: 1px; margin-top: 1px"><thead><tr><th style="padding: 0px; color: rgba(0, 0, 0, 1); text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 67.4px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 67.4px">NIP </div></th><th style="padding: 0px; color: rgba(0, 0, 0, 1); text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 253.6px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 253.6px"> Nama </div></th><th style="padding: 0px; color: rgba(0, 0, 0, 1); text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 122px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 122px"> Debit </div></th><th style="padding: 0px; color: rgba(0, 0, 0, 1); text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 112px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 112px"> Kredit </div></th><th style="padding: 0px; color: rgba(0, 0, 0, 1); text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 129px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 129px"> Saldo </div></th></tr></thead><tbody><tr><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 67.4px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 67.4px">148  </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 253.6px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 253.6px"> Dimas Maryanto </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 122px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 122px"> Rp.750.000,00 </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 112px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 112px"> Rp.1.000.000,00 </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 129px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 129px"> Rp.300.000,00 </div></td></tr><tr><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 67.4px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 67.4px">150  </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 253.6px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 253.6px"> Riansyah PP </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 122px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 122px"> Rp.0,00 </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 112px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 112px"> Rp.1.000.000,00 </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 129px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 129px"> Rp.1000.000,00 </div></td></tr><tr><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 67.4px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 67.4px">173  </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 253.6px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 253.6px"> Hanif </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 122px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 122px"> Rp.0,00 </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 112px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 112px"> Rp.0,00 </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 129px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 129px"> Rp.0,00 </div></td></tr><tr><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 67.4px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 67.4px">255 </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 253.6px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 253.6px"> Elka Hanna </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 122px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 122px"> Rp.0,00 </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 112px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 112px"> Rp.0,00 </div></td><td style="padding: 0px; text-align: left; vertical-align: middle; min-width: 0px; min-height: 0px; overflow: hidden; width: 129px"><div style="overflow: hidden; min-width: 0px; -moz-box-sizing: border-box; box-sizing: border-box; padding: 4px; width: 129px"> Rp.0,00</div></td></tr></tbody></table></div>
+                <div xmlns="http://www.w3.org/1999/xhtml" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+            </foreignObject>
+        </g><g p:type="Shape" p:def="Evolus.Common:PlainTextV2" p:sc="Label" id="d7a8d898967a40dd8cf127db558cea20" transform="matrix(1,0,0,1,553,317.25)" p:sizing-ox="552.5859375" p:sizing-oy="303.25" p:sizing-ow="104.2734375" p:sizing-oh="18"><p:metadata><p:property name="disabled"><![CDATA[false]]></p:property><p:property name="width"><![CDATA[100,0]]></p:property><p:property name="fixedWidth"><![CDATA[false]]></p:property><p:property name="label"><![CDATA[Pimpinan, Bandung ]]></p:property><p:property name="textColor"><![CDATA[#000000FF]]></p:property><p:property name="textFont"><![CDATA['Comic Sans MS'|normal|normal|12px|none]]></p:property><p:property name="textAlign"><![CDATA[0,0]]></p:property></p:metadata>
+            <rect x="0" y="0" style="fill: none; stroke: none; visibility: hidden; display: none;" p:name="bgRect" id="0cec98d90b2549858ef6c007ae2627e0" width="0" height="0"/>
+            <text xml:space="preserve" p:name="text" id="b5bed7be2a364feea0b503bbb323152d" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">Pimpinan, Bandung </tspan></text>
+        </g><g p:type="Shape" p:def="Evolus.Common:PlainTextV2" p:sc="Label" id="96a124fffc1943b28fbbce9b4836b483" transform="matrix(1,0,0,1,544,392.25)" p:sizing-ox="543.66796875" p:sizing-oy="378.25" p:sizing-ow="121.20703125" p:sizing-oh="18"><p:metadata><p:property name="disabled"><![CDATA[false]]></p:property><p:property name="width"><![CDATA[100,0]]></p:property><p:property name="fixedWidth"><![CDATA[false]]></p:property><p:property name="label"><![CDATA[(                               )]]></p:property><p:property name="textColor"><![CDATA[#000000FF]]></p:property><p:property name="textFont"><![CDATA['Comic Sans MS'|normal|normal|12px|none]]></p:property><p:property name="textAlign"><![CDATA[0,0]]></p:property></p:metadata>
+            <rect x="0" y="0" style="fill: none; stroke: none; visibility: hidden; display: none;" p:name="bgRect" id="6858bcc161d24fda8da01e0145d4d5d8" width="0" height="0"/>
+            <text xml:space="preserve" p:name="text" id="b36d4383804348208909054d80823741" style="fill: rgb(0, 0, 0); fill-opacity: 1; font-family: 'Comic Sans MS'; font-size: 12px; font-weight: normal; font-style: normal; text-decoration: none;"><tspan x="0" y="0">(                               )</tspan></text>
+        </g></g></Content></Page></Pages></Document>

@@ -110,6 +110,7 @@ public class SecurityConfig {
         ui.setMniLaporanKasbon(disable);
         ui.setMniLaporanAngsuran(disable);
         ui.setMniLaporanPenggajian(disable);
+        ui.setMniLaporanKasbonPerKaryawan(disable);
 
         ui.setMnuBarKeamanan(disable);
 
@@ -184,6 +185,7 @@ public class SecurityConfig {
         ui.setMniLaporanKasbon(disable);
         ui.setMniLaporanAngsuran(disable);
         ui.setMniLaporanPenggajian(disable);
+        ui.setMniLaporanKasbonPerKaryawan(disable);
     }
 
     public void isDirektur(Boolean disable) {
