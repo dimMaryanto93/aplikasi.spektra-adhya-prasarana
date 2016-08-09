@@ -2,6 +2,8 @@ package app.controller.peminjaman;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -12,7 +14,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import app.configs.BootInitializable;
-import app.configs.FontIconFactory;
 import app.configs.PrintConfig;
 import app.configs.StringFormatterFactory;
 import app.controller.HomeController;
@@ -20,20 +21,22 @@ import app.entities.kepegawaian.KasbonKaryawan;
 import app.entities.master.DataKaryawan;
 import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryKasbonKaryawan;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.fxml.FXML;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 
 @Component
 public class DaftarPeminjamanKaryawan implements BootInitializable {
@@ -64,10 +67,18 @@ public class DaftarPeminjamanKaryawan implements BootInitializable {
 	private TableColumn<KasbonKaryawan, Double> columnKredit;
 	@FXML
 	private TableColumn<KasbonKaryawan, Double> columnSaldo;
+	@FXML
+	private DatePicker txtAwal;
+	@FXML
+	private DatePicker txtAkhir;
+	@FXML
+	private Button btnProses;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		LocalDate tglSekarang = LocalDate.now();
+		txtAwal.setValue(tglSekarang.withDayOfMonth(1));
+		txtAkhir.setValue(tglSekarang.withDayOfMonth(tglSekarang.lengthOfMonth()));
 		columnNip.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<KasbonKaryawan, String>, ObservableValue<String>>() {
 
@@ -181,13 +192,14 @@ public class DaftarPeminjamanKaryawan implements BootInitializable {
 
 	@Override
 	public void initConstuct() {
-
+		tableView.getItems().clear();
 		List<DataKaryawan> daftarKarywan = serviceKaryawan.findAll();
 		for (DataKaryawan karyawan : daftarKarywan) {
 			KasbonKaryawan kasbon = new KasbonKaryawan();
 			kasbon.setKaryawan(karyawan);
 
-			List<KasbonKaryawan> daftarKasbonPerkaryawan = kasbonKaryawanService.findByKaryawan(karyawan);
+			List<KasbonKaryawan> daftarKasbonPerkaryawan = kasbonKaryawanService.findByKaryawanAndTanggalPinjamBetween(
+					karyawan, Date.valueOf(txtAwal.getValue()), Date.valueOf(txtAkhir.getValue()));
 			Double bayar = 0D;
 			Double pinjam = 0D;
 			for (KasbonKaryawan bon : daftarKasbonPerkaryawan) {
@@ -209,6 +221,11 @@ public class DaftarPeminjamanKaryawan implements BootInitializable {
 
 	@FXML
 	public void cetak(ActionEvent event) {
+		if (tableView.getItems().size() > 0) {
+			
+		} else {
+
+		}
 	}
 
 }
