@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.controlsfx.dialog.ExceptionDialog;
+import org.controlsfx.dialog.ProgressDialog;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -23,20 +26,28 @@ import app.repositories.RepositoryKaryawan;
 import app.repositories.RepositoryKasbonKaryawan;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Component
 public class DaftarPeminjamanKaryawan implements BootInitializable {
@@ -222,10 +233,75 @@ public class DaftarPeminjamanKaryawan implements BootInitializable {
 	@FXML
 	public void cetak(ActionEvent event) {
 		if (tableView.getItems().size() > 0) {
-			
-		} else {
+			Task<Object> task = new Task<Object>() {
 
+				@Override
+				protected Object call() throws Exception {
+					for (int i = 0; i < 100; i++) {
+						Thread.sleep(10);
+						updateProgress(i, 99);
+						updateMessage("Mencetak daftar kasbon karyawan...");
+					}
+					try {
+						HashMap<String, Object> map = new HashMap<String, Object>();
+						map.put("awal", Date.valueOf(txtAwal.getValue()));
+						map.put("akhir", Date.valueOf(txtAkhir.getValue()));
+
+						configPrint.setValue("/jasper/peminjaman/LaporanKasbon.jasper", map,
+								new JRBeanCollectionDataSource(tableView.getItems()));
+						configPrint.doPrinted();
+
+					} catch (JRException e) {
+						ExceptionDialog ex = new ExceptionDialog(e);
+						ex.setTitle("Cetak daftar kasbon karyawan");
+						ex.setHeaderText("Tidak dapat mencetak dokument Daftar Kasbn Karyawan");
+						ex.setContentText(e.getMessage());
+						ex.initModality(Modality.APPLICATION_MODAL);
+						ex.show();
+					}
+
+					succeeded();
+					return null;
+				}
+
+				@Override
+				protected void succeeded() {
+					try {
+						for (int i = 0; i < 100; i++) {
+							Thread.sleep(10);
+							updateProgress(i, 99);
+							updateMessage("Menyelesaikan proses...");
+						}
+						super.succeeded();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+
+			};
+			task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+
+				@Override
+				public void handle(WorkerStateEvent event) {
+					initConstuct();
+				}
+			});
+			ProgressDialog dlg = new ProgressDialog(task);
+			dlg.setTitle("Daftar kasbon karyawan");
+			dlg.setHeaderText("Mencetak daftar kasbon karyawan");
+			dlg.show();
+			Thread th = new Thread(task);
+			th.setDaemon(true);
+			th.start();
+		} else {
+			Alert notif = new Alert(AlertType.WARNING);
+			notif.setTitle("Cetak data kasbon karyawan");
+			notif.setHeaderText("Tidak dapat mencetak daftar gaji kasbon karyawan");
+			notif.setContentText("Tidak ada transaksi");
+			notif.initModality(Modality.APPLICATION_MODAL);
+			notif.show();
 		}
+
 	}
 
 }
